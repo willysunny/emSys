@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" UseMySettingsClassName="true">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="serverHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="serverUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">fujun</Value>
+    </Setting>
+    <Setting Name="serverPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">033277900</Value>
+    </Setting>
+    <Setting Name="serverDB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">fujun</Value>
+    </Setting>
+    <Setting Name="sysTheme" Type="MetroFramework.MetroThemeStyle" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="sysColor" Type="MetroFramework.MetroColorStyle" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="serverPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3306</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

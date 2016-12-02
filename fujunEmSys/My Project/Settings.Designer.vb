@@ -13,57 +13,141 @@ Option Explicit On
 
 
 Namespace My
-
-    <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0"), _
-     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
+    
+    <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0"),  _
+     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
-
-        Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings), MySettings)
-
+        
+        Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings()),MySettings)
+        
 #Region "My.Settings Auto-Save Functionality"
 #If _MyType = "WindowsForms" Then
-        Private Shared addedHandler As Boolean
+    Private Shared addedHandler As Boolean
 
-        Private Shared addedHandlerLockObject As New Object
+    Private Shared addedHandlerLockObject As New Object
 
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
-        Private Shared Sub AutoSaveSettings(ByVal sender As Global.System.Object, ByVal e As Global.System.EventArgs)
-            If My.Application.SaveMySettingsOnExit Then
-                My.Settings.Save()
-            End If
-        End Sub
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
+    Private Shared Sub AutoSaveSettings(ByVal sender As Global.System.Object, ByVal e As Global.System.EventArgs)
+        If My.Application.SaveMySettingsOnExit Then
+            My.Settings.Save()
+        End If
+    End Sub
 #End If
 #End Region
-
+        
         Public Shared ReadOnly Property [Default]() As MySettings
             Get
-
+                
 #If _MyType = "WindowsForms" Then
-                   If Not addedHandler Then
-                        SyncLock addedHandlerLockObject
-                            If Not addedHandler Then
-                                AddHandler My.Application.Shutdown, AddressOf AutoSaveSettings
-                                addedHandler = True
-                            End If
-                        End SyncLock
-                    End If
+               If Not addedHandler Then
+                    SyncLock addedHandlerLockObject
+                        If Not addedHandler Then
+                            AddHandler My.Application.Shutdown, AddressOf AutoSaveSettings
+                            addedHandler = True
+                        End If
+                    End SyncLock
+                End If
 #End If
                 Return defaultInstance
             End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("localhost")>  _
+        Public Property serverHost() As String
+            Get
+                Return CType(Me("serverHost"),String)
+            End Get
+            Set
+                Me("serverHost") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("fujun")>  _
+        Public Property serverUser() As String
+            Get
+                Return CType(Me("serverUser"),String)
+            End Get
+            Set
+                Me("serverUser") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("033277900")>  _
+        Public Property serverPass() As String
+            Get
+                Return CType(Me("serverPass"),String)
+            End Get
+            Set
+                Me("serverPass") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("fujun")>  _
+        Public Property serverDB() As String
+            Get
+                Return CType(Me("serverDB"),String)
+            End Get
+            Set
+                Me("serverDB") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Default")>  _
+        Public Property sysTheme() As Global.MetroFramework.MetroThemeStyle
+            Get
+                Return CType(Me("sysTheme"),Global.MetroFramework.MetroThemeStyle)
+            End Get
+            Set
+                Me("sysTheme") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Default")>  _
+        Public Property sysColor() As Global.MetroFramework.MetroColorStyle
+            Get
+                Return CType(Me("sysColor"),Global.MetroFramework.MetroColorStyle)
+            End Get
+            Set
+                Me("sysColor") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3306")>  _
+        Public Property serverPort() As Integer
+            Get
+                Return CType(Me("serverPort"),Integer)
+            End Get
+            Set
+                Me("serverPort") = value
+            End Set
         End Property
     End Class
 End Namespace
 
 Namespace My
-
-    <Global.Microsoft.VisualBasic.HideModuleNameAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()> _
+    
+    <Global.Microsoft.VisualBasic.HideModuleNameAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
     Friend Module MySettingsProperty
-
-        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
+        
+        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
         Friend ReadOnly Property Settings() As Global.emSys2016.My.MySettings
             Get
                 Return Global.emSys2016.My.MySettings.Default

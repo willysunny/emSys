@@ -47,6 +47,22 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -57,6 +73,10 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="Transitions, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dot-net-transitions.1.2.1.0\lib\net40-full\Transitions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -72,10 +92,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mainForm.vb">
+    <Compile Include="module\BitmapBytesRGB24.vb" />
+    <Compile Include="module\patientInfo.vb" />
+    <Compile Include="module\SQLModule.vb" />
+    <Compile Include="Settings.vb" />
+    <Compile Include="system\mainForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mainForm.Designer.vb">
+    <Compile Include="system\mainForm.Designer.vb">
       <DependentUpon>mainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +118,24 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="system\pnlLogin.Designer.vb">
+      <DependentUpon>pnlLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlLogin.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="system\pnlSetting.Designer.vb">
+      <DependentUpon>pnlSetting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlSetting.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="system\pnlSlider.Designer.vb">
+      <DependentUpon>pnlSlider.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlSlider.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -101,6 +143,18 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\mainForm.resx">
+      <DependentUpon>mainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlLogin.resx">
+      <DependentUpon>pnlLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlSetting.resx">
+      <DependentUpon>pnlSetting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlSlider.resx">
+      <DependentUpon>pnlSlider.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +168,31 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\backHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\backUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\settingHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\settingUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\shutdownHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\shutdownUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\pass.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
