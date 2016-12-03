@@ -3,8 +3,11 @@
 
     Public patientInfo As New pInfo
     Public patientHistory As New pHistory
+
     Dim login As pnlLogin = Nothing
     Dim setting As pnlSetting = Nothing
+    Dim ems As pnlEms = Nothing
+
 
     Public Sub New()
 
@@ -28,17 +31,21 @@
     Private Sub settingsLink_Click(sender As Object, e As EventArgs) Handles settingsLink.Click
         setting = New pnlSetting(Me)
         AddHandler setting.settingClosed, AddressOf setting_Closed
-        settingsLink.Visible = False
+        settingsLink.Enabled = False
         setting.menuSwipe(True, True)
     End Sub
 
-    Private Sub exitLink_Click(sender As Object, e As EventArgs) Handles exitLink.Click
-        Me.Close()
+    Private Sub exitLink_Click(sender As Object, e As MouseEventArgs) Handles exitLink.MouseUp
+        If e.Button = MouseButtons.Left Then
+            Me.Close()
+        Else
+            loginMenu.Show(exitLink, 0, exitLink.Height)
+        End If
     End Sub
 
     Private Sub setting_Closed(ByVal sender As Object, ByVal e As EventArgs)
         RemoveHandler setting.settingClosed, AddressOf setting_Closed
-        settingsLink.Visible = True
+        settingsLink.Enabled = True
         setting.menuSwipe(False, True)
     End Sub
 

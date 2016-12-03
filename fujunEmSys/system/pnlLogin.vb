@@ -12,6 +12,14 @@
         ' Add any initialization after the InitializeComponent() call.
         usernameTextbox.Focus()
 
+        If Not testConnection(owner, My.Settings.serverHost, My.Settings.serverPort, My.Settings.serverUser, My.Settings.serverPass, My.Settings.serverDB) Then
+            noConnectionLabel.Visible = True
+            loginButton.Enabled = False
+        Else
+            noConnectionLabel.Visible = False
+            loginButton.Enabled = True
+        End If
+
     End Sub
 
     Private Sub loginButton_Click(ByVal sender As Object, ByVal e As EventArgs) Handles loginButton.Click
@@ -24,6 +32,21 @@
 
             End If
         End If
+    End Sub
+
+    Private Sub exitMenu_Click(sender As Object, e As EventArgs)
+        Me.ParentForm.Close()
+    End Sub
+
+    Private Sub noConnectionLabel_Click(sender As Object, e As EventArgs) Handles noConnectionLabel.Click
+        If Not testConnection(owner, My.Settings.serverHost, My.Settings.serverPort, My.Settings.serverUser, My.Settings.serverPass, My.Settings.serverDB) Then
+            noConnectionLabel.Visible = True
+            loginButton.Enabled = False
+        Else
+            noConnectionLabel.Visible = False
+            loginButton.Enabled = True
+        End If
+
     End Sub
 
 End Class

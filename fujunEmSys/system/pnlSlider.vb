@@ -89,7 +89,7 @@
     Public Sub menuSwipe(Optional show As Boolean = True, Optional fromRight As Boolean = False)
         resizeForm(True, fromRight)
         Me.Visible = True
-        Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(2000))
+        Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(1000))
         Dim dest As Integer = 0
         Dim orig As Integer = -Me.Width
         If Not fromRight Then

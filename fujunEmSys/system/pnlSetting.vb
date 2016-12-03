@@ -11,7 +11,7 @@
         ' Add any initialization after the InitializeComponent() call.
         For i As Integer = 3 To 13
             Dim tile As MetroFramework.Controls.MetroTile = New MetroFramework.Controls.MetroTile
-            tile.Size = New Size(50, 50)
+            tile.Size = New Size(100, 100)
             tile.Tag = i
             tile.Style = CType(i, MetroFramework.MetroColorStyle)
             AddHandler tile.Click, AddressOf tile_click
@@ -59,6 +59,7 @@
 
     Private Sub saveSettingsButton_Click(sender As Object, e As EventArgs) Handles saveSettingsButton.Click
         SaveSettings()
+        RaiseEvent settingClosed(Me, New EventArgs)
     End Sub
 
 

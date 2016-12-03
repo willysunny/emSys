@@ -51,6 +51,10 @@ Partial Class pnlSetting
         Me.themeSetting.SuspendLayout()
         Me.SuspendLayout()
         '
+        'owner
+        '
+        Me.owner.Location = New System.Drawing.Point(182, 182)
+        '
         'settingMetroPanel
         '
         Me.settingMetroPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -75,9 +79,10 @@ Partial Class pnlSetting
         '
         Me.saveSettingsButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.saveSettingsButton.FontSize = MetroFramework.MetroButtonSize.Tall
         Me.saveSettingsButton.Location = New System.Drawing.Point(11, 747)
         Me.saveSettingsButton.Name = "saveSettingsButton"
-        Me.saveSettingsButton.Size = New System.Drawing.Size(386, 46)
+        Me.saveSettingsButton.Size = New System.Drawing.Size(379, 46)
         Me.saveSettingsButton.TabIndex = 6
         Me.saveSettingsButton.Text = "儲存設定"
         Me.saveSettingsButton.UseSelectable = True
@@ -86,10 +91,12 @@ Partial Class pnlSetting
         '
         Me.MetroTabControl1.Controls.Add(Me.serverSetting)
         Me.MetroTabControl1.Controls.Add(Me.themeSetting)
+        Me.MetroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.MetroTabControl1.Location = New System.Drawing.Point(8, 65)
         Me.MetroTabControl1.Name = "MetroTabControl1"
-        Me.MetroTabControl1.SelectedIndex = 0
+        Me.MetroTabControl1.SelectedIndex = 1
         Me.MetroTabControl1.Size = New System.Drawing.Size(386, 680)
+        Me.MetroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.MetroTabControl1.TabIndex = 5
         Me.MetroTabControl1.UseSelectable = True
         '
@@ -106,12 +113,13 @@ Partial Class pnlSetting
         Me.serverSetting.Controls.Add(Me.MetroLink7)
         Me.serverSetting.Controls.Add(Me.MetroLink4)
         Me.serverSetting.Controls.Add(Me.MetroLink1)
+        Me.serverSetting.Font = New System.Drawing.Font("PMingLiU", 14.0!)
         Me.serverSetting.HorizontalScrollbarBarColor = True
         Me.serverSetting.HorizontalScrollbarHighlightOnWheel = False
         Me.serverSetting.HorizontalScrollbarSize = 10
-        Me.serverSetting.Location = New System.Drawing.Point(4, 38)
+        Me.serverSetting.Location = New System.Drawing.Point(4, 44)
         Me.serverSetting.Name = "serverSetting"
-        Me.serverSetting.Size = New System.Drawing.Size(378, 638)
+        Me.serverSetting.Size = New System.Drawing.Size(378, 632)
         Me.serverSetting.TabIndex = 0
         Me.serverSetting.Text = "資料庫設定"
         Me.serverSetting.VerticalScrollbarBarColor = True
@@ -124,16 +132,17 @@ Partial Class pnlSetting
         '
         '
         Me.dbName.CustomButton.Image = Nothing
-        Me.dbName.CustomButton.Location = New System.Drawing.Point(350, 1)
+        Me.dbName.CustomButton.Location = New System.Drawing.Point(255, 1)
         Me.dbName.CustomButton.Name = ""
-        Me.dbName.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.dbName.CustomButton.Size = New System.Drawing.Size(33, 33)
         Me.dbName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.dbName.CustomButton.TabIndex = 1
         Me.dbName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.dbName.CustomButton.UseSelectable = True
         Me.dbName.CustomButton.Visible = False
+        Me.dbName.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.dbName.Lines = New String(-1) {}
-        Me.dbName.Location = New System.Drawing.Point(0, 289)
+        Me.dbName.Location = New System.Drawing.Point(37, 341)
         Me.dbName.MaxLength = 32767
         Me.dbName.Name = "dbName"
         Me.dbName.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -143,12 +152,12 @@ Partial Class pnlSetting
         Me.dbName.SelectionLength = 0
         Me.dbName.SelectionStart = 0
         Me.dbName.ShortcutsEnabled = True
-        Me.dbName.Size = New System.Drawing.Size(372, 23)
+        Me.dbName.Size = New System.Drawing.Size(289, 35)
         Me.dbName.TabIndex = 5
         Me.dbName.UseSelectable = True
         Me.dbName.WaterMark = "myDatabase"
         Me.dbName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.dbName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.dbName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'dbPass
         '
@@ -156,16 +165,17 @@ Partial Class pnlSetting
         '
         '
         Me.dbPass.CustomButton.Image = Nothing
-        Me.dbPass.CustomButton.Location = New System.Drawing.Point(350, 1)
+        Me.dbPass.CustomButton.Location = New System.Drawing.Point(255, 1)
         Me.dbPass.CustomButton.Name = ""
-        Me.dbPass.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.dbPass.CustomButton.Size = New System.Drawing.Size(33, 33)
         Me.dbPass.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.dbPass.CustomButton.TabIndex = 1
         Me.dbPass.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.dbPass.CustomButton.UseSelectable = True
         Me.dbPass.CustomButton.Visible = False
+        Me.dbPass.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.dbPass.Lines = New String(-1) {}
-        Me.dbPass.Location = New System.Drawing.Point(0, 231)
+        Me.dbPass.Location = New System.Drawing.Point(37, 271)
         Me.dbPass.MaxLength = 32767
         Me.dbPass.Name = "dbPass"
         Me.dbPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -175,12 +185,12 @@ Partial Class pnlSetting
         Me.dbPass.SelectionLength = 0
         Me.dbPass.SelectionStart = 0
         Me.dbPass.ShortcutsEnabled = True
-        Me.dbPass.Size = New System.Drawing.Size(372, 23)
+        Me.dbPass.Size = New System.Drawing.Size(289, 35)
         Me.dbPass.TabIndex = 4
         Me.dbPass.UseSelectable = True
         Me.dbPass.WaterMark = "登入資料庫的密碼"
         Me.dbPass.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.dbPass.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.dbPass.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'dbUser
         '
@@ -188,16 +198,17 @@ Partial Class pnlSetting
         '
         '
         Me.dbUser.CustomButton.Image = Nothing
-        Me.dbUser.CustomButton.Location = New System.Drawing.Point(350, 1)
+        Me.dbUser.CustomButton.Location = New System.Drawing.Point(255, 1)
         Me.dbUser.CustomButton.Name = ""
-        Me.dbUser.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.dbUser.CustomButton.Size = New System.Drawing.Size(33, 33)
         Me.dbUser.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.dbUser.CustomButton.TabIndex = 1
         Me.dbUser.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.dbUser.CustomButton.UseSelectable = True
         Me.dbUser.CustomButton.Visible = False
+        Me.dbUser.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.dbUser.Lines = New String(-1) {}
-        Me.dbUser.Location = New System.Drawing.Point(0, 174)
+        Me.dbUser.Location = New System.Drawing.Point(37, 201)
         Me.dbUser.MaxLength = 32767
         Me.dbUser.Name = "dbUser"
         Me.dbUser.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -207,12 +218,12 @@ Partial Class pnlSetting
         Me.dbUser.SelectionLength = 0
         Me.dbUser.SelectionStart = 0
         Me.dbUser.ShortcutsEnabled = True
-        Me.dbUser.Size = New System.Drawing.Size(372, 23)
+        Me.dbUser.Size = New System.Drawing.Size(289, 35)
         Me.dbUser.TabIndex = 3
         Me.dbUser.UseSelectable = True
         Me.dbUser.WaterMark = "登入資料庫的使用者名稱"
         Me.dbUser.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.dbUser.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.dbUser.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'dbPort
         '
@@ -220,16 +231,17 @@ Partial Class pnlSetting
         '
         '
         Me.dbPort.CustomButton.Image = Nothing
-        Me.dbPort.CustomButton.Location = New System.Drawing.Point(350, 1)
+        Me.dbPort.CustomButton.Location = New System.Drawing.Point(255, 1)
         Me.dbPort.CustomButton.Name = ""
-        Me.dbPort.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.dbPort.CustomButton.Size = New System.Drawing.Size(33, 33)
         Me.dbPort.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.dbPort.CustomButton.TabIndex = 1
         Me.dbPort.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.dbPort.CustomButton.UseSelectable = True
         Me.dbPort.CustomButton.Visible = False
+        Me.dbPort.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.dbPort.Lines = New String(-1) {}
-        Me.dbPort.Location = New System.Drawing.Point(3, 117)
+        Me.dbPort.Location = New System.Drawing.Point(37, 131)
         Me.dbPort.MaxLength = 32767
         Me.dbPort.Name = "dbPort"
         Me.dbPort.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -239,12 +251,12 @@ Partial Class pnlSetting
         Me.dbPort.SelectionLength = 0
         Me.dbPort.SelectionStart = 0
         Me.dbPort.ShortcutsEnabled = True
-        Me.dbPort.Size = New System.Drawing.Size(372, 23)
+        Me.dbPort.Size = New System.Drawing.Size(289, 35)
         Me.dbPort.TabIndex = 2
         Me.dbPort.UseSelectable = True
         Me.dbPort.WaterMark = "預設為3306"
         Me.dbPort.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.dbPort.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.dbPort.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'dbAddress
         '
@@ -252,16 +264,17 @@ Partial Class pnlSetting
         '
         '
         Me.dbAddress.CustomButton.Image = Nothing
-        Me.dbAddress.CustomButton.Location = New System.Drawing.Point(350, 1)
+        Me.dbAddress.CustomButton.Location = New System.Drawing.Point(255, 1)
         Me.dbAddress.CustomButton.Name = ""
-        Me.dbAddress.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.dbAddress.CustomButton.Size = New System.Drawing.Size(33, 33)
         Me.dbAddress.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.dbAddress.CustomButton.TabIndex = 1
         Me.dbAddress.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.dbAddress.CustomButton.UseSelectable = True
         Me.dbAddress.CustomButton.Visible = False
+        Me.dbAddress.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.dbAddress.Lines = New String(-1) {}
-        Me.dbAddress.Location = New System.Drawing.Point(3, 61)
+        Me.dbAddress.Location = New System.Drawing.Point(37, 61)
         Me.dbAddress.MaxLength = 32767
         Me.dbAddress.Name = "dbAddress"
         Me.dbAddress.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -271,16 +284,17 @@ Partial Class pnlSetting
         Me.dbAddress.SelectionLength = 0
         Me.dbAddress.SelectionStart = 0
         Me.dbAddress.ShortcutsEnabled = True
-        Me.dbAddress.Size = New System.Drawing.Size(372, 23)
+        Me.dbAddress.Size = New System.Drawing.Size(289, 35)
         Me.dbAddress.TabIndex = 1
         Me.dbAddress.UseSelectable = True
         Me.dbAddress.WaterMark = "192.168.1.100, database.yourdomain.com 或 localhost"
         Me.dbAddress.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.dbAddress.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.dbAddress.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'testButton
         '
-        Me.testButton.Location = New System.Drawing.Point(0, 346)
+        Me.testButton.FontSize = MetroFramework.MetroButtonSize.Tall
+        Me.testButton.Location = New System.Drawing.Point(0, 504)
         Me.testButton.Name = "testButton"
         Me.testButton.Size = New System.Drawing.Size(378, 46)
         Me.testButton.TabIndex = 6
@@ -289,9 +303,10 @@ Partial Class pnlSetting
         '
         'MetroLink6
         '
-        Me.MetroLink6.Location = New System.Drawing.Point(0, 203)
+        Me.MetroLink6.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink6.Location = New System.Drawing.Point(37, 242)
         Me.MetroLink6.Name = "MetroLink6"
-        Me.MetroLink6.Size = New System.Drawing.Size(378, 23)
+        Me.MetroLink6.Size = New System.Drawing.Size(289, 23)
         Me.MetroLink6.TabIndex = 2
         Me.MetroLink6.Text = "使用者密碼"
         Me.MetroLink6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -299,9 +314,10 @@ Partial Class pnlSetting
         '
         'MetroLink5
         '
-        Me.MetroLink5.Location = New System.Drawing.Point(0, 146)
+        Me.MetroLink5.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink5.Location = New System.Drawing.Point(37, 172)
         Me.MetroLink5.Name = "MetroLink5"
-        Me.MetroLink5.Size = New System.Drawing.Size(378, 23)
+        Me.MetroLink5.Size = New System.Drawing.Size(289, 23)
         Me.MetroLink5.TabIndex = 2
         Me.MetroLink5.Text = "使用者名稱"
         Me.MetroLink5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -309,9 +325,10 @@ Partial Class pnlSetting
         '
         'MetroLink7
         '
-        Me.MetroLink7.Location = New System.Drawing.Point(0, 260)
+        Me.MetroLink7.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink7.Location = New System.Drawing.Point(37, 312)
         Me.MetroLink7.Name = "MetroLink7"
-        Me.MetroLink7.Size = New System.Drawing.Size(378, 23)
+        Me.MetroLink7.Size = New System.Drawing.Size(289, 23)
         Me.MetroLink7.TabIndex = 2
         Me.MetroLink7.Text = "資料庫名稱"
         Me.MetroLink7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -319,9 +336,10 @@ Partial Class pnlSetting
         '
         'MetroLink4
         '
-        Me.MetroLink4.Location = New System.Drawing.Point(0, 89)
+        Me.MetroLink4.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink4.Location = New System.Drawing.Point(37, 102)
         Me.MetroLink4.Name = "MetroLink4"
-        Me.MetroLink4.Size = New System.Drawing.Size(378, 23)
+        Me.MetroLink4.Size = New System.Drawing.Size(289, 23)
         Me.MetroLink4.TabIndex = 2
         Me.MetroLink4.Text = "伺服器埠號"
         Me.MetroLink4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -329,9 +347,10 @@ Partial Class pnlSetting
         '
         'MetroLink1
         '
-        Me.MetroLink1.Location = New System.Drawing.Point(0, 32)
+        Me.MetroLink1.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink1.Location = New System.Drawing.Point(37, 32)
         Me.MetroLink1.Name = "MetroLink1"
-        Me.MetroLink1.Size = New System.Drawing.Size(378, 23)
+        Me.MetroLink1.Size = New System.Drawing.Size(289, 23)
         Me.MetroLink1.TabIndex = 2
         Me.MetroLink1.Text = "伺服器位置"
         Me.MetroLink1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -344,13 +363,14 @@ Partial Class pnlSetting
         Me.themeSetting.Controls.Add(Me.MetroLink3)
         Me.themeSetting.Controls.Add(Me.MetroLink2)
         Me.themeSetting.Controls.Add(Me.bgcolor)
+        Me.themeSetting.Font = New System.Drawing.Font("PMingLiU", 14.0!)
         Me.themeSetting.HorizontalScrollbarBarColor = True
         Me.themeSetting.HorizontalScrollbarHighlightOnWheel = False
         Me.themeSetting.HorizontalScrollbarSize = 10
-        Me.themeSetting.Location = New System.Drawing.Point(4, 38)
+        Me.themeSetting.Location = New System.Drawing.Point(4, 44)
         Me.themeSetting.Name = "themeSetting"
-        Me.themeSetting.Padding = New System.Windows.Forms.Padding(0, 80, 0, 0)
-        Me.themeSetting.Size = New System.Drawing.Size(378, 638)
+        Me.themeSetting.Padding = New System.Windows.Forms.Padding(0, 100, 0, 0)
+        Me.themeSetting.Size = New System.Drawing.Size(378, 632)
         Me.themeSetting.TabIndex = 1
         Me.themeSetting.Text = "樣式設定"
         Me.themeSetting.VerticalScrollbarBarColor = True
@@ -360,9 +380,10 @@ Partial Class pnlSetting
         'mrbDark
         '
         Me.mrbDark.AutoSize = True
-        Me.mrbDark.Location = New System.Drawing.Point(59, 30)
+        Me.mrbDark.FontSize = MetroFramework.MetroCheckBoxSize.Tall
+        Me.mrbDark.Location = New System.Drawing.Point(72, 41)
         Me.mrbDark.Name = "mrbDark"
-        Me.mrbDark.Size = New System.Drawing.Size(49, 15)
+        Me.mrbDark.Size = New System.Drawing.Size(66, 25)
         Me.mrbDark.TabIndex = 9
         Me.mrbDark.Text = "深色"
         Me.mrbDark.UseSelectable = True
@@ -371,9 +392,10 @@ Partial Class pnlSetting
         '
         Me.mrbLight.AutoSize = True
         Me.mrbLight.Checked = True
-        Me.mrbLight.Location = New System.Drawing.Point(4, 30)
+        Me.mrbLight.FontSize = MetroFramework.MetroCheckBoxSize.Tall
+        Me.mrbLight.Location = New System.Drawing.Point(0, 41)
         Me.mrbLight.Name = "mrbLight"
-        Me.mrbLight.Size = New System.Drawing.Size(49, 15)
+        Me.mrbLight.Size = New System.Drawing.Size(66, 25)
         Me.mrbLight.TabIndex = 8
         Me.mrbLight.TabStop = True
         Me.mrbLight.Text = "亮白"
@@ -381,7 +403,8 @@ Partial Class pnlSetting
         '
         'MetroLink3
         '
-        Me.MetroLink3.Location = New System.Drawing.Point(4, 3)
+        Me.MetroLink3.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink3.Location = New System.Drawing.Point(0, 11)
         Me.MetroLink3.Name = "MetroLink3"
         Me.MetroLink3.Size = New System.Drawing.Size(75, 23)
         Me.MetroLink3.TabIndex = 7
@@ -391,7 +414,8 @@ Partial Class pnlSetting
         '
         'MetroLink2
         '
-        Me.MetroLink2.Location = New System.Drawing.Point(4, 51)
+        Me.MetroLink2.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink2.Location = New System.Drawing.Point(0, 71)
         Me.MetroLink2.Name = "MetroLink2"
         Me.MetroLink2.Size = New System.Drawing.Size(75, 23)
         Me.MetroLink2.TabIndex = 7
@@ -403,9 +427,10 @@ Partial Class pnlSetting
         '
         Me.bgcolor.BackColor = System.Drawing.Color.Transparent
         Me.bgcolor.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.bgcolor.Location = New System.Drawing.Point(0, 80)
+        Me.bgcolor.Location = New System.Drawing.Point(0, 100)
+        Me.bgcolor.Margin = New System.Windows.Forms.Padding(0)
         Me.bgcolor.Name = "bgcolor"
-        Me.bgcolor.Size = New System.Drawing.Size(378, 558)
+        Me.bgcolor.Size = New System.Drawing.Size(378, 532)
         Me.bgcolor.TabIndex = 5
         '
         'Panel1

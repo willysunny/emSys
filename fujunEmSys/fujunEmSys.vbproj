@@ -47,6 +47,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Advantech\DAQNavi\Automation.BDaq\1.0.0.0\Automation.BDaq.dll</HintPath>
+    </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
       <Private>True</Private>
@@ -136,6 +140,12 @@
     <Compile Include="system\pnlSlider.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="tools\pnlEms.Designer.vb">
+      <DependentUpon>pnlEms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tools\pnlEms.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -155,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSlider.resx">
       <DependentUpon>pnlSlider.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tools\pnlEms.resx">
+      <DependentUpon>pnlEms.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon\pass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon\fujunLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,6 +23,7 @@ Partial Class mainForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mainForm))
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
         Me.sysStyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
@@ -31,8 +32,14 @@ Partial Class mainForm
         Me.醫師資料維護DToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.藥品資料維護MToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.loginMenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
+        Me.offlineMode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.aboutMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
+        Me.loginMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'exitLink
@@ -106,6 +113,35 @@ Partial Class mainForm
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1175, 630)
         Me.TableLayoutPanel1.TabIndex = 3
         '
+        'loginMenu
+        '
+        Me.loginMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.offlineMode, Me.aboutMenu, Me.ToolStripMenuItem1, Me.exitMenu})
+        Me.loginMenu.Name = "MetroContextMenu1"
+        Me.loginMenu.Size = New System.Drawing.Size(144, 76)
+        '
+        'offlineMode
+        '
+        Me.offlineMode.Name = "offlineMode"
+        Me.offlineMode.Size = New System.Drawing.Size(143, 22)
+        Me.offlineMode.Text = "離線模式 (&O)"
+        '
+        'aboutMenu
+        '
+        Me.aboutMenu.Name = "aboutMenu"
+        Me.aboutMenu.Size = New System.Drawing.Size(143, 22)
+        Me.aboutMenu.Text = "關於 (&A)"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(140, 6)
+        '
+        'exitMenu
+        '
+        Me.exitMenu.Name = "exitMenu"
+        Me.exitMenu.Size = New System.Drawing.Size(143, 22)
+        Me.exitMenu.Text = "離開 (&X)"
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -116,6 +152,7 @@ Partial Class mainForm
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "mainForm"
         Me.Padding = New System.Windows.Forms.Padding(0, 70, 0, 0)
         Me.Style = MetroFramework.MetroColorStyle.[Default]
@@ -123,6 +160,7 @@ Partial Class mainForm
         Me.Theme = MetroFramework.MetroThemeStyle.[Default]
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MetroContextMenu1.ResumeLayout(False)
+        Me.loginMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -135,4 +173,9 @@ Partial Class mainForm
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents 醫師資料維護DToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 藥品資料維護MToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents loginMenu As MetroFramework.Controls.MetroContextMenu
+    Friend WithEvents offlineMode As ToolStripMenuItem
+    Friend WithEvents aboutMenu As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
+    Friend WithEvents exitMenu As ToolStripMenuItem
 End Class
