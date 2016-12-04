@@ -122,4 +122,13 @@
         End If
 
     End Sub
+
+    Public Function isEventHandlerRegistered(ByVal target As Object, ByVal prospectiveHandler As [Delegate]) As Boolean
+        If Not target.EventHandler Is Nothing Then
+            For Each existingHandler As [Delegate] In target.EventHandler.GetInvocationList()
+                If existingHandler = prospectiveHandler Then Return True
+            Next
+        End If
+        Return False
+    End Function
 End Class
