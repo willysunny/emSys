@@ -8,6 +8,7 @@
     Dim login As pnlLogin = Nothing
     Dim setting As pnlSetting = Nothing
     Dim ems As pnlEms = Nothing
+    Dim userManage As pnlUserManage = Nothing
 
 
     Public Sub New()
@@ -91,9 +92,25 @@
     End Sub
 
     Private Sub loginButton_Click(sender As Object, e As EventArgs) Handles loginButton.Click
+        If menuOfflineMode.Checked Then
+            menuOfflineMode.Checked = False
+        End If
         login = New pnlLogin(Me)
         AddHandler login.loginSucceed, AddressOf login_success
         login.swipe()
+    End Sub
+
+    Private Sub userManageLink_Click(sender As Object, e As EventArgs) Handles userManageLink.Click
+        userManage = New pnlUserManage(Me)
+        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf userManageLink_MouseUp
+        userManage.swipe()
+    End Sub
+
+    Private Sub userManageLink_MouseUp(sender As Object, e As EventArgs)
+        userManage.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf userManageLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
 #End Region
 End Class

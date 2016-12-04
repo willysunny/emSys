@@ -38,6 +38,7 @@ Partial Class mainForm
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.emsLink = New MetroFramework.Controls.MetroLink()
         Me.loginButton = New MetroFramework.Controls.MetroLink()
+        Me.userManageLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -143,6 +144,15 @@ Partial Class mainForm
         Me.loginButton.Text = "登入"
         Me.loginButton.UseSelectable = True
         '
+        'userManageLink
+        '
+        Me.userManageLink.Location = New System.Drawing.Point(3, 253)
+        Me.userManageLink.Name = "userManageLink"
+        Me.userManageLink.Size = New System.Drawing.Size(174, 72)
+        Me.userManageLink.TabIndex = 2
+        Me.userManageLink.Text = "使用者管理"
+        Me.userManageLink.UseSelectable = True
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -150,6 +160,7 @@ Partial Class mainForm
         Me.BackMaxSize = 4096
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
+        Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
         Me.Controls.Add(Me.emsLink)
         Me.Controls.Add(Me.exitLink)
@@ -181,4 +192,5 @@ Partial Class mainForm
     Friend WithEvents exitMenu As ToolStripMenuItem
     Friend WithEvents emsLink As MetroFramework.Controls.MetroLink
     Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
+    Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
 End Class
