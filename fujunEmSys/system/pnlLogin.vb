@@ -49,4 +49,7 @@
 
     End Sub
 
+    Private Sub passwordTextbox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles passwordTextbox.KeyPress, usernameTextbox.KeyPress
+        If e.KeyChar = Chr(Keys.Enter) Then loginButton_Click(Me, New EventArgs)
+    End Sub
 End Class
