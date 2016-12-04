@@ -31,12 +31,12 @@ Partial Class mainForm
         Me.病人資料查詢QToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.醫師資料維護DToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.藥品資料維護MToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.loginMenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
-        Me.offlineMode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuOfflineMode = New System.Windows.Forms.ToolStripMenuItem()
         Me.aboutMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.emsLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -94,53 +94,44 @@ Partial Class mainForm
         Me.藥品資料維護MToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
         Me.藥品資料維護MToolStripMenuItem.Text = "藥品資料維護 (&M)"
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 70)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 5
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1175, 630)
-        Me.TableLayoutPanel1.TabIndex = 3
-        '
         'loginMenu
         '
-        Me.loginMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.offlineMode, Me.aboutMenu, Me.ToolStripMenuItem1, Me.exitMenu})
+        Me.loginMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuOfflineMode, Me.aboutMenu, Me.ToolStripMenuItem1, Me.exitMenu})
         Me.loginMenu.Name = "MetroContextMenu1"
-        Me.loginMenu.Size = New System.Drawing.Size(144, 76)
+        Me.loginMenu.Size = New System.Drawing.Size(153, 98)
         '
-        'offlineMode
+        'menuOfflineMode
         '
-        Me.offlineMode.Name = "offlineMode"
-        Me.offlineMode.Size = New System.Drawing.Size(143, 22)
-        Me.offlineMode.Text = "離線模式 (&O)"
+        Me.menuOfflineMode.CheckOnClick = True
+        Me.menuOfflineMode.Name = "menuOfflineMode"
+        Me.menuOfflineMode.Size = New System.Drawing.Size(152, 22)
+        Me.menuOfflineMode.Text = "離線模式 (&O)"
         '
         'aboutMenu
         '
         Me.aboutMenu.Name = "aboutMenu"
-        Me.aboutMenu.Size = New System.Drawing.Size(143, 22)
+        Me.aboutMenu.Size = New System.Drawing.Size(152, 22)
         Me.aboutMenu.Text = "關於 (&A)"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(140, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
         '
         'exitMenu
         '
         Me.exitMenu.Name = "exitMenu"
-        Me.exitMenu.Size = New System.Drawing.Size(143, 22)
+        Me.exitMenu.Size = New System.Drawing.Size(152, 22)
         Me.exitMenu.Text = "離開 (&X)"
+        '
+        'emsLink
+        '
+        Me.emsLink.Location = New System.Drawing.Point(3, 73)
+        Me.emsLink.Name = "emsLink"
+        Me.emsLink.Size = New System.Drawing.Size(174, 72)
+        Me.emsLink.TabIndex = 2
+        Me.emsLink.Text = "頻譜系統"
+        Me.emsLink.UseSelectable = True
         '
         'mainForm
         '
@@ -149,7 +140,7 @@ Partial Class mainForm
         Me.BackMaxSize = 4096
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
-        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.emsLink)
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -170,12 +161,12 @@ Partial Class mainForm
     Friend WithEvents sysStyleManager As MetroFramework.Components.MetroStyleManager
     Friend WithEvents MetroContextMenu1 As MetroFramework.Controls.MetroContextMenu
     Friend WithEvents 病人資料查詢QToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents 醫師資料維護DToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 藥品資料維護MToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents loginMenu As MetroFramework.Controls.MetroContextMenu
-    Friend WithEvents offlineMode As ToolStripMenuItem
+    Friend WithEvents menuOfflineMode As ToolStripMenuItem
     Friend WithEvents aboutMenu As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents exitMenu As ToolStripMenuItem
+    Friend WithEvents emsLink As MetroFramework.Controls.MetroLink
 End Class

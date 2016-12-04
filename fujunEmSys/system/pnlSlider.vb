@@ -86,7 +86,7 @@
         End If
 
     End Sub
-    Public Sub menuSwipe(Optional show As Boolean = True, Optional fromRight As Boolean = False)
+    Public Sub menuSwipe(Optional show As Boolean = True, Optional fromRight As Boolean = False, Optional resize As Boolean = True)
         resizeForm(True, fromRight)
         Me.Visible = True
         Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(1000))
@@ -107,7 +107,7 @@
                 Application.DoEvents()
             End While
             loaded = True
-            resizeForm(True, fromRight)
+            If resize Then resizeForm(True, fromRight)
             shown(New EventArgs)
         Else
             trans.add(Me, "Left", orig)

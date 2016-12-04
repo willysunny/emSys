@@ -24,7 +24,7 @@ Partial Class pnlSetting
     Private Sub InitializeComponent()
         Me.settingMetroPanel = New MetroFramework.Controls.MetroPanel()
         Me.saveSettingsButton = New MetroFramework.Controls.MetroButton()
-        Me.MetroTabControl1 = New MetroFramework.Controls.MetroTabControl()
+        Me.settingTab = New MetroFramework.Controls.MetroTabControl()
         Me.serverSetting = New MetroFramework.Controls.MetroTabPage()
         Me.dbName = New MetroFramework.Controls.MetroTextBox()
         Me.dbPass = New MetroFramework.Controls.MetroTextBox()
@@ -37,6 +37,41 @@ Partial Class pnlSetting
         Me.MetroLink7 = New MetroFramework.Controls.MetroLink()
         Me.MetroLink4 = New MetroFramework.Controls.MetroLink()
         Me.MetroLink1 = New MetroFramework.Controls.MetroLink()
+        Me.emsSetting = New MetroFramework.Controls.MetroTabPage()
+        Me.MetroTabControl1 = New MetroFramework.Controls.MetroTabControl()
+        Me.tabEnergySetting = New System.Windows.Forms.TabPage()
+        Me.engSettingTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroLink14 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink12 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink16 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink10 = New MetroFramework.Controls.MetroLink()
+        Me.engLowerDanger = New MetroFramework.Controls.MetroTrackBar()
+        Me.engUpperDanger = New MetroFramework.Controls.MetroTrackBar()
+        Me.engLowerWarning = New MetroFramework.Controls.MetroTrackBar()
+        Me.engUpperWarning = New MetroFramework.Controls.MetroTrackBar()
+        Me.engUpperDangerValue = New MetroFramework.Controls.MetroTextBox()
+        Me.engUpperWarningValue = New MetroFramework.Controls.MetroTextBox()
+        Me.engLowerWarningValue = New MetroFramework.Controls.MetroTextBox()
+        Me.engLowerDangerValue = New MetroFramework.Controls.MetroTextBox()
+        Me.tabGraphSetting = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroLink11 = New MetroFramework.Controls.MetroLink()
+        Me.emsLowerDanger = New MetroFramework.Controls.MetroTrackBar()
+        Me.emsUpperDanger = New MetroFramework.Controls.MetroTrackBar()
+        Me.emsLowerWarning = New MetroFramework.Controls.MetroTrackBar()
+        Me.emsUpperWarning = New MetroFramework.Controls.MetroTrackBar()
+        Me.MetroLink13 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink15 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink17 = New MetroFramework.Controls.MetroLink()
+        Me.emsUpperDangerValue = New MetroFramework.Controls.MetroTextBox()
+        Me.emsUpperWarningValue = New MetroFramework.Controls.MetroTextBox()
+        Me.emsLowerWarningValue = New MetroFramework.Controls.MetroTextBox()
+        Me.emsLowerDangerValue = New MetroFramework.Controls.MetroTextBox()
+        Me.tabLiverSetting = New System.Windows.Forms.TabPage()
+        Me.tabPressureSetting = New System.Windows.Forms.TabPage()
+        Me.autoSaveTextBox = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroLink9 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink8 = New MetroFramework.Controls.MetroLink()
         Me.themeSetting = New MetroFramework.Controls.MetroTabPage()
         Me.mrbDark = New MetroFramework.Controls.MetroRadioButton()
         Me.mrbLight = New MetroFramework.Controls.MetroRadioButton()
@@ -46,21 +81,29 @@ Partial Class pnlSetting
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.settingLink = New MetroFramework.Controls.MetroLink()
         Me.settingMetroPanel.SuspendLayout()
-        Me.MetroTabControl1.SuspendLayout()
+        Me.settingTab.SuspendLayout()
         Me.serverSetting.SuspendLayout()
+        Me.emsSetting.SuspendLayout()
+        Me.MetroTabControl1.SuspendLayout()
+        Me.tabEnergySetting.SuspendLayout()
+        Me.engSettingTable.SuspendLayout()
+        Me.tabGraphSetting.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.themeSetting.SuspendLayout()
         Me.SuspendLayout()
         '
         'owner
         '
-        Me.owner.Location = New System.Drawing.Point(182, 182)
+        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
+        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
+        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'settingMetroPanel
         '
         Me.settingMetroPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.settingMetroPanel.Controls.Add(Me.saveSettingsButton)
-        Me.settingMetroPanel.Controls.Add(Me.MetroTabControl1)
+        Me.settingMetroPanel.Controls.Add(Me.settingTab)
         Me.settingMetroPanel.Controls.Add(Me.Panel1)
         Me.settingMetroPanel.Controls.Add(Me.settingLink)
         Me.settingMetroPanel.HorizontalScrollbarBarColor = True
@@ -87,18 +130,19 @@ Partial Class pnlSetting
         Me.saveSettingsButton.Text = "儲存設定"
         Me.saveSettingsButton.UseSelectable = True
         '
-        'MetroTabControl1
+        'settingTab
         '
-        Me.MetroTabControl1.Controls.Add(Me.serverSetting)
-        Me.MetroTabControl1.Controls.Add(Me.themeSetting)
-        Me.MetroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall
-        Me.MetroTabControl1.Location = New System.Drawing.Point(8, 65)
-        Me.MetroTabControl1.Name = "MetroTabControl1"
-        Me.MetroTabControl1.SelectedIndex = 1
-        Me.MetroTabControl1.Size = New System.Drawing.Size(386, 680)
-        Me.MetroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
-        Me.MetroTabControl1.TabIndex = 5
-        Me.MetroTabControl1.UseSelectable = True
+        Me.settingTab.Controls.Add(Me.serverSetting)
+        Me.settingTab.Controls.Add(Me.emsSetting)
+        Me.settingTab.Controls.Add(Me.themeSetting)
+        Me.settingTab.FontSize = MetroFramework.MetroTabControlSize.Tall
+        Me.settingTab.Location = New System.Drawing.Point(8, 65)
+        Me.settingTab.Name = "settingTab"
+        Me.settingTab.SelectedIndex = 1
+        Me.settingTab.Size = New System.Drawing.Size(386, 680)
+        Me.settingTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
+        Me.settingTab.TabIndex = 5
+        Me.settingTab.UseSelectable = True
         '
         'serverSetting
         '
@@ -356,6 +400,695 @@ Partial Class pnlSetting
         Me.MetroLink1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MetroLink1.UseSelectable = True
         '
+        'emsSetting
+        '
+        Me.emsSetting.Controls.Add(Me.MetroTabControl1)
+        Me.emsSetting.Controls.Add(Me.autoSaveTextBox)
+        Me.emsSetting.Controls.Add(Me.MetroLink9)
+        Me.emsSetting.Controls.Add(Me.MetroLink8)
+        Me.emsSetting.HorizontalScrollbarBarColor = True
+        Me.emsSetting.HorizontalScrollbarHighlightOnWheel = False
+        Me.emsSetting.HorizontalScrollbarSize = 10
+        Me.emsSetting.Location = New System.Drawing.Point(4, 44)
+        Me.emsSetting.Name = "emsSetting"
+        Me.emsSetting.Size = New System.Drawing.Size(378, 632)
+        Me.emsSetting.TabIndex = 2
+        Me.emsSetting.Text = "頻譜設定"
+        Me.emsSetting.VerticalScrollbarBarColor = True
+        Me.emsSetting.VerticalScrollbarHighlightOnWheel = False
+        Me.emsSetting.VerticalScrollbarSize = 10
+        '
+        'MetroTabControl1
+        '
+        Me.MetroTabControl1.Controls.Add(Me.tabEnergySetting)
+        Me.MetroTabControl1.Controls.Add(Me.tabGraphSetting)
+        Me.MetroTabControl1.Controls.Add(Me.tabLiverSetting)
+        Me.MetroTabControl1.Controls.Add(Me.tabPressureSetting)
+        Me.MetroTabControl1.Location = New System.Drawing.Point(45, 143)
+        Me.MetroTabControl1.Name = "MetroTabControl1"
+        Me.MetroTabControl1.SelectedIndex = 0
+        Me.MetroTabControl1.Size = New System.Drawing.Size(289, 493)
+        Me.MetroTabControl1.TabIndex = 5
+        Me.MetroTabControl1.UseSelectable = True
+        '
+        'tabEnergySetting
+        '
+        Me.tabEnergySetting.Controls.Add(Me.engSettingTable)
+        Me.tabEnergySetting.Location = New System.Drawing.Point(4, 38)
+        Me.tabEnergySetting.Name = "tabEnergySetting"
+        Me.tabEnergySetting.Size = New System.Drawing.Size(281, 451)
+        Me.tabEnergySetting.TabIndex = 0
+        Me.tabEnergySetting.Text = "元氣指數"
+        '
+        'engSettingTable
+        '
+        Me.engSettingTable.ColumnCount = 2
+        Me.engSettingTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.engSettingTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.engSettingTable.Controls.Add(Me.MetroLink10, 0, 0)
+        Me.engSettingTable.Controls.Add(Me.engLowerDanger, 0, 7)
+        Me.engSettingTable.Controls.Add(Me.engUpperDanger, 0, 1)
+        Me.engSettingTable.Controls.Add(Me.engLowerWarning, 0, 5)
+        Me.engSettingTable.Controls.Add(Me.engUpperWarning, 0, 3)
+        Me.engSettingTable.Controls.Add(Me.MetroLink16, 0, 6)
+        Me.engSettingTable.Controls.Add(Me.MetroLink12, 0, 2)
+        Me.engSettingTable.Controls.Add(Me.MetroLink14, 0, 4)
+        Me.engSettingTable.Controls.Add(Me.engUpperDangerValue, 1, 1)
+        Me.engSettingTable.Controls.Add(Me.engUpperWarningValue, 1, 3)
+        Me.engSettingTable.Controls.Add(Me.engLowerWarningValue, 1, 5)
+        Me.engSettingTable.Controls.Add(Me.engLowerDangerValue, 1, 7)
+        Me.engSettingTable.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engSettingTable.Location = New System.Drawing.Point(0, 0)
+        Me.engSettingTable.Name = "engSettingTable"
+        Me.engSettingTable.RowCount = 9
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.engSettingTable.Size = New System.Drawing.Size(281, 451)
+        Me.engSettingTable.TabIndex = 6
+        '
+        'MetroLink14
+        '
+        Me.engSettingTable.SetColumnSpan(Me.MetroLink14, 2)
+        Me.MetroLink14.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink14.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink14.Location = New System.Drawing.Point(0, 120)
+        Me.MetroLink14.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink14.Name = "MetroLink14"
+        Me.MetroLink14.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink14.TabIndex = 4
+        Me.MetroLink14.Text = "下警戒值"
+        Me.MetroLink14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink14.UseSelectable = True
+        '
+        'MetroLink12
+        '
+        Me.engSettingTable.SetColumnSpan(Me.MetroLink12, 2)
+        Me.MetroLink12.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink12.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink12.Location = New System.Drawing.Point(0, 60)
+        Me.MetroLink12.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink12.Name = "MetroLink12"
+        Me.MetroLink12.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink12.TabIndex = 4
+        Me.MetroLink12.Text = "上警戒值"
+        Me.MetroLink12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink12.UseSelectable = True
+        '
+        'MetroLink16
+        '
+        Me.engSettingTable.SetColumnSpan(Me.MetroLink16, 2)
+        Me.MetroLink16.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink16.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink16.Location = New System.Drawing.Point(0, 180)
+        Me.MetroLink16.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink16.Name = "MetroLink16"
+        Me.MetroLink16.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink16.TabIndex = 4
+        Me.MetroLink16.Text = "下危險值"
+        Me.MetroLink16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink16.UseSelectable = True
+        '
+        'MetroLink10
+        '
+        Me.engSettingTable.SetColumnSpan(Me.MetroLink10, 2)
+        Me.MetroLink10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink10.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink10.Location = New System.Drawing.Point(0, 0)
+        Me.MetroLink10.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink10.Name = "MetroLink10"
+        Me.MetroLink10.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink10.TabIndex = 4
+        Me.MetroLink10.Text = "上危險值"
+        Me.MetroLink10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink10.UseSelectable = True
+        '
+        'engLowerDanger
+        '
+        Me.engLowerDanger.BackColor = System.Drawing.Color.Transparent
+        Me.engLowerDanger.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engLowerDanger.Location = New System.Drawing.Point(0, 210)
+        Me.engLowerDanger.Margin = New System.Windows.Forms.Padding(0)
+        Me.engLowerDanger.Name = "engLowerDanger"
+        Me.engLowerDanger.Size = New System.Drawing.Size(181, 30)
+        Me.engLowerDanger.TabIndex = 2
+        Me.engLowerDanger.Text = "下危險值"
+        '
+        'engUpperDanger
+        '
+        Me.engUpperDanger.BackColor = System.Drawing.Color.Transparent
+        Me.engUpperDanger.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engUpperDanger.Location = New System.Drawing.Point(0, 30)
+        Me.engUpperDanger.Margin = New System.Windows.Forms.Padding(0)
+        Me.engUpperDanger.Name = "engUpperDanger"
+        Me.engUpperDanger.Size = New System.Drawing.Size(181, 30)
+        Me.engUpperDanger.TabIndex = 2
+        Me.engUpperDanger.Text = "上危險值"
+        Me.engUpperDanger.Value = 95
+        '
+        'engLowerWarning
+        '
+        Me.engLowerWarning.BackColor = System.Drawing.Color.Transparent
+        Me.engLowerWarning.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engLowerWarning.Location = New System.Drawing.Point(0, 150)
+        Me.engLowerWarning.Margin = New System.Windows.Forms.Padding(0)
+        Me.engLowerWarning.Name = "engLowerWarning"
+        Me.engLowerWarning.Size = New System.Drawing.Size(181, 30)
+        Me.engLowerWarning.TabIndex = 2
+        Me.engLowerWarning.Text = "下警戒值"
+        Me.engLowerWarning.Value = 85
+        '
+        'engUpperWarning
+        '
+        Me.engUpperWarning.BackColor = System.Drawing.Color.Transparent
+        Me.engUpperWarning.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engUpperWarning.Location = New System.Drawing.Point(0, 90)
+        Me.engUpperWarning.Margin = New System.Windows.Forms.Padding(0)
+        Me.engUpperWarning.Name = "engUpperWarning"
+        Me.engUpperWarning.Size = New System.Drawing.Size(181, 30)
+        Me.engUpperWarning.TabIndex = 2
+        Me.engUpperWarning.Text = "上警戒值"
+        Me.engUpperWarning.Value = 95
+        '
+        'engUpperDangerValue
+        '
+        '
+        '
+        '
+        Me.engUpperDangerValue.CustomButton.Image = Nothing
+        Me.engUpperDangerValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.engUpperDangerValue.CustomButton.Name = ""
+        Me.engUpperDangerValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.engUpperDangerValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.engUpperDangerValue.CustomButton.TabIndex = 1
+        Me.engUpperDangerValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.engUpperDangerValue.CustomButton.UseSelectable = True
+        Me.engUpperDangerValue.CustomButton.Visible = False
+        Me.engUpperDangerValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engUpperDangerValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.engUpperDangerValue.Lines = New String() {"95"}
+        Me.engUpperDangerValue.Location = New System.Drawing.Point(181, 30)
+        Me.engUpperDangerValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.engUpperDangerValue.MaxLength = 32767
+        Me.engUpperDangerValue.Name = "engUpperDangerValue"
+        Me.engUpperDangerValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.engUpperDangerValue.PromptText = "0~100"
+        Me.engUpperDangerValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.engUpperDangerValue.SelectedText = ""
+        Me.engUpperDangerValue.SelectionLength = 0
+        Me.engUpperDangerValue.SelectionStart = 0
+        Me.engUpperDangerValue.ShortcutsEnabled = True
+        Me.engUpperDangerValue.Size = New System.Drawing.Size(100, 30)
+        Me.engUpperDangerValue.TabIndex = 5
+        Me.engUpperDangerValue.Text = "95"
+        Me.engUpperDangerValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.engUpperDangerValue.UseSelectable = True
+        Me.engUpperDangerValue.WaterMark = "0~100"
+        Me.engUpperDangerValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.engUpperDangerValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'engUpperWarningValue
+        '
+        '
+        '
+        '
+        Me.engUpperWarningValue.CustomButton.Image = Nothing
+        Me.engUpperWarningValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.engUpperWarningValue.CustomButton.Name = ""
+        Me.engUpperWarningValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.engUpperWarningValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.engUpperWarningValue.CustomButton.TabIndex = 1
+        Me.engUpperWarningValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.engUpperWarningValue.CustomButton.UseSelectable = True
+        Me.engUpperWarningValue.CustomButton.Visible = False
+        Me.engUpperWarningValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engUpperWarningValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.engUpperWarningValue.Lines = New String() {"95"}
+        Me.engUpperWarningValue.Location = New System.Drawing.Point(181, 90)
+        Me.engUpperWarningValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.engUpperWarningValue.MaxLength = 32767
+        Me.engUpperWarningValue.Name = "engUpperWarningValue"
+        Me.engUpperWarningValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.engUpperWarningValue.PromptText = "0~100"
+        Me.engUpperWarningValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.engUpperWarningValue.SelectedText = ""
+        Me.engUpperWarningValue.SelectionLength = 0
+        Me.engUpperWarningValue.SelectionStart = 0
+        Me.engUpperWarningValue.ShortcutsEnabled = True
+        Me.engUpperWarningValue.Size = New System.Drawing.Size(100, 30)
+        Me.engUpperWarningValue.TabIndex = 5
+        Me.engUpperWarningValue.Text = "95"
+        Me.engUpperWarningValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.engUpperWarningValue.UseSelectable = True
+        Me.engUpperWarningValue.WaterMark = "0~100"
+        Me.engUpperWarningValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.engUpperWarningValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'engLowerWarningValue
+        '
+        '
+        '
+        '
+        Me.engLowerWarningValue.CustomButton.Image = Nothing
+        Me.engLowerWarningValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.engLowerWarningValue.CustomButton.Name = ""
+        Me.engLowerWarningValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.engLowerWarningValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.engLowerWarningValue.CustomButton.TabIndex = 1
+        Me.engLowerWarningValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.engLowerWarningValue.CustomButton.UseSelectable = True
+        Me.engLowerWarningValue.CustomButton.Visible = False
+        Me.engLowerWarningValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engLowerWarningValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.engLowerWarningValue.Lines = New String() {"85"}
+        Me.engLowerWarningValue.Location = New System.Drawing.Point(181, 150)
+        Me.engLowerWarningValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.engLowerWarningValue.MaxLength = 32767
+        Me.engLowerWarningValue.Name = "engLowerWarningValue"
+        Me.engLowerWarningValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.engLowerWarningValue.PromptText = "0~100"
+        Me.engLowerWarningValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.engLowerWarningValue.SelectedText = ""
+        Me.engLowerWarningValue.SelectionLength = 0
+        Me.engLowerWarningValue.SelectionStart = 0
+        Me.engLowerWarningValue.ShortcutsEnabled = True
+        Me.engLowerWarningValue.Size = New System.Drawing.Size(100, 30)
+        Me.engLowerWarningValue.TabIndex = 5
+        Me.engLowerWarningValue.Text = "85"
+        Me.engLowerWarningValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.engLowerWarningValue.UseSelectable = True
+        Me.engLowerWarningValue.WaterMark = "0~100"
+        Me.engLowerWarningValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.engLowerWarningValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'engLowerDangerValue
+        '
+        '
+        '
+        '
+        Me.engLowerDangerValue.CustomButton.Image = Nothing
+        Me.engLowerDangerValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.engLowerDangerValue.CustomButton.Name = ""
+        Me.engLowerDangerValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.engLowerDangerValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.engLowerDangerValue.CustomButton.TabIndex = 1
+        Me.engLowerDangerValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.engLowerDangerValue.CustomButton.UseSelectable = True
+        Me.engLowerDangerValue.CustomButton.Visible = False
+        Me.engLowerDangerValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.engLowerDangerValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.engLowerDangerValue.Lines = New String() {"50"}
+        Me.engLowerDangerValue.Location = New System.Drawing.Point(181, 210)
+        Me.engLowerDangerValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.engLowerDangerValue.MaxLength = 32767
+        Me.engLowerDangerValue.Name = "engLowerDangerValue"
+        Me.engLowerDangerValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.engLowerDangerValue.PromptText = "0~100"
+        Me.engLowerDangerValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.engLowerDangerValue.SelectedText = ""
+        Me.engLowerDangerValue.SelectionLength = 0
+        Me.engLowerDangerValue.SelectionStart = 0
+        Me.engLowerDangerValue.ShortcutsEnabled = True
+        Me.engLowerDangerValue.Size = New System.Drawing.Size(100, 30)
+        Me.engLowerDangerValue.TabIndex = 5
+        Me.engLowerDangerValue.Text = "50"
+        Me.engLowerDangerValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.engLowerDangerValue.UseSelectable = True
+        Me.engLowerDangerValue.WaterMark = "0~100"
+        Me.engLowerDangerValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.engLowerDangerValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'tabGraphSetting
+        '
+        Me.tabGraphSetting.Controls.Add(Me.TableLayoutPanel1)
+        Me.tabGraphSetting.Location = New System.Drawing.Point(4, 38)
+        Me.tabGraphSetting.Name = "tabGraphSetting"
+        Me.tabGraphSetting.Size = New System.Drawing.Size(281, 451)
+        Me.tabGraphSetting.TabIndex = 1
+        Me.tabGraphSetting.Text = "一般指數"
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLink11, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsLowerDanger, 0, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsUpperDanger, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsLowerWarning, 0, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsUpperWarning, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLink13, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLink15, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLink17, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsUpperDangerValue, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsUpperWarningValue, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsLowerWarningValue, 1, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.emsLowerDangerValue, 1, 7)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 9
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(281, 451)
+        Me.TableLayoutPanel1.TabIndex = 7
+        '
+        'MetroLink11
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLink11, 2)
+        Me.MetroLink11.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink11.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink11.Location = New System.Drawing.Point(0, 0)
+        Me.MetroLink11.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink11.Name = "MetroLink11"
+        Me.MetroLink11.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink11.TabIndex = 4
+        Me.MetroLink11.Text = "上危險值"
+        Me.MetroLink11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink11.UseSelectable = True
+        '
+        'emsLowerDanger
+        '
+        Me.emsLowerDanger.BackColor = System.Drawing.Color.Transparent
+        Me.emsLowerDanger.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsLowerDanger.Location = New System.Drawing.Point(0, 210)
+        Me.emsLowerDanger.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsLowerDanger.Name = "emsLowerDanger"
+        Me.emsLowerDanger.Size = New System.Drawing.Size(181, 30)
+        Me.emsLowerDanger.TabIndex = 2
+        Me.emsLowerDanger.Text = "下危險值"
+        Me.emsLowerDanger.Value = 20
+        '
+        'emsUpperDanger
+        '
+        Me.emsUpperDanger.BackColor = System.Drawing.Color.Transparent
+        Me.emsUpperDanger.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsUpperDanger.Location = New System.Drawing.Point(0, 30)
+        Me.emsUpperDanger.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsUpperDanger.Name = "emsUpperDanger"
+        Me.emsUpperDanger.Size = New System.Drawing.Size(181, 30)
+        Me.emsUpperDanger.TabIndex = 2
+        Me.emsUpperDanger.Text = "上危險值"
+        Me.emsUpperDanger.Value = 55
+        '
+        'emsLowerWarning
+        '
+        Me.emsLowerWarning.BackColor = System.Drawing.Color.Transparent
+        Me.emsLowerWarning.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsLowerWarning.Location = New System.Drawing.Point(0, 150)
+        Me.emsLowerWarning.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsLowerWarning.Name = "emsLowerWarning"
+        Me.emsLowerWarning.Size = New System.Drawing.Size(181, 30)
+        Me.emsLowerWarning.TabIndex = 2
+        Me.emsLowerWarning.Text = "下警戒值"
+        Me.emsLowerWarning.Value = 45
+        '
+        'emsUpperWarning
+        '
+        Me.emsUpperWarning.BackColor = System.Drawing.Color.Transparent
+        Me.emsUpperWarning.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsUpperWarning.Location = New System.Drawing.Point(0, 90)
+        Me.emsUpperWarning.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsUpperWarning.Name = "emsUpperWarning"
+        Me.emsUpperWarning.Size = New System.Drawing.Size(181, 30)
+        Me.emsUpperWarning.TabIndex = 2
+        Me.emsUpperWarning.Text = "上警戒值"
+        Me.emsUpperWarning.Value = 55
+        '
+        'MetroLink13
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLink13, 2)
+        Me.MetroLink13.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink13.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink13.Location = New System.Drawing.Point(0, 180)
+        Me.MetroLink13.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink13.Name = "MetroLink13"
+        Me.MetroLink13.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink13.TabIndex = 4
+        Me.MetroLink13.Text = "下危險值"
+        Me.MetroLink13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink13.UseSelectable = True
+        '
+        'MetroLink15
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLink15, 2)
+        Me.MetroLink15.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink15.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink15.Location = New System.Drawing.Point(0, 60)
+        Me.MetroLink15.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink15.Name = "MetroLink15"
+        Me.MetroLink15.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink15.TabIndex = 4
+        Me.MetroLink15.Text = "上警戒值"
+        Me.MetroLink15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink15.UseSelectable = True
+        '
+        'MetroLink17
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLink17, 2)
+        Me.MetroLink17.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink17.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink17.Location = New System.Drawing.Point(0, 120)
+        Me.MetroLink17.Margin = New System.Windows.Forms.Padding(0)
+        Me.MetroLink17.Name = "MetroLink17"
+        Me.MetroLink17.Size = New System.Drawing.Size(281, 30)
+        Me.MetroLink17.TabIndex = 4
+        Me.MetroLink17.Text = "下警戒值"
+        Me.MetroLink17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink17.UseSelectable = True
+        '
+        'emsUpperDangerValue
+        '
+        '
+        '
+        '
+        Me.emsUpperDangerValue.CustomButton.Image = Nothing
+        Me.emsUpperDangerValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.emsUpperDangerValue.CustomButton.Name = ""
+        Me.emsUpperDangerValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.emsUpperDangerValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.emsUpperDangerValue.CustomButton.TabIndex = 1
+        Me.emsUpperDangerValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.emsUpperDangerValue.CustomButton.UseSelectable = True
+        Me.emsUpperDangerValue.CustomButton.Visible = False
+        Me.emsUpperDangerValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsUpperDangerValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.emsUpperDangerValue.Lines = New String() {"55"}
+        Me.emsUpperDangerValue.Location = New System.Drawing.Point(181, 30)
+        Me.emsUpperDangerValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsUpperDangerValue.MaxLength = 32767
+        Me.emsUpperDangerValue.Name = "emsUpperDangerValue"
+        Me.emsUpperDangerValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.emsUpperDangerValue.PromptText = "0~100"
+        Me.emsUpperDangerValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.emsUpperDangerValue.SelectedText = ""
+        Me.emsUpperDangerValue.SelectionLength = 0
+        Me.emsUpperDangerValue.SelectionStart = 0
+        Me.emsUpperDangerValue.ShortcutsEnabled = True
+        Me.emsUpperDangerValue.Size = New System.Drawing.Size(100, 30)
+        Me.emsUpperDangerValue.TabIndex = 5
+        Me.emsUpperDangerValue.Text = "55"
+        Me.emsUpperDangerValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.emsUpperDangerValue.UseSelectable = True
+        Me.emsUpperDangerValue.WaterMark = "0~100"
+        Me.emsUpperDangerValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.emsUpperDangerValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'emsUpperWarningValue
+        '
+        '
+        '
+        '
+        Me.emsUpperWarningValue.CustomButton.Image = Nothing
+        Me.emsUpperWarningValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.emsUpperWarningValue.CustomButton.Name = ""
+        Me.emsUpperWarningValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.emsUpperWarningValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.emsUpperWarningValue.CustomButton.TabIndex = 1
+        Me.emsUpperWarningValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.emsUpperWarningValue.CustomButton.UseSelectable = True
+        Me.emsUpperWarningValue.CustomButton.Visible = False
+        Me.emsUpperWarningValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsUpperWarningValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.emsUpperWarningValue.Lines = New String() {"55"}
+        Me.emsUpperWarningValue.Location = New System.Drawing.Point(181, 90)
+        Me.emsUpperWarningValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsUpperWarningValue.MaxLength = 32767
+        Me.emsUpperWarningValue.Name = "emsUpperWarningValue"
+        Me.emsUpperWarningValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.emsUpperWarningValue.PromptText = "0~100"
+        Me.emsUpperWarningValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.emsUpperWarningValue.SelectedText = ""
+        Me.emsUpperWarningValue.SelectionLength = 0
+        Me.emsUpperWarningValue.SelectionStart = 0
+        Me.emsUpperWarningValue.ShortcutsEnabled = True
+        Me.emsUpperWarningValue.Size = New System.Drawing.Size(100, 30)
+        Me.emsUpperWarningValue.TabIndex = 5
+        Me.emsUpperWarningValue.Text = "55"
+        Me.emsUpperWarningValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.emsUpperWarningValue.UseSelectable = True
+        Me.emsUpperWarningValue.WaterMark = "0~100"
+        Me.emsUpperWarningValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.emsUpperWarningValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'emsLowerWarningValue
+        '
+        '
+        '
+        '
+        Me.emsLowerWarningValue.CustomButton.Image = Nothing
+        Me.emsLowerWarningValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.emsLowerWarningValue.CustomButton.Name = ""
+        Me.emsLowerWarningValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.emsLowerWarningValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.emsLowerWarningValue.CustomButton.TabIndex = 1
+        Me.emsLowerWarningValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.emsLowerWarningValue.CustomButton.UseSelectable = True
+        Me.emsLowerWarningValue.CustomButton.Visible = False
+        Me.emsLowerWarningValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsLowerWarningValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.emsLowerWarningValue.Lines = New String() {"45"}
+        Me.emsLowerWarningValue.Location = New System.Drawing.Point(181, 150)
+        Me.emsLowerWarningValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsLowerWarningValue.MaxLength = 32767
+        Me.emsLowerWarningValue.Name = "emsLowerWarningValue"
+        Me.emsLowerWarningValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.emsLowerWarningValue.PromptText = "0~100"
+        Me.emsLowerWarningValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.emsLowerWarningValue.SelectedText = ""
+        Me.emsLowerWarningValue.SelectionLength = 0
+        Me.emsLowerWarningValue.SelectionStart = 0
+        Me.emsLowerWarningValue.ShortcutsEnabled = True
+        Me.emsLowerWarningValue.Size = New System.Drawing.Size(100, 30)
+        Me.emsLowerWarningValue.TabIndex = 5
+        Me.emsLowerWarningValue.Text = "45"
+        Me.emsLowerWarningValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.emsLowerWarningValue.UseSelectable = True
+        Me.emsLowerWarningValue.WaterMark = "0~100"
+        Me.emsLowerWarningValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.emsLowerWarningValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'emsLowerDangerValue
+        '
+        '
+        '
+        '
+        Me.emsLowerDangerValue.CustomButton.Image = Nothing
+        Me.emsLowerDangerValue.CustomButton.Location = New System.Drawing.Point(72, 2)
+        Me.emsLowerDangerValue.CustomButton.Name = ""
+        Me.emsLowerDangerValue.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.emsLowerDangerValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.emsLowerDangerValue.CustomButton.TabIndex = 1
+        Me.emsLowerDangerValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.emsLowerDangerValue.CustomButton.UseSelectable = True
+        Me.emsLowerDangerValue.CustomButton.Visible = False
+        Me.emsLowerDangerValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.emsLowerDangerValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.emsLowerDangerValue.Lines = New String() {"20"}
+        Me.emsLowerDangerValue.Location = New System.Drawing.Point(181, 210)
+        Me.emsLowerDangerValue.Margin = New System.Windows.Forms.Padding(0)
+        Me.emsLowerDangerValue.MaxLength = 32767
+        Me.emsLowerDangerValue.Name = "emsLowerDangerValue"
+        Me.emsLowerDangerValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.emsLowerDangerValue.PromptText = "0~100"
+        Me.emsLowerDangerValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.emsLowerDangerValue.SelectedText = ""
+        Me.emsLowerDangerValue.SelectionLength = 0
+        Me.emsLowerDangerValue.SelectionStart = 0
+        Me.emsLowerDangerValue.ShortcutsEnabled = True
+        Me.emsLowerDangerValue.Size = New System.Drawing.Size(100, 30)
+        Me.emsLowerDangerValue.TabIndex = 5
+        Me.emsLowerDangerValue.Text = "20"
+        Me.emsLowerDangerValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.emsLowerDangerValue.UseSelectable = True
+        Me.emsLowerDangerValue.WaterMark = "0~100"
+        Me.emsLowerDangerValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.emsLowerDangerValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'tabLiverSetting
+        '
+        Me.tabLiverSetting.Location = New System.Drawing.Point(4, 38)
+        Me.tabLiverSetting.Name = "tabLiverSetting"
+        Me.tabLiverSetting.Size = New System.Drawing.Size(281, 451)
+        Me.tabLiverSetting.TabIndex = 2
+        Me.tabLiverSetting.Text = "肝指數"
+        '
+        'tabPressureSetting
+        '
+        Me.tabPressureSetting.Location = New System.Drawing.Point(4, 38)
+        Me.tabPressureSetting.Name = "tabPressureSetting"
+        Me.tabPressureSetting.Size = New System.Drawing.Size(281, 451)
+        Me.tabPressureSetting.TabIndex = 3
+        Me.tabPressureSetting.Text = "壓力指數"
+        '
+        'autoSaveTextBox
+        '
+        '
+        '
+        '
+        Me.autoSaveTextBox.CustomButton.Image = Nothing
+        Me.autoSaveTextBox.CustomButton.Location = New System.Drawing.Point(255, 1)
+        Me.autoSaveTextBox.CustomButton.Name = ""
+        Me.autoSaveTextBox.CustomButton.Size = New System.Drawing.Size(33, 33)
+        Me.autoSaveTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.autoSaveTextBox.CustomButton.TabIndex = 1
+        Me.autoSaveTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.autoSaveTextBox.CustomButton.UseSelectable = True
+        Me.autoSaveTextBox.CustomButton.Visible = False
+        Me.autoSaveTextBox.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.autoSaveTextBox.Lines = New String(-1) {}
+        Me.autoSaveTextBox.Location = New System.Drawing.Point(45, 73)
+        Me.autoSaveTextBox.MaxLength = 32767
+        Me.autoSaveTextBox.Name = "autoSaveTextBox"
+        Me.autoSaveTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.autoSaveTextBox.PromptText = "請輸入0 ~ 100之間的值"
+        Me.autoSaveTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.autoSaveTextBox.SelectedText = ""
+        Me.autoSaveTextBox.SelectionLength = 0
+        Me.autoSaveTextBox.SelectionStart = 0
+        Me.autoSaveTextBox.ShortcutsEnabled = True
+        Me.autoSaveTextBox.Size = New System.Drawing.Size(289, 35)
+        Me.autoSaveTextBox.TabIndex = 3
+        Me.autoSaveTextBox.UseSelectable = True
+        Me.autoSaveTextBox.WaterMark = "請輸入0 ~ 100之間的值"
+        Me.autoSaveTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.autoSaveTextBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'MetroLink9
+        '
+        Me.MetroLink9.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink9.Location = New System.Drawing.Point(45, 114)
+        Me.MetroLink9.Name = "MetroLink9"
+        Me.MetroLink9.Size = New System.Drawing.Size(289, 23)
+        Me.MetroLink9.TabIndex = 4
+        Me.MetroLink9.Text = "指數指標參數"
+        Me.MetroLink9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink9.UseSelectable = True
+        '
+        'MetroLink8
+        '
+        Me.MetroLink8.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink8.Location = New System.Drawing.Point(45, 44)
+        Me.MetroLink8.Name = "MetroLink8"
+        Me.MetroLink8.Size = New System.Drawing.Size(289, 23)
+        Me.MetroLink8.TabIndex = 4
+        Me.MetroLink8.Text = "自動記錄觸發值"
+        Me.MetroLink8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink8.UseSelectable = True
+        '
         'themeSetting
         '
         Me.themeSetting.Controls.Add(Me.mrbDark)
@@ -467,8 +1200,14 @@ Partial Class pnlSetting
         Me.Name = "pnlSetting"
         Me.Size = New System.Drawing.Size(400, 800)
         Me.settingMetroPanel.ResumeLayout(False)
-        Me.MetroTabControl1.ResumeLayout(False)
+        Me.settingTab.ResumeLayout(False)
         Me.serverSetting.ResumeLayout(False)
+        Me.emsSetting.ResumeLayout(False)
+        Me.MetroTabControl1.ResumeLayout(False)
+        Me.tabEnergySetting.ResumeLayout(False)
+        Me.engSettingTable.ResumeLayout(False)
+        Me.tabGraphSetting.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.themeSetting.ResumeLayout(False)
         Me.themeSetting.PerformLayout()
         Me.ResumeLayout(False)
@@ -477,7 +1216,7 @@ Partial Class pnlSetting
 
     Friend WithEvents settingMetroPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents saveSettingsButton As MetroFramework.Controls.MetroButton
-    Friend WithEvents MetroTabControl1 As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents settingTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents serverSetting As MetroFramework.Controls.MetroTabPage
     Friend WithEvents dbName As MetroFramework.Controls.MetroTextBox
     Friend WithEvents dbPass As MetroFramework.Controls.MetroTextBox
@@ -498,4 +1237,39 @@ Partial Class pnlSetting
     Friend WithEvents bgcolor As FlowLayoutPanel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents settingLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents emsSetting As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents autoSaveTextBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroLink8 As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroTabControl1 As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents tabEnergySetting As TabPage
+    Friend WithEvents tabGraphSetting As TabPage
+    Friend WithEvents tabLiverSetting As TabPage
+    Friend WithEvents tabPressureSetting As TabPage
+    Friend WithEvents MetroLink9 As MetroFramework.Controls.MetroLink
+    Friend WithEvents engSettingTable As TableLayoutPanel
+    Friend WithEvents MetroLink10 As MetroFramework.Controls.MetroLink
+    Friend WithEvents engLowerDanger As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents engUpperDanger As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents engLowerWarning As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents engUpperWarning As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents MetroLink16 As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroLink12 As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroLink14 As MetroFramework.Controls.MetroLink
+    Friend WithEvents engUpperDangerValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents engUpperWarningValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents engLowerWarningValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents engLowerDangerValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents MetroLink11 As MetroFramework.Controls.MetroLink
+    Friend WithEvents emsLowerDanger As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents emsUpperDanger As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents emsLowerWarning As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents emsUpperWarning As MetroFramework.Controls.MetroTrackBar
+    Friend WithEvents MetroLink13 As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroLink15 As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroLink17 As MetroFramework.Controls.MetroLink
+    Friend WithEvents emsUpperDangerValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents emsUpperWarningValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents emsLowerWarningValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents emsLowerDangerValue As MetroFramework.Controls.MetroTextBox
 End Class
