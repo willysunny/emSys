@@ -137,6 +137,114 @@ Namespace My
                 Me("serverPort") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property autoSaveTrigger() As Integer
+            Get
+                Return CType(Me("autoSaveTrigger"),Integer)
+            End Get
+            Set
+                Me("autoSaveTrigger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("95")>  _
+        Public Property engUpperDanger() As Integer
+            Get
+                Return CType(Me("engUpperDanger"),Integer)
+            End Get
+            Set
+                Me("engUpperDanger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("95")>  _
+        Public Property engUpperWarning() As Integer
+            Get
+                Return CType(Me("engUpperWarning"),Integer)
+            End Get
+            Set
+                Me("engUpperWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("85")>  _
+        Public Property engLowerWarning() As Integer
+            Get
+                Return CType(Me("engLowerWarning"),Integer)
+            End Get
+            Set
+                Me("engLowerWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("50")>  _
+        Public Property engLowerDanger() As Integer
+            Get
+                Return CType(Me("engLowerDanger"),Integer)
+            End Get
+            Set
+                Me("engLowerDanger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("55")>  _
+        Public Property emsUpperDanger() As Integer
+            Get
+                Return CType(Me("emsUpperDanger"),Integer)
+            End Get
+            Set
+                Me("emsUpperDanger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("55")>  _
+        Public Property emsUpperWarning() As Integer
+            Get
+                Return CType(Me("emsUpperWarning"),Integer)
+            End Get
+            Set
+                Me("emsUpperWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("45")>  _
+        Public Property emsLowerWarning() As Integer
+            Get
+                Return CType(Me("emsLowerWarning"),Integer)
+            End Get
+            Set
+                Me("emsLowerWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("20")>  _
+        Public Property emsLowerDanger() As Integer
+            Get
+                Return CType(Me("emsLowerDanger"),Integer)
+            End Get
+            Set
+                Me("emsLowerDanger") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
