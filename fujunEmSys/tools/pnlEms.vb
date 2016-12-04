@@ -6,6 +6,8 @@ Public Class pnlEms
     ' Events
     Public Event DEVICE_ERROR As EventHandler
 
+#Region "變數"
+
     ' Database
     'Dim cmdSql As SqlCommand
     'Dim sConn As String = My.Settings.Setting
@@ -108,6 +110,7 @@ Public Class pnlEms
     Dim bar2iCode(60) As Integer ' Bar圖中對應點
 #End Region
 
+#End Region
 #Region "繪圖"
     Private Sub pb_Paint(sender As Object, e As PaintEventArgs) Handles pb.Paint
         Dim bmp As Bitmap = New Bitmap(CType(sender, PictureBox).Size.Width, CType(sender, PictureBox).Size.Height)
@@ -169,9 +172,7 @@ Public Class pnlEms
         Return FormatNumber(Math.Round(result, 1), 1)
     End Function
 #End Region
-
-
-
+#Region "頻譜測量"
     Private Sub emsTimer_Tick(sender As Object, e As EventArgs) Handles emsTimer.Tick
         Dim dValue As Double
         Dim iValue As Integer
@@ -449,17 +450,8 @@ Public Class pnlEms
         End If
         Return daDev(i)
     End Function
-    ' 校正
-    Private Sub btnRevise_Click(sender As Object, e As EventArgs) Handles btnRevise.Click
-        btnRevise.ForeColor = Color.Orange
-        lblCali.ForeColor = Color.Orange
-        txtFullValue.Text = 0
-        txtOffsetValue.Text = 0
-        txtEvaValue.Text = 0
-        txtMaxValue.Text = 0
-        txtDevValue.Text = 0
-        init()
-    End Sub
+
+    ' 紀錄量測值
     Private Sub PutMeasures(iValue As Integer)
         sMeasures = sMeasures & iValue & ","
         'baMeasures(idxByteArray) = iValue
@@ -468,6 +460,7 @@ Public Class pnlEms
         '    idxByteArray = 0
         'End If
     End Sub
+    ' 偏差值
     Private Sub PutDevArray()
         daDev(idx) = iDev
         idx = idx + 1
@@ -475,7 +468,7 @@ Public Class pnlEms
             idx = 0
         End If
     End Sub
-
+    ' 繪圖
     Private Sub DoChart(ByVal dValue As Double)
         Dim iValue As Integer
         iValue = CInt(dValue)
@@ -495,58 +488,467 @@ Public Class pnlEms
             iState = 2
         End If
     End Sub
+    ' 儲存至SQL
+    Private Sub SaveRecord()
 
-    '' 點選下一個
-    'Private Sub ClickNextMeasurePoint()
-    '    If LR = 1 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
-    '        iCode2Btn(125240)
-    '    ElseIf LR = 2 And HF = 2 And Finger = 1 And TB = 1 And rdoC5.Checked Then
-    '        iCode2Btn(221130)
-    '    ElseIf LR = 2 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
-    '        iCode2Btn(225240)
-    '    Else
-    '        If TB = 2 Then
-    '            If Finger = 5 Then
-    '                If LR = 2 Then
-    '                    If HF = 2 Then
-    '                        LR = 1
-    '                        HF = 1
-    '                        Finger = 1
-    '                        TB = 1
-    '                        If Not mainForm.offlineMode Then emsTabs.SelectedTab = tabMed
-    '                    Else
-    '                        LR = 1
-    '                        HF = 2
-    '                    End If
-    '                Else
-    '                    LR = 2
-    '                End If
-    '                Finger = 1
-    '            Else
-    '                Finger += 1
-    '            End If
-    '            TB = 1
-    '        Else
-    '            TB = 2
-    '        End If
-    '        iCode2Btn(CInt(CStr(LR) & CStr(HF) & CStr(Finger) & CStr(TB) & "50"))
-    '    End If
-    'End Sub
 
+        ' 檢查重複資訊
+        Try
+            Dim reader As IDataReader = runQuery("SELECT count(`icode`) FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' AND `iCode`='" & iCode & "'")
+            reader.Read()
+            If Not reader.GetInt64(0) = 0 Then
+                reader.Close()
+                runQuery("DELETE FROM `ems` WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "'")
+                runQuery("INSERT INTO ems(hID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
+            Else
+                reader.Close()
+                runQuery("INSERT INTO ems(hID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
+            End If
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
+        Me.Refresh()
+    End Sub
+#End Region
+#Region "測量點鍵盤"
+    Private Sub iCode2Btn(ByVal iCode As Integer)
+        If iCode < 1000 Then
+            ' 元氣
+            rdoEnergy.Checked = True
+            Select Case iCode
+                Case 12
+                    rdoUpLeft.Checked = True
+                    rdoUpRight.Checked = True
+                Case 3
+                    rdoDownLeft.Checked = True
+                    rdoDownRight.Checked = True
+                Case 10
+                    rdoUpLeft.Checked = True
+                    rdoDownLeft.Checked = True
+                Case 5
+                    rdoUpRight.Checked = True
+                    rdoDownRight.Checked = True
+                Case 9
+                    rdoUpLeft.Checked = True
+                    rdoDownRight.Checked = True
+                Case 6
+                    rdoUpRight.Checked = True
+                    rdoDownLeft.Checked = True
+            End Select
+        Else
+            '頻譜
+            rdoGraph.Checked = True
+
+            ' 左右
+            If Mid(iCode.ToString, 1, 1) = "1" Then rdoLeft.Checked = True Else rdoRight.Checked = True
+
+            ' 手腳
+            If Mid(iCode.ToString, 2, 1) = "1" Then rdoHand.Checked = True Else rdoFoot.Checked = True
+
+            ' 手指
+            Select Case Mid(iCode.ToString, 3, 1)
+                Case "1"
+                    rdoF1.Checked = True
+                Case "2"
+                    rdoF2.Checked = True
+                Case "3"
+                    rdoF3.Checked = True
+                Case "4"
+                    rdoF4.Checked = True
+                Case "5"
+                    rdoF5.Checked = True
+            End Select
+
+            ' 內外側
+            If Mid(iCode.ToString, 4, 1) = "1" Then rdoS1.Checked = True Else rdoS2.Checked = True
+
+            ' 量測點
+            Select Case Mid(iCode.ToString, 5, 1)
+                Case "1"
+                    rdoC1.Checked = True
+                Case "2"
+                    rdoC2.Checked = True
+                Case "3"
+                    rdoC3.Checked = True
+                Case "4"
+                    rdoC4.Checked = True
+                Case "5"
+                    rdoC5.Checked = True
+                Case "6"
+                    rdoC6.Checked = True
+            End Select
+
+            ' 結石
+            Select Case Mid(iCode.ToString, 6, 1)
+                Case "0"
+                    rdoStone.Checked = False
+                Case "1"
+                    rdoStone.Checked = True
+            End Select
+        End If
+    End Sub
+    Public Function btn2iCode() As Integer
+        Dim iCode As Integer = ""
+
+        ' 判定哪個選項被選取
+        If rdoGraph.Checked Then
+            ' 定義變數
+            Dim LR As String = ""
+            Dim HF As String = ""
+            Dim Finger As String = ""
+            Dim TB As String = ""
+            Dim P As String = ""
+            Dim S As String = ""
+
+            If rdoLeft.Checked Then
+                LR = 1
+            ElseIf rdoRight.Checked Then
+                LR = 2
+            End If
+
+            If rdoHand.Checked Then
+                HF = 1
+            ElseIf rdoFoot.Checked Then
+                HF = 2
+            End If
+
+            If rdoF1.Checked Then
+                Finger = 1
+            ElseIf rdoF2.Checked Then
+                Finger = 1
+            ElseIf rdoF3.Checked Then
+                Finger = 2
+            ElseIf rdoF4.Checked Then
+                Finger = 2
+            ElseIf rdoF5.Checked Then
+                Finger = 5
+            End If
+
+            If rdoS1.Checked Then
+                TB = 1
+            ElseIf rdoS2.Checked Then
+                TB = 2
+            End If
+
+            If rdoC1.Checked Then
+                P = 1
+            ElseIf rdoC2.Checked Then
+                P = 2
+            ElseIf rdoC3.Checked Then
+                P = 3
+            ElseIf rdoC4.Checked Then
+                P = 4
+            ElseIf rdoC5.Checked Then
+                P = 5
+            ElseIf rdoC6.Checked Then
+                P = 6
+            End If
+
+            If rdoStone.Checked Then
+                S = 1
+            Else
+                S = 0
+            End If
+            iCode = LR & HF & Finger & TB & P & S
+        ElseIf rdoEnergy.Checked Then
+            ' 元氣值得量測方式
+            Dim a, b, c, d As String
+            If rdoUpLeft.Checked Then a = "1" Else a = "0"
+            If rdoUpRight.Checked Then b = "1" Else b = "0"
+            If rdoDownLeft.Checked Then c = "1" Else c = "0"
+            If rdoDownRight.Checked Then d = "1" Else d = "0"
+
+            ' 將四個點用Bit方式然後轉換成Int
+            iCode = Convert.ToInt32(a & b & c & d, 2)
+        End If
+        Return iCode
+    End Function
+    ' 點選下一個
+    Private Sub ClickNextMeasurePoint()
+        If LR = 1 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
+            iCode2Btn(125240)
+        ElseIf LR = 2 And HF = 2 And Finger = 1 And TB = 1 And rdoC5.Checked Then
+            iCode2Btn(221130)
+        ElseIf LR = 2 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
+            iCode2Btn(225240)
+        Else
+            If TB = 2 Then
+                If Finger = 5 Then
+                    If LR = 2 Then
+                        If HF = 2 Then
+                            LR = 1
+                            HF = 1
+                            Finger = 1
+                            TB = 1
+                        Else
+                            LR = 1
+                            HF = 2
+                        End If
+                    Else
+                        LR = 2
+                    End If
+                    Finger = 1
+                Else
+                    Finger += 1
+                End If
+                TB = 1
+            Else
+                TB = 2
+            End If
+            iCode2Btn(CInt(CStr(LR) & CStr(HF) & CStr(Finger) & CStr(TB) & "50"))
+        End If
+    End Sub
+    Private Sub getMeasurePoint()
+        Dim sMsg As String = ""
+
+        If rdoGraph.Checked Then
+            ' 判定哪個選項被選取
+            If rdoLeft.Checked Then
+                LR = 1
+            ElseIf rdoRight.Checked Then
+                LR = 2
+            End If
+
+            If rdoHand.Checked Then
+                HF = 1
+            ElseIf rdoFoot.Checked Then
+                HF = 2
+            End If
+
+            If rdoF1.Checked Then
+                Finger = 1
+            ElseIf rdoF2.Checked Then
+                Finger = 2
+            ElseIf rdoF3.Checked Then
+                Finger = 3
+            ElseIf rdoF4.Checked Then
+                Finger = 4
+            ElseIf rdoF5.Checked Then
+                Finger = 5
+
+            End If
+
+            If rdoS1.Checked Then
+                TB = 1
+            ElseIf rdoS2.Checked Then
+                TB = 2
+            End If
+
+            If rdoC1.Checked Then
+                P = 1
+            ElseIf rdoC2.Checked Then
+                P = 2
+            ElseIf rdoC3.Checked Then
+                P = 3
+            ElseIf rdoC4.Checked Then
+                P = 4
+            ElseIf rdoC5.Checked Then
+                P = 5
+            ElseIf rdoC6.Checked Then
+                P = 6
+            End If
+
+            If rdoStone.Checked Then
+                S = 1
+            Else
+                S = 0
+            End If
+
+            ' 轉換成代碼並檢查是否有在初始定義的清單內
+            ' 若無 (KeyNotFoundException), 則依照實際點選的點來告知
+            Try
+                iCode = CInt(CStr(LR) + CStr(HF) + CStr(Finger) + CStr(TB) + CStr(P) + CStr(S))
+                sMsg = pt.Item(iCode)
+                Dim fullPoint As String = ""
+                Select Case LR
+                    Case 1
+                        fullPoint = "左"
+                    Case 2
+                        fullPoint = "右"
+                    Case Else
+                        fullPoint = "未知方向"
+                End Select
+                Select Case HF
+                    Case 1
+                        fullPoint += "手"
+                    Case 2
+                        fullPoint += "腳"
+                    Case Else
+                        fullPoint += "-未知部位"
+                End Select
+                Select Case Finger
+                    Case 1
+                        fullPoint += "拇指"
+                    Case 2
+                        fullPoint += "食指"
+                    Case 3
+                        fullPoint += "中指"
+                    Case 4
+                        fullPoint += "無名指"
+                    Case 5
+                        fullPoint += "小指"
+                    Case Else
+                        fullPoint += "-未知指頭"
+                End Select
+                Select Case TB
+                    Case 1
+                        fullPoint += "外側"
+                    Case 2
+                        fullPoint += "內側"
+                    Case Else
+                        fullPoint += "-未知邊"
+                End Select
+                Select Case P
+                    Case 1
+                        fullPoint += "頭"
+                    Case 2
+                        fullPoint += "頂"
+                    Case 3
+                        fullPoint += "上焦"
+                    Case 4
+                        fullPoint += "中焦"
+                    Case 5
+                        fullPoint += "總量度點"
+                    Case 6
+                        fullPoint += "下焦"
+                    Case Else
+                        fullPoint += "-未知量度點"
+                End Select
+                measurePoint.Text = "量度點 [" & fullPoint & "]"
+            Catch ex As KeyNotFoundException
+                Dim fullPoint As String = ""
+                Select Case LR
+                    Case 1
+                        fullPoint = "左"
+                    Case 2
+                        fullPoint = "右"
+                    Case Else
+                        fullPoint = "未知方向"
+                End Select
+                Select Case HF
+                    Case 1
+                        fullPoint += "手"
+                    Case 2
+                        fullPoint += "腳"
+                    Case Else
+                        fullPoint += "-未知部位"
+                End Select
+                Select Case Finger
+                    Case 1
+                        fullPoint += "拇指"
+                    Case 2
+                        fullPoint += "食指"
+                    Case 3
+                        fullPoint += "中指"
+                    Case 4
+                        fullPoint += "無名指"
+                    Case 5
+                        fullPoint += "小指"
+                    Case Else
+                        fullPoint += "-未知指頭"
+                End Select
+                Select Case TB
+                    Case 1
+                        fullPoint += "外側"
+                    Case 2
+                        fullPoint += "內側"
+                    Case Else
+                        fullPoint += "-未知邊"
+                End Select
+                Select Case P
+                    Case 1
+                        fullPoint += "頭"
+                    Case 2
+                        fullPoint += "頂"
+                    Case 3
+                        fullPoint += "上焦"
+                    Case 4
+                        fullPoint += "中焦"
+                    Case 5
+                        fullPoint += "總量度點"
+                    Case 6
+                        fullPoint += "下焦"
+                    Case Else
+                        fullPoint += "-未知量度點"
+                End Select
+                If rdoStone.Checked Then fullPoint = "[結石]" & fullPoint
+                sMsg = fullPoint
+                measurePoint.Text = "量度點 [" & fullPoint & "]"
+            End Try
+        Else
+            ' 元氣值得量測方式
+            Dim a, b, c, d As String
+            If rdoUpLeft.Checked Then a = "1" Else a = "0"
+            If rdoUpRight.Checked Then b = "1" Else b = "0"
+            If rdoDownLeft.Checked Then c = "1" Else c = "0"
+            If rdoDownRight.Checked Then d = "1" Else d = "0"
+
+            ' 將四個點用Bit方式然後轉換成Int
+            iCode = Convert.ToInt32(a & b & c & d, 2)
+            Try
+                sMsg = pt.Item(iCode)
+            Catch ex As KeyNotFoundException
+                sMsg = "未知位置"
+            End Try
+
+        End If
+    End Sub
+#End Region
+#Region "測試"
+    ' 校正
+    Private Sub btnRevise_Click(sender As Object, e As EventArgs)
+        btnRevise.ForeColor = Color.Orange
+        lblCali.ForeColor = Color.Orange
+        txtFullValue.Text = 0
+        txtOffsetValue.Text = 0
+        txtEvaValue.Text = 0
+        txtMaxValue.Text = 0
+        txtDevValue.Text = 0
+        init()
+    End Sub
+    ' 測試
+    Private Sub btnTrigger_Click(sender As Object, e As EventArgs) Handles btnTrigger.Click
+        If (iDoOut = 0) Then
+            iDoOut = 4
+            err = InstantDoCtrl1.Write(0, CByte(iDoOut))
+            btnTrigger.ForeColor = Color.Orange
+            MsgBox("啟動激發：輸出 00000100 至 DO port 成功!")
+        Else
+            iDoOut = 0
+            err = InstantDoCtrl1.Write(0, CByte(iDoOut))
+            btnTrigger.ForeColor = Color.Green
+            MsgBox("清除激發：輸出 00000000 至 DO port 成功!")
+        End If
+    End Sub
+    ' 關閉小鍵盤
+    Private Sub okLink_Click(sender As Object, e As EventArgs) Handles okLink.Click
+        buttonPanel.Visible = False
+    End Sub
+    ' 開啟小鍵盤
+    Private Sub openPanelLink_Click(sender As Object, e As EventArgs) Handles openPanelLink.Click
+        buttonPanel.Visible = True
+    End Sub
+
+#End Region
 #Region "初始"
     Public Sub New(ByVal owner As Form)
         MyBase.New(owner)
 
         ' This call is required by the designer.
         InitializeComponent()
+        owner.WindowState = FormWindowState.Maximized
+        owner.BringToFront()
+
 
         ' Add any initialization after the InitializeComponent() call.
-        If True Then
-
+        If Not InstantAiCtrl1.Initialized Then
+            RaiseEvent DEVICE_ERROR(Me, New EventArgs)
+        Else
+            ConfigObjs()
+            init()
         End If
 
     End Sub
-
     Private Sub ConfigObjs()
 
         If Not mainForm.offlineMode Then
@@ -763,6 +1165,44 @@ Public Class pnlEms
         ptBox.ValueMember = "iCode"
 
     End Sub
-#End Region
+    Private Sub init()
+        '
+        sMeasures = ""
+        bNewMeasure = True
+        bAutoProgress = False
+        '
+        iDoOut = 0
+        idx = 0
+        iCount = 100   ' for delay 1 sec
+        iStopCount = 0
+        dTotal = 0
+        dFull = 100
+        dOffset = 0
+        iValue1 = 0
+        dDevRate = 0
+        iMax = 0
+        iMaxOrg = 0 '最大值原點坐標
+        iDev = 0
+        iDev1 = 0
+        iState = 0
+        bFullState = False
+        bOffsetState = False
+        bDelayState = True
+        lblCali.Text = "校正"
+        '
+        bPaint = False
+        idx1 = 0
+        iPlotCount = 0
+        ptCounter = 0
+        sqlStr = ""
+        '
+        bHandFoot = True
+        bLR = True
+        sFinger = "rdoF1"
+        sSub = "rdoC2"
+        getMeasurePoint()
+        emsTimer.Enabled = True
+    End Sub
 
+#End Region
 End Class

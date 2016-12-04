@@ -37,6 +37,7 @@ Partial Class mainForm
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.emsLink = New MetroFramework.Controls.MetroLink()
+        Me.loginButton = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -98,30 +99,30 @@ Partial Class mainForm
         '
         Me.loginMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuOfflineMode, Me.aboutMenu, Me.ToolStripMenuItem1, Me.exitMenu})
         Me.loginMenu.Name = "MetroContextMenu1"
-        Me.loginMenu.Size = New System.Drawing.Size(153, 98)
+        Me.loginMenu.Size = New System.Drawing.Size(144, 76)
         '
         'menuOfflineMode
         '
         Me.menuOfflineMode.CheckOnClick = True
         Me.menuOfflineMode.Name = "menuOfflineMode"
-        Me.menuOfflineMode.Size = New System.Drawing.Size(152, 22)
+        Me.menuOfflineMode.Size = New System.Drawing.Size(143, 22)
         Me.menuOfflineMode.Text = "離線模式 (&O)"
         '
         'aboutMenu
         '
         Me.aboutMenu.Name = "aboutMenu"
-        Me.aboutMenu.Size = New System.Drawing.Size(152, 22)
+        Me.aboutMenu.Size = New System.Drawing.Size(143, 22)
         Me.aboutMenu.Text = "關於 (&A)"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(140, 6)
         '
         'exitMenu
         '
         Me.exitMenu.Name = "exitMenu"
-        Me.exitMenu.Size = New System.Drawing.Size(152, 22)
+        Me.exitMenu.Size = New System.Drawing.Size(143, 22)
         Me.exitMenu.Text = "離開 (&X)"
         '
         'emsLink
@@ -133,6 +134,15 @@ Partial Class mainForm
         Me.emsLink.Text = "頻譜系統"
         Me.emsLink.UseSelectable = True
         '
+        'loginButton
+        '
+        Me.loginButton.Location = New System.Drawing.Point(3, 175)
+        Me.loginButton.Name = "loginButton"
+        Me.loginButton.Size = New System.Drawing.Size(174, 72)
+        Me.loginButton.TabIndex = 2
+        Me.loginButton.Text = "登入"
+        Me.loginButton.UseSelectable = True
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -140,6 +150,7 @@ Partial Class mainForm
         Me.BackMaxSize = 4096
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
+        Me.Controls.Add(Me.loginButton)
         Me.Controls.Add(Me.emsLink)
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
@@ -169,4 +180,5 @@ Partial Class mainForm
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents exitMenu As ToolStripMenuItem
     Friend WithEvents emsLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
 End Class

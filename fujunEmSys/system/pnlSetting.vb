@@ -1,4 +1,6 @@
-﻿Public Class pnlSetting
+﻿Imports System.ComponentModel
+
+Public Class pnlSetting
     Public Event settingClosed As EventHandler
     Public Event loginSucceed As EventHandler
 
@@ -7,6 +9,8 @@
 
         ' This call is required by the designer.
         InitializeComponent()
+        owner.WindowState = FormWindowState.Maximized
+        owner.BringToFront()
 
         ' Add any initialization after the InitializeComponent() call.
         For i As Integer = 3 To 13
@@ -24,6 +28,17 @@
         dbPass.Text = My.Settings.serverPass
         dbName.Text = My.Settings.serverDB
 
+        autoSaveTextBox.Text = My.Settings.autoSaveTrigger
+        engUpperDanger.Value = My.Settings.engUpperDanger
+        engUpperWarning.Value = My.Settings.engUpperWarning
+        engLowerWarning.Value = My.Settings.engLowerWarning
+        engLowerDanger.Value = My.Settings.engLowerDanger
+        emsUpperDanger.Value = My.Settings.emsUpperDanger
+        emsUpperWarning.Value = My.Settings.emsUpperWarning
+        emsLowerWarning.Value = My.Settings.emsLowerWarning
+        emsLowerDanger.Value = My.Settings.emsLowerDanger
+
+
         If My.Settings.sysTheme = MetroFramework.MetroThemeStyle.Dark Then
             mrbDark.Checked = True
         Else
@@ -37,10 +52,6 @@
 
     Public Sub tile_click(ByVal sender As Object, ByVal e As EventArgs)
         CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Style = CType(CType(sender, MetroFramework.Controls.MetroTile).Tag, MetroFramework.MetroColorStyle)
-    End Sub
-
-    Public Sub showSettings()
-        settingMetroPanel.Visible = True
     End Sub
 
     Private Sub settingLink_Click(sender As Object, e As EventArgs) Handles settingLink.Click
@@ -76,7 +87,6 @@
         RaiseEvent settingClosed(Me, New EventArgs)
     End Sub
 
-
     Private Sub mrbLight_CheckedChanged(sender As Object, e As EventArgs) Handles mrbLight.CheckedChanged
         If mrbLight.Checked Then
             CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Light
@@ -99,6 +109,15 @@
         End If
     End Sub
 
+    Private Sub autoSaveTextBox_Validated(sender As Object, e As EventArgs) Handles autoSaveTextBox.Validated
+        Try
+            autoSaveTextBox.Text = CInt(autoSaveTextBox.Text)
+        Catch ex As Exception
+            MetroFramework.MetroMessageBox.Show(Me, "請檢查後再重新輸入。", "輸入錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            autoSaveTextBox.Text = My.Settings.autoSaveTrigger
+        End Try
+    End Sub
+
     '檢查輸入
     Private Sub checkInput(ByVal tracker As MetroFramework.Controls.MetroTrackBar, ByVal input As MetroFramework.Controls.MetroTextBox)
         Try
@@ -110,76 +129,111 @@
     End Sub
 
 #Region "元氣指數"
-    Private Sub engUpperDanger_Scroll(sender As Object, e As ScrollEventArgs) Handles engUpperDanger.Scroll, engUpperDanger.ValueChanged
+    Private Sub engUpperDanger_Scroll(sender As Object, e As ScrollEventArgs)
         engUpperDangerValue.Text = engUpperDanger.Value
-        If engUpperDanger.Value <= engUpperWarning.Value Then engUpperWarning.Value = engUpperDanger.Value
+        If engUpperDanger.Value <= engUpperWarning.Value Then
+            engUpperWarning.Value = engUpperDanger.Value
+            engUpperWarningValue.Text = engUpperDanger.Value
+        End If
+        If engUpperDanger.Value <= engLowerWarning.Value Then
+            engLowerWarning.Value = engUpperDanger.Value
+            engLowerWarningValue.Text = engUpperDanger.Value
+        End If
+        If engUpperDanger.Value <= engLowerDanger.Value Then
+            engLowerDanger.Value = engUpperDanger.Value
+            engLowerDangerValue.Text = engUpperDanger.Value
+        End If
     End Sub
-
-    Private Sub engUpperWarning_Scroll(sender As Object, e As ScrollEventArgs) Handles engUpperWarning.Scroll, engUpperWarning.ValueChanged
+    Private Sub engUpperWarning_Scroll(sender As Object, e As ScrollEventArgs)
         engUpperWarningValue.Text = engUpperWarning.Value
-        If engUpperWarning.Value <= engLowerWarning.Value Then engLowerWarning.Value = engUpperWarning.Value
-        If engUpperWarning.Value >= engUpperDanger.Value Then engUpperDanger.Value = engUpperWarning.Value
+        If engUpperWarning.Value <= engLowerWarning.Value Then
+            engLowerWarning.Value = engUpperWarning.Value
+            engLowerWarningValue.Text = engUpperWarning.Value
+        End If
+        If engUpperWarning.Value <= engLowerDanger.Value Then
+            engLowerDanger.Value = engUpperWarning.Value
+            engLowerDangerValue.Text = engUpperWarning.Value
+        End If
+        If engUpperWarning.Value >= engUpperDanger.Value Then
+            engUpperDanger.Value = engUpperWarning.Value
+            engUpperDangerValue.Text = engUpperWarning.Value
+        End If
     End Sub
-
-    Private Sub engLowerWarning_Scroll(sender As Object, e As ScrollEventArgs) Handles engLowerWarning.Scroll, engLowerWarning.ValueChanged
+    Private Sub engLowerWarning_Scroll(sender As Object, e As ScrollEventArgs)
         engLowerWarningValue.Text = engLowerWarning.Value
-        If engLowerWarning.Value <= engLowerDanger.Value Then engLowerDanger.Value = engLowerWarning.Value
-        If engLowerWarning.Value >= engUpperWarning.Value Then engUpperWarning.Value = engLowerWarning.Value
+        If engLowerWarning.Value <= engLowerDanger.Value Then
+            engLowerDanger.Value = engLowerWarning.Value
+            engLowerDangerValue.Text = engLowerWarning.Value
+        End If
+        If engLowerWarning.Value >= engUpperDanger.Value Then
+            engUpperDanger.Value = engLowerWarning.Value
+            engUpperDangerValue.Text = engLowerWarning.Value
+        End If
+        If engLowerWarning.Value >= engUpperWarning.Value Then
+            engUpperWarning.Value = engLowerWarning.Value
+            engUpperWarningValue.Text = engLowerWarning.Value
+        End If
     End Sub
-
-    Private Sub engLowerDanger_Scroll(sender As Object, e As ScrollEventArgs) Handles engLowerDanger.Scroll, engLowerDanger.ValueChanged
-        If engLowerDanger.Value >= engLowerWarning.Value Then engLowerWarning.Value = engLowerDanger.Value
+    Private Sub engLowerDanger_Scroll(sender As Object, e As ScrollEventArgs)
+        engLowerDangerValue.Text = engLowerDanger.Value
+        If engLowerDanger.Value >= engUpperDanger.Value Then
+            engUpperDanger.Value = engLowerDanger.Value
+            engUpperDangerValue.Text = engLowerDanger.Value
+        End If
+        If engLowerDanger.Value >= engUpperWarning.Value Then
+            engUpperWarning.Value = engLowerDanger.Value
+            engUpperWarningValue.Text = engLowerDanger.Value
+        End If
+        If engLowerDanger.Value >= engLowerWarning.Value Then
+            engLowerWarning.Value = engLowerDanger.Value
+            engLowerWarningValue.Text = engLowerDanger.Value
+        End If
     End Sub
-
-    Private Sub engUpperDangerValue_Validate(sender As Object, e As EventArgs) Handles engUpperDangerValue.Validated
+    Private Sub engUpperDangerValue_Validate(sender As Object, e As EventArgs)
         checkInput(engUpperDanger, engUpperDangerValue)
     End Sub
-    Private Sub engUpperWarningValue_Validate(sender As Object, e As EventArgs) Handles engUpperWarningValue.Validated
+    Private Sub engUpperWarningValue_Validate(sender As Object, e As EventArgs)
         checkInput(engUpperWarning, engUpperWarningValue)
     End Sub
-    Private Sub engLowerWarningValue_Validate(sender As Object, e As EventArgs) Handles engLowerWarningValue.Validated
+    Private Sub engLowerWarningValue_Validate(sender As Object, e As EventArgs)
         checkInput(engLowerWarning, engLowerWarningValue)
     End Sub
-    Private Sub engLowerDangerValue_Validate(sender As Object, e As EventArgs) Handles engLowerDangerValue.Validated
+    Private Sub engLowerDangerValue_Validate(sender As Object, e As EventArgs)
         checkInput(engLowerDanger, engLowerDangerValue)
     End Sub
 #End Region
 
 #Region "一般指數"
-    Private Sub emsUpperDanger_Scroll(sender As Object, e As ScrollEventArgs) Handles emsUpperDanger.Scroll, emsUpperDanger.ValueChanged
+    Private Sub emsUpperDanger_Scroll(sender As Object, e As ScrollEventArgs)
         emsUpperDangerValue.Text = emsUpperDanger.Value
         If emsUpperDanger.Value <= emsUpperWarning.Value Then emsUpperWarning.Value = emsUpperDanger.Value
     End Sub
-
-    Private Sub emsUpperWarning_Scroll(sender As Object, e As ScrollEventArgs) Handles emsUpperWarning.Scroll, emsUpperWarning.ValueChanged
+    Private Sub emsUpperWarning_Scroll(sender As Object, e As ScrollEventArgs)
         emsUpperWarningValue.Text = emsUpperWarning.Value
         If emsUpperWarning.Value <= emsLowerWarning.Value Then emsLowerWarning.Value = emsUpperWarning.Value
         If emsUpperWarning.Value >= emsUpperDanger.Value Then emsUpperDanger.Value = emsUpperWarning.Value
     End Sub
-
-    Private Sub emsLowerWarning_Scroll(sender As Object, e As ScrollEventArgs) Handles emsLowerWarning.Scroll, emsLowerWarning.ValueChanged
+    Private Sub emsLowerWarning_Scroll(sender As Object, e As ScrollEventArgs)
         emsLowerWarningValue.Text = emsLowerWarning.Value
         If emsLowerWarning.Value <= emsLowerDanger.Value Then emsLowerDanger.Value = emsLowerWarning.Value
         If emsLowerWarning.Value >= emsUpperWarning.Value Then emsUpperWarning.Value = emsLowerWarning.Value
     End Sub
-
-    Private Sub emsLowerDanger_Scroll(sender As Object, e As ScrollEventArgs) Handles emsLowerDanger.Scroll, emsLowerDanger.ValueChanged
+    Private Sub emsLowerDanger_Scroll(sender As Object, e As ScrollEventArgs)
+        emsLowerDangerValue.Text = emsLowerDanger.Value
         If emsLowerDanger.Value >= emsLowerWarning.Value Then emsLowerWarning.Value = emsLowerDanger.Value
     End Sub
-
-    Private Sub emsUpperDangerValue_Validate(sender As Object, e As EventArgs) Handles emsUpperDangerValue.Validated
+    Private Sub emsUpperDangerValue_Validate(sender As Object, e As EventArgs)
         checkInput(emsUpperDanger, emsUpperDangerValue)
     End Sub
-    Private Sub emsUpperWarningValue_Validate(sender As Object, e As EventArgs) Handles emsUpperWarningValue.Validated
+    Private Sub emsUpperWarningValue_Validate(sender As Object, e As EventArgs)
         checkInput(emsUpperWarning, emsUpperWarningValue)
     End Sub
-    Private Sub emsLowerWarningValue_Validate(sender As Object, e As EventArgs) Handles emsLowerWarningValue.Validated
+    Private Sub emsLowerWarningValue_Validate(sender As Object, e As EventArgs)
         checkInput(emsLowerWarning, emsLowerWarningValue)
     End Sub
-    Private Sub emsLowerDangerValue_Validate(sender As Object, e As EventArgs) Handles emsLowerDangerValue.Validated
+    Private Sub emsLowerDangerValue_Validate(sender As Object, e As EventArgs)
         checkInput(emsLowerDanger, emsLowerDangerValue)
     End Sub
 #End Region
-
 
 End Class

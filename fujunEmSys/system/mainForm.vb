@@ -14,6 +14,7 @@
 
         ' This call is required by the designer.
         InitializeComponent()
+
         Me.StyleManager = sysStyleManager
         AddHandler Me.Shown, AddressOf mainForm_Shown
         Application.DoEvents()
@@ -22,7 +23,6 @@
         login = New pnlLogin(Me)
         AddHandler login.loginSucceed, AddressOf login_success
         login.swipe()
-
     End Sub
 
 #Region "Event Triggers"
@@ -55,7 +55,7 @@
         setting.menuSwipe(True, True)
     End Sub
 
-    Private Sub exitLink_Click(sender As Object, e As MouseEventArgs) Handles exitLink.MouseUp
+    Private Sub exitLink_MouseUp(sender As Object, e As MouseEventArgs) Handles exitLink.MouseUp
         If e.Button = MouseButtons.Left Then
             Me.Close()
         Else
@@ -65,7 +65,16 @@
 
     Private Sub emsLink_Click(sender As Object, e As EventArgs) Handles emsLink.Click
         ems = New pnlEms(Me)
+        AddHandler ems.DEVICE_ERROR, AddressOf ems_device_error
+        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf emsClose_MouseUp
         ems.swipe()
+    End Sub
+
+    Private Sub emsClose_MouseUp(sender As Object, e As EventArgs)
+        ems.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf emsClose_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
 
     Private Sub menuOfflineMode_Click(sender As Object, e As EventArgs) Handles menuOfflineMode.Click
@@ -79,6 +88,12 @@
             AddHandler login.loginSucceed, AddressOf login_success
             login.swipe()
         End If
+    End Sub
+
+    Private Sub loginButton_Click(sender As Object, e As EventArgs) Handles loginButton.Click
+        login = New pnlLogin(Me)
+        AddHandler login.loginSucceed, AddressOf login_success
+        login.swipe()
     End Sub
 #End Region
 End Class

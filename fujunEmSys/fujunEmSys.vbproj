@@ -140,6 +140,12 @@
     <Compile Include="system\pnlSlider.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="tools\frmEmsButtons.Designer.vb">
+      <DependentUpon>frmEmsButtons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tools\frmEmsButtons.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="tools\pnlEms.Designer.vb">
       <DependentUpon>pnlEms.vb</DependentUpon>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSlider.resx">
       <DependentUpon>pnlSlider.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tools\frmEmsButtons.resx">
+      <DependentUpon>frmEmsButtons.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tools\pnlEms.resx">
       <DependentUpon>pnlEms.vb</DependentUpon>
@@ -209,6 +218,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon\fujunLogo.png" />
+    <None Include="Icon\okUp.png" />
+    <None Include="Icon\okHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -184,4 +184,8 @@
         RaiseEvent OK(Me, New EventArgs)
         Me.Close()
     End Sub
+
+    Private Sub cancelLink_Click(sender As Object, e As EventArgs) Handles cancelLink.Click
+
+    End Sub
 End Class

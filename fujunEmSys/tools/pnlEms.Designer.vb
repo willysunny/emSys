@@ -44,19 +44,64 @@ Partial Class pnlEms
         Me.diagTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabGraph = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.diagPanel = New System.Windows.Forms.Panel()
+        Me.measurePoint = New MetroFramework.Controls.MetroLabel()
+        Me.openPanelLink = New MetroFramework.Controls.MetroLink()
+        Me.buttonPanel = New MetroFramework.Controls.MetroPanel()
+        Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
+        Me.okLink = New MetroFramework.Controls.MetroLink()
+        Me.buttonTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.rdoEnergy = New System.Windows.Forms.CheckBox()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.rdoUpLeft = New System.Windows.Forms.CheckBox()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.rdoUpRight = New System.Windows.Forms.CheckBox()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.rdoDownLeft = New System.Windows.Forms.CheckBox()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.rdoDownRight = New System.Windows.Forms.CheckBox()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.rdoS2 = New System.Windows.Forms.CheckBox()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.rdoS1 = New System.Windows.Forms.CheckBox()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.rdoFoot = New System.Windows.Forms.CheckBox()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.rdoHand = New System.Windows.Forms.CheckBox()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.rdoRight = New System.Windows.Forms.CheckBox()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.rdoLeft = New System.Windows.Forms.CheckBox()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.rdoF1 = New System.Windows.Forms.CheckBox()
+        Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.rdoF2 = New System.Windows.Forms.CheckBox()
+        Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.rdoF3 = New System.Windows.Forms.CheckBox()
+        Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.rdoF4 = New System.Windows.Forms.CheckBox()
+        Me.Panel19 = New System.Windows.Forms.Panel()
+        Me.rdoF5 = New System.Windows.Forms.CheckBox()
+        Me.Panel20 = New System.Windows.Forms.Panel()
+        Me.rdoStone = New System.Windows.Forms.CheckBox()
+        Me.Panel21 = New System.Windows.Forms.Panel()
+        Me.rdoC6 = New System.Windows.Forms.CheckBox()
+        Me.Panel22 = New System.Windows.Forms.Panel()
+        Me.rdoC5 = New System.Windows.Forms.CheckBox()
+        Me.Panel23 = New System.Windows.Forms.Panel()
+        Me.rdoC4 = New System.Windows.Forms.CheckBox()
+        Me.Panel24 = New System.Windows.Forms.Panel()
+        Me.rdoC3 = New System.Windows.Forms.CheckBox()
+        Me.Panel25 = New System.Windows.Forms.Panel()
+        Me.rdoC2 = New System.Windows.Forms.CheckBox()
+        Me.Panel26 = New System.Windows.Forms.Panel()
+        Me.rdoC1 = New System.Windows.Forms.CheckBox()
+        Me.Panel27 = New System.Windows.Forms.Panel()
+        Me.rdoGraph = New System.Windows.Forms.CheckBox()
         Me.pb = New System.Windows.Forms.PictureBox()
-        Me.tabMed = New System.Windows.Forms.TabPage()
-        Me.tabSetting = New MetroFramework.Controls.MetroTabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.btnRevise = New MetroFramework.Controls.MetroButton()
-        Me.lblCali = New System.Windows.Forms.Label()
-        Me.txtOffsetValue = New MetroFramework.Controls.MetroTextBox()
-        Me.txtFullValue = New MetroFramework.Controls.MetroTextBox()
-        Me.InstantAiCtrl1 = New Automation.BDaq.InstantAiCtrl(Me.components)
         Me.graphTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabEms = New System.Windows.Forms.TabPage()
-        Me.tabEnergy = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -67,23 +112,65 @@ Partial Class pnlEms
         Me.txtEvaValue = New System.Windows.Forms.TextBox()
         Me.txtMaxValue = New System.Windows.Forms.TextBox()
         Me.txtDevValue = New System.Windows.Forms.TextBox()
+        Me.tabEnergy = New System.Windows.Forms.TabPage()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tabCheck = New System.Windows.Forms.TabPage()
+        Me.caliTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.txtFixDevPoint = New MetroFramework.Controls.MetroTextBox()
+        Me.txtFullValue = New MetroFramework.Controls.MetroTextBox()
+        Me.txtPrevsDev = New MetroFramework.Controls.MetroTextBox()
+        Me.txtOffsetValue = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
+        Me.btnRevise = New System.Windows.Forms.Button()
+        Me.btnTrigger = New System.Windows.Forms.Button()
+        Me.lblCali = New MetroFramework.Controls.MetroLabel()
+        Me.tabMed = New System.Windows.Forms.TabPage()
+        Me.InstantAiCtrl1 = New Automation.BDaq.InstantAiCtrl(Me.components)
         Me.pInfoPanel.SuspendLayout()
         Me.pInfoTable.SuspendLayout()
         Me.diagTab.SuspendLayout()
         Me.tabGraph.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
+        Me.diagPanel.SuspendLayout()
+        Me.buttonPanel.SuspendLayout()
+        Me.buttonTable.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        Me.Panel7.SuspendLayout()
+        Me.Panel8.SuspendLayout()
+        Me.Panel9.SuspendLayout()
+        Me.Panel10.SuspendLayout()
+        Me.Panel11.SuspendLayout()
+        Me.Panel12.SuspendLayout()
+        Me.Panel13.SuspendLayout()
+        Me.Panel14.SuspendLayout()
+        Me.Panel15.SuspendLayout()
+        Me.Panel16.SuspendLayout()
+        Me.Panel17.SuspendLayout()
+        Me.Panel18.SuspendLayout()
+        Me.Panel19.SuspendLayout()
+        Me.Panel20.SuspendLayout()
+        Me.Panel21.SuspendLayout()
+        Me.Panel22.SuspendLayout()
+        Me.Panel23.SuspendLayout()
+        Me.Panel24.SuspendLayout()
+        Me.Panel25.SuspendLayout()
+        Me.Panel26.SuspendLayout()
+        Me.Panel27.SuspendLayout()
         CType(Me.pb, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabSetting.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.graphTab.SuspendLayout()
         Me.tabEms.SuspendLayout()
-        Me.tabEnergy.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.tabEnergy.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        Me.tabCheck.SuspendLayout()
+        Me.caliTable.SuspendLayout()
         Me.SuspendLayout()
         '
         'owner
@@ -452,7 +539,6 @@ Partial Class pnlEms
         '
         Me.diagTab.Controls.Add(Me.tabGraph)
         Me.diagTab.Controls.Add(Me.tabMed)
-        Me.diagTab.Controls.Add(Me.tabSetting)
         Me.diagTab.Dock = System.Windows.Forms.DockStyle.Fill
         Me.diagTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.diagTab.Location = New System.Drawing.Point(0, 0)
@@ -477,7 +563,7 @@ Partial Class pnlEms
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.Panel2, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.diagPanel, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.graphTab, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
@@ -487,152 +573,771 @@ Partial Class pnlEms
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(923, 665)
         Me.TableLayoutPanel1.TabIndex = 0
         '
-        'Panel2
+        'diagPanel
         '
-        Me.Panel2.Controls.Add(Me.pb)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(300, 0)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel2.Size = New System.Drawing.Size(623, 665)
-        Me.Panel2.TabIndex = 1
+        Me.diagPanel.Controls.Add(Me.buttonPanel)
+        Me.diagPanel.Controls.Add(Me.measurePoint)
+        Me.diagPanel.Controls.Add(Me.openPanelLink)
+        Me.diagPanel.Controls.Add(Me.pb)
+        Me.diagPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.diagPanel.Location = New System.Drawing.Point(300, 0)
+        Me.diagPanel.Margin = New System.Windows.Forms.Padding(0)
+        Me.diagPanel.Name = "diagPanel"
+        Me.diagPanel.Padding = New System.Windows.Forms.Padding(20, 60, 20, 60)
+        Me.diagPanel.Size = New System.Drawing.Size(623, 665)
+        Me.diagPanel.TabIndex = 1
+        '
+        'measurePoint
+        '
+        Me.measurePoint.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.measurePoint.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.measurePoint.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.measurePoint.Location = New System.Drawing.Point(20, 19)
+        Me.measurePoint.Name = "measurePoint"
+        Me.measurePoint.Size = New System.Drawing.Size(583, 29)
+        Me.measurePoint.TabIndex = 3
+        Me.measurePoint.Text = "量測點"
+        Me.measurePoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'openPanelLink
+        '
+        Me.openPanelLink.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.openPanelLink.Location = New System.Drawing.Point(255, 623)
+        Me.openPanelLink.Name = "openPanelLink"
+        Me.openPanelLink.Size = New System.Drawing.Size(112, 23)
+        Me.openPanelLink.TabIndex = 2
+        Me.openPanelLink.Text = "開啟手動測量點"
+        Me.openPanelLink.UseSelectable = True
+        '
+        'buttonPanel
+        '
+        Me.buttonPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonPanel.Controls.Add(Me.MetroLabel5)
+        Me.buttonPanel.Controls.Add(Me.okLink)
+        Me.buttonPanel.Controls.Add(Me.buttonTable)
+        Me.buttonPanel.HorizontalScrollbarBarColor = True
+        Me.buttonPanel.HorizontalScrollbarHighlightOnWheel = False
+        Me.buttonPanel.HorizontalScrollbarSize = 10
+        Me.buttonPanel.Location = New System.Drawing.Point(0, 306)
+        Me.buttonPanel.Name = "buttonPanel"
+        Me.buttonPanel.Padding = New System.Windows.Forms.Padding(20, 60, 20, 20)
+        Me.buttonPanel.Size = New System.Drawing.Size(623, 359)
+        Me.buttonPanel.TabIndex = 1
+        Me.buttonPanel.VerticalScrollbarBarColor = True
+        Me.buttonPanel.VerticalScrollbarHighlightOnWheel = False
+        Me.buttonPanel.VerticalScrollbarSize = 10
+        Me.buttonPanel.Visible = False
+        '
+        'MetroLabel5
+        '
+        Me.MetroLabel5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.MetroLabel5.AutoSize = True
+        Me.MetroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel5.Location = New System.Drawing.Point(23, 24)
+        Me.MetroLabel5.Name = "MetroLabel5"
+        Me.MetroLabel5.Size = New System.Drawing.Size(112, 25)
+        Me.MetroLabel5.TabIndex = 5
+        Me.MetroLabel5.Text = "手動量測點"
+        '
+        'okLink
+        '
+        Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.okLink.Image = Global.emSys2016.My.Resources.Resources.okHover
+        Me.okLink.ImageSize = 35
+        Me.okLink.Location = New System.Drawing.Point(557, 9)
+        Me.okLink.Name = "okLink"
+        Me.okLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.okUp
+        Me.okLink.Size = New System.Drawing.Size(40, 40)
+        Me.okLink.TabIndex = 4
+        Me.okLink.UseSelectable = True
+        '
+        'buttonTable
+        '
+        Me.buttonTable.ColumnCount = 6
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.buttonTable.Controls.Add(Me.Panel5, 4, 0)
+        Me.buttonTable.Controls.Add(Me.Panel4, 0, 0)
+        Me.buttonTable.Controls.Add(Me.Panel6, 1, 0)
+        Me.buttonTable.Controls.Add(Me.Panel7, 2, 0)
+        Me.buttonTable.Controls.Add(Me.Panel8, 3, 0)
+        Me.buttonTable.Controls.Add(Me.Panel9, 5, 1)
+        Me.buttonTable.Controls.Add(Me.Panel10, 4, 1)
+        Me.buttonTable.Controls.Add(Me.Panel11, 3, 1)
+        Me.buttonTable.Controls.Add(Me.Panel12, 2, 1)
+        Me.buttonTable.Controls.Add(Me.Panel13, 1, 1)
+        Me.buttonTable.Controls.Add(Me.Panel14, 0, 1)
+        Me.buttonTable.Controls.Add(Me.Panel15, 0, 2)
+        Me.buttonTable.Controls.Add(Me.Panel16, 1, 2)
+        Me.buttonTable.Controls.Add(Me.Panel17, 2, 2)
+        Me.buttonTable.Controls.Add(Me.Panel18, 3, 2)
+        Me.buttonTable.Controls.Add(Me.Panel19, 4, 2)
+        Me.buttonTable.Controls.Add(Me.Panel20, 5, 2)
+        Me.buttonTable.Controls.Add(Me.Panel21, 5, 3)
+        Me.buttonTable.Controls.Add(Me.Panel22, 4, 3)
+        Me.buttonTable.Controls.Add(Me.Panel23, 3, 3)
+        Me.buttonTable.Controls.Add(Me.Panel24, 2, 3)
+        Me.buttonTable.Controls.Add(Me.Panel25, 1, 3)
+        Me.buttonTable.Controls.Add(Me.Panel26, 0, 3)
+        Me.buttonTable.Controls.Add(Me.Panel27, 5, 0)
+        Me.buttonTable.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.buttonTable.Location = New System.Drawing.Point(20, 60)
+        Me.buttonTable.Margin = New System.Windows.Forms.Padding(0)
+        Me.buttonTable.Name = "buttonTable"
+        Me.buttonTable.RowCount = 4
+        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.Size = New System.Drawing.Size(583, 279)
+        Me.buttonTable.TabIndex = 2
+        '
+        'Panel5
+        '
+        Me.Panel5.BackColor = System.Drawing.Color.SeaGreen
+        Me.Panel5.Controls.Add(Me.rdoEnergy)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel5.Location = New System.Drawing.Point(388, 0)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(97, 69)
+        Me.Panel5.TabIndex = 4
+        '
+        'rdoEnergy
+        '
+        Me.rdoEnergy.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoEnergy.AutoSize = True
+        Me.rdoEnergy.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoEnergy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoEnergy.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoEnergy.Location = New System.Drawing.Point(0, 0)
+        Me.rdoEnergy.Name = "rdoEnergy"
+        Me.rdoEnergy.Size = New System.Drawing.Size(97, 69)
+        Me.rdoEnergy.TabIndex = 3
+        Me.rdoEnergy.Text = "元氣"
+        Me.rdoEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoEnergy.UseVisualStyleBackColor = True
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.Panel4.Controls.Add(Me.rdoUpLeft)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(97, 69)
+        Me.Panel4.TabIndex = 3
+        '
+        'rdoUpLeft
+        '
+        Me.rdoUpLeft.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoUpLeft.AutoSize = True
+        Me.rdoUpLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoUpLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoUpLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoUpLeft.Location = New System.Drawing.Point(0, 0)
+        Me.rdoUpLeft.Name = "rdoUpLeft"
+        Me.rdoUpLeft.Size = New System.Drawing.Size(97, 69)
+        Me.rdoUpLeft.TabIndex = 2
+        Me.rdoUpLeft.Text = "左上"
+        Me.rdoUpLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoUpLeft.UseVisualStyleBackColor = True
+        '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.Panel6.Controls.Add(Me.rdoUpRight)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel6.Location = New System.Drawing.Point(97, 0)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(97, 69)
+        Me.Panel6.TabIndex = 3
+        '
+        'rdoUpRight
+        '
+        Me.rdoUpRight.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoUpRight.AutoSize = True
+        Me.rdoUpRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoUpRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoUpRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoUpRight.Location = New System.Drawing.Point(0, 0)
+        Me.rdoUpRight.Name = "rdoUpRight"
+        Me.rdoUpRight.Size = New System.Drawing.Size(97, 69)
+        Me.rdoUpRight.TabIndex = 2
+        Me.rdoUpRight.Text = "右上"
+        Me.rdoUpRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoUpRight.UseVisualStyleBackColor = True
+        '
+        'Panel7
+        '
+        Me.Panel7.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.Panel7.Controls.Add(Me.rdoDownLeft)
+        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel7.Location = New System.Drawing.Point(194, 0)
+        Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(97, 69)
+        Me.Panel7.TabIndex = 3
+        '
+        'rdoDownLeft
+        '
+        Me.rdoDownLeft.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoDownLeft.AutoSize = True
+        Me.rdoDownLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoDownLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoDownLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoDownLeft.Location = New System.Drawing.Point(0, 0)
+        Me.rdoDownLeft.Name = "rdoDownLeft"
+        Me.rdoDownLeft.Size = New System.Drawing.Size(97, 69)
+        Me.rdoDownLeft.TabIndex = 2
+        Me.rdoDownLeft.Text = "左下"
+        Me.rdoDownLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoDownLeft.UseVisualStyleBackColor = True
+        '
+        'Panel8
+        '
+        Me.Panel8.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.Panel8.Controls.Add(Me.rdoDownRight)
+        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel8.Location = New System.Drawing.Point(291, 0)
+        Me.Panel8.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(97, 69)
+        Me.Panel8.TabIndex = 3
+        '
+        'rdoDownRight
+        '
+        Me.rdoDownRight.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoDownRight.AutoSize = True
+        Me.rdoDownRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoDownRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoDownRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoDownRight.Location = New System.Drawing.Point(0, 0)
+        Me.rdoDownRight.Name = "rdoDownRight"
+        Me.rdoDownRight.Size = New System.Drawing.Size(97, 69)
+        Me.rdoDownRight.TabIndex = 2
+        Me.rdoDownRight.Text = "右下"
+        Me.rdoDownRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoDownRight.UseVisualStyleBackColor = True
+        '
+        'Panel9
+        '
+        Me.Panel9.BackColor = System.Drawing.Color.Peru
+        Me.Panel9.Controls.Add(Me.rdoS2)
+        Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel9.Location = New System.Drawing.Point(485, 69)
+        Me.Panel9.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel9.Name = "Panel9"
+        Me.Panel9.Size = New System.Drawing.Size(98, 69)
+        Me.Panel9.TabIndex = 3
+        '
+        'rdoS2
+        '
+        Me.rdoS2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoS2.AutoSize = True
+        Me.rdoS2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoS2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoS2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoS2.Location = New System.Drawing.Point(0, 0)
+        Me.rdoS2.Name = "rdoS2"
+        Me.rdoS2.Size = New System.Drawing.Size(98, 69)
+        Me.rdoS2.TabIndex = 2
+        Me.rdoS2.Text = "外"
+        Me.rdoS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoS2.UseVisualStyleBackColor = True
+        '
+        'Panel10
+        '
+        Me.Panel10.BackColor = System.Drawing.Color.Peru
+        Me.Panel10.Controls.Add(Me.rdoS1)
+        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel10.Location = New System.Drawing.Point(388, 69)
+        Me.Panel10.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(97, 69)
+        Me.Panel10.TabIndex = 3
+        '
+        'rdoS1
+        '
+        Me.rdoS1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoS1.AutoSize = True
+        Me.rdoS1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoS1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoS1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoS1.Location = New System.Drawing.Point(0, 0)
+        Me.rdoS1.Name = "rdoS1"
+        Me.rdoS1.Size = New System.Drawing.Size(97, 69)
+        Me.rdoS1.TabIndex = 2
+        Me.rdoS1.Text = "內"
+        Me.rdoS1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoS1.UseVisualStyleBackColor = True
+        '
+        'Panel11
+        '
+        Me.Panel11.BackColor = System.Drawing.Color.NavajoWhite
+        Me.Panel11.Controls.Add(Me.rdoFoot)
+        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel11.Location = New System.Drawing.Point(291, 69)
+        Me.Panel11.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel11.Name = "Panel11"
+        Me.Panel11.Size = New System.Drawing.Size(97, 69)
+        Me.Panel11.TabIndex = 3
+        '
+        'rdoFoot
+        '
+        Me.rdoFoot.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoFoot.AutoSize = True
+        Me.rdoFoot.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoFoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoFoot.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoFoot.Location = New System.Drawing.Point(0, 0)
+        Me.rdoFoot.Name = "rdoFoot"
+        Me.rdoFoot.Size = New System.Drawing.Size(97, 69)
+        Me.rdoFoot.TabIndex = 2
+        Me.rdoFoot.Text = "腳"
+        Me.rdoFoot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoFoot.UseVisualStyleBackColor = True
+        '
+        'Panel12
+        '
+        Me.Panel12.BackColor = System.Drawing.Color.NavajoWhite
+        Me.Panel12.Controls.Add(Me.rdoHand)
+        Me.Panel12.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel12.Location = New System.Drawing.Point(194, 69)
+        Me.Panel12.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel12.Name = "Panel12"
+        Me.Panel12.Size = New System.Drawing.Size(97, 69)
+        Me.Panel12.TabIndex = 3
+        '
+        'rdoHand
+        '
+        Me.rdoHand.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoHand.AutoSize = True
+        Me.rdoHand.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoHand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoHand.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoHand.Location = New System.Drawing.Point(0, 0)
+        Me.rdoHand.Name = "rdoHand"
+        Me.rdoHand.Size = New System.Drawing.Size(97, 69)
+        Me.rdoHand.TabIndex = 2
+        Me.rdoHand.Text = "手"
+        Me.rdoHand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoHand.UseVisualStyleBackColor = True
+        '
+        'Panel13
+        '
+        Me.Panel13.BackColor = System.Drawing.Color.PapayaWhip
+        Me.Panel13.Controls.Add(Me.rdoRight)
+        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel13.Location = New System.Drawing.Point(97, 69)
+        Me.Panel13.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(97, 69)
+        Me.Panel13.TabIndex = 3
+        '
+        'rdoRight
+        '
+        Me.rdoRight.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoRight.AutoSize = True
+        Me.rdoRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoRight.Location = New System.Drawing.Point(0, 0)
+        Me.rdoRight.Name = "rdoRight"
+        Me.rdoRight.Size = New System.Drawing.Size(97, 69)
+        Me.rdoRight.TabIndex = 2
+        Me.rdoRight.Text = "右"
+        Me.rdoRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoRight.UseVisualStyleBackColor = True
+        '
+        'Panel14
+        '
+        Me.Panel14.BackColor = System.Drawing.Color.PapayaWhip
+        Me.Panel14.Controls.Add(Me.rdoLeft)
+        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel14.Location = New System.Drawing.Point(0, 69)
+        Me.Panel14.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel14.Name = "Panel14"
+        Me.Panel14.Size = New System.Drawing.Size(97, 69)
+        Me.Panel14.TabIndex = 3
+        '
+        'rdoLeft
+        '
+        Me.rdoLeft.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoLeft.AutoSize = True
+        Me.rdoLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoLeft.Location = New System.Drawing.Point(0, 0)
+        Me.rdoLeft.Name = "rdoLeft"
+        Me.rdoLeft.Size = New System.Drawing.Size(97, 69)
+        Me.rdoLeft.TabIndex = 2
+        Me.rdoLeft.Text = "左"
+        Me.rdoLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoLeft.UseVisualStyleBackColor = True
+        '
+        'Panel15
+        '
+        Me.Panel15.BackColor = System.Drawing.Color.Wheat
+        Me.Panel15.Controls.Add(Me.rdoF1)
+        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel15.Location = New System.Drawing.Point(0, 138)
+        Me.Panel15.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(97, 69)
+        Me.Panel15.TabIndex = 3
+        '
+        'rdoF1
+        '
+        Me.rdoF1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoF1.AutoSize = True
+        Me.rdoF1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoF1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoF1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoF1.Location = New System.Drawing.Point(0, 0)
+        Me.rdoF1.Name = "rdoF1"
+        Me.rdoF1.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF1.TabIndex = 2
+        Me.rdoF1.Text = "拇指"
+        Me.rdoF1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoF1.UseVisualStyleBackColor = True
+        '
+        'Panel16
+        '
+        Me.Panel16.BackColor = System.Drawing.Color.Wheat
+        Me.Panel16.Controls.Add(Me.rdoF2)
+        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel16.Location = New System.Drawing.Point(97, 138)
+        Me.Panel16.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Size = New System.Drawing.Size(97, 69)
+        Me.Panel16.TabIndex = 3
+        '
+        'rdoF2
+        '
+        Me.rdoF2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoF2.AutoSize = True
+        Me.rdoF2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoF2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoF2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoF2.Location = New System.Drawing.Point(0, 0)
+        Me.rdoF2.Name = "rdoF2"
+        Me.rdoF2.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF2.TabIndex = 2
+        Me.rdoF2.Text = "食指"
+        Me.rdoF2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoF2.UseVisualStyleBackColor = True
+        '
+        'Panel17
+        '
+        Me.Panel17.BackColor = System.Drawing.Color.Wheat
+        Me.Panel17.Controls.Add(Me.rdoF3)
+        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel17.Location = New System.Drawing.Point(194, 138)
+        Me.Panel17.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel17.Name = "Panel17"
+        Me.Panel17.Size = New System.Drawing.Size(97, 69)
+        Me.Panel17.TabIndex = 3
+        '
+        'rdoF3
+        '
+        Me.rdoF3.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoF3.AutoSize = True
+        Me.rdoF3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoF3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoF3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoF3.Location = New System.Drawing.Point(0, 0)
+        Me.rdoF3.Name = "rdoF3"
+        Me.rdoF3.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF3.TabIndex = 2
+        Me.rdoF3.Text = "中指"
+        Me.rdoF3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoF3.UseVisualStyleBackColor = True
+        '
+        'Panel18
+        '
+        Me.Panel18.BackColor = System.Drawing.Color.Wheat
+        Me.Panel18.Controls.Add(Me.rdoF4)
+        Me.Panel18.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel18.Location = New System.Drawing.Point(291, 138)
+        Me.Panel18.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel18.Name = "Panel18"
+        Me.Panel18.Size = New System.Drawing.Size(97, 69)
+        Me.Panel18.TabIndex = 3
+        '
+        'rdoF4
+        '
+        Me.rdoF4.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoF4.AutoSize = True
+        Me.rdoF4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoF4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoF4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoF4.Location = New System.Drawing.Point(0, 0)
+        Me.rdoF4.Name = "rdoF4"
+        Me.rdoF4.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF4.TabIndex = 2
+        Me.rdoF4.Text = "無名"
+        Me.rdoF4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoF4.UseVisualStyleBackColor = True
+        '
+        'Panel19
+        '
+        Me.Panel19.BackColor = System.Drawing.Color.Wheat
+        Me.Panel19.Controls.Add(Me.rdoF5)
+        Me.Panel19.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel19.Location = New System.Drawing.Point(388, 138)
+        Me.Panel19.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel19.Name = "Panel19"
+        Me.Panel19.Size = New System.Drawing.Size(97, 69)
+        Me.Panel19.TabIndex = 3
+        '
+        'rdoF5
+        '
+        Me.rdoF5.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoF5.AutoSize = True
+        Me.rdoF5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoF5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoF5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.rdoF5.Location = New System.Drawing.Point(0, 0)
+        Me.rdoF5.Name = "rdoF5"
+        Me.rdoF5.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF5.TabIndex = 2
+        Me.rdoF5.Text = "小指"
+        Me.rdoF5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoF5.UseVisualStyleBackColor = True
+        '
+        'Panel20
+        '
+        Me.Panel20.BackColor = System.Drawing.Color.SaddleBrown
+        Me.Panel20.Controls.Add(Me.rdoStone)
+        Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel20.Location = New System.Drawing.Point(485, 138)
+        Me.Panel20.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel20.Name = "Panel20"
+        Me.Panel20.Size = New System.Drawing.Size(98, 69)
+        Me.Panel20.TabIndex = 3
+        '
+        'rdoStone
+        '
+        Me.rdoStone.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoStone.AutoSize = True
+        Me.rdoStone.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoStone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoStone.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoStone.Location = New System.Drawing.Point(0, 0)
+        Me.rdoStone.Name = "rdoStone"
+        Me.rdoStone.Size = New System.Drawing.Size(98, 69)
+        Me.rdoStone.TabIndex = 2
+        Me.rdoStone.Text = "結石"
+        Me.rdoStone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoStone.UseVisualStyleBackColor = True
+        '
+        'Panel21
+        '
+        Me.Panel21.BackColor = System.Drawing.Color.Peru
+        Me.Panel21.Controls.Add(Me.rdoC6)
+        Me.Panel21.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel21.Location = New System.Drawing.Point(485, 207)
+        Me.Panel21.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel21.Name = "Panel21"
+        Me.Panel21.Size = New System.Drawing.Size(98, 72)
+        Me.Panel21.TabIndex = 3
+        '
+        'rdoC6
+        '
+        Me.rdoC6.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoC6.AutoSize = True
+        Me.rdoC6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoC6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoC6.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoC6.Location = New System.Drawing.Point(0, 0)
+        Me.rdoC6.Name = "rdoC6"
+        Me.rdoC6.Size = New System.Drawing.Size(98, 72)
+        Me.rdoC6.TabIndex = 2
+        Me.rdoC6.Text = "下"
+        Me.rdoC6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoC6.UseVisualStyleBackColor = True
+        '
+        'Panel22
+        '
+        Me.Panel22.BackColor = System.Drawing.Color.Peru
+        Me.Panel22.Controls.Add(Me.rdoC5)
+        Me.Panel22.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel22.Location = New System.Drawing.Point(388, 207)
+        Me.Panel22.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel22.Name = "Panel22"
+        Me.Panel22.Size = New System.Drawing.Size(97, 72)
+        Me.Panel22.TabIndex = 3
+        '
+        'rdoC5
+        '
+        Me.rdoC5.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoC5.AutoSize = True
+        Me.rdoC5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoC5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoC5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoC5.Location = New System.Drawing.Point(0, 0)
+        Me.rdoC5.Name = "rdoC5"
+        Me.rdoC5.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC5.TabIndex = 2
+        Me.rdoC5.Text = "總"
+        Me.rdoC5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoC5.UseVisualStyleBackColor = True
+        '
+        'Panel23
+        '
+        Me.Panel23.BackColor = System.Drawing.Color.Peru
+        Me.Panel23.Controls.Add(Me.rdoC4)
+        Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel23.Location = New System.Drawing.Point(291, 207)
+        Me.Panel23.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel23.Name = "Panel23"
+        Me.Panel23.Size = New System.Drawing.Size(97, 72)
+        Me.Panel23.TabIndex = 3
+        '
+        'rdoC4
+        '
+        Me.rdoC4.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoC4.AutoSize = True
+        Me.rdoC4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoC4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoC4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoC4.Location = New System.Drawing.Point(0, 0)
+        Me.rdoC4.Name = "rdoC4"
+        Me.rdoC4.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC4.TabIndex = 2
+        Me.rdoC4.Text = "中"
+        Me.rdoC4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoC4.UseVisualStyleBackColor = True
+        '
+        'Panel24
+        '
+        Me.Panel24.BackColor = System.Drawing.Color.Peru
+        Me.Panel24.Controls.Add(Me.rdoC3)
+        Me.Panel24.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel24.Location = New System.Drawing.Point(194, 207)
+        Me.Panel24.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel24.Name = "Panel24"
+        Me.Panel24.Size = New System.Drawing.Size(97, 72)
+        Me.Panel24.TabIndex = 3
+        '
+        'rdoC3
+        '
+        Me.rdoC3.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoC3.AutoSize = True
+        Me.rdoC3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoC3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoC3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoC3.Location = New System.Drawing.Point(0, 0)
+        Me.rdoC3.Name = "rdoC3"
+        Me.rdoC3.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC3.TabIndex = 2
+        Me.rdoC3.Text = "上"
+        Me.rdoC3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoC3.UseVisualStyleBackColor = True
+        '
+        'Panel25
+        '
+        Me.Panel25.BackColor = System.Drawing.Color.Peru
+        Me.Panel25.Controls.Add(Me.rdoC2)
+        Me.Panel25.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel25.Location = New System.Drawing.Point(97, 207)
+        Me.Panel25.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel25.Name = "Panel25"
+        Me.Panel25.Size = New System.Drawing.Size(97, 72)
+        Me.Panel25.TabIndex = 3
+        '
+        'rdoC2
+        '
+        Me.rdoC2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoC2.AutoSize = True
+        Me.rdoC2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoC2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoC2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoC2.Location = New System.Drawing.Point(0, 0)
+        Me.rdoC2.Name = "rdoC2"
+        Me.rdoC2.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC2.TabIndex = 2
+        Me.rdoC2.Text = "頭"
+        Me.rdoC2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoC2.UseVisualStyleBackColor = True
+        '
+        'Panel26
+        '
+        Me.Panel26.BackColor = System.Drawing.Color.Peru
+        Me.Panel26.Controls.Add(Me.rdoC1)
+        Me.Panel26.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel26.Location = New System.Drawing.Point(0, 207)
+        Me.Panel26.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel26.Name = "Panel26"
+        Me.Panel26.Size = New System.Drawing.Size(97, 72)
+        Me.Panel26.TabIndex = 3
+        '
+        'rdoC1
+        '
+        Me.rdoC1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoC1.AutoSize = True
+        Me.rdoC1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoC1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoC1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoC1.Location = New System.Drawing.Point(0, 0)
+        Me.rdoC1.Name = "rdoC1"
+        Me.rdoC1.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC1.TabIndex = 2
+        Me.rdoC1.Text = "頂"
+        Me.rdoC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoC1.UseVisualStyleBackColor = True
+        '
+        'Panel27
+        '
+        Me.Panel27.BackColor = System.Drawing.Color.BlanchedAlmond
+        Me.Panel27.Controls.Add(Me.rdoGraph)
+        Me.Panel27.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel27.Location = New System.Drawing.Point(485, 0)
+        Me.Panel27.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel27.Name = "Panel27"
+        Me.Panel27.Size = New System.Drawing.Size(98, 69)
+        Me.Panel27.TabIndex = 5
+        '
+        'rdoGraph
+        '
+        Me.rdoGraph.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoGraph.AutoSize = True
+        Me.rdoGraph.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rdoGraph.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoGraph.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.rdoGraph.Location = New System.Drawing.Point(0, 0)
+        Me.rdoGraph.Name = "rdoGraph"
+        Me.rdoGraph.Size = New System.Drawing.Size(98, 69)
+        Me.rdoGraph.TabIndex = 3
+        Me.rdoGraph.Text = "頻譜"
+        Me.rdoGraph.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoGraph.UseVisualStyleBackColor = True
         '
         'pb
         '
         Me.pb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pb.Location = New System.Drawing.Point(20, 20)
+        Me.pb.Location = New System.Drawing.Point(20, 60)
         Me.pb.Name = "pb"
-        Me.pb.Size = New System.Drawing.Size(583, 625)
+        Me.pb.Size = New System.Drawing.Size(583, 545)
         Me.pb.TabIndex = 0
         Me.pb.TabStop = False
-        '
-        'tabMed
-        '
-        Me.tabMed.Location = New System.Drawing.Point(4, 44)
-        Me.tabMed.Name = "tabMed"
-        Me.tabMed.Size = New System.Drawing.Size(923, 665)
-        Me.tabMed.TabIndex = 1
-        Me.tabMed.Text = "藥物檢查"
-        '
-        'tabSetting
-        '
-        Me.tabSetting.Controls.Add(Me.GroupBox1)
-        Me.tabSetting.HorizontalScrollbarBarColor = True
-        Me.tabSetting.HorizontalScrollbarHighlightOnWheel = False
-        Me.tabSetting.HorizontalScrollbarSize = 10
-        Me.tabSetting.Location = New System.Drawing.Point(4, 44)
-        Me.tabSetting.Name = "tabSetting"
-        Me.tabSetting.Size = New System.Drawing.Size(923, 665)
-        Me.tabSetting.TabIndex = 2
-        Me.tabSetting.Text = "設定"
-        Me.tabSetting.VerticalScrollbarBarColor = True
-        Me.tabSetting.VerticalScrollbarHighlightOnWheel = False
-        Me.tabSetting.VerticalScrollbarSize = 10
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.btnRevise)
-        Me.GroupBox1.Controls.Add(Me.lblCali)
-        Me.GroupBox1.Controls.Add(Me.txtOffsetValue)
-        Me.GroupBox1.Controls.Add(Me.txtFullValue)
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(917, 100)
-        Me.GroupBox1.TabIndex = 2
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "GroupBox1"
-        '
-        'btnRevise
-        '
-        Me.btnRevise.Location = New System.Drawing.Point(641, 65)
-        Me.btnRevise.Name = "btnRevise"
-        Me.btnRevise.Size = New System.Drawing.Size(75, 23)
-        Me.btnRevise.TabIndex = 2
-        Me.btnRevise.Text = "校正"
-        Me.btnRevise.UseSelectable = True
-        '
-        'lblCali
-        '
-        Me.lblCali.AutoSize = True
-        Me.lblCali.Location = New System.Drawing.Point(722, 65)
-        Me.lblCali.Name = "lblCali"
-        Me.lblCali.Size = New System.Drawing.Size(29, 12)
-        Me.lblCali.TabIndex = 1
-        Me.lblCali.Text = "校正"
-        '
-        'txtOffsetValue
-        '
-        '
-        '
-        '
-        Me.txtOffsetValue.CustomButton.Image = Nothing
-        Me.txtOffsetValue.CustomButton.Location = New System.Drawing.Point(53, 1)
-        Me.txtOffsetValue.CustomButton.Name = ""
-        Me.txtOffsetValue.CustomButton.Size = New System.Drawing.Size(21, 21)
-        Me.txtOffsetValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtOffsetValue.CustomButton.TabIndex = 1
-        Me.txtOffsetValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtOffsetValue.CustomButton.UseSelectable = True
-        Me.txtOffsetValue.CustomButton.Visible = False
-        Me.txtOffsetValue.Lines = New String() {"MetroTextBox7"}
-        Me.txtOffsetValue.Location = New System.Drawing.Point(87, 65)
-        Me.txtOffsetValue.MaxLength = 32767
-        Me.txtOffsetValue.Name = "txtOffsetValue"
-        Me.txtOffsetValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtOffsetValue.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtOffsetValue.SelectedText = ""
-        Me.txtOffsetValue.SelectionLength = 0
-        Me.txtOffsetValue.SelectionStart = 0
-        Me.txtOffsetValue.ShortcutsEnabled = True
-        Me.txtOffsetValue.Size = New System.Drawing.Size(75, 23)
-        Me.txtOffsetValue.TabIndex = 0
-        Me.txtOffsetValue.Text = "MetroTextBox7"
-        Me.txtOffsetValue.UseSelectable = True
-        Me.txtOffsetValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtOffsetValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'txtFullValue
-        '
-        '
-        '
-        '
-        Me.txtFullValue.CustomButton.Image = Nothing
-        Me.txtFullValue.CustomButton.Location = New System.Drawing.Point(53, 1)
-        Me.txtFullValue.CustomButton.Name = ""
-        Me.txtFullValue.CustomButton.Size = New System.Drawing.Size(21, 21)
-        Me.txtFullValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtFullValue.CustomButton.TabIndex = 1
-        Me.txtFullValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtFullValue.CustomButton.UseSelectable = True
-        Me.txtFullValue.CustomButton.Visible = False
-        Me.txtFullValue.Lines = New String() {"MetroTextBox7"}
-        Me.txtFullValue.Location = New System.Drawing.Point(6, 65)
-        Me.txtFullValue.MaxLength = 32767
-        Me.txtFullValue.Name = "txtFullValue"
-        Me.txtFullValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtFullValue.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtFullValue.SelectedText = ""
-        Me.txtFullValue.SelectionLength = 0
-        Me.txtFullValue.SelectionStart = 0
-        Me.txtFullValue.ShortcutsEnabled = True
-        Me.txtFullValue.Size = New System.Drawing.Size(75, 23)
-        Me.txtFullValue.TabIndex = 0
-        Me.txtFullValue.Text = "MetroTextBox7"
-        Me.txtFullValue.UseSelectable = True
-        Me.txtFullValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtFullValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'InstantAiCtrl1
-        '
-        Me.InstantAiCtrl1._StateStream = CType(resources.GetObject("InstantAiCtrl1._StateStream"), Automation.BDaq.DeviceStateStreamer)
         '
         'graphTab
         '
         Me.graphTab.Controls.Add(Me.tabEms)
         Me.graphTab.Controls.Add(Me.tabEnergy)
+        Me.graphTab.Controls.Add(Me.tabCheck)
         Me.graphTab.Dock = System.Windows.Forms.DockStyle.Fill
         Me.graphTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.graphTab.HotTrack = True
@@ -654,15 +1359,6 @@ Partial Class pnlEms
         Me.tabEms.Size = New System.Drawing.Size(292, 617)
         Me.tabEms.TabIndex = 0
         Me.tabEms.Text = "能量"
-        '
-        'tabEnergy
-        '
-        Me.tabEnergy.Controls.Add(Me.Panel3)
-        Me.tabEnergy.Location = New System.Drawing.Point(4, 44)
-        Me.tabEnergy.Name = "tabEnergy"
-        Me.tabEnergy.Size = New System.Drawing.Size(292, 617)
-        Me.tabEnergy.TabIndex = 1
-        Me.tabEnergy.Text = "元氣"
         '
         'Panel1
         '
@@ -793,6 +1489,15 @@ Partial Class pnlEms
         Me.txtDevValue.TabIndex = 5
         Me.txtDevValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'tabEnergy
+        '
+        Me.tabEnergy.Controls.Add(Me.Panel3)
+        Me.tabEnergy.Location = New System.Drawing.Point(4, 44)
+        Me.tabEnergy.Name = "tabEnergy"
+        Me.tabEnergy.Size = New System.Drawing.Size(292, 617)
+        Me.tabEnergy.TabIndex = 1
+        Me.tabEnergy.Text = "元氣"
+        '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.Peru
@@ -825,6 +1530,267 @@ Partial Class pnlEms
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(252, 577)
         Me.TableLayoutPanel3.TabIndex = 0
         '
+        'tabCheck
+        '
+        Me.tabCheck.Controls.Add(Me.caliTable)
+        Me.tabCheck.Location = New System.Drawing.Point(4, 44)
+        Me.tabCheck.Name = "tabCheck"
+        Me.tabCheck.Size = New System.Drawing.Size(292, 617)
+        Me.tabCheck.TabIndex = 2
+        Me.tabCheck.Text = "儀器資訊"
+        '
+        'caliTable
+        '
+        Me.caliTable.ColumnCount = 2
+        Me.caliTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.caliTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.caliTable.Controls.Add(Me.txtFixDevPoint, 1, 3)
+        Me.caliTable.Controls.Add(Me.txtFullValue, 1, 0)
+        Me.caliTable.Controls.Add(Me.txtPrevsDev, 1, 2)
+        Me.caliTable.Controls.Add(Me.txtOffsetValue, 1, 1)
+        Me.caliTable.Controls.Add(Me.MetroLabel1, 0, 0)
+        Me.caliTable.Controls.Add(Me.MetroLabel2, 0, 1)
+        Me.caliTable.Controls.Add(Me.MetroLabel3, 0, 2)
+        Me.caliTable.Controls.Add(Me.MetroLabel4, 0, 3)
+        Me.caliTable.Controls.Add(Me.btnRevise, 0, 4)
+        Me.caliTable.Controls.Add(Me.btnTrigger, 0, 5)
+        Me.caliTable.Controls.Add(Me.lblCali, 1, 4)
+        Me.caliTable.Location = New System.Drawing.Point(0, 0)
+        Me.caliTable.Name = "caliTable"
+        Me.caliTable.RowCount = 6
+        Me.caliTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.caliTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.caliTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.caliTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.caliTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
+        Me.caliTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
+        Me.caliTable.Size = New System.Drawing.Size(289, 245)
+        Me.caliTable.TabIndex = 0
+        '
+        'txtFixDevPoint
+        '
+        '
+        '
+        '
+        Me.txtFixDevPoint.CustomButton.Image = Nothing
+        Me.txtFixDevPoint.CustomButton.Location = New System.Drawing.Point(111, 1)
+        Me.txtFixDevPoint.CustomButton.Name = ""
+        Me.txtFixDevPoint.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.txtFixDevPoint.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.txtFixDevPoint.CustomButton.TabIndex = 1
+        Me.txtFixDevPoint.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.txtFixDevPoint.CustomButton.UseSelectable = True
+        Me.txtFixDevPoint.CustomButton.Visible = False
+        Me.txtFixDevPoint.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtFixDevPoint.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.txtFixDevPoint.Lines = New String(-1) {}
+        Me.txtFixDevPoint.Location = New System.Drawing.Point(147, 108)
+        Me.txtFixDevPoint.MaxLength = 32767
+        Me.txtFixDevPoint.Name = "txtFixDevPoint"
+        Me.txtFixDevPoint.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtFixDevPoint.PromptText = "固定偏離點"
+        Me.txtFixDevPoint.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.txtFixDevPoint.SelectedText = ""
+        Me.txtFixDevPoint.SelectionLength = 0
+        Me.txtFixDevPoint.SelectionStart = 0
+        Me.txtFixDevPoint.ShortcutsEnabled = True
+        Me.txtFixDevPoint.Size = New System.Drawing.Size(139, 29)
+        Me.txtFixDevPoint.TabIndex = 1
+        Me.txtFixDevPoint.UseSelectable = True
+        Me.txtFixDevPoint.WaterMark = "固定偏離點"
+        Me.txtFixDevPoint.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.txtFixDevPoint.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'txtFullValue
+        '
+        '
+        '
+        '
+        Me.txtFullValue.CustomButton.Image = Nothing
+        Me.txtFullValue.CustomButton.Location = New System.Drawing.Point(111, 1)
+        Me.txtFullValue.CustomButton.Name = ""
+        Me.txtFullValue.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.txtFullValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.txtFullValue.CustomButton.TabIndex = 1
+        Me.txtFullValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.txtFullValue.CustomButton.UseSelectable = True
+        Me.txtFullValue.CustomButton.Visible = False
+        Me.txtFullValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtFullValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.txtFullValue.Lines = New String(-1) {}
+        Me.txtFullValue.Location = New System.Drawing.Point(147, 3)
+        Me.txtFullValue.MaxLength = 32767
+        Me.txtFullValue.Name = "txtFullValue"
+        Me.txtFullValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtFullValue.PromptText = "滿刻度"
+        Me.txtFullValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.txtFullValue.SelectedText = ""
+        Me.txtFullValue.SelectionLength = 0
+        Me.txtFullValue.SelectionStart = 0
+        Me.txtFullValue.ShortcutsEnabled = True
+        Me.txtFullValue.Size = New System.Drawing.Size(139, 29)
+        Me.txtFullValue.TabIndex = 4
+        Me.txtFullValue.UseSelectable = True
+        Me.txtFullValue.WaterMark = "滿刻度"
+        Me.txtFullValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.txtFullValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'txtPrevsDev
+        '
+        '
+        '
+        '
+        Me.txtPrevsDev.CustomButton.Image = Nothing
+        Me.txtPrevsDev.CustomButton.Location = New System.Drawing.Point(111, 1)
+        Me.txtPrevsDev.CustomButton.Name = ""
+        Me.txtPrevsDev.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.txtPrevsDev.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.txtPrevsDev.CustomButton.TabIndex = 1
+        Me.txtPrevsDev.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.txtPrevsDev.CustomButton.UseSelectable = True
+        Me.txtPrevsDev.CustomButton.Visible = False
+        Me.txtPrevsDev.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtPrevsDev.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.txtPrevsDev.Lines = New String(-1) {}
+        Me.txtPrevsDev.Location = New System.Drawing.Point(147, 73)
+        Me.txtPrevsDev.MaxLength = 32767
+        Me.txtPrevsDev.Name = "txtPrevsDev"
+        Me.txtPrevsDev.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtPrevsDev.PromptText = "前偏離點"
+        Me.txtPrevsDev.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.txtPrevsDev.SelectedText = ""
+        Me.txtPrevsDev.SelectionLength = 0
+        Me.txtPrevsDev.SelectionStart = 0
+        Me.txtPrevsDev.ShortcutsEnabled = True
+        Me.txtPrevsDev.Size = New System.Drawing.Size(139, 29)
+        Me.txtPrevsDev.TabIndex = 2
+        Me.txtPrevsDev.UseSelectable = True
+        Me.txtPrevsDev.WaterMark = "前偏離點"
+        Me.txtPrevsDev.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.txtPrevsDev.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'txtOffsetValue
+        '
+        '
+        '
+        '
+        Me.txtOffsetValue.CustomButton.Image = Nothing
+        Me.txtOffsetValue.CustomButton.Location = New System.Drawing.Point(111, 1)
+        Me.txtOffsetValue.CustomButton.Name = ""
+        Me.txtOffsetValue.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.txtOffsetValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.txtOffsetValue.CustomButton.TabIndex = 1
+        Me.txtOffsetValue.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.txtOffsetValue.CustomButton.UseSelectable = True
+        Me.txtOffsetValue.CustomButton.Visible = False
+        Me.txtOffsetValue.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtOffsetValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.txtOffsetValue.Lines = New String(-1) {}
+        Me.txtOffsetValue.Location = New System.Drawing.Point(147, 38)
+        Me.txtOffsetValue.MaxLength = 32767
+        Me.txtOffsetValue.Name = "txtOffsetValue"
+        Me.txtOffsetValue.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtOffsetValue.PromptText = "偏離度"
+        Me.txtOffsetValue.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.txtOffsetValue.SelectedText = ""
+        Me.txtOffsetValue.SelectionLength = 0
+        Me.txtOffsetValue.SelectionStart = 0
+        Me.txtOffsetValue.ShortcutsEnabled = True
+        Me.txtOffsetValue.Size = New System.Drawing.Size(139, 29)
+        Me.txtOffsetValue.TabIndex = 3
+        Me.txtOffsetValue.UseSelectable = True
+        Me.txtOffsetValue.WaterMark = "偏離度"
+        Me.txtOffsetValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.txtOffsetValue.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'MetroLabel1
+        '
+        Me.MetroLabel1.AutoSize = True
+        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel1.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel1.Name = "MetroLabel1"
+        Me.MetroLabel1.Size = New System.Drawing.Size(138, 35)
+        Me.MetroLabel1.TabIndex = 5
+        Me.MetroLabel1.Text = "滿刻度"
+        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'MetroLabel2
+        '
+        Me.MetroLabel2.AutoSize = True
+        Me.MetroLabel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel2.Location = New System.Drawing.Point(3, 35)
+        Me.MetroLabel2.Name = "MetroLabel2"
+        Me.MetroLabel2.Size = New System.Drawing.Size(138, 35)
+        Me.MetroLabel2.TabIndex = 5
+        Me.MetroLabel2.Text = "偏離度"
+        Me.MetroLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'MetroLabel3
+        '
+        Me.MetroLabel3.AutoSize = True
+        Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel3.Location = New System.Drawing.Point(3, 70)
+        Me.MetroLabel3.Name = "MetroLabel3"
+        Me.MetroLabel3.Size = New System.Drawing.Size(138, 35)
+        Me.MetroLabel3.TabIndex = 5
+        Me.MetroLabel3.Text = "前偏離點"
+        Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'MetroLabel4
+        '
+        Me.MetroLabel4.AutoSize = True
+        Me.MetroLabel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel4.Location = New System.Drawing.Point(3, 105)
+        Me.MetroLabel4.Name = "MetroLabel4"
+        Me.MetroLabel4.Size = New System.Drawing.Size(138, 35)
+        Me.MetroLabel4.TabIndex = 5
+        Me.MetroLabel4.Text = "固定偏離點"
+        Me.MetroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'btnRevise
+        '
+        Me.btnRevise.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnRevise.Location = New System.Drawing.Point(3, 143)
+        Me.btnRevise.Name = "btnRevise"
+        Me.btnRevise.Size = New System.Drawing.Size(138, 30)
+        Me.btnRevise.TabIndex = 6
+        Me.btnRevise.Text = "校正"
+        Me.btnRevise.UseVisualStyleBackColor = True
+        '
+        'btnTrigger
+        '
+        Me.caliTable.SetColumnSpan(Me.btnTrigger, 2)
+        Me.btnTrigger.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnTrigger.Location = New System.Drawing.Point(3, 179)
+        Me.btnTrigger.Name = "btnTrigger"
+        Me.btnTrigger.Size = New System.Drawing.Size(283, 63)
+        Me.btnTrigger.TabIndex = 6
+        Me.btnTrigger.Text = "測試激發"
+        Me.btnTrigger.UseVisualStyleBackColor = True
+        '
+        'lblCali
+        '
+        Me.lblCali.AutoSize = True
+        Me.lblCali.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblCali.Location = New System.Drawing.Point(147, 140)
+        Me.lblCali.Name = "lblCali"
+        Me.lblCali.Size = New System.Drawing.Size(139, 36)
+        Me.lblCali.TabIndex = 7
+        Me.lblCali.Text = "校正"
+        Me.lblCali.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'tabMed
+        '
+        Me.tabMed.Location = New System.Drawing.Point(4, 44)
+        Me.tabMed.Name = "tabMed"
+        Me.tabMed.Size = New System.Drawing.Size(923, 665)
+        Me.tabMed.TabIndex = 1
+        Me.tabMed.Text = "藥物檢查"
+        '
+        'InstantAiCtrl1
+        '
+        Me.InstantAiCtrl1._StateStream = CType(resources.GetObject("InstantAiCtrl1._StateStream"), Automation.BDaq.DeviceStateStreamer)
+        '
         'pnlEms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -840,18 +1806,69 @@ Partial Class pnlEms
         Me.diagTab.ResumeLayout(False)
         Me.tabGraph.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
+        Me.diagPanel.ResumeLayout(False)
+        Me.buttonPanel.ResumeLayout(False)
+        Me.buttonPanel.PerformLayout()
+        Me.buttonTable.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
+        Me.Panel7.ResumeLayout(False)
+        Me.Panel7.PerformLayout()
+        Me.Panel8.ResumeLayout(False)
+        Me.Panel8.PerformLayout()
+        Me.Panel9.ResumeLayout(False)
+        Me.Panel9.PerformLayout()
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel10.PerformLayout()
+        Me.Panel11.ResumeLayout(False)
+        Me.Panel11.PerformLayout()
+        Me.Panel12.ResumeLayout(False)
+        Me.Panel12.PerformLayout()
+        Me.Panel13.ResumeLayout(False)
+        Me.Panel13.PerformLayout()
+        Me.Panel14.ResumeLayout(False)
+        Me.Panel14.PerformLayout()
+        Me.Panel15.ResumeLayout(False)
+        Me.Panel15.PerformLayout()
+        Me.Panel16.ResumeLayout(False)
+        Me.Panel16.PerformLayout()
+        Me.Panel17.ResumeLayout(False)
+        Me.Panel17.PerformLayout()
+        Me.Panel18.ResumeLayout(False)
+        Me.Panel18.PerformLayout()
+        Me.Panel19.ResumeLayout(False)
+        Me.Panel19.PerformLayout()
+        Me.Panel20.ResumeLayout(False)
+        Me.Panel20.PerformLayout()
+        Me.Panel21.ResumeLayout(False)
+        Me.Panel21.PerformLayout()
+        Me.Panel22.ResumeLayout(False)
+        Me.Panel22.PerformLayout()
+        Me.Panel23.ResumeLayout(False)
+        Me.Panel23.PerformLayout()
+        Me.Panel24.ResumeLayout(False)
+        Me.Panel24.PerformLayout()
+        Me.Panel25.ResumeLayout(False)
+        Me.Panel25.PerformLayout()
+        Me.Panel26.ResumeLayout(False)
+        Me.Panel26.PerformLayout()
+        Me.Panel27.ResumeLayout(False)
+        Me.Panel27.PerformLayout()
         CType(Me.pb, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tabSetting.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.graphTab.ResumeLayout(False)
         Me.tabEms.ResumeLayout(False)
-        Me.tabEnergy.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
+        Me.tabEnergy.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
+        Me.tabCheck.ResumeLayout(False)
+        Me.caliTable.ResumeLayout(False)
+        Me.caliTable.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -878,13 +1895,7 @@ Partial Class pnlEms
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents tabMed As TabPage
     Friend WithEvents InstantAiCtrl1 As Automation.BDaq.InstantAiCtrl
-    Friend WithEvents tabSetting As MetroFramework.Controls.MetroTabPage
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents txtOffsetValue As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents txtFullValue As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents btnRevise As MetroFramework.Controls.MetroButton
-    Friend WithEvents lblCali As Label
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents diagPanel As Panel
     Friend WithEvents pb As PictureBox
     Friend WithEvents graphTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents tabEms As TabPage
@@ -901,4 +1912,71 @@ Partial Class pnlEms
     Friend WithEvents tabEnergy As TabPage
     Friend WithEvents Panel3 As Panel
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents tabCheck As TabPage
+    Friend WithEvents caliTable As TableLayoutPanel
+    Friend WithEvents txtFixDevPoint As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents txtFullValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents txtPrevsDev As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents txtOffsetValue As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents btnRevise As Button
+    Friend WithEvents btnTrigger As Button
+    Friend WithEvents lblCali As MetroFramework.Controls.MetroLabel
+    Friend WithEvents buttonPanel As MetroFramework.Controls.MetroPanel
+    Friend WithEvents buttonTable As TableLayoutPanel
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents rdoEnergy As CheckBox
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents rdoUpLeft As CheckBox
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents rdoUpRight As CheckBox
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents rdoDownLeft As CheckBox
+    Friend WithEvents Panel8 As Panel
+    Friend WithEvents rdoDownRight As CheckBox
+    Friend WithEvents Panel9 As Panel
+    Friend WithEvents rdoS2 As CheckBox
+    Friend WithEvents Panel10 As Panel
+    Friend WithEvents rdoS1 As CheckBox
+    Friend WithEvents Panel11 As Panel
+    Friend WithEvents rdoFoot As CheckBox
+    Friend WithEvents Panel12 As Panel
+    Friend WithEvents rdoHand As CheckBox
+    Friend WithEvents Panel13 As Panel
+    Friend WithEvents rdoRight As CheckBox
+    Friend WithEvents Panel14 As Panel
+    Friend WithEvents rdoLeft As CheckBox
+    Friend WithEvents Panel15 As Panel
+    Friend WithEvents rdoF1 As CheckBox
+    Friend WithEvents Panel16 As Panel
+    Friend WithEvents rdoF2 As CheckBox
+    Friend WithEvents Panel17 As Panel
+    Friend WithEvents rdoF3 As CheckBox
+    Friend WithEvents Panel18 As Panel
+    Friend WithEvents rdoF4 As CheckBox
+    Friend WithEvents Panel19 As Panel
+    Friend WithEvents rdoF5 As CheckBox
+    Friend WithEvents Panel20 As Panel
+    Friend WithEvents rdoStone As CheckBox
+    Friend WithEvents Panel21 As Panel
+    Friend WithEvents rdoC6 As CheckBox
+    Friend WithEvents Panel22 As Panel
+    Friend WithEvents rdoC5 As CheckBox
+    Friend WithEvents Panel23 As Panel
+    Friend WithEvents rdoC4 As CheckBox
+    Friend WithEvents Panel24 As Panel
+    Friend WithEvents rdoC3 As CheckBox
+    Friend WithEvents Panel25 As Panel
+    Friend WithEvents rdoC2 As CheckBox
+    Friend WithEvents Panel26 As Panel
+    Friend WithEvents rdoC1 As CheckBox
+    Friend WithEvents Panel27 As Panel
+    Friend WithEvents rdoGraph As CheckBox
+    Friend WithEvents MetroLabel5 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents okLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents openPanelLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents measurePoint As MetroFramework.Controls.MetroLabel
 End Class
