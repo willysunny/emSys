@@ -27,9 +27,9 @@
         If Not result Is Nothing Then
             If result.Rows.Count = 0 Then
                 MetroFramework.MetroMessageBox.Show(mainForm, "請檢查您的使用者名稱以及密碼無誤。", "登入失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                passwordTextbox.Focus()
             Else
                 RaiseEvent loginSucceed(Me, New EventArgs)
-
             End If
         End If
     End Sub
