@@ -140,6 +140,12 @@
     <Compile Include="system\pnlSlider.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="system\pnlUserManage.Designer.vb">
+      <DependentUpon>pnlUserManage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlUserManage.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="tools\frmEmsButtons.Designer.vb">
       <DependentUpon>frmEmsButtons.vb</DependentUpon>
     </Compile>
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSlider.resx">
       <DependentUpon>pnlSlider.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlUserManage.resx">
+      <DependentUpon>pnlUserManage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tools\frmEmsButtons.resx">
       <DependentUpon>frmEmsButtons.vb</DependentUpon>
