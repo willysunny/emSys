@@ -70,6 +70,13 @@
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf emsClose_MouseUp
         ems.swipe()
+        If Not ems.initiated Then
+            MetroFramework.MetroMessageBox.Show(Me, "請檢查以下狀態後再嘗試:" & vbNewLine & "1. 電源是否有接妥?" & vbNewLine & "2. 頻譜儀USB接上電腦時是否有偵測到?", "無法與頻譜儀連線", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            RemoveHandler ems.DEVICE_ERROR, AddressOf ems_device_error
+            AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+            RemoveHandler exitLink.MouseUp, AddressOf emsClose_MouseUp
+            ems.swipe(False)
+        End If
     End Sub
 
     Private Sub emsClose_MouseUp(sender As Object, e As EventArgs)

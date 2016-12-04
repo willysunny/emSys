@@ -5,13 +5,12 @@ Public Class pnlEms
 
     ' Events
     Public Event DEVICE_ERROR As EventHandler
+    Public initiated As Boolean = False
+
 
 #Region "變數"
 
     ' Database
-    'Dim cmdSql As SqlCommand
-    'Dim sConn As String = My.Settings.Setting
-    '
     Const AryLength As Integer = 20
     Const Threshold As Integer = 3
     '
@@ -56,9 +55,7 @@ Public Class pnlEms
     Dim bDelayState As Boolean  ' Delay 旗標
     Dim bPaint As Boolean '繪圖旗標
 
-    '
-    ' PictureBox 繪圖變數
-    '
+#Region "PictureBox 繪圖變數"
     Const XMAX As Integer = 300  'X 軸最大刻度為 300 （每一刻度為 30 msec)
     Const YMAX As Integer = 100  'Y 軸最大度為 100
     Dim xPixDiv As Double ' 
@@ -69,7 +66,9 @@ Public Class pnlEms
     Dim bmp As Bitmap
     Dim g As Graphics
     Dim myPen As Pen
-    '
+#End Region
+
+#Region "測量點"
     Dim sMainPoint As String '主量測點
     Dim sSubPoint As String '次量測點
     Dim bLR As Boolean
@@ -78,6 +77,7 @@ Public Class pnlEms
     Dim sSub As String
     Dim iMain, iSub, iCode As Integer '主量測點值、次量測點值、代碼值
     Dim LR, HF, Finger, TB, P, S As Integer
+#End Region
 
 #Region "藥檢相關"
     Dim mainIDList As List(Of Integer)
@@ -946,6 +946,7 @@ Public Class pnlEms
         Else
             ConfigObjs()
             init()
+            initiated = True
         End If
 
     End Sub
