@@ -13,7 +13,7 @@
         RaiseEvent closedEvent(Me, e)
     End Sub
     Protected Sub shown(ByVal e As EventArgs)
-        Me.BringToFront()
+        BringToFront()
         RaiseEvent shownEvent(Me, e)
     End Sub
 #End Region
@@ -28,11 +28,11 @@
     End Sub
 
     Public Sub New(ByVal frmOwner As Form)
-        Me.Visible = False
+        Visible = False
         owner = frmOwner
         frmOwner.Controls.Add(Me)
         resizeForm()
-        Me.BringToFront()
+        BringToFront()
         AddHandler owner.Resize, AddressOf owner_resize
     End Sub
 
@@ -41,20 +41,20 @@
     End Sub
 
     Public Sub resizeForm(Optional ByVal isMenu As Boolean = False, Optional fromRight As Boolean = False)
-        If Not isMenu Then Me.Width = owner.Width
-        Me.Height = owner.Height - 70
+        If Not isMenu Then Width = owner.Width
+        Height = owner.Height - 70
         If loaded Then
             If isMenu Then
                 If fromRight Then
-                    Me.Location = New Point(owner.Width - Me.Width, 70)
+                    Location = New Point(owner.Width - Width, 70)
                 Else
-                    Me.Location = New Point(0, 70)
+                    Location = New Point(0, 70)
                 End If
             Else
-                Me.Location = New Point(0, 70)
+                Location = New Point(0, 70)
             End If
         Else
-            Me.Location = New Point(owner.Width, 70)
+            Location = New Point(owner.Width, 70)
         End If
         menuStatus = isMenu
         rightSide = fromRight
@@ -62,48 +62,49 @@
 
     Public Sub swipe(Optional show As Boolean = True)
         resizeForm()
-        Me.Visible = True
-        Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(2000))
+        Visible = True
         If show Then
+            Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(2000))
             trans.add(Me, "Left", 0)
             trans.run()
-            While Not (Me.Left = 0)
+            While Not (Left = 0)
                 Application.DoEvents()
             End While
             loaded = True
             resizeForm()
             shown(New EventArgs)
         Else
+            Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(1000))
             trans.add(Me, "Left", -owner.Width)
             trans.run()
-            While Not (Me.Left = -owner.Width)
+            While Not (Left = -owner.Width)
                 Application.DoEvents()
             End While
             closed(New EventArgs())
             RemoveHandler owner.Resize, AddressOf owner_resize
             owner.Controls.Remove(Me)
-            Me.Dispose()
+            Dispose()
         End If
 
     End Sub
     Public Sub menuSwipe(Optional show As Boolean = True, Optional fromRight As Boolean = False, Optional resize As Boolean = True)
         resizeForm(True, fromRight)
-        Me.Visible = True
+        Visible = True
         Dim trans As New Transitions.Transition(New Transitions.TransitionType_EaseInEaseOut(1000))
         Dim dest As Integer = 0
-        Dim orig As Integer = -Me.Width
+        Dim orig As Integer = -Width
         If Not fromRight Then
-            Me.Left = -Me.Width
+            Left = -Width
         Else
-            If show Then Me.Left = owner.Width
-            dest = owner.Width - Me.Width
+            If show Then Left = owner.Width
+            dest = owner.Width - Width
             orig = owner.Width
         End If
 
         If show Then
             trans.add(Me, "Left", dest)
             trans.run()
-            While Not (Me.Left = dest)
+            While Not (Left = dest)
                 Application.DoEvents()
             End While
             loaded = True
@@ -112,13 +113,13 @@
         Else
             trans.add(Me, "Left", orig)
             trans.run()
-            While Not (Me.Left = orig)
+            While Not (Left = orig)
                 Application.DoEvents()
             End While
             closed(New EventArgs())
             RemoveHandler owner.Resize, AddressOf owner_resize
             owner.Controls.Remove(Me)
-            Me.Dispose()
+            Dispose()
         End If
 
     End Sub
