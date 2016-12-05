@@ -1,4 +1,5 @@
 ﻿Imports Automation.BDaq
+Imports MySql.Data.MySqlClient
 
 Public Class pnlEms
     Inherits pnlSlider
@@ -111,67 +112,631 @@ Public Class pnlEms
 #End Region
 
 #End Region
+
+#Region "初始"
+    Public Sub New(ByVal owner As Form)
+        MyBase.New(owner)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+        owner.WindowState = FormWindowState.Maximized
+        owner.BringToFront()
+
+
+        ' Add any initialization after the InitializeComponent() call.
+        If Not InstantAiCtrl1.Initialized Then
+            Throw New Exception("Initialization Failed")
+        Else
+            ConfigObjs()
+            init()
+            initiated = True
+        End If
+
+    End Sub
+    Private Sub ConfigObjs()
+
+        If Not mainForm.offlineMode Then
+            pName.Text = mainForm.patientInfo.pName
+            If mainForm.patientInfo.pSex = 0 Then
+                pSex.Text = "女"
+            Else
+
+                pSex.Text = "男"
+            End If
+            'Label36.Text = Year(Now) - Year(mainForm.patientInfo.pDOB)
+        Else
+            diagTab.TabPages.Remove(tabMed)
+            'emsTabs.TabPages.Remove(tabEnergy)
+            'emsTabs.TabPages.Remove(tabDetail)
+            'emsTabs.TabPages.Remove(tabPreview)
+        End If
+
+        '固定偏離點值
+        iFixDevPoint = txtFixDevPoint.Text
+
+        'picturebox
+        myPen = New Pen(Color.Red, 2) 'creates a red pen with a thickness of 2
+        paDrawBuffer = New Point(XMAX) {}
+        xPixDiv = (pb.Size.Width / XMAX)
+        yPixDiv = (pb.Size.Height / YMAX)
+        pName.Text = mainForm.patientInfo.pName
+
+        ' 各個點的代碼以及名稱
+        ' 元氣部分是以四個bit分別代表 - 左上, 右上, 左下, 右下, 然後取其Int值
+        ' 其他部位則是以五位數字來分別代表以下意思
+        ' 第一位數字  - 左邊(1)或右邊(2)
+        ' 第二位數字  - 手(1)或腳(2)
+        ' 第三位數字  - 拇指(1), 食指(2), 中指(3), 無名指(4), 小指(5)
+        ' 第四位數字  - 外側(1)或內側(2)
+        ' 第五位數字  - 頂(1), 頭(2), 上焦(3), 中焦(4), 總量度點(5), 下焦(6)
+
+        pt.Add(12, "元氣 - 上")
+        pt.Add(3, "元氣 - 下")
+        pt.Add(10, "元氣 - 左")
+        pt.Add(5, "元氣 - 右")
+        pt.Add(9, "元氣 - 左上右下")
+        pt.Add(6, "元氣 - 右上左下")
+        pt.Add(111150, "免疫系統")
+        pt.Add(111250, "肺")
+        pt.Add(111230, "鼻咽")
+        pt.Add(112150, "大腸")
+        pt.Add(112250, "神經傳導")
+        pt.Add(113150, "大血管")
+        pt.Add(113250, "微血管")
+        pt.Add(114150, "器官退化-總")
+        pt.Add(114110, "器官退化-頂")
+        pt.Add(114120, "器官退化-頭")
+        pt.Add(114130, "器官退化-上焦")
+        pt.Add(114140, "器官退化-中焦")
+        pt.Add(114160, "器官退化-下焦")
+        pt.Add(114250, "內分泌")
+        pt.Add(114210, "腦下垂體")
+        pt.Add(114220, "甲狀腺")
+        pt.Add(114240, "乳房")
+        pt.Add(114260, "卵巢")
+        pt.Add(115150, "心臟")
+        pt.Add(115130, "壓力指數")
+        pt.Add(115250, "小腸")
+        pt.Add(211150, "免疫系統")
+        pt.Add(211250, "肺")
+        pt.Add(211230, "鼻咽")
+        pt.Add(212150, "大腸")
+        pt.Add(212250, "神經傳導")
+        pt.Add(213150, "大血管")
+        pt.Add(213250, "微血管")
+        pt.Add(214150, "器官退化-總")
+        pt.Add(214110, "器官退化-頂")
+        pt.Add(214120, "器官退化-頭")
+        pt.Add(214130, "器官退化-上焦")
+        pt.Add(214140, "器官退化-中焦")
+        pt.Add(214160, "器官退化-下焦")
+        pt.Add(214250, "內分泌")
+        pt.Add(214210, "腦下垂體")
+        pt.Add(214220, "甲狀腺")
+        pt.Add(214240, "乳房")
+        pt.Add(214260, "卵巢")
+        pt.Add(215150, "心臟")
+        pt.Add(215250, "小腸")
+        pt.Add(121150, "脾臟")
+        pt.Add(121250, "肝臟")
+        pt.Add(121260, "肝功能/大腸")
+        pt.Add(122110, "頭骨")
+        pt.Add(122120, "頸椎骨")
+        pt.Add(122130, "腰骨")
+        pt.Add(122150, "臀骨")
+        pt.Add(122140, "大腿骨")
+        pt.Add(122160, "小腿骨")
+        pt.Add(122250, "胃")
+        pt.Add(123150, "纖維化-總")
+        pt.Add(123120, "纖維化-頭")
+        pt.Add(123130, "纖維化-上焦")
+        pt.Add(123140, "纖維化-中焦")
+        pt.Add(123160, "纖維化-下焦")
+        pt.Add(123250, "皮膚")
+        pt.Add(124150, "脂肪代謝")
+        pt.Add(124250, "膽囊總膽管")
+        pt.Add(125150, "腎臟")
+        pt.Add(125230, "膀胱")
+        pt.Add(125250, "膀胱經")
+        pt.Add(125240, "子宮/前列腺")
+        pt.Add(221150, "胰臟")
+        pt.Add(221130, "血糖")
+        pt.Add(221250, "肝臟")
+        pt.Add(221260, "肝功能/大腸")
+        pt.Add(222110, "頭骨")
+        pt.Add(222120, "頸椎骨")
+        pt.Add(222130, "腰骨")
+        pt.Add(222150, "臀骨")
+        pt.Add(222140, "大腿骨")
+        pt.Add(222160, "小腿骨")
+        pt.Add(222250, "胃")
+        pt.Add(223150, "纖維化-總")
+        pt.Add(223120, "纖維化-頭")
+        pt.Add(223130, "纖維化-上焦")
+        pt.Add(223140, "纖維化-中焦")
+        pt.Add(223160, "纖維化-下焦")
+        pt.Add(223250, "皮膚")
+        pt.Add(224150, "脂肪代謝")
+        pt.Add(224250, "肝內膽管")
+        pt.Add(225150, "腎臟")
+        pt.Add(225230, "膀胱")
+        pt.Add(225240, "子宮/前列腺")
+        pt.Add(225250, "膀胱經")
+        pt.Add(125260, "膀胱器官退化")
+        pt.Add(225260, "膀胱器官退化")
+        pt.Add(125251, "膀胱結石")
+        pt.Add(225251, "膀胱結石")
+        pt.Add(124251, "膽囊結石")
+        pt.Add(224251, "膽管結石")
+        pt.Add(125151, "腎結石")
+        pt.Add(225151, "腎結石")
+
+        ' 舊的點設定
+        bar2iCode(1) = 111150
+        bar2iCode(2) = 111250
+        bar2iCode(3) = 112150
+        bar2iCode(4) = 112250
+        bar2iCode(5) = 113150
+        bar2iCode(6) = 113250
+        bar2iCode(7) = 114150
+        bar2iCode(8) = 114250
+        bar2iCode(9) = 115150
+        bar2iCode(10) = 115250
+        bar2iCode(11) = 211150
+        bar2iCode(12) = 211250
+        bar2iCode(13) = 212150
+        bar2iCode(14) = 212250
+        bar2iCode(15) = 213150
+        bar2iCode(16) = 213250
+        bar2iCode(17) = 214150
+        bar2iCode(18) = 214250
+        bar2iCode(19) = 215150
+        bar2iCode(20) = 215250
+        bar2iCode(21) = 121150
+        bar2iCode(22) = 121250
+        bar2iCode(23) = 122150
+        bar2iCode(24) = 122250
+        bar2iCode(25) = 123150
+        bar2iCode(26) = 123250
+        bar2iCode(27) = 124150
+        bar2iCode(28) = 124250
+        bar2iCode(29) = 125150
+        bar2iCode(30) = 125250
+        bar2iCode(31) = 221150
+        bar2iCode(32) = 221250
+        bar2iCode(33) = 222150
+        bar2iCode(34) = 222250
+        bar2iCode(35) = 223150
+        bar2iCode(36) = 223250
+        bar2iCode(37) = 224150
+        bar2iCode(38) = 224250
+        bar2iCode(39) = 225150
+        bar2iCode(40) = 225250
+
+        bar2iCode(41) = 12
+        bar2iCode(42) = 3
+        bar2iCode(43) = 10
+        bar2iCode(44) = 5
+        bar2iCode(45) = 9
+        bar2iCode(46) = 6
+        bar2iCode(47) = 115130
+        bar2iCode(48) = 225240
+        bar2iCode(49) = 125240
+
+        graphTab.SelectTab(tabEnergy)
+
+        ' 將量度點新增至下拉選單
+        Dim ptTable As DataTable = New DataTable()
+        ptTable.Columns.Add("iCode", GetType(Integer))
+        ptTable.Columns.Add("測量點", GetType(String))
+        For Each point As KeyValuePair(Of Integer, String) In pt
+            If point.Key > 1000 Then
+                If Mid(point.Key, 1, 1) = "1" Then ptTable.Rows.Add(point.Key, "[左] " & point.Value) Else ptTable.Rows.Add(point.Key, "[右] " & point.Value)
+            Else
+                ptTable.Rows.Add(point.Key, point.Value)
+            End If
+        Next
+        ptBox.DataSource = ptTable
+        ptBox.DisplayMember = "測量點"
+        ptBox.ValueMember = "iCode"
+
+    End Sub
+    Private Sub init()
+        '
+        sMeasures = ""
+        bNewMeasure = True
+        bAutoProgress = False
+        '
+        iDoOut = 0
+        idx = 0
+        iCount = 100   ' for delay 1 sec
+        iStopCount = 0
+        dTotal = 0
+        dFull = 100
+        dOffset = 0
+        iValue1 = 0
+        dDevRate = 0
+        iMax = 0
+        iMaxOrg = 0 '最大值原點坐標
+        iDev = 0
+        iDev1 = 0
+        iState = 0
+        bFullState = False
+        bOffsetState = False
+        bDelayState = True
+        lblCali.Text = "校正"
+        '
+        bPaint = False
+        idx1 = 0
+        iPlotCount = 0
+        ptCounter = 0
+        sqlStr = ""
+        '
+        bHandFoot = True
+        bLR = True
+        sFinger = "rdoF1"
+        sSub = "rdoC2"
+        getMeasurePoint()
+        emsTimer.Enabled = True
+    End Sub
+#End Region
+
 #Region "繪圖"
+    ' 切換分頁
+    Private Sub graphTab_TabIndexChanged(sender As Object, e As EventArgs) Handles graphTab.TabIndexChanged
+        pb.Refresh()
+    End Sub
+    Private Sub graphTab_SelectedIndexChanged(sender As Object, e As EventArgs) Handles graphTab.SelectedIndexChanged
+        pb.Refresh()
+    End Sub
+
+    Private Sub tabEms_GotFocus(sender As Object, e As EventArgs) Handles tabEms.GotFocus
+        pb.Refresh()
+    End Sub
+
+
+    ' 主畫面
     Private Sub pb_Paint(sender As Object, e As PaintEventArgs) Handles pb.Paint
         Dim bmp As Bitmap = New Bitmap(CType(sender, PictureBox).Size.Width, CType(sender, PictureBox).Size.Height)
         Dim g As Graphics = Graphics.FromImage(bmp)
-
         g.Clear(Color.White)
-        Dim i As Integer
-        For i = 1 To 9
-            'g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(CInt(1.0 * i * ctype(sender,picturebox).Size.Width / 10), 0), New Point(CInt(1.0 * i * ctype(sender,picturebox).Size.Width / 10), ctype(sender,picturebox).Size.Height))
-            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 10)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 10)))
-        Next
-        'Change i=8 color to orange
-        g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * 8 * CType(sender, PictureBox).Size.Height / 10)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * 8 * CType(sender, PictureBox).Size.Height / 10)))
-        For i = 9 To 11
-            g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 20)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 20)))
-        Next
-        If (iPlotCount > 0) Then
-            Dim drawData(iPlotCount - 1) As Point
-
-            For i = 0 To iPlotCount - 1
-                drawData(i) = paDrawBuffer(i)
+        If graphTab.SelectedTab.Name = "tabEms" Then
+            Dim i As Integer
+            For i = 1 To 9
+                'g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(CInt(1.0 * i * ctype(sender,picturebox).Size.Width / 10), 0), New Point(CInt(1.0 * i * ctype(sender,picturebox).Size.Width / 10), ctype(sender,picturebox).Size.Height))
+                g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 10)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 10)))
             Next
+            'Change i=8 color to orange
+            g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * 8 * CType(sender, PictureBox).Size.Height / 10)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * 8 * CType(sender, PictureBox).Size.Height / 10)))
+            For i = 9 To 11
+                g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 20)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 20)))
+            Next
+            If (iPlotCount > 0) Then
+                Dim drawData(iPlotCount - 1) As Point
 
-            If iPlotCount > 1 Then
-                g.DrawLines(myPen, drawData)
-            Else
-                g.DrawLine(myPen, drawData(0), drawData(0))
+                For i = 0 To iPlotCount - 1
+                    drawData(i) = paDrawBuffer(i)
+                Next
+
+                If iPlotCount > 1 Then
+                    g.DrawLines(myPen, drawData)
+                Else
+                    g.DrawLine(myPen, drawData(0), drawData(0))
+                End If
             End If
+            g.DrawLine(System.Drawing.Pens.White, New Point(0, 0), New Point(0, CType(sender, PictureBox).Size.Height))
+            e.Graphics.DrawImage(bmp, New Point(0, 0))
+
+            ' 畫文字
+            Dim outlinePath As New Drawing2D.GraphicsPath
+            Dim useFont As Font = New Font("微軟正黑體", 20, FontStyle.Regular)
+            Dim fontsize As Integer
+            Dim stringFormat As New StringFormat()
+            stringFormat.FormatFlags = StringFormatFlags.NoClip
+            stringFormat.Alignment = StringAlignment.Far
+
+            e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+            e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+            fontsize = 30
+
+            outlinePath.AddString(getTime(tickCounter), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(CType(sender, PictureBox).Width, 0), stringFormat)
+            useFont.Dispose()
+
+            e.Graphics.FillPath(Brushes.LightGray, outlinePath)
+            e.Graphics.TranslateTransform(-1, -1)
+            e.Graphics.FillPath(Brushes.Black, outlinePath)
+            e.Graphics.DrawPath(Pens.Black, outlinePath)
+            e.Graphics.TranslateTransform(1, 1)
+            outlinePath.Dispose()
+        ElseIf graphTab.SelectedTab.Name = "tabEnergy" Then
+            'For i = 1 To size
+            '    g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(i * pb.Size.Width / size, 0), New Point(i * pb.Size.Width / size, pb.Size.Height))
+            '    g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, i * pb.Size.Height / size), New Point(pb.Size.Width, i * pb.Size.Height / size))
+            'Next
+            ' 筆刷
+            Dim barPen As New Pen(Brushes.Green, CSng(pb.Width / 20))
+            barPen.Alignment = Drawing2D.PenAlignment.Center
+
+            If Not mainForm.offlineMode Then
+                ' 四邊
+                top_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 12), True)
+                bot_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 3), True)
+                left_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 10), True)
+                right_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 5), True)
+                diagLeft.Text = parseResult(getMax(mainForm.patientHistory.hID, 9), True)
+                diagRight.Text = parseResult(getMax(mainForm.patientHistory.hID, 6), True)
+            End If
+
+            If top_pos.Text = "" Or bot_pos.Text = "" Or left_pos.Text = "" Or right_pos.Text = "" Or diagLeft.Text = "" Or diagRight.Text = "" Then
+            ElseIf top_pos.Text = "0" Or bot_pos.Text = "0" Or left_pos.Text = "0" Or right_pos.Text = "0" Or diagLeft.Text = "0" Or diagRight.Text = "0" Then
+            Else
+
+                Dim center As New Point(pb.Width / 2, pb.Height / 2)
+                'drawLineColor(-9999, New Point(pb.Width / 2 - pb.Width / 2 * 0.8, pb.Height / 20), New Point(pb.Width / 2 + pb.Width / 2 * 0.8, pb.Height / 20), g, pb.Width / 20)
+                'drawLineColor(-9999, New Point(pb.Width / 2 - pb.Width / 2 * 0.8, pb.Height / 20 * 19), New Point(pb.Width / 2 + pb.Width / 2 * 0.8, pb.Height / 20 * 19), g, pb.Width / 20)
+                'drawLineColor(-9999, New Point(pb.Width / 20, pb.Height / 2 - pb.Height / 2 * 0.8), New Point(pb.Width / 20, pb.Height / 2 + pb.Height / 2 * 0.8), g, pb.Height / 20)
+                'drawLineColor(-9999, New Point(pb.Width / 20 * 19, pb.Height / 2 - pb.Height / 2 * 0.8), New Point(pb.Width / 20 * 19, pb.Height / 2 + pb.Height / 2 * 0.8), g, pb.Height / 20)
+
+                Dim upLeft As Double = pb.Width / 2 - pb.Width * 0.004 * top_pos.Text
+                Dim upRight As Double = pb.Width / 2 + pb.Width * 0.004 * top_pos.Text
+                Dim downLeft As Double = pb.Width / 2 - pb.Width * 0.004 * bot_pos.Text
+                Dim downRight As Double = pb.Width / 2 + pb.Width * 0.004 * bot_pos.Text
+
+                Dim leftUp As Double = pb.Height / 2 - pb.Height * 0.004 * left_pos.Text
+                Dim leftDown As Double = pb.Height / 2 + pb.Height * 0.004 * left_pos.Text
+                Dim rightUp As Double = pb.Height / 2 - pb.Height * 0.004 * right_pos.Text
+                Dim rightDown As Double = pb.Height / 2 + pb.Height * 0.004 * right_pos.Text
+
+
+                If (upLeft - downRight) = 0 Or (upRight - downLeft) = 0 Then
+                Else
+
+                    ' m1 = (Ytl - Ybr) / (Xtl - Xbr)
+                    ' b1 = y - m1*x
+                    Dim m1 As Double = (leftUp - rightDown) / (upLeft - downRight)
+                    Dim b1 As Double = leftUp - m1 * upLeft
+                    'If Not b1 = CDbl(-rightDown - m1 * downRight) Then MsgBox("錯誤發生!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+
+                    ' m2 = (Ytr - Ybl) / (Xtr - Xbl)
+                    ' b2 = y - m2*x
+                    Dim m2 As Double = (rightUp - leftDown) / (upRight - downLeft)
+                    Dim b2 As Double = rightUp - m2 * upRight
+                    'If Not b2 = -leftDown - m2 * -downLeft Then MsgBox("錯誤發生!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+
+                    Dim shiftX As Double = (b2 - b1) / (m1 - m2)
+                    Dim shiftY As Double = m1 * shiftX + b1
+                    'If Not shiftY = m2 * shiftX + b2 Then MsgBox("錯誤發生!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+
+                    Debug.WriteLine("Center = (" & center.X & ", " & center.Y & ") | Intercept = (" & shiftX & ", " & shiftY & ")")
+                    'shiftX = 0
+                    'shiftY = 0
+                    shiftX = (shiftX - center.X)
+                    shiftY = (shiftY - center.Y)
+                    Debug.WriteLine("New Intercept = (" & shiftX & ", " & shiftY & ")")
+
+                    drawLineColor(top_pos.Text, New Point(upLeft - shiftX, pb.Height / 20),
+                                            New Point(upRight - shiftX, pb.Height / 20), g, pb.Width / 20)
+
+                    drawLineColor(bot_pos.Text, New Point(downLeft - shiftX, pb.Height / 20 * 19),
+                                            New Point(downRight - shiftX, pb.Height / 20 * 19), g, pb.Width / 20)
+
+                    drawLineColor(left_pos.Text, New Point(pb.Width / 20, leftUp - shiftY),
+                                             New Point(pb.Width / 20, leftDown - shiftY), g, pb.Height / 20)
+
+                    drawLineColor(right_pos.Text, New Point(pb.Width / 20 * 19, rightUp - shiftY),
+                                              New Point(pb.Width / 20 * 19, rightDown - shiftY), g, pb.Height / 20)
+
+                    ' 四角
+                    Dim topLeft As New Point(upLeft - shiftX, leftUp - shiftY)
+                    Dim topRight As New Point(upRight - shiftX, rightUp - shiftY)
+                    Dim botLeft As New Point(downLeft - shiftX, leftDown - shiftY)
+                    Dim botRight As New Point(downRight - shiftX, rightDown - shiftY)
+
+                    drawLineColor(CInt(getSide(topLeft, center) / getSide(topLeft, botRight) * diagLeft.Text) * 2, topLeft, center, g, 5, True)
+                    drawLineColor(CInt(getSide(topRight, center) / getSide(topRight, botLeft) * diagRight.Text) * 2, topRight, center, g, 5, True)
+                    drawLineColor(CInt(getSide(botRight, center) / getSide(topLeft, botRight) * diagLeft.Text) * 2, center, botRight, g, 5, True)
+                    drawLineColor(CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * diagRight.Text) * 2, center, botLeft, g, 5, True)
+
+                    ' 繪製文字
+                    g.DrawString(CInt(getSide(topLeft, center) / getSide(topLeft, botRight) * diagLeft.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, 1, 1)
+                    g.DrawString(CInt(getSide(botRight, center) / getSide(topLeft, botRight) * diagLeft.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, pb.Width - 16, pb.Height - 16)
+
+                    g.DrawString(CInt(getSide(topRight, center) / getSide(topRight, botLeft) * diagRight.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, pb.Width - 16, 1)
+                    g.DrawString(CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * diagRight.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, 1, pb.Height - 16)
+
+                    'If Not (top_pos.Text = "" Or left_pos.Text = "") Then
+                    '    drawLineColor(getSide(New Point(-top_pos.Text / 2, left_pos.Text / 2), New Point(0, 0)), topLeft, center, g, pb.Width / 20, True)
+                    'End If
+
+                    'If Not (top_pos.Text = "" Or right_pos.Text = "") Then
+                    '    drawLineColor(getSide(New Point(top_pos.Text / 2, right_pos.Text / 2), New Point(0, 0)), topRight, center, g, pb.Width / 20, True)
+                    'End If
+
+                    'If Not (bot_pos.Text = "" Or left_pos.Text = "") Then
+                    '    drawLineColor(getSide(New Point(-bot_pos.Text / 2, left_pos.Text / 2), New Point(0, 0)), botLeft, center, g, pb.Width / 20, True)
+                    'End If
+
+                    'If Not (bot_pos.Text = "" Or right_pos.Text = "") Then
+                    '    drawLineColor(getSide(New Point(bot_pos.Text / 2, right_pos.Text / 2), New Point(0, 0)), botRight, center, g, pb.Width / 20, True)
+                    'End If
+
+
+                    ' 總面積
+                    Dim top As New Point(pb.Width / 2, pb.Height / 20)
+                    Dim bot As New Point(pb.Width / 2, pb.Height / 20 * 19)
+                    Dim left As New Point(pb.Width / 20, pb.Height / 2)
+                    Dim right As New Point(pb.Width / 20 * 19, pb.Height / 2)
+
+                    Dim maxWidth As Double = pb.Width * 0.004 * 45
+                    Dim maxHeight As Double = pb.Height * 0.004 * 45
+                    Dim maxArea As Double = getArea(getSide(New Point(pb.Width / 2 - maxWidth, pb.Height / 20),
+                                                        New Point(pb.Width / 2 + maxWidth, pb.Height / 20)),
+                                                getSide(New Point(pb.Width / 2 - maxWidth, pb.Height / 20), center),
+                                                getSide(New Point(pb.Width / 2 + maxWidth, pb.Height / 20), center)) * 8
+
+
+                    Dim totalArea As Double = getArea(getSide(topLeft, topRight), getSide(topLeft, center), getSide(topRight, center)) +
+                                          getArea(getSide(topLeft, botLeft), getSide(topLeft, center), getSide(botLeft, center)) +
+                                          getArea(getSide(botLeft, botRight), getSide(botLeft, center), getSide(botRight, center)) +
+                                          getArea(getSide(topRight, botRight), getSide(topRight, center), getSide(botRight, center))
+
+                    topArea.Text = FormatNumber(Math.Round(getArea(getSide(topLeft, topRight), getSide(topLeft, center), getSide(topRight, center)) / totalArea * 100, 1), 1)
+                    botArea.Text = FormatNumber(Math.Round(getArea(getSide(botLeft, botRight), getSide(botLeft, center), getSide(botRight, center)) / totalArea * 100, 1), 1)
+                    leftArea.Text = FormatNumber(Math.Round(getArea(getSide(topLeft, botLeft), getSide(topLeft, center), getSide(botLeft, center)) / totalArea * 100, 1), 1)
+                    rightArea.Text = FormatNumber(Math.Round(getArea(getSide(topRight, botRight), getSide(topRight, center), getSide(botRight, center)) / totalArea * 100, 1), 1)
+                    totalPercentage.Text = FormatNumber(Math.Round(totalArea / maxArea * 100, 1), 1)
+
+
+                    'drawTriangle(topLeft, topRight, center, e)
+                    'drawTriangle(botLeft, botRight, center, e)
+                    'drawTriangle(topLeft, botLeft, center, e)
+                    'drawTriangle(topRight, botRight, center, e)
+
+                End If
+
+            End If
+
+            e.Graphics.DrawImage(bmp, New Point(0, 0))
+
+            ' 格線
+            bmp = New Bitmap(pb.Size.Width, pb.Size.Height)
+            g = Graphics.FromImage(bmp)
+            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(pb.Size.Width / 2, 0), New Point(pb.Size.Width / 2, pb.Size.Height))
+            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, pb.Size.Height / 2), New Point(pb.Width, pb.Size.Height / 2))
+            e.Graphics.DrawImage(bmp, New Point(0, 0))
+
         End If
-        g.DrawLine(System.Drawing.Pens.White, New Point(0, 0), New Point(0, CType(sender, PictureBox).Size.Height))
-        e.Graphics.DrawImage(bmp, New Point(0, 0))
 
-        ' 畫文字
-        Dim outlinePath As New Drawing2D.GraphicsPath
-        Dim useFont As Font = New Font("微軟正黑體", 20, FontStyle.Regular)
-        Dim fontsize As Integer
-        Dim stringFormat As New StringFormat()
-        stringFormat.FormatFlags = StringFormatFlags.NoClip
-        stringFormat.Alignment = StringAlignment.Far
-
-        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-
-        fontsize = 30
-
-        outlinePath.AddString(getTime(tickCounter), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(CType(sender, PictureBox).Width, 0), stringFormat)
-        useFont.Dispose()
-
-        e.Graphics.FillPath(Brushes.LightGray, outlinePath)
-        e.Graphics.TranslateTransform(-1, -1)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.TranslateTransform(1, 1)
-        outlinePath.Dispose()
     End Sub
     ' 轉算時間
     Private Function getTime(ByVal tick As Integer) As String
         Dim result As Double = CDbl(tick) / 1000 * 15
         Return FormatNumber(Math.Round(result, 1), 1)
     End Function
+    ' 繪製彩線
+    Private Sub drawLineColor(ByVal value As Double, ByVal pt1 As Point, ByVal pt2 As Point, ByRef g As Graphics,
+                              ByVal lineSize As Double, Optional ByVal useAlt As Boolean = False)
+
+        ' 筆刷
+        Dim greenPen As New Pen(Brushes.Green, CSng(lineSize))
+        greenPen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim blackPen As New Pen(Brushes.Black, CSng(lineSize))
+        blackPen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim orangePen As New Pen(Brushes.Orange, CSng(lineSize))
+        orangePen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim redPen As New Pen(Brushes.Red, CSng(lineSize))
+        redPen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim upperDanger As Double = My.Settings.emsUpperDanger
+        Dim upperWarning As Double = My.Settings.emsUpperWarning
+        Dim lowerWarning As Double = My.Settings.emsLowerWarning
+        Dim lowerDanger As Double = My.Settings.emsLowerDanger
+
+        If useAlt Then
+            upperDanger = My.Settings.engUpperDanger
+            upperWarning = My.Settings.engUpperWarning
+            lowerWarning = My.Settings.engLowerWarning
+            lowerDanger = My.Settings.engLowerDanger
+        End If
+
+        If value = -9999 Then
+            g.DrawLine(blackPen, pt1, pt2)
+        ElseIf value >= upperDanger Or value < lowerDanger Then
+            g.DrawLine(redPen, pt1, pt2)
+        ElseIf value >= upperWarning Or value < lowerWarning Then
+            g.DrawLine(orangePen, pt1, pt2)
+        Else
+            g.DrawLine(greenPen, pt1, pt2)
+        End If
+
+        greenPen.Dispose()
+        blackPen.Dispose()
+        orangePen.Dispose()
+        redPen.Dispose()
+    End Sub
 #End Region
+
+#Region "元氣計算"
+    ' 距離計算
+    Private Function getSide(ByVal pt1 As Point, ByVal pt2 As Point) As Double
+        Return Math.Sqrt(Math.Abs(pt2.X - pt1.X) ^ 2 + Math.Abs(pt2.Y - pt1.Y) ^ 2)
+    End Function
+    ' 面積計算
+    Private Function getArea(ByVal sideA As Double, ByVal sideB As Double, ByVal sideC As Double) As Double
+        Dim p As Double = (sideA + sideB + sideC) / 2
+        Return Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC))
+    End Function
+
+    Private Function parseResult(ByVal value As Integer, Optional outputNum As Boolean = False) As String
+        If outputNum Then
+            If value = -9999 Then Return "0" Else Return value.ToString
+        Else
+            If value = -9999 Then Return "-" Else Return value.ToString
+        End If
+    End Function
+
+    Private Function getMax(ByVal hid As Integer, ByVal iCode As Integer) As Integer
+        Dim max As Integer
+        Dim queryStr As String = "SELECT max(`ivalue`) as `max_val` FROM ems WHERE `hid`='" & hid & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` LIMIT 50"
+        Dim reader As IDataReader = runQuery(queryStr)
+        Try
+
+            reader.Read()
+            If reader.IsDBNull(0) Then
+                reader.Close()
+                Return -9999
+            Else
+                max = CInt(reader.GetInt32(0))
+                reader.Close()
+            End If
+        Catch ex As MySqlException
+            reader.Close()
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
+        Return max
+    End Function
+
+    Private Function getLow(ByVal hid As Integer, ByVal iCode As Integer) As Integer
+        Dim low As Integer
+        Dim queryStr As String = "SELECT `iPlotCount`, `iValue` FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC Limit 1"
+        Dim reader As IDataReader = runQuery(queryStr)
+        Try
+            If Not reader.Read Then
+                reader.Close()
+                Return -9999
+            Else
+                If reader.GetInt32(0) > 50 Then
+                    reader.Close()
+                    queryStr = "SELECT * FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC"
+                    reader = runQuery(queryStr)
+                    While reader.Read()
+                        If reader.GetInt32(0) = 50 Then
+                            low = reader.GetInt32(1)
+                            reader.Close()
+                            Exit While
+                        End If
+                    End While
+                    reader.Close()
+                Else
+                    low = reader.GetInt32(1)
+                    reader.Close()
+                End If
+            End If
+
+        Catch ex As MySqlException
+            reader.Close()
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
+        Return low
+    End Function
+
+
+#End Region
+
 #Region "頻譜測量"
     Private Sub emsTimer_Tick(sender As Object, e As EventArgs) Handles emsTimer.Tick
         Dim dValue As Double
@@ -435,6 +1000,7 @@ Public Class pnlEms
         If err <> ErrorCode.Success Then
             'iErr = iErr + 1
             emsTimer.Stop()
+            RaiseEvent DEVICE_ERROR(Me, New EventArgs)
             MessageBox.Show("Sorry ! 請檢查輸入設備後再試, the error code is: " & err.ToString(), "InstantAI")
             emsTimer.Start()
         End If
@@ -450,7 +1016,6 @@ Public Class pnlEms
         End If
         Return daDev(i)
     End Function
-
     ' 紀錄量測值
     Private Sub PutMeasures(iValue As Integer)
         sMeasures = sMeasures & iValue & ","
@@ -759,62 +1324,7 @@ Public Class pnlEms
             Try
                 iCode = CInt(CStr(LR) + CStr(HF) + CStr(Finger) + CStr(TB) + CStr(P) + CStr(S))
                 sMsg = pt.Item(iCode)
-                Dim fullPoint As String = ""
-                Select Case LR
-                    Case 1
-                        fullPoint = "左"
-                    Case 2
-                        fullPoint = "右"
-                    Case Else
-                        fullPoint = "未知方向"
-                End Select
-                Select Case HF
-                    Case 1
-                        fullPoint += "手"
-                    Case 2
-                        fullPoint += "腳"
-                    Case Else
-                        fullPoint += "-未知部位"
-                End Select
-                Select Case Finger
-                    Case 1
-                        fullPoint += "拇指"
-                    Case 2
-                        fullPoint += "食指"
-                    Case 3
-                        fullPoint += "中指"
-                    Case 4
-                        fullPoint += "無名指"
-                    Case 5
-                        fullPoint += "小指"
-                    Case Else
-                        fullPoint += "-未知指頭"
-                End Select
-                Select Case TB
-                    Case 1
-                        fullPoint += "外側"
-                    Case 2
-                        fullPoint += "內側"
-                    Case Else
-                        fullPoint += "-未知邊"
-                End Select
-                Select Case P
-                    Case 1
-                        fullPoint += "頭"
-                    Case 2
-                        fullPoint += "頂"
-                    Case 3
-                        fullPoint += "上焦"
-                    Case 4
-                        fullPoint += "中焦"
-                    Case 5
-                        fullPoint += "總量度點"
-                    Case 6
-                        fullPoint += "下焦"
-                    Case Else
-                        fullPoint += "-未知量度點"
-                End Select
-                measurePoint.Text = "量度點 [" & fullPoint & "]"
+                measurePoint.Text = "量度點 [" & sMsg & "]"
             Catch ex As KeyNotFoundException
                 Dim fullPoint As String = ""
                 Select Case LR
@@ -890,9 +1400,192 @@ Public Class pnlEms
             Catch ex As KeyNotFoundException
                 sMsg = "未知位置"
             End Try
-
+            measurePoint.Text = "量度點 [" & sMsg & "]"
         End If
     End Sub
+    ' 測量點選單
+    Private Sub ptBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ptBox.SelectedIndexChanged
+        If Not (TypeOf ptBox.SelectedValue Is DataRowView) Then
+            iCode2Btn(ptBox.SelectedValue)
+        End If
+    End Sub
+#Region "鍵盤除錯檢查"
+    Private Sub energy_CheckedChanged(sender As Object, e As EventArgs) Handles rdoUpLeft.CheckedChanged, rdoUpRight.CheckedChanged, rdoDownLeft.CheckedChanged, rdoDownRight.CheckedChanged
+        Static energyCbxStack As New List(Of CheckBox)
+        ' 檢查確保元氣方向不會同時超過兩個以上點選之狀況
+        Dim ckBox As New CheckBox
+        If TypeOf sender Is CheckBox Then
+            ckBox = CType(sender, CheckBox)
+        End If
+        RemoveHandler ckBox.CheckedChanged, AddressOf energy_CheckedChanged
+        With ckBox
+            If energyCbxStack.Contains(ckBox) Then
+                .Checked = True
+                '.BackColor = Color.Green
+                AddHandler ckBox.CheckedChanged, AddressOf energy_CheckedChanged
+                Exit Sub
+            End If
+            If .Checked = True Then
+                energyCbxStack.Add(ckBox)
+                If energyCbxStack.Count > 2 Then
+                    RemoveHandler energyCbxStack.Item(0).CheckedChanged, AddressOf energy_CheckedChanged
+                    energyCbxStack.Item(0).Checked = False
+                    'energyCbxStack.Item(0).BackColor = BackColor
+                    AddHandler energyCbxStack.Item(0).CheckedChanged, AddressOf energy_CheckedChanged
+                    energyCbxStack.RemoveAt(0)
+                End If
+                AddHandler ckBox.CheckedChanged, AddressOf energy_CheckedChanged
+            End If
+        End With
+        'If sender.checked Then
+        '    sender.backcolor = Color.Green
+        'Else
+        '    sender.backcolor = BackColor
+        'End If
+        getMeasurePoint()
+    End Sub
+    Private Sub point_CheckedChanged(sender As Object, e As EventArgs) Handles rdoC1.CheckedChanged, rdoC2.CheckedChanged, rdoC3.CheckedChanged, rdoC4.CheckedChanged, rdoC5.CheckedChanged, rdoC6.CheckedChanged
+        Static ptCbxStack As New List(Of CheckBox)
+
+        ' 檢查確保量測點不會同時超過一個以上點選之狀況
+        Dim ckBox As New CheckBox
+        If TypeOf sender Is CheckBox Then
+            ckBox = CType(sender, CheckBox)
+        End If
+        RemoveHandler ckBox.CheckedChanged, AddressOf point_CheckedChanged
+        With ckBox
+            If ptCbxStack.Contains(ckBox) Then
+                .Checked = True
+                '.BackColor = Color.Green
+                AddHandler ckBox.CheckedChanged, AddressOf point_CheckedChanged
+                Exit Sub
+            End If
+            If .Checked = True Then
+                ptCbxStack.Add(ckBox)
+                If ptCbxStack.Count > 1 Then
+                    RemoveHandler ptCbxStack.Item(0).CheckedChanged, AddressOf point_CheckedChanged
+                    ptCbxStack.Item(0).Checked = False
+                    'ptCbxStack.Item(0).BackColor = BackColor
+                    AddHandler ptCbxStack.Item(0).CheckedChanged, AddressOf point_CheckedChanged
+                    ptCbxStack.RemoveAt(0)
+                End If
+                AddHandler ckBox.CheckedChanged, AddressOf point_CheckedChanged
+            End If
+        End With
+        'If sender.checked Then
+        '    sender.backcolor = Color.Green
+        'Else
+        '    sender.backcolor = BackColor
+        'End If
+        getMeasurePoint()
+    End Sub
+    Private Sub finger_CheckedChanged(sender As Object, e As EventArgs) Handles rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged,
+                                                                                 rdoF5.CheckedChanged
+        Static fingerCbxStack As New List(Of CheckBox)
+
+        ' 檢查確保手指不會同時超過一個以上點選之狀況
+        Dim ckBox As New CheckBox
+        If TypeOf sender Is CheckBox Then
+            ckBox = CType(sender, CheckBox)
+        End If
+        RemoveHandler ckBox.CheckedChanged, AddressOf finger_CheckedChanged
+        With ckBox
+            If fingerCbxStack.Contains(ckBox) Then
+                .Checked = True
+                '.BackColor = Color.Green
+                AddHandler ckBox.CheckedChanged, AddressOf finger_CheckedChanged
+                Exit Sub
+            End If
+            If .Checked = True Then
+                fingerCbxStack.Add(ckBox)
+                If fingerCbxStack.Count > 1 Then
+                    RemoveHandler fingerCbxStack.Item(0).CheckedChanged, AddressOf finger_CheckedChanged
+                    fingerCbxStack.Item(0).Checked = False
+                    'fingerCbxStack.Item(0).BackColor = BackColor
+                    AddHandler fingerCbxStack.Item(0).CheckedChanged, AddressOf finger_CheckedChanged
+                    fingerCbxStack.RemoveAt(0)
+                End If
+                AddHandler ckBox.CheckedChanged, AddressOf finger_CheckedChanged
+            End If
+        End With
+        'If sender.checked Then
+        '    sender.backcolor = Color.Green
+        'Else
+        '    sender.backcolor = BackColor
+        'End If
+        getMeasurePoint()
+    End Sub
+    Private Sub reverse_CheckedChanged(sender As Object, e As EventArgs) Handles rdoLeft.CheckedChanged, rdoRight.CheckedChanged, rdoHand.CheckedChanged, rdoFoot.CheckedChanged,
+                                                                                 rdoEnergy.CheckedChanged, rdoGraph.CheckedChanged, rdoS1.CheckedChanged, rdoS2.CheckedChanged
+        Static firstTime As Boolean = True
+
+        ' 反轉兩者互相牽制的按鈕
+        If firstTime Then
+            firstTime = False
+            Select Case sender.name
+                Case "rdoLeft"
+                    rdoRight.Checked = Not rdoLeft.Checked
+                Case "rdoRight"
+                    rdoLeft.Checked = Not rdoRight.Checked
+                Case "rdoHand"
+                    rdoFoot.Checked = Not rdoHand.Checked
+                Case "rdoFoot"
+                    rdoHand.Checked = Not rdoFoot.Checked
+                Case "rdoS1"
+                    rdoS2.Checked = Not rdoS1.Checked
+                Case "rdoS2"
+                    rdoS1.Checked = Not rdoS2.Checked
+                Case "rdoEnergy"
+                    rdoGraph.Checked = Not rdoEnergy.Checked
+                    If rdoEnergy.Checked Then
+                        rdoUpLeft.Checked = True
+                        rdoUpRight.Checked = True
+                    End If
+                Case "rdoGraph"
+                    rdoEnergy.Checked = Not rdoGraph.Checked
+                    If rdoGraph.Checked Then
+                        rdoLeft.Checked = True
+                        rdoHand.Checked = True
+                        rdoF1.Checked = True
+                        rdoC5.Checked = True
+                        rdoS1.Checked = True
+                    End If
+            End Select
+
+            ' 顯示/隱藏不相關按鈕
+            rdoUpLeft.Visible = rdoEnergy.Checked
+            rdoUpRight.Visible = rdoEnergy.Checked
+            rdoDownLeft.Visible = rdoEnergy.Checked
+            rdoDownRight.Visible = rdoEnergy.Checked
+            rdoF1.Visible = rdoGraph.Checked
+            rdoF2.Visible = rdoGraph.Checked
+            rdoF3.Visible = rdoGraph.Checked
+            rdoF4.Visible = rdoGraph.Checked
+            rdoF5.Visible = rdoGraph.Checked
+            rdoS1.Visible = rdoGraph.Checked
+            rdoS2.Visible = rdoGraph.Checked
+            rdoC6.Visible = rdoGraph.Checked
+            rdoC5.Visible = rdoGraph.Checked
+            rdoC4.Visible = rdoGraph.Checked
+            rdoC3.Visible = rdoGraph.Checked
+            rdoC2.Visible = rdoGraph.Checked
+            rdoC1.Visible = rdoGraph.Checked
+            rdoLeft.Visible = rdoGraph.Checked
+            rdoRight.Visible = rdoGraph.Checked
+            rdoHand.Visible = rdoGraph.Checked
+            rdoFoot.Visible = rdoGraph.Checked
+            rdoStone.Visible = rdoGraph.Checked
+
+            firstTime = True
+        End If
+        'If sender.checked Then
+        '    sender.backcolor = Color.Green
+        'Else
+        '    sender.backcolor = BackColor
+        'End If
+        getMeasurePoint()
+    End Sub
+#End Region
 #End Region
 #Region "測試"
     ' 校正
@@ -929,281 +1622,6 @@ Public Class pnlEms
         buttonPanel.Visible = True
     End Sub
 
-#End Region
-#Region "初始"
-    Public Sub New(ByVal owner As Form)
-        MyBase.New(owner)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-        owner.WindowState = FormWindowState.Maximized
-        owner.BringToFront()
-
-
-        ' Add any initialization after the InitializeComponent() call.
-        If Not InstantAiCtrl1.Initialized Then
-            RaiseEvent DEVICE_ERROR(Me, New EventArgs)
-        Else
-            ConfigObjs()
-            init()
-            initiated = True
-        End If
-
-    End Sub
-    Private Sub ConfigObjs()
-
-        If Not mainForm.offlineMode Then
-            pName.Text = mainForm.patientInfo.pName
-            If mainForm.patientInfo.pSex = 0 Then
-                pSex.Text = "女"
-            Else
-
-                pSex.Text = "男"
-            End If
-            'Label36.Text = Year(Now) - Year(mainForm.patientInfo.pDOB)
-        Else
-            diagTab.TabPages.Remove(tabMed)
-            'emsTabs.TabPages.Remove(tabEnergy)
-            'emsTabs.TabPages.Remove(tabDetail)
-            'emsTabs.TabPages.Remove(tabPreview)
-        End If
-
-        '固定偏離點值
-        iFixDevPoint = txtFixDevPoint.Text
-
-        'picturebox
-        myPen = New Pen(Color.Red, 2) 'creates a red pen with a thickness of 2
-        paDrawBuffer = New Point(XMAX) {}
-        xPixDiv = (pb.Size.Width / XMAX)
-        yPixDiv = (pb.Size.Height / YMAX)
-        pName.Text = mainForm.patientInfo.pName
-
-        '' 對應設定值
-        'emsNorm.Text = My.Settings.emsNormalValue
-        'emsRange.Text = My.Settings.emsNormalRange
-        'emsCritical.Text = My.Settings.emsCriticalValue
-        'energyNorm.Text = My.Settings.energyNormalValue
-        'energyRange.Text = My.Settings.energyNormalRange
-        'energyCritical.Text = My.Settings.energyCriticalValue
-
-        ' 各個點的代碼以及名稱
-        ' 元氣部分是以四個bit分別代表 - 左上, 右上, 左下, 右下, 然後取其Int值
-        ' 其他部位則是以五位數字來分別代表以下意思
-        ' 第一位數字  - 左邊(1)或右邊(2)
-        ' 第二位數字  - 手(1)或腳(2)
-        ' 第三位數字  - 拇指(1), 食指(2), 中指(3), 無名指(4), 小指(5)
-        ' 第四位數字  - 外側(1)或內側(2)
-        ' 第五位數字  - 頂(1), 頭(2), 上焦(3), 中焦(4), 總量度點(5), 下焦(6)
-
-        pt.Add(12, "元氣 - 上")
-        pt.Add(3, "元氣 - 下")
-        pt.Add(10, "元氣 - 左")
-        pt.Add(5, "元氣 - 右")
-        pt.Add(9, "元氣 - 左上右下")
-        pt.Add(6, "元氣 - 右上左下")
-        pt.Add(111150, "免疫系統")
-        pt.Add(111250, "肺")
-        pt.Add(111230, "鼻咽")
-        pt.Add(112150, "大腸")
-        pt.Add(112250, "神經傳導")
-        pt.Add(113150, "大血管")
-        pt.Add(113250, "微血管")
-        pt.Add(114150, "器官退化-總")
-        pt.Add(114110, "器官退化-頂")
-        pt.Add(114120, "器官退化-頭")
-        pt.Add(114130, "器官退化-上焦")
-        pt.Add(114140, "器官退化-中焦")
-        pt.Add(114160, "器官退化-下焦")
-        pt.Add(114250, "內分泌")
-        pt.Add(114210, "腦下垂體")
-        pt.Add(114220, "甲狀腺")
-        pt.Add(114240, "乳房")
-        pt.Add(114260, "卵巢")
-        pt.Add(115150, "心臟")
-        pt.Add(115130, "壓力指數")
-        pt.Add(115250, "小腸")
-        pt.Add(211150, "免疫系統")
-        pt.Add(211250, "肺")
-        pt.Add(211230, "鼻咽")
-        pt.Add(212150, "大腸")
-        pt.Add(212250, "神經傳導")
-        pt.Add(213150, "大血管")
-        pt.Add(213250, "微血管")
-        pt.Add(214150, "器官退化-總")
-        pt.Add(214110, "器官退化-頂")
-        pt.Add(214120, "器官退化-頭")
-        pt.Add(214130, "器官退化-上焦")
-        pt.Add(214140, "器官退化-中焦")
-        pt.Add(214160, "器官退化-下焦")
-        pt.Add(214250, "內分泌")
-        pt.Add(214210, "腦下垂體")
-        pt.Add(214220, "甲狀腺")
-        pt.Add(214240, "乳房")
-        pt.Add(214260, "卵巢")
-        pt.Add(215150, "心臟")
-        pt.Add(215250, "小腸")
-        pt.Add(121150, "脾臟")
-        pt.Add(121250, "肝臟")
-        pt.Add(121260, "肝功能/大腸")
-        pt.Add(122110, "頭骨")
-        pt.Add(122120, "頸椎骨")
-        pt.Add(122130, "腰骨")
-        pt.Add(122150, "臀骨")
-        pt.Add(122140, "大腿骨")
-        pt.Add(122160, "小腿骨")
-        pt.Add(122250, "胃")
-        pt.Add(123150, "纖維化-總")
-        pt.Add(123120, "纖維化-頭")
-        pt.Add(123130, "纖維化-上焦")
-        pt.Add(123140, "纖維化-中焦")
-        pt.Add(123160, "纖維化-下焦")
-        pt.Add(123250, "皮膚")
-        pt.Add(124150, "脂肪代謝")
-        pt.Add(124250, "膽囊總膽管")
-        pt.Add(125150, "腎臟")
-        pt.Add(125230, "膀胱")
-        pt.Add(125250, "膀胱經")
-        pt.Add(125240, "子宮/前列腺")
-        pt.Add(221150, "胰臟")
-        pt.Add(221130, "血糖")
-        pt.Add(221250, "肝臟")
-        pt.Add(221260, "肝功能/大腸")
-        pt.Add(222110, "頭骨")
-        pt.Add(222120, "頸椎骨")
-        pt.Add(222130, "腰骨")
-        pt.Add(222150, "臀骨")
-        pt.Add(222140, "大腿骨")
-        pt.Add(222160, "小腿骨")
-        pt.Add(222250, "胃")
-        pt.Add(223150, "纖維化-總")
-        pt.Add(223120, "纖維化-頭")
-        pt.Add(223130, "纖維化-上焦")
-        pt.Add(223140, "纖維化-中焦")
-        pt.Add(223160, "纖維化-下焦")
-        pt.Add(223250, "皮膚")
-        pt.Add(224150, "脂肪代謝")
-        pt.Add(224250, "肝內膽管")
-        pt.Add(225150, "腎臟")
-        pt.Add(225230, "膀胱")
-        pt.Add(225240, "子宮/前列腺")
-        pt.Add(225250, "膀胱經")
-        pt.Add(125260, "膀胱器官退化")
-        pt.Add(225260, "膀胱器官退化")
-        pt.Add(125251, "膀胱結石")
-        pt.Add(225251, "膀胱結石")
-        pt.Add(124251, "膽囊結石")
-        pt.Add(224251, "膽管結石")
-        pt.Add(125151, "腎結石")
-        pt.Add(225151, "腎結石")
-
-        ' 舊的點設定
-        bar2iCode(1) = 111150
-        bar2iCode(2) = 111250
-        bar2iCode(3) = 112150
-        bar2iCode(4) = 112250
-        bar2iCode(5) = 113150
-        bar2iCode(6) = 113250
-        bar2iCode(7) = 114150
-        bar2iCode(8) = 114250
-        bar2iCode(9) = 115150
-        bar2iCode(10) = 115250
-        bar2iCode(11) = 211150
-        bar2iCode(12) = 211250
-        bar2iCode(13) = 212150
-        bar2iCode(14) = 212250
-        bar2iCode(15) = 213150
-        bar2iCode(16) = 213250
-        bar2iCode(17) = 214150
-        bar2iCode(18) = 214250
-        bar2iCode(19) = 215150
-        bar2iCode(20) = 215250
-        bar2iCode(21) = 121150
-        bar2iCode(22) = 121250
-        bar2iCode(23) = 122150
-        bar2iCode(24) = 122250
-        bar2iCode(25) = 123150
-        bar2iCode(26) = 123250
-        bar2iCode(27) = 124150
-        bar2iCode(28) = 124250
-        bar2iCode(29) = 125150
-        bar2iCode(30) = 125250
-        bar2iCode(31) = 221150
-        bar2iCode(32) = 221250
-        bar2iCode(33) = 222150
-        bar2iCode(34) = 222250
-        bar2iCode(35) = 223150
-        bar2iCode(36) = 223250
-        bar2iCode(37) = 224150
-        bar2iCode(38) = 224250
-        bar2iCode(39) = 225150
-        bar2iCode(40) = 225250
-
-        bar2iCode(41) = 12
-        bar2iCode(42) = 3
-        bar2iCode(43) = 10
-        bar2iCode(44) = 5
-        bar2iCode(45) = 9
-        bar2iCode(46) = 6
-        bar2iCode(47) = 115130
-        bar2iCode(48) = 225240
-        bar2iCode(49) = 125240
-
-        graphTab.SelectTab(tabEnergy)
-
-        ' 將量度點新增至下拉選單
-        Dim ptTable As DataTable = New DataTable()
-        ptTable.Columns.Add("iCode", GetType(Integer))
-        ptTable.Columns.Add("測量點", GetType(String))
-        For Each point As KeyValuePair(Of Integer, String) In pt
-            If point.Key > 1000 Then
-                If Mid(point.Key, 1, 1) = "1" Then ptTable.Rows.Add(point.Key, "[左] " & point.Value) Else ptTable.Rows.Add(point.Key, "[右] " & point.Value)
-            Else
-                ptTable.Rows.Add(point.Key, point.Value)
-            End If
-        Next
-        ptBox.DataSource = ptTable
-        ptBox.DisplayMember = "測量點"
-        ptBox.ValueMember = "iCode"
-
-    End Sub
-    Private Sub init()
-        '
-        sMeasures = ""
-        bNewMeasure = True
-        bAutoProgress = False
-        '
-        iDoOut = 0
-        idx = 0
-        iCount = 100   ' for delay 1 sec
-        iStopCount = 0
-        dTotal = 0
-        dFull = 100
-        dOffset = 0
-        iValue1 = 0
-        dDevRate = 0
-        iMax = 0
-        iMaxOrg = 0 '最大值原點坐標
-        iDev = 0
-        iDev1 = 0
-        iState = 0
-        bFullState = False
-        bOffsetState = False
-        bDelayState = True
-        lblCali.Text = "校正"
-        '
-        bPaint = False
-        idx1 = 0
-        iPlotCount = 0
-        ptCounter = 0
-        sqlStr = ""
-        '
-        bHandFoot = True
-        bLR = True
-        sFinger = "rdoF1"
-        sSub = "rdoC2"
-        getMeasurePoint()
-        emsTimer.Enabled = True
-    End Sub
 
 #End Region
 End Class

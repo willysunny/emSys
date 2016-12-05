@@ -39,6 +39,7 @@ Partial Class mainForm
         Me.emsLink = New MetroFramework.Controls.MetroLink()
         Me.loginButton = New MetroFramework.Controls.MetroLink()
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
+        Me.testButton = New MetroFramework.Controls.MetroButton()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -128,30 +129,39 @@ Partial Class mainForm
         '
         'emsLink
         '
-        Me.emsLink.Location = New System.Drawing.Point(3, 73)
+        Me.emsLink.Location = New System.Drawing.Point(3, 78)
         Me.emsLink.Name = "emsLink"
-        Me.emsLink.Size = New System.Drawing.Size(174, 72)
+        Me.emsLink.Size = New System.Drawing.Size(86, 28)
         Me.emsLink.TabIndex = 2
         Me.emsLink.Text = "頻譜系統"
         Me.emsLink.UseSelectable = True
         '
         'loginButton
         '
-        Me.loginButton.Location = New System.Drawing.Point(3, 175)
+        Me.loginButton.Location = New System.Drawing.Point(1086, 78)
         Me.loginButton.Name = "loginButton"
-        Me.loginButton.Size = New System.Drawing.Size(174, 72)
+        Me.loginButton.Size = New System.Drawing.Size(86, 28)
         Me.loginButton.TabIndex = 2
         Me.loginButton.Text = "登入"
         Me.loginButton.UseSelectable = True
         '
         'userManageLink
         '
-        Me.userManageLink.Location = New System.Drawing.Point(3, 253)
+        Me.userManageLink.Location = New System.Drawing.Point(1086, 112)
         Me.userManageLink.Name = "userManageLink"
-        Me.userManageLink.Size = New System.Drawing.Size(174, 72)
+        Me.userManageLink.Size = New System.Drawing.Size(86, 28)
         Me.userManageLink.TabIndex = 2
         Me.userManageLink.Text = "使用者管理"
         Me.userManageLink.UseSelectable = True
+        '
+        'testButton
+        '
+        Me.testButton.Location = New System.Drawing.Point(3, 674)
+        Me.testButton.Name = "testButton"
+        Me.testButton.Size = New System.Drawing.Size(75, 23)
+        Me.testButton.TabIndex = 3
+        Me.testButton.Text = "Test Button"
+        Me.testButton.UseSelectable = True
         '
         'mainForm
         '
@@ -160,6 +170,7 @@ Partial Class mainForm
         Me.BackMaxSize = 4096
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
+        Me.Controls.Add(Me.testButton)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
         Me.Controls.Add(Me.emsLink)
@@ -193,4 +204,5 @@ Partial Class mainForm
     Friend WithEvents emsLink As MetroFramework.Controls.MetroLink
     Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
     Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents testButton As MetroFramework.Controls.MetroButton
 End Class

@@ -45,8 +45,10 @@ Partial Class pnlEms
         Me.tabGraph = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.diagPanel = New System.Windows.Forms.Panel()
+        Me.measurePoint = New System.Windows.Forms.Label()
         Me.buttonPanel = New MetroFramework.Controls.MetroPanel()
         Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
+        Me.okLink = New MetroFramework.Controls.MetroLink()
         Me.buttonTable = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.rdoEnergy = New System.Windows.Forms.CheckBox()
@@ -96,8 +98,8 @@ Partial Class pnlEms
         Me.rdoC1 = New System.Windows.Forms.CheckBox()
         Me.Panel27 = New System.Windows.Forms.Panel()
         Me.rdoGraph = New System.Windows.Forms.CheckBox()
-        Me.measurePoint = New MetroFramework.Controls.MetroLabel()
         Me.openPanelLink = New MetroFramework.Controls.MetroLink()
+        Me.pb = New System.Windows.Forms.PictureBox()
         Me.graphTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabEms = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -110,9 +112,32 @@ Partial Class pnlEms
         Me.txtEvaValue = New System.Windows.Forms.TextBox()
         Me.txtMaxValue = New System.Windows.Forms.TextBox()
         Me.txtDevValue = New System.Windows.Forms.TextBox()
+        Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
         Me.tabEnergy = New System.Windows.Forms.TabPage()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.top_pos = New MetroFramework.Controls.MetroTextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.bot_pos = New MetroFramework.Controls.MetroTextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.left_pos = New MetroFramework.Controls.MetroTextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.right_pos = New MetroFramework.Controls.MetroTextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.diagLeft = New MetroFramework.Controls.MetroTextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.diagRight = New MetroFramework.Controls.MetroTextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.topArea = New MetroFramework.Controls.MetroTextBox()
+        Me.botArea = New MetroFramework.Controls.MetroTextBox()
+        Me.leftArea = New MetroFramework.Controls.MetroTextBox()
+        Me.rightArea = New MetroFramework.Controls.MetroTextBox()
+        Me.totalPercentage = New MetroFramework.Controls.MetroTextBox()
         Me.tabCheck = New System.Windows.Forms.TabPage()
         Me.caliTable = New System.Windows.Forms.TableLayoutPanel()
         Me.txtFixDevPoint = New MetroFramework.Controls.MetroTextBox()
@@ -128,8 +153,6 @@ Partial Class pnlEms
         Me.lblCali = New MetroFramework.Controls.MetroLabel()
         Me.tabMed = New System.Windows.Forms.TabPage()
         Me.InstantAiCtrl1 = New Automation.BDaq.InstantAiCtrl(Me.components)
-        Me.okLink = New MetroFramework.Controls.MetroLink()
-        Me.pb = New System.Windows.Forms.PictureBox()
         Me.pInfoPanel.SuspendLayout()
         Me.pInfoTable.SuspendLayout()
         Me.diagTab.SuspendLayout()
@@ -162,22 +185,22 @@ Partial Class pnlEms
         Me.Panel25.SuspendLayout()
         Me.Panel26.SuspendLayout()
         Me.Panel27.SuspendLayout()
+        CType(Me.pb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.graphTab.SuspendLayout()
         Me.tabEms.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.tabEnergy.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.tabCheck.SuspendLayout()
         Me.caliTable.SuspendLayout()
-        CType(Me.pb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'owner
         '
-        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
+        Me.owner.ClientSize = New System.Drawing.Size(120, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'InstantDoCtrl1
         '
@@ -575,17 +598,30 @@ Partial Class pnlEms
         '
         'diagPanel
         '
-        Me.diagPanel.Controls.Add(Me.buttonPanel)
         Me.diagPanel.Controls.Add(Me.measurePoint)
+        Me.diagPanel.Controls.Add(Me.buttonPanel)
         Me.diagPanel.Controls.Add(Me.openPanelLink)
         Me.diagPanel.Controls.Add(Me.pb)
         Me.diagPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.diagPanel.Location = New System.Drawing.Point(300, 0)
         Me.diagPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.diagPanel.Name = "diagPanel"
-        Me.diagPanel.Padding = New System.Windows.Forms.Padding(20, 60, 20, 60)
+        Me.diagPanel.Padding = New System.Windows.Forms.Padding(20, 120, 20, 60)
         Me.diagPanel.Size = New System.Drawing.Size(623, 665)
         Me.diagPanel.TabIndex = 1
+        '
+        'measurePoint
+        '
+        Me.measurePoint.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.measurePoint.BackColor = System.Drawing.Color.White
+        Me.measurePoint.Font = New System.Drawing.Font("DFKai-SB", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.measurePoint.Location = New System.Drawing.Point(20, 19)
+        Me.measurePoint.Name = "measurePoint"
+        Me.measurePoint.Size = New System.Drawing.Size(583, 77)
+        Me.measurePoint.TabIndex = 3
+        Me.measurePoint.Text = "量測點"
+        Me.measurePoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'buttonPanel
         '
@@ -618,6 +654,18 @@ Partial Class pnlEms
         Me.MetroLabel5.Size = New System.Drawing.Size(112, 25)
         Me.MetroLabel5.TabIndex = 5
         Me.MetroLabel5.Text = "手動量測點"
+        '
+        'okLink
+        '
+        Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.okLink.Image = Global.emSys2016.My.Resources.Resources.okHover
+        Me.okLink.ImageSize = 35
+        Me.okLink.Location = New System.Drawing.Point(557, 9)
+        Me.okLink.Name = "okLink"
+        Me.okLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.okUp
+        Me.okLink.Size = New System.Drawing.Size(40, 40)
+        Me.okLink.TabIndex = 4
+        Me.okLink.UseSelectable = True
         '
         'buttonTable
         '
@@ -679,6 +727,8 @@ Partial Class pnlEms
         '
         Me.rdoEnergy.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoEnergy.AutoSize = True
+        Me.rdoEnergy.Checked = True
+        Me.rdoEnergy.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoEnergy.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoEnergy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoEnergy.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
@@ -705,6 +755,8 @@ Partial Class pnlEms
         '
         Me.rdoUpLeft.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoUpLeft.AutoSize = True
+        Me.rdoUpLeft.Checked = True
+        Me.rdoUpLeft.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoUpLeft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoUpLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoUpLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
@@ -731,6 +783,8 @@ Partial Class pnlEms
         '
         Me.rdoUpRight.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoUpRight.AutoSize = True
+        Me.rdoUpRight.Checked = True
+        Me.rdoUpRight.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoUpRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoUpRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoUpRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
@@ -835,6 +889,8 @@ Partial Class pnlEms
         '
         Me.rdoS1.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoS1.AutoSize = True
+        Me.rdoS1.Checked = True
+        Me.rdoS1.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoS1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoS1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoS1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -887,6 +943,8 @@ Partial Class pnlEms
         '
         Me.rdoHand.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoHand.AutoSize = True
+        Me.rdoHand.Checked = True
+        Me.rdoHand.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoHand.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoHand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoHand.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -939,6 +997,8 @@ Partial Class pnlEms
         '
         Me.rdoLeft.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoLeft.AutoSize = True
+        Me.rdoLeft.Checked = True
+        Me.rdoLeft.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoLeft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -965,6 +1025,8 @@ Partial Class pnlEms
         '
         Me.rdoF1.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoF1.AutoSize = True
+        Me.rdoF1.Checked = True
+        Me.rdoF1.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoF1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoF1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoF1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -1147,6 +1209,8 @@ Partial Class pnlEms
         '
         Me.rdoC5.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoC5.AutoSize = True
+        Me.rdoC5.Checked = True
+        Me.rdoC5.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoC5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoC5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoC5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
@@ -1288,19 +1352,6 @@ Partial Class pnlEms
         Me.rdoGraph.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdoGraph.UseVisualStyleBackColor = True
         '
-        'measurePoint
-        '
-        Me.measurePoint.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.measurePoint.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.measurePoint.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.measurePoint.Location = New System.Drawing.Point(20, 19)
-        Me.measurePoint.Name = "measurePoint"
-        Me.measurePoint.Size = New System.Drawing.Size(583, 29)
-        Me.measurePoint.TabIndex = 3
-        Me.measurePoint.Text = "量測點"
-        Me.measurePoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'openPanelLink
         '
         Me.openPanelLink.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1311,6 +1362,15 @@ Partial Class pnlEms
         Me.openPanelLink.TabIndex = 2
         Me.openPanelLink.Text = "開啟手動測量點"
         Me.openPanelLink.UseSelectable = True
+        '
+        'pb
+        '
+        Me.pb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pb.Location = New System.Drawing.Point(20, 120)
+        Me.pb.Name = "pb"
+        Me.pb.Size = New System.Drawing.Size(583, 485)
+        Me.pb.TabIndex = 0
+        Me.pb.TabStop = False
         '
         'graphTab
         '
@@ -1363,19 +1423,21 @@ Partial Class pnlEms
         Me.TableLayoutPanel2.Controls.Add(Me.txtEvaValue, 0, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.txtMaxValue, 0, 5)
         Me.TableLayoutPanel2.Controls.Add(Me.txtDevValue, 0, 7)
+        Me.TableLayoutPanel2.Controls.Add(Me.MetroButton1, 0, 8)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(20, 20)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 8
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel2.RowCount = 9
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(252, 577)
         Me.TableLayoutPanel2.TabIndex = 0
         '
@@ -1386,7 +1448,7 @@ Partial Class pnlEms
         Me.Label1.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(246, 72)
+        Me.Label1.Size = New System.Drawing.Size(246, 60)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "量測點"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1396,9 +1458,9 @@ Partial Class pnlEms
         Me.Label2.AutoSize = True
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(3, 144)
+        Me.Label2.Location = New System.Drawing.Point(3, 120)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(246, 72)
+        Me.Label2.Size = New System.Drawing.Size(246, 60)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "量測值"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1408,9 +1470,9 @@ Partial Class pnlEms
         Me.Label3.AutoSize = True
         Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label3.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(3, 288)
+        Me.Label3.Location = New System.Drawing.Point(3, 240)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(246, 72)
+        Me.Label3.Size = New System.Drawing.Size(246, 60)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "最大值"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1420,9 +1482,9 @@ Partial Class pnlEms
         Me.Label5.AutoSize = True
         Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label5.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(3, 432)
+        Me.Label5.Location = New System.Drawing.Point(3, 360)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(246, 72)
+        Me.Label5.Size = New System.Drawing.Size(246, 60)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "偏差值"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1430,43 +1492,55 @@ Partial Class pnlEms
         'ptBox
         '
         Me.ptBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ptBox.Font = New System.Drawing.Font("DFKai-SB", 39.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.ptBox.Font = New System.Drawing.Font("DFKai-SB", 30.0!)
         Me.ptBox.FormattingEnabled = True
         Me.ptBox.Items.AddRange(New Object() {"一二三四五六七"})
-        Me.ptBox.Location = New System.Drawing.Point(3, 75)
+        Me.ptBox.Location = New System.Drawing.Point(3, 63)
         Me.ptBox.Name = "ptBox"
-        Me.ptBox.Size = New System.Drawing.Size(246, 61)
+        Me.ptBox.Size = New System.Drawing.Size(246, 48)
         Me.ptBox.TabIndex = 4
         '
         'txtEvaValue
         '
         Me.txtEvaValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtEvaValue.Font = New System.Drawing.Font("DFKai-SB", 39.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.txtEvaValue.Location = New System.Drawing.Point(3, 219)
+        Me.txtEvaValue.Font = New System.Drawing.Font("DFKai-SB", 35.0!)
+        Me.txtEvaValue.Location = New System.Drawing.Point(3, 183)
         Me.txtEvaValue.Name = "txtEvaValue"
-        Me.txtEvaValue.Size = New System.Drawing.Size(246, 71)
+        Me.txtEvaValue.Size = New System.Drawing.Size(246, 63)
         Me.txtEvaValue.TabIndex = 5
+        Me.txtEvaValue.Text = "0"
         Me.txtEvaValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtMaxValue
         '
         Me.txtMaxValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtMaxValue.Font = New System.Drawing.Font("DFKai-SB", 39.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.txtMaxValue.Location = New System.Drawing.Point(3, 363)
+        Me.txtMaxValue.Font = New System.Drawing.Font("DFKai-SB", 35.0!)
+        Me.txtMaxValue.Location = New System.Drawing.Point(3, 303)
         Me.txtMaxValue.Name = "txtMaxValue"
-        Me.txtMaxValue.Size = New System.Drawing.Size(246, 71)
+        Me.txtMaxValue.Size = New System.Drawing.Size(246, 63)
         Me.txtMaxValue.TabIndex = 5
+        Me.txtMaxValue.Text = "0"
         Me.txtMaxValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtDevValue
         '
         Me.txtDevValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtDevValue.Font = New System.Drawing.Font("DFKai-SB", 39.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.txtDevValue.Location = New System.Drawing.Point(3, 507)
+        Me.txtDevValue.Font = New System.Drawing.Font("DFKai-SB", 35.0!)
+        Me.txtDevValue.Location = New System.Drawing.Point(3, 423)
         Me.txtDevValue.Name = "txtDevValue"
-        Me.txtDevValue.Size = New System.Drawing.Size(246, 71)
+        Me.txtDevValue.Size = New System.Drawing.Size(246, 63)
         Me.txtDevValue.TabIndex = 5
+        Me.txtDevValue.Text = "0"
         Me.txtDevValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'MetroButton1
+        '
+        Me.MetroButton1.Location = New System.Drawing.Point(3, 483)
+        Me.MetroButton1.Name = "MetroButton1"
+        Me.MetroButton1.Size = New System.Drawing.Size(246, 53)
+        Me.MetroButton1.TabIndex = 6
+        Me.MetroButton1.Text = "MetroButton1"
+        Me.MetroButton1.UseSelectable = True
         '
         'tabEnergy
         '
@@ -1491,23 +1565,570 @@ Partial Class pnlEms
         '
         'TableLayoutPanel3
         '
-        Me.TableLayoutPanel3.ColumnCount = 1
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.Label6, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.top_pos, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label7, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.bot_pos, 1, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label8, 0, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.left_pos, 0, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label9, 1, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.right_pos, 1, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label10, 0, 4)
+        Me.TableLayoutPanel3.Controls.Add(Me.diagLeft, 0, 5)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label11, 1, 4)
+        Me.TableLayoutPanel3.Controls.Add(Me.diagRight, 1, 5)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label12, 0, 6)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label13, 1, 6)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label14, 0, 8)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label15, 1, 8)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label16, 0, 10)
+        Me.TableLayoutPanel3.Controls.Add(Me.topArea, 0, 7)
+        Me.TableLayoutPanel3.Controls.Add(Me.botArea, 1, 7)
+        Me.TableLayoutPanel3.Controls.Add(Me.leftArea, 0, 9)
+        Me.TableLayoutPanel3.Controls.Add(Me.rightArea, 1, 9)
+        Me.TableLayoutPanel3.Controls.Add(Me.totalPercentage, 0, 11)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(20, 20)
         Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 8
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel3.RowCount = 13
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(252, 577)
         Me.TableLayoutPanel3.TabIndex = 0
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label6.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label6.Location = New System.Drawing.Point(3, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(120, 40)
+        Me.Label6.TabIndex = 0
+        Me.Label6.Text = "上"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'top_pos
+        '
+        '
+        '
+        '
+        Me.top_pos.CustomButton.Image = Nothing
+        Me.top_pos.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.top_pos.CustomButton.Name = ""
+        Me.top_pos.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.top_pos.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.top_pos.CustomButton.TabIndex = 1
+        Me.top_pos.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.top_pos.CustomButton.UseSelectable = True
+        Me.top_pos.CustomButton.Visible = False
+        Me.top_pos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.top_pos.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.top_pos.Lines = New String(-1) {}
+        Me.top_pos.Location = New System.Drawing.Point(3, 43)
+        Me.top_pos.MaxLength = 32767
+        Me.top_pos.Name = "top_pos"
+        Me.top_pos.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.top_pos.PromptText = "未測量"
+        Me.top_pos.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.top_pos.SelectedText = ""
+        Me.top_pos.SelectionLength = 0
+        Me.top_pos.SelectionStart = 0
+        Me.top_pos.ShortcutsEnabled = True
+        Me.top_pos.Size = New System.Drawing.Size(120, 34)
+        Me.top_pos.TabIndex = 2
+        Me.top_pos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.top_pos.UseSelectable = True
+        Me.top_pos.WaterMark = "未測量"
+        Me.top_pos.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.top_pos.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label7.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label7.Location = New System.Drawing.Point(129, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(120, 40)
+        Me.Label7.TabIndex = 1
+        Me.Label7.Text = "下"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'bot_pos
+        '
+        '
+        '
+        '
+        Me.bot_pos.CustomButton.Image = Nothing
+        Me.bot_pos.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.bot_pos.CustomButton.Name = ""
+        Me.bot_pos.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.bot_pos.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.bot_pos.CustomButton.TabIndex = 1
+        Me.bot_pos.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.bot_pos.CustomButton.UseSelectable = True
+        Me.bot_pos.CustomButton.Visible = False
+        Me.bot_pos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.bot_pos.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.bot_pos.Lines = New String(-1) {}
+        Me.bot_pos.Location = New System.Drawing.Point(129, 43)
+        Me.bot_pos.MaxLength = 32767
+        Me.bot_pos.Name = "bot_pos"
+        Me.bot_pos.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.bot_pos.PromptText = "未測量"
+        Me.bot_pos.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.bot_pos.SelectedText = ""
+        Me.bot_pos.SelectionLength = 0
+        Me.bot_pos.SelectionStart = 0
+        Me.bot_pos.ShortcutsEnabled = True
+        Me.bot_pos.Size = New System.Drawing.Size(120, 34)
+        Me.bot_pos.TabIndex = 2
+        Me.bot_pos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.bot_pos.UseSelectable = True
+        Me.bot_pos.WaterMark = "未測量"
+        Me.bot_pos.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.bot_pos.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label8.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label8.Location = New System.Drawing.Point(3, 80)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(120, 40)
+        Me.Label8.TabIndex = 1
+        Me.Label8.Text = "左"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'left_pos
+        '
+        '
+        '
+        '
+        Me.left_pos.CustomButton.Image = Nothing
+        Me.left_pos.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.left_pos.CustomButton.Name = ""
+        Me.left_pos.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.left_pos.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.left_pos.CustomButton.TabIndex = 1
+        Me.left_pos.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.left_pos.CustomButton.UseSelectable = True
+        Me.left_pos.CustomButton.Visible = False
+        Me.left_pos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.left_pos.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.left_pos.Lines = New String(-1) {}
+        Me.left_pos.Location = New System.Drawing.Point(3, 123)
+        Me.left_pos.MaxLength = 32767
+        Me.left_pos.Name = "left_pos"
+        Me.left_pos.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.left_pos.PromptText = "未測量"
+        Me.left_pos.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.left_pos.SelectedText = ""
+        Me.left_pos.SelectionLength = 0
+        Me.left_pos.SelectionStart = 0
+        Me.left_pos.ShortcutsEnabled = True
+        Me.left_pos.Size = New System.Drawing.Size(120, 34)
+        Me.left_pos.TabIndex = 2
+        Me.left_pos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.left_pos.UseSelectable = True
+        Me.left_pos.WaterMark = "未測量"
+        Me.left_pos.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.left_pos.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label9.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label9.Location = New System.Drawing.Point(129, 80)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(120, 40)
+        Me.Label9.TabIndex = 1
+        Me.Label9.Text = "右"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'right_pos
+        '
+        '
+        '
+        '
+        Me.right_pos.CustomButton.Image = Nothing
+        Me.right_pos.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.right_pos.CustomButton.Name = ""
+        Me.right_pos.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.right_pos.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.right_pos.CustomButton.TabIndex = 1
+        Me.right_pos.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.right_pos.CustomButton.UseSelectable = True
+        Me.right_pos.CustomButton.Visible = False
+        Me.right_pos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.right_pos.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.right_pos.Lines = New String(-1) {}
+        Me.right_pos.Location = New System.Drawing.Point(129, 123)
+        Me.right_pos.MaxLength = 32767
+        Me.right_pos.Name = "right_pos"
+        Me.right_pos.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.right_pos.PromptText = "未測量"
+        Me.right_pos.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.right_pos.SelectedText = ""
+        Me.right_pos.SelectionLength = 0
+        Me.right_pos.SelectionStart = 0
+        Me.right_pos.ShortcutsEnabled = True
+        Me.right_pos.Size = New System.Drawing.Size(120, 34)
+        Me.right_pos.TabIndex = 2
+        Me.right_pos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.right_pos.UseSelectable = True
+        Me.right_pos.WaterMark = "未測量"
+        Me.right_pos.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.right_pos.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label10.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label10.Location = New System.Drawing.Point(3, 160)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(120, 40)
+        Me.Label10.TabIndex = 1
+        Me.Label10.Text = "左斜角"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'diagLeft
+        '
+        '
+        '
+        '
+        Me.diagLeft.CustomButton.Image = Nothing
+        Me.diagLeft.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.diagLeft.CustomButton.Name = ""
+        Me.diagLeft.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.diagLeft.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.diagLeft.CustomButton.TabIndex = 1
+        Me.diagLeft.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.diagLeft.CustomButton.UseSelectable = True
+        Me.diagLeft.CustomButton.Visible = False
+        Me.diagLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.diagLeft.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.diagLeft.Lines = New String(-1) {}
+        Me.diagLeft.Location = New System.Drawing.Point(3, 203)
+        Me.diagLeft.MaxLength = 32767
+        Me.diagLeft.Name = "diagLeft"
+        Me.diagLeft.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.diagLeft.PromptText = "未測量"
+        Me.diagLeft.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.diagLeft.SelectedText = ""
+        Me.diagLeft.SelectionLength = 0
+        Me.diagLeft.SelectionStart = 0
+        Me.diagLeft.ShortcutsEnabled = True
+        Me.diagLeft.Size = New System.Drawing.Size(120, 34)
+        Me.diagLeft.TabIndex = 2
+        Me.diagLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.diagLeft.UseSelectable = True
+        Me.diagLeft.WaterMark = "未測量"
+        Me.diagLeft.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.diagLeft.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label11.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label11.Location = New System.Drawing.Point(129, 160)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(120, 40)
+        Me.Label11.TabIndex = 1
+        Me.Label11.Text = "右斜角"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'diagRight
+        '
+        '
+        '
+        '
+        Me.diagRight.CustomButton.Image = Nothing
+        Me.diagRight.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.diagRight.CustomButton.Name = ""
+        Me.diagRight.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.diagRight.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.diagRight.CustomButton.TabIndex = 1
+        Me.diagRight.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.diagRight.CustomButton.UseSelectable = True
+        Me.diagRight.CustomButton.Visible = False
+        Me.diagRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.diagRight.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.diagRight.Lines = New String(-1) {}
+        Me.diagRight.Location = New System.Drawing.Point(129, 203)
+        Me.diagRight.MaxLength = 32767
+        Me.diagRight.Name = "diagRight"
+        Me.diagRight.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.diagRight.PromptText = "未測量"
+        Me.diagRight.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.diagRight.SelectedText = ""
+        Me.diagRight.SelectionLength = 0
+        Me.diagRight.SelectionStart = 0
+        Me.diagRight.ShortcutsEnabled = True
+        Me.diagRight.Size = New System.Drawing.Size(120, 34)
+        Me.diagRight.TabIndex = 2
+        Me.diagRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.diagRight.UseSelectable = True
+        Me.diagRight.WaterMark = "未測量"
+        Me.diagRight.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.diagRight.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label12.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label12.Location = New System.Drawing.Point(3, 240)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(120, 40)
+        Me.Label12.TabIndex = 0
+        Me.Label12.Text = "上面積"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label13.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label13.Location = New System.Drawing.Point(129, 240)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(120, 40)
+        Me.Label13.TabIndex = 0
+        Me.Label13.Text = "下面積"
+        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label14.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label14.Location = New System.Drawing.Point(3, 320)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(120, 40)
+        Me.Label14.TabIndex = 0
+        Me.Label14.Text = "左面積"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label15.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label15.Location = New System.Drawing.Point(129, 320)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(120, 40)
+        Me.Label15.TabIndex = 0
+        Me.Label15.Text = "右面積"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.TableLayoutPanel3.SetColumnSpan(Me.Label16, 2)
+        Me.Label16.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label16.Font = New System.Drawing.Font("DFKai-SB", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label16.Location = New System.Drawing.Point(3, 400)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(246, 40)
+        Me.Label16.TabIndex = 0
+        Me.Label16.Text = "總面積比例"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'topArea
+        '
+        '
+        '
+        '
+        Me.topArea.CustomButton.Image = Nothing
+        Me.topArea.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.topArea.CustomButton.Name = ""
+        Me.topArea.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.topArea.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.topArea.CustomButton.TabIndex = 1
+        Me.topArea.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.topArea.CustomButton.UseSelectable = True
+        Me.topArea.CustomButton.Visible = False
+        Me.topArea.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.topArea.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.topArea.Lines = New String(-1) {}
+        Me.topArea.Location = New System.Drawing.Point(3, 283)
+        Me.topArea.MaxLength = 32767
+        Me.topArea.Name = "topArea"
+        Me.topArea.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.topArea.PromptText = "未測量"
+        Me.topArea.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.topArea.SelectedText = ""
+        Me.topArea.SelectionLength = 0
+        Me.topArea.SelectionStart = 0
+        Me.topArea.ShortcutsEnabled = True
+        Me.topArea.Size = New System.Drawing.Size(120, 34)
+        Me.topArea.TabIndex = 2
+        Me.topArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.topArea.UseSelectable = True
+        Me.topArea.WaterMark = "未測量"
+        Me.topArea.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.topArea.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'botArea
+        '
+        '
+        '
+        '
+        Me.botArea.CustomButton.Image = Nothing
+        Me.botArea.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.botArea.CustomButton.Name = ""
+        Me.botArea.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.botArea.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.botArea.CustomButton.TabIndex = 1
+        Me.botArea.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.botArea.CustomButton.UseSelectable = True
+        Me.botArea.CustomButton.Visible = False
+        Me.botArea.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.botArea.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.botArea.Lines = New String(-1) {}
+        Me.botArea.Location = New System.Drawing.Point(129, 283)
+        Me.botArea.MaxLength = 32767
+        Me.botArea.Name = "botArea"
+        Me.botArea.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.botArea.PromptText = "未測量"
+        Me.botArea.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.botArea.SelectedText = ""
+        Me.botArea.SelectionLength = 0
+        Me.botArea.SelectionStart = 0
+        Me.botArea.ShortcutsEnabled = True
+        Me.botArea.Size = New System.Drawing.Size(120, 34)
+        Me.botArea.TabIndex = 2
+        Me.botArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.botArea.UseSelectable = True
+        Me.botArea.WaterMark = "未測量"
+        Me.botArea.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.botArea.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'leftArea
+        '
+        '
+        '
+        '
+        Me.leftArea.CustomButton.Image = Nothing
+        Me.leftArea.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.leftArea.CustomButton.Name = ""
+        Me.leftArea.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.leftArea.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.leftArea.CustomButton.TabIndex = 1
+        Me.leftArea.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.leftArea.CustomButton.UseSelectable = True
+        Me.leftArea.CustomButton.Visible = False
+        Me.leftArea.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.leftArea.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.leftArea.Lines = New String(-1) {}
+        Me.leftArea.Location = New System.Drawing.Point(3, 363)
+        Me.leftArea.MaxLength = 32767
+        Me.leftArea.Name = "leftArea"
+        Me.leftArea.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.leftArea.PromptText = "未測量"
+        Me.leftArea.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.leftArea.SelectedText = ""
+        Me.leftArea.SelectionLength = 0
+        Me.leftArea.SelectionStart = 0
+        Me.leftArea.ShortcutsEnabled = True
+        Me.leftArea.Size = New System.Drawing.Size(120, 34)
+        Me.leftArea.TabIndex = 2
+        Me.leftArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.leftArea.UseSelectable = True
+        Me.leftArea.WaterMark = "未測量"
+        Me.leftArea.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.leftArea.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'rightArea
+        '
+        '
+        '
+        '
+        Me.rightArea.CustomButton.Image = Nothing
+        Me.rightArea.CustomButton.Location = New System.Drawing.Point(88, 2)
+        Me.rightArea.CustomButton.Name = ""
+        Me.rightArea.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.rightArea.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.rightArea.CustomButton.TabIndex = 1
+        Me.rightArea.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.rightArea.CustomButton.UseSelectable = True
+        Me.rightArea.CustomButton.Visible = False
+        Me.rightArea.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rightArea.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.rightArea.Lines = New String(-1) {}
+        Me.rightArea.Location = New System.Drawing.Point(129, 363)
+        Me.rightArea.MaxLength = 32767
+        Me.rightArea.Name = "rightArea"
+        Me.rightArea.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.rightArea.PromptText = "未測量"
+        Me.rightArea.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.rightArea.SelectedText = ""
+        Me.rightArea.SelectionLength = 0
+        Me.rightArea.SelectionStart = 0
+        Me.rightArea.ShortcutsEnabled = True
+        Me.rightArea.Size = New System.Drawing.Size(120, 34)
+        Me.rightArea.TabIndex = 2
+        Me.rightArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.rightArea.UseSelectable = True
+        Me.rightArea.WaterMark = "未測量"
+        Me.rightArea.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.rightArea.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'totalPercentage
+        '
+        Me.TableLayoutPanel3.SetColumnSpan(Me.totalPercentage, 2)
+        '
+        '
+        '
+        Me.totalPercentage.CustomButton.Image = Nothing
+        Me.totalPercentage.CustomButton.Location = New System.Drawing.Point(214, 2)
+        Me.totalPercentage.CustomButton.Name = ""
+        Me.totalPercentage.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.totalPercentage.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.totalPercentage.CustomButton.TabIndex = 1
+        Me.totalPercentage.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.totalPercentage.CustomButton.UseSelectable = True
+        Me.totalPercentage.CustomButton.Visible = False
+        Me.totalPercentage.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.totalPercentage.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.totalPercentage.Lines = New String(-1) {}
+        Me.totalPercentage.Location = New System.Drawing.Point(3, 443)
+        Me.totalPercentage.MaxLength = 32767
+        Me.totalPercentage.Name = "totalPercentage"
+        Me.totalPercentage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.totalPercentage.PromptText = "未測量"
+        Me.totalPercentage.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.totalPercentage.SelectedText = ""
+        Me.totalPercentage.SelectionLength = 0
+        Me.totalPercentage.SelectionStart = 0
+        Me.totalPercentage.ShortcutsEnabled = True
+        Me.totalPercentage.Size = New System.Drawing.Size(246, 34)
+        Me.totalPercentage.TabIndex = 2
+        Me.totalPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.totalPercentage.UseSelectable = True
+        Me.totalPercentage.WaterMark = "未測量"
+        Me.totalPercentage.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.totalPercentage.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'tabCheck
         '
@@ -1562,7 +2183,7 @@ Partial Class pnlEms
         Me.txtFixDevPoint.CustomButton.Visible = False
         Me.txtFixDevPoint.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtFixDevPoint.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.txtFixDevPoint.Lines = New String(-1) {}
+        Me.txtFixDevPoint.Lines = New String() {"0"}
         Me.txtFixDevPoint.Location = New System.Drawing.Point(147, 108)
         Me.txtFixDevPoint.MaxLength = 32767
         Me.txtFixDevPoint.Name = "txtFixDevPoint"
@@ -1575,6 +2196,7 @@ Partial Class pnlEms
         Me.txtFixDevPoint.ShortcutsEnabled = True
         Me.txtFixDevPoint.Size = New System.Drawing.Size(139, 29)
         Me.txtFixDevPoint.TabIndex = 1
+        Me.txtFixDevPoint.Text = "0"
         Me.txtFixDevPoint.UseSelectable = True
         Me.txtFixDevPoint.WaterMark = "固定偏離點"
         Me.txtFixDevPoint.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1596,7 +2218,7 @@ Partial Class pnlEms
         Me.txtFullValue.CustomButton.Visible = False
         Me.txtFullValue.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtFullValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.txtFullValue.Lines = New String(-1) {}
+        Me.txtFullValue.Lines = New String() {"0"}
         Me.txtFullValue.Location = New System.Drawing.Point(147, 3)
         Me.txtFullValue.MaxLength = 32767
         Me.txtFullValue.Name = "txtFullValue"
@@ -1609,6 +2231,7 @@ Partial Class pnlEms
         Me.txtFullValue.ShortcutsEnabled = True
         Me.txtFullValue.Size = New System.Drawing.Size(139, 29)
         Me.txtFullValue.TabIndex = 4
+        Me.txtFullValue.Text = "0"
         Me.txtFullValue.UseSelectable = True
         Me.txtFullValue.WaterMark = "滿刻度"
         Me.txtFullValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1630,7 +2253,7 @@ Partial Class pnlEms
         Me.txtPrevsDev.CustomButton.Visible = False
         Me.txtPrevsDev.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtPrevsDev.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.txtPrevsDev.Lines = New String(-1) {}
+        Me.txtPrevsDev.Lines = New String() {"0"}
         Me.txtPrevsDev.Location = New System.Drawing.Point(147, 73)
         Me.txtPrevsDev.MaxLength = 32767
         Me.txtPrevsDev.Name = "txtPrevsDev"
@@ -1643,6 +2266,7 @@ Partial Class pnlEms
         Me.txtPrevsDev.ShortcutsEnabled = True
         Me.txtPrevsDev.Size = New System.Drawing.Size(139, 29)
         Me.txtPrevsDev.TabIndex = 2
+        Me.txtPrevsDev.Text = "0"
         Me.txtPrevsDev.UseSelectable = True
         Me.txtPrevsDev.WaterMark = "前偏離點"
         Me.txtPrevsDev.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1664,7 +2288,7 @@ Partial Class pnlEms
         Me.txtOffsetValue.CustomButton.Visible = False
         Me.txtOffsetValue.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtOffsetValue.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.txtOffsetValue.Lines = New String(-1) {}
+        Me.txtOffsetValue.Lines = New String() {"0"}
         Me.txtOffsetValue.Location = New System.Drawing.Point(147, 38)
         Me.txtOffsetValue.MaxLength = 32767
         Me.txtOffsetValue.Name = "txtOffsetValue"
@@ -1677,6 +2301,7 @@ Partial Class pnlEms
         Me.txtOffsetValue.ShortcutsEnabled = True
         Me.txtOffsetValue.Size = New System.Drawing.Size(139, 29)
         Me.txtOffsetValue.TabIndex = 3
+        Me.txtOffsetValue.Text = "0"
         Me.txtOffsetValue.UseSelectable = True
         Me.txtOffsetValue.WaterMark = "偏離度"
         Me.txtOffsetValue.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1770,27 +2395,6 @@ Partial Class pnlEms
         '
         Me.InstantAiCtrl1._StateStream = CType(resources.GetObject("InstantAiCtrl1._StateStream"), Automation.BDaq.DeviceStateStreamer)
         '
-        'okLink
-        '
-        Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.okLink.Image = Global.emSys2016.My.Resources.Resources.okHover
-        Me.okLink.ImageSize = 35
-        Me.okLink.Location = New System.Drawing.Point(557, 9)
-        Me.okLink.Name = "okLink"
-        Me.okLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.okUp
-        Me.okLink.Size = New System.Drawing.Size(40, 40)
-        Me.okLink.TabIndex = 4
-        Me.okLink.UseSelectable = True
-        '
-        'pb
-        '
-        Me.pb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pb.Location = New System.Drawing.Point(20, 60)
-        Me.pb.Name = "pb"
-        Me.pb.Size = New System.Drawing.Size(583, 545)
-        Me.pb.TabIndex = 0
-        Me.pb.TabStop = False
-        '
         'pnlEms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1858,6 +2462,7 @@ Partial Class pnlEms
         Me.Panel26.PerformLayout()
         Me.Panel27.ResumeLayout(False)
         Me.Panel27.PerformLayout()
+        CType(Me.pb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.graphTab.ResumeLayout(False)
         Me.tabEms.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
@@ -1865,10 +2470,11 @@ Partial Class pnlEms
         Me.TableLayoutPanel2.PerformLayout()
         Me.tabEnergy.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
         Me.tabCheck.ResumeLayout(False)
         Me.caliTable.ResumeLayout(False)
         Me.caliTable.PerformLayout()
-        CType(Me.pb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1978,5 +2584,28 @@ Partial Class pnlEms
     Friend WithEvents MetroLabel5 As MetroFramework.Controls.MetroLabel
     Friend WithEvents okLink As MetroFramework.Controls.MetroLink
     Friend WithEvents openPanelLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents measurePoint As MetroFramework.Controls.MetroLabel
+    Friend WithEvents measurePoint As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents top_pos As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents bot_pos As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents left_pos As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents right_pos As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents diagLeft As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents diagRight As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents topArea As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents botArea As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents leftArea As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents rightArea As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents totalPercentage As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
 End Class
