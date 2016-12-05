@@ -35,7 +35,7 @@
     End Sub
 
     Private Sub exitMenu_Click(sender As Object, e As EventArgs)
-        Me.ParentForm.Close()
+        ParentForm.Close()
     End Sub
 
     Private Sub noConnectionLabel_Click(sender As Object, e As EventArgs) Handles noConnectionLabel.Click
