@@ -45,6 +45,12 @@
         MetroFramework.MetroMessageBox.Show(Me, "請檢查以下狀態後再嘗試:" & vbNewLine & "1. 電源是否有接妥?" & vbNewLine & "2. 頻譜儀USB接上電腦時是否有偵測到?", "無法與頻譜儀連線", MessageBoxButtons.OK, MessageBoxIcon.Error)
         ems.swipe(False)
     End Sub
+    Private Sub patientSelected(ByVal sender As Object, ByVal e As EventArgs)
+        patientInfoPanel.swipe(False)
+        RemoveHandler patientInfoPanel.patientSelected, AddressOf patientSelected
+        RemoveHandler exitLink.MouseUp, AddressOf paitientInfoLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
 #End Region
 
 #Region "Button Clicks"
@@ -109,12 +115,13 @@
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub testButton_Click(sender As Object, e As EventArgs) Handles testButton.Click
-        Debug.WriteLine(ems.loaded)
+        Debug.WriteLine(patientInfo.pName)
     End Sub
     Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoLink.Click
         patientInfoPanel = New pnlPatientInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf paitientInfoLink_MouseUp
+        AddHandler patientInfoPanel.patientSelected, AddressOf patientSelected
         patientInfoPanel.swipe()
     End Sub
     Private Sub paitientInfoLink_MouseUp(sender As Object, e As EventArgs)
