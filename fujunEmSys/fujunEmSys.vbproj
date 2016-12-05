@@ -49,7 +49,7 @@
   <ItemGroup>
     <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Advantech\DAQNavi\Automation.BDaq\1.0.0.0\Automation.BDaq.dll</HintPath>
+      <HintPath>C:\Advantech\DAQNavi\Multimeter\Automation.BDaq.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
@@ -128,6 +128,12 @@
     <Compile Include="system\pnlLogin.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="system\pnlPatientInfo.Designer.vb">
+      <DependentUpon>pnlPatientInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlPatientInfo.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="system\pnlSetting.Designer.vb">
       <DependentUpon>pnlSetting.vb</DependentUpon>
     </Compile>
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlLogin.resx">
       <DependentUpon>pnlLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlPatientInfo.resx">
+      <DependentUpon>pnlPatientInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSetting.resx">
       <DependentUpon>pnlSetting.vb</DependentUpon>

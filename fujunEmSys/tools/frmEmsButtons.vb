@@ -182,7 +182,7 @@
     Private Sub okLink_Click(sender As Object, e As EventArgs) Handles okLink.Click
         buttonResult = btn2iCode()
         RaiseEvent OK(Me, New EventArgs)
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub cancelLink_Click(sender As Object, e As EventArgs) Handles cancelLink.Click

@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Module SQLModule
-    Public Function getConnectionString()
+    Public Function getConnectionString() As String
         Return String.Format("Server=" & My.Settings.serverHost & ";Port=" & My.Settings.serverPort & ";User=" & My.Settings.serverUser & ";Password=" & My.Settings.serverPass & ";Database=" & My.Settings.serverDB & ";Pooling=false;CharSet=utf8;old guids=true")
     End Function
 

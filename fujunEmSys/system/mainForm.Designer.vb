@@ -24,8 +24,6 @@ Partial Class mainForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mainForm))
-        Me.exitLink = New MetroFramework.Controls.MetroLink()
-        Me.settingsLink = New MetroFramework.Controls.MetroLink()
         Me.sysStyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroContextMenu1 = New MetroFramework.Controls.MetroContextMenu(Me.components)
         Me.病人資料查詢QToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -40,34 +38,13 @@ Partial Class mainForm
         Me.loginButton = New MetroFramework.Controls.MetroLink()
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
         Me.testButton = New MetroFramework.Controls.MetroButton()
+        Me.exitLink = New MetroFramework.Controls.MetroLink()
+        Me.settingsLink = New MetroFramework.Controls.MetroLink()
+        Me.paitientInfoLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'exitLink
-        '
-        Me.exitLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.exitLink.Image = Global.emSys2016.My.Resources.Resources.shutdownHover
-        Me.exitLink.ImageSize = 40
-        Me.exitLink.Location = New System.Drawing.Point(1122, 22)
-        Me.exitLink.Name = "exitLink"
-        Me.exitLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.shutdownUp
-        Me.exitLink.Size = New System.Drawing.Size(50, 50)
-        Me.exitLink.TabIndex = 0
-        Me.exitLink.UseSelectable = True
-        '
-        'settingsLink
-        '
-        Me.settingsLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.settingsLink.Image = Global.emSys2016.My.Resources.Resources.settingHover
-        Me.settingsLink.ImageSize = 40
-        Me.settingsLink.Location = New System.Drawing.Point(1066, 22)
-        Me.settingsLink.Name = "settingsLink"
-        Me.settingsLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.settingUp
-        Me.settingsLink.Size = New System.Drawing.Size(50, 50)
-        Me.settingsLink.TabIndex = 0
-        Me.settingsLink.UseSelectable = True
         '
         'sysStyleManager
         '
@@ -163,6 +140,39 @@ Partial Class mainForm
         Me.testButton.Text = "Test Button"
         Me.testButton.UseSelectable = True
         '
+        'exitLink
+        '
+        Me.exitLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.exitLink.Image = Global.emSys2016.My.Resources.Resources.shutdownHover
+        Me.exitLink.ImageSize = 40
+        Me.exitLink.Location = New System.Drawing.Point(1122, 22)
+        Me.exitLink.Name = "exitLink"
+        Me.exitLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.shutdownUp
+        Me.exitLink.Size = New System.Drawing.Size(50, 50)
+        Me.exitLink.TabIndex = 0
+        Me.exitLink.UseSelectable = True
+        '
+        'settingsLink
+        '
+        Me.settingsLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.settingsLink.Image = Global.emSys2016.My.Resources.Resources.settingHover
+        Me.settingsLink.ImageSize = 40
+        Me.settingsLink.Location = New System.Drawing.Point(1066, 22)
+        Me.settingsLink.Name = "settingsLink"
+        Me.settingsLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.settingUp
+        Me.settingsLink.Size = New System.Drawing.Size(50, 50)
+        Me.settingsLink.TabIndex = 0
+        Me.settingsLink.UseSelectable = True
+        '
+        'paitientInfoLink
+        '
+        Me.paitientInfoLink.Location = New System.Drawing.Point(1086, 146)
+        Me.paitientInfoLink.Name = "paitientInfoLink"
+        Me.paitientInfoLink.Size = New System.Drawing.Size(86, 28)
+        Me.paitientInfoLink.TabIndex = 2
+        Me.paitientInfoLink.Text = "病人管理"
+        Me.paitientInfoLink.UseSelectable = True
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -171,6 +181,7 @@ Partial Class mainForm
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
         Me.Controls.Add(Me.testButton)
+        Me.Controls.Add(Me.paitientInfoLink)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
         Me.Controls.Add(Me.emsLink)
@@ -205,4 +216,5 @@ Partial Class mainForm
     Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
     Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents testButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents paitientInfoLink As MetroFramework.Controls.MetroLink
 End Class

@@ -51,7 +51,7 @@ Public Class pnlSetting
     End Sub
 
     Public Sub tile_click(ByVal sender As Object, ByVal e As EventArgs)
-        CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Style = CType(CType(sender, MetroFramework.Controls.MetroTile).Tag, MetroFramework.MetroColorStyle)
+        CType(Parent, MetroFramework.Forms.MetroForm).StyleManager.Style = CType(CType(sender, MetroFramework.Controls.MetroTile).Tag, MetroFramework.MetroColorStyle)
     End Sub
 
     Private Sub settingLink_Click(sender As Object, e As EventArgs) Handles settingLink.Click
@@ -77,8 +77,8 @@ Public Class pnlSetting
         My.Settings.emsLowerDanger = emsLowerDanger.Value
 
         ' 樣式相關
-        My.Settings.sysTheme = CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme
-        My.Settings.sysColor = CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Style
+        My.Settings.sysTheme = CType(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme
+        My.Settings.sysColor = CType(Parent, MetroFramework.Forms.MetroForm).StyleManager.Style
         My.Settings.Save()
     End Sub
 
@@ -89,13 +89,13 @@ Public Class pnlSetting
 
     Private Sub mrbLight_CheckedChanged(sender As Object, e As EventArgs) Handles mrbLight.CheckedChanged
         If mrbLight.Checked Then
-            CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Light
+            CType(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Light
         End If
     End Sub
 
     Private Sub mrbDark_CheckedChanged(sender As Object, e As EventArgs) Handles mrbDark.CheckedChanged
         If mrbDark.Checked Then
-            CType(Me.Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Dark
+            CType(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Dark
         End If
     End Sub
 

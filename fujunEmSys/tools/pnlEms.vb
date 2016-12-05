@@ -1047,7 +1047,7 @@ Public Class pnlEms
         idx1 = (idx1 + 1) Mod (XMAX + 1)
         sqlStr = sqlStr & "(' " & mainForm.patientHistory.hID & "','" & iCode & "','" & ptCounter & "','" & dValue & "'),"
         pb.Invalidate()
-        Me.Refresh()
+        Refresh()
         If iPlotCount > XMAX Then
             iPlotCount = iPlotCount Mod (XMAX + 1)
             iState = 2
@@ -1072,7 +1072,7 @@ Public Class pnlEms
         Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
         End Try
-        Me.Refresh()
+        Refresh()
     End Sub
 #End Region
 #Region "測量點鍵盤"

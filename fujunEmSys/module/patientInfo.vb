@@ -6,8 +6,7 @@
     Private p_pcDOB As String = ""
     Private p_pName As String = ""
     Private p_pSex As String = ""
-    Private p_pHomeTel As String = ""
-    Private p_pOfficeTel As String = ""
+    Private p_pPhone As String = ""
     Private p_pMobile As String = ""
     Private p_pAddress As String = ""
     Private p_pEmail As String = ""
@@ -27,8 +26,7 @@
             p_pDOB = Now
             p_pName = ""
             p_pSex = ""
-            p_pHomeTel = ""
-            p_pOfficeTel = ""
+            p_pPhone = ""
             p_pMobile = ""
             p_pAddress = ""
             p_pEmail = ""
@@ -37,7 +35,7 @@
         End Sub
 
         Public Sub initiate(ByVal pID As Integer)
-            Dim reader As IDataReader = runQuery("SELECT pid, ppid, pname, psex, jul2chi(pdob) as pcdob, pdob, pHometel, pOfficeTel, pMobile, paddress, pemail, jul2chi(pCreatedDate) as pCreatedDate FROM patient WHERE pID='" & pID & "'")
+            Dim reader As IDataReader = runQuery("SELECT pID, pPID, pName, pSex, jul2chi(pdob) as pcdob, pdob, pPhone, pMobile, pAddress, pEmail, jul2chi(pCreatedDate) as pCreatedDate FROM patient WHERE pID='" & pID & "'")
             With reader
                 If .Read Then
                     p_pID = .GetInt32(0)
@@ -46,12 +44,11 @@
                     If Not reader.IsDBNull(3) Then p_pSex = .GetValue(3) Else p_pSex = 0
                     If Not reader.IsDBNull(4) Then p_pcDOB = .GetString(4) Else p_pcDOB = ""
                     If Not reader.IsDBNull(5) Then p_pDOB = .GetDateTime(5) Else p_pDOB = ""
-                    If Not reader.IsDBNull(6) Then p_pHomeTel = .GetString(6) Else p_pHomeTel = ""
-                    If Not reader.IsDBNull(7) Then p_pOfficeTel = .GetString(7) Else p_pOfficeTel = ""
-                    If Not reader.IsDBNull(8) Then p_pMobile = .GetString(8) Else p_pMobile = ""
-                    If Not reader.IsDBNull(9) Then p_pAddress = .GetString(9) Else p_pAddress = ""
-                    If Not reader.IsDBNull(10) Then p_pEmail = .GetString(10) Else p_pEmail = ""
-                    If Not reader.IsDBNull(11) Then p_pCreatedDate = .GetString(11) Else p_pCreatedDate = Now
+                    If Not reader.IsDBNull(6) Then p_pPhone = .GetString(6) Else p_pPhone = ""
+                    If Not reader.IsDBNull(7) Then p_pMobile = .GetString(7) Else p_pMobile = ""
+                    If Not reader.IsDBNull(8) Then p_pAddress = .GetString(8) Else p_pAddress = ""
+                    If Not reader.IsDBNull(9) Then p_pEmail = .GetString(9) Else p_pEmail = ""
+                    If Not reader.IsDBNull(10) Then p_pCreatedDate = .GetString(10) Else p_pCreatedDate = Now
                     p_initiated = True
                 Else
                     p_pID = ""
@@ -60,8 +57,7 @@
                     p_pDOB = Now
                     p_pName = ""
                     p_pSex = ""
-                    p_pHomeTel = ""
-                    p_pOfficeTel = ""
+                    p_pPhone = ""
                     p_pMobile = ""
                     p_pAddress = ""
                     p_pEmail = ""
@@ -124,20 +120,12 @@
                 p_pSex = value
             End Set
         End Property
-        Property pHomeTel As String
+        Property pPhone As String
             Get
-                Return p_pHomeTel
+                Return p_pPhone
             End Get
             Set(value As String)
-                p_pHomeTel = value
-            End Set
-        End Property
-        Property pOfficeTel As String
-            Get
-                Return p_pOfficeTel
-            End Get
-            Set(value As String)
-                p_pOfficeTel = value
+                p_pPhone = value
             End Set
         End Property
         Property pMobile As String
@@ -204,8 +192,8 @@
         End Property
         ReadOnly Property getInsertSQL As String
             Get
-                Return "INSERT INTO `patient` (pPID, pName, pSex, pDOB, pHomeTel, pOfficeTel, pMobile, pAddress, pEmail, pRemarks) " & _
-                    "VALUES ('" & p_pPID & "', '" & p_pName & "', '" & p_pSex & "', '" & p_pDOB.ToString("yyyy-MM-dd") & "', '" & p_pHomeTel & "', '" & p_pOfficeTel & "', '" & p_pMobile & "', '" & p_pAddress & "', '" & p_pEmail & "', '" & p_pRemarks & "')"
+                Return "INSERT INTO `patient` (pPID, pName, pSex, pDOB, pPhone, pMobile, pAddress, pEmail, pRemarks) " &
+                    "VALUES ('" & p_pPID & "', '" & p_pName & "', '" & p_pSex & "', '" & p_pDOB.ToString("yyyy-MM-dd") & "', '" & p_pPhone & "', '" & p_pMobile & "', '" & p_pAddress & "', '" & p_pEmail & "', '" & p_pRemarks & "')"
             End Get
         End Property
     End Structure
