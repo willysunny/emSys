@@ -13,6 +13,25 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>\\fujunNas\web\fujunEmsys\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://192.168.1.100/fujunEmsys/</InstallUrl>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,6 +64,18 @@
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>1A055171FB59EBE881058C19DB977A229BF3517C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>fujunEmSys_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
@@ -122,6 +153,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="system\pnlMedInfo.Designer.vb">
+      <DependentUpon>pnlMedInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlMedInfo.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="system\pnlMedManage.Designer.vb">
+      <DependentUpon>pnlMedManage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlMedManage.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="system\pnlLogin.Designer.vb">
       <DependentUpon>pnlLogin.vb</DependentUpon>
     </Compile>
@@ -175,6 +218,12 @@
     <EmbeddedResource Include="system\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlMedInfo.resx">
+      <DependentUpon>pnlMedInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlMedManage.resx">
+      <DependentUpon>pnlMedManage.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="system\pnlLogin.resx">
       <DependentUpon>pnlLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -198,6 +247,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="fujunEmSys_TemporaryKey.pfx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -238,6 +288,18 @@
     <Content Include="Icon\fujunLogo.png" />
     <None Include="Icon\okUp.png" />
     <None Include="Icon\okHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

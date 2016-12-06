@@ -50,13 +50,17 @@ Module SQLModule
     Public Function returnData(ByVal sender As MetroFramework.Forms.MetroForm, ByVal sql As String) As DataTable
         Debug.WriteLine("returnData('" & sql & "')")
         If testConnection(mainForm, My.Settings.serverHost, My.Settings.serverPort, My.Settings.serverUser, My.Settings.serverPass, My.Settings.serverDB) Then
-            Dim result As New DataTable
-            Using con As New MySqlConnection(getConnectionString())
-                Using adp As New MySqlDataAdapter(sql, con)
-                    adp.Fill(result)
+            Try
+                Dim result As New DataTable
+                Using con As New MySqlConnection(getConnectionString())
+                    Using adp As New MySqlDataAdapter(sql, con)
+                        adp.Fill(result)
+                    End Using
                 End Using
-            End Using
-            Return result
+                Return result
+            Catch ex As Exception
+                MetroFramework.MetroMessageBox.Show(sender, ex.Message, "資料庫連線失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         Else
             Return Nothing
         End If
