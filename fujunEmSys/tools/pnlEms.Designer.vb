@@ -658,11 +658,11 @@ Partial Class pnlEms
         'okLink
         '
         Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.okLink.Image = Global.emSys2016.My.Resources.Resources.okHover
+        Me.okLink.Image = Global.fujunEmsys.My.Resources.Resources.okHover
         Me.okLink.ImageSize = 35
         Me.okLink.Location = New System.Drawing.Point(557, 9)
         Me.okLink.Name = "okLink"
-        Me.okLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.okUp
+        Me.okLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.okUp
         Me.okLink.Size = New System.Drawing.Size(40, 40)
         Me.okLink.TabIndex = 4
         Me.okLink.UseSelectable = True

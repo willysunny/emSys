@@ -148,7 +148,7 @@ Partial Class pnlLogin
         Me.passwordTextbox.CustomButton.Visible = False
         Me.passwordTextbox.DisplayIcon = True
         Me.passwordTextbox.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.passwordTextbox.Icon = Global.emSys2016.My.Resources.Resources.pass
+        Me.passwordTextbox.Icon = Global.fujunEmsys.My.Resources.Resources.pass
         Me.passwordTextbox.Lines = New String(-1) {}
         Me.passwordTextbox.Location = New System.Drawing.Point(93, 310)
         Me.passwordTextbox.MaxLength = 32767

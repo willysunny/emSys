@@ -787,22 +787,22 @@ Partial Class frmEmsButtons
         '
         'cancelLink
         '
-        Me.cancelLink.Image = Global.emSys2016.My.Resources.Resources.shutdownHover
+        Me.cancelLink.Image = Global.fujunEmsys.My.Resources.Resources.shutdownHover
         Me.cancelLink.ImageSize = 35
         Me.cancelLink.Location = New System.Drawing.Point(411, 17)
         Me.cancelLink.Name = "cancelLink"
-        Me.cancelLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.shutdownUp
+        Me.cancelLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.shutdownUp
         Me.cancelLink.Size = New System.Drawing.Size(40, 40)
         Me.cancelLink.TabIndex = 0
         Me.cancelLink.UseSelectable = True
         '
         'okLink
         '
-        Me.okLink.Image = Global.emSys2016.My.Resources.Resources.okHover
+        Me.okLink.Image = Global.fujunEmsys.My.Resources.Resources.okHover
         Me.okLink.ImageSize = 35
         Me.okLink.Location = New System.Drawing.Point(457, 17)
         Me.okLink.Name = "okLink"
-        Me.okLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.okUp
+        Me.okLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.okUp
         Me.okLink.Size = New System.Drawing.Size(40, 40)
         Me.okLink.TabIndex = 0
         Me.okLink.UseSelectable = True

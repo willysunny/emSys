@@ -39,10 +39,10 @@ Partial Class mainForm
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
         Me.testButton = New MetroFramework.Controls.MetroButton()
         Me.paitientInfoLink = New MetroFramework.Controls.MetroLink()
+        Me.medManageLink = New MetroFramework.Controls.MetroLink()
+        Me.medInfoLink = New MetroFramework.Controls.MetroLink()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
-        Me.medManageLink = New MetroFramework.Controls.MetroLink()
-        Me.MetroLink1 = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -151,30 +151,6 @@ Partial Class mainForm
         Me.paitientInfoLink.Text = "病人管理"
         Me.paitientInfoLink.UseSelectable = True
         '
-        'exitLink
-        '
-        Me.exitLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.exitLink.Image = Global.emSys2016.My.Resources.Resources.shutdownHover
-        Me.exitLink.ImageSize = 40
-        Me.exitLink.Location = New System.Drawing.Point(1122, 22)
-        Me.exitLink.Name = "exitLink"
-        Me.exitLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.shutdownUp
-        Me.exitLink.Size = New System.Drawing.Size(50, 50)
-        Me.exitLink.TabIndex = 0
-        Me.exitLink.UseSelectable = True
-        '
-        'settingsLink
-        '
-        Me.settingsLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.settingsLink.Image = Global.emSys2016.My.Resources.Resources.settingHover
-        Me.settingsLink.ImageSize = 40
-        Me.settingsLink.Location = New System.Drawing.Point(1066, 22)
-        Me.settingsLink.Name = "settingsLink"
-        Me.settingsLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.settingUp
-        Me.settingsLink.Size = New System.Drawing.Size(50, 50)
-        Me.settingsLink.TabIndex = 0
-        Me.settingsLink.UseSelectable = True
-        '
         'medManageLink
         '
         Me.medManageLink.Location = New System.Drawing.Point(1086, 180)
@@ -184,14 +160,38 @@ Partial Class mainForm
         Me.medManageLink.Text = "藥品分類管理"
         Me.medManageLink.UseSelectable = True
         '
-        'MetroLink1
+        'medInfoLink
         '
-        Me.MetroLink1.Location = New System.Drawing.Point(1086, 214)
-        Me.MetroLink1.Name = "MetroLink1"
-        Me.MetroLink1.Size = New System.Drawing.Size(86, 28)
-        Me.MetroLink1.TabIndex = 2
-        Me.MetroLink1.Text = "藥品管理"
-        Me.MetroLink1.UseSelectable = True
+        Me.medInfoLink.Location = New System.Drawing.Point(1086, 214)
+        Me.medInfoLink.Name = "medInfoLink"
+        Me.medInfoLink.Size = New System.Drawing.Size(86, 28)
+        Me.medInfoLink.TabIndex = 2
+        Me.medInfoLink.Text = "藥品管理"
+        Me.medInfoLink.UseSelectable = True
+        '
+        'exitLink
+        '
+        Me.exitLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.exitLink.Image = Global.fujunEmsys.My.Resources.Resources.shutdownHover
+        Me.exitLink.ImageSize = 40
+        Me.exitLink.Location = New System.Drawing.Point(1122, 22)
+        Me.exitLink.Name = "exitLink"
+        Me.exitLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.shutdownUp
+        Me.exitLink.Size = New System.Drawing.Size(50, 50)
+        Me.exitLink.TabIndex = 0
+        Me.exitLink.UseSelectable = True
+        '
+        'settingsLink
+        '
+        Me.settingsLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.settingsLink.Image = Global.fujunEmsys.My.Resources.Resources.settingHover
+        Me.settingsLink.ImageSize = 40
+        Me.settingsLink.Location = New System.Drawing.Point(1066, 22)
+        Me.settingsLink.Name = "settingsLink"
+        Me.settingsLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.settingUp
+        Me.settingsLink.Size = New System.Drawing.Size(50, 50)
+        Me.settingsLink.TabIndex = 0
+        Me.settingsLink.UseSelectable = True
         '
         'mainForm
         '
@@ -201,7 +201,7 @@ Partial Class mainForm
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
         Me.Controls.Add(Me.testButton)
-        Me.Controls.Add(Me.MetroLink1)
+        Me.Controls.Add(Me.medInfoLink)
         Me.Controls.Add(Me.medManageLink)
         Me.Controls.Add(Me.paitientInfoLink)
         Me.Controls.Add(Me.userManageLink)
@@ -239,6 +239,6 @@ Partial Class mainForm
     Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents testButton As MetroFramework.Controls.MetroButton
     Friend WithEvents paitientInfoLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents MetroLink1 As MetroFramework.Controls.MetroLink
+    Friend WithEvents medInfoLink As MetroFramework.Controls.MetroLink
     Friend WithEvents medManageLink As MetroFramework.Controls.MetroLink
 End Class

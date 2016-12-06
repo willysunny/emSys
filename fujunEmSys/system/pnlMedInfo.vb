@@ -10,7 +10,7 @@
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-
+        reloadMainGroup()
     End Sub
 
 #Region "載入資料"
@@ -31,7 +31,6 @@
     ' 載入藥品名稱
     Public Sub reloadMedItem(ByVal subID As Integer)
         reloadList(medList, "medID", "medName", "SELECT * FROM med_item WHERE sID=", subID)
-        reloadUnusedMedItem()
     End Sub
     ' 載入未使用藥品名稱
     Public Sub reloadUnusedMedItem()
@@ -55,7 +54,6 @@
     Private Sub subGroupList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles subGroupList.SelectedIndexChanged
         reloadMedItem(subGroupList.SelectedValue)
     End Sub
-
     Private Sub unusedMedList_CheckedChanged(sender As Object, e As EventArgs) Handles unusedMedList.CheckedChanged
         mainGroupList.Enabled = Not unusedMedList.Checked
         subGroupList.Enabled = Not unusedMedList.Checked

@@ -11,6 +11,7 @@
     Dim userManage As pnlUserManage = Nothing
     Dim patientInfoPanel As pnlPatientInfo = Nothing
     Dim medManage As pnlMedManage = Nothing
+    Dim medInfo As pnlMedInfo = Nothing
 
 
     Public Sub New()
@@ -139,6 +140,17 @@
     Private Sub medManage_exit(sender As Object, e As EventArgs)
         medManage.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf medManage_exit
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoLink.Click
+        medInfo = New pnlMedInfo(Me)
+        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf medInfo_exit
+        medInfo.swipe()
+    End Sub
+    Private Sub medInfo_exit(sender As Object, e As EventArgs)
+        medInfo.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf medInfo_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
 #End Region
