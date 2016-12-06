@@ -566,7 +566,7 @@ Partial Class pnlEms
         Me.diagTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.diagTab.Location = New System.Drawing.Point(0, 0)
         Me.diagTab.Name = "diagTab"
-        Me.diagTab.SelectedIndex = 0
+        Me.diagTab.SelectedIndex = 1
         Me.diagTab.Size = New System.Drawing.Size(931, 713)
         Me.diagTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.diagTab.TabIndex = 5
