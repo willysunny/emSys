@@ -10,6 +10,8 @@
     Dim ems As pnlEms = Nothing
     Dim userManage As pnlUserManage = Nothing
     Dim patientInfoPanel As pnlPatientInfo = Nothing
+    Dim medManage As pnlMedManage = Nothing
+    Dim medInfo As pnlMedInfo = Nothing
 
 
     Public Sub New()
@@ -72,15 +74,15 @@
             ems = New pnlEms(Me)
             AddHandler ems.DEVICE_ERROR, AddressOf ems_device_error
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-            AddHandler exitLink.MouseUp, AddressOf emsClose_MouseUp
+            AddHandler exitLink.MouseUp, AddressOf emsClose_exit
             ems.swipe()
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "請檢查以下狀態後再嘗試:" & vbNewLine & "1. 電源是否有接妥?" & vbNewLine & "2. 頻譜儀USB接上電腦時是否有偵測到?" & vbNewLine & "3. 是否有其他頻譜系統開啟?", "無法與頻譜儀連線", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-    Private Sub emsClose_MouseUp(sender As Object, e As EventArgs)
+    Private Sub emsClose_exit(sender As Object, e As EventArgs)
         ems.swipe(False)
-        RemoveHandler exitLink.MouseUp, AddressOf emsClose_MouseUp
+        RemoveHandler exitLink.MouseUp, AddressOf emsClose_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub menuOfflineMode_Click(sender As Object, e As EventArgs) Handles menuOfflineMode.Click
@@ -106,12 +108,12 @@
     Private Sub userManageLink_Click(sender As Object, e As EventArgs) Handles userManageLink.Click
         userManage = New pnlUserManage(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-        AddHandler exitLink.MouseUp, AddressOf userManageLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf userManage_exit
         userManage.swipe()
     End Sub
-    Private Sub userManageLink_MouseUp(sender As Object, e As EventArgs)
+    Private Sub userManage_exit(sender As Object, e As EventArgs)
         userManage.swipe(False)
-        RemoveHandler exitLink.MouseUp, AddressOf userManageLink_MouseUp
+        RemoveHandler exitLink.MouseUp, AddressOf userManage_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub testButton_Click(sender As Object, e As EventArgs) Handles testButton.Click
@@ -127,6 +129,28 @@
     Private Sub paitientInfoLink_MouseUp(sender As Object, e As EventArgs)
         patientInfoPanel.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf paitientInfoLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub medManageLink_Click(sender As Object, e As EventArgs) Handles medManageLink.Click
+        medManage = New pnlMedManage(Me)
+        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf medManage_exit
+        medManage.swipe()
+    End Sub
+    Private Sub medManage_exit(sender As Object, e As EventArgs)
+        medManage.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf medManage_exit
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoLink.Click
+        medInfo = New pnlMedInfo(Me)
+        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf medInfo_exit
+        medInfo.swipe()
+    End Sub
+    Private Sub medInfo_exit(sender As Object, e As EventArgs)
+        medInfo.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf medInfo_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
 #End Region

@@ -145,12 +145,12 @@ Partial Class pnlSetting
         '
         Me.settingLink.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.settingLink.FontWeight = MetroFramework.MetroLinkWeight.Light
-        Me.settingLink.Image = Global.emSys2016.My.Resources.Resources.backHover
+        Me.settingLink.Image = Global.fujunEmsys.My.Resources.Resources.backHover
         Me.settingLink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.settingLink.ImageSize = 32
         Me.settingLink.Location = New System.Drawing.Point(8, 3)
         Me.settingLink.Name = "settingLink"
-        Me.settingLink.NoFocusImage = Global.emSys2016.My.Resources.Resources.backUp
+        Me.settingLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.backUp
         Me.settingLink.Size = New System.Drawing.Size(124, 56)
         Me.settingLink.TabIndex = 4
         Me.settingLink.Text = "設定"

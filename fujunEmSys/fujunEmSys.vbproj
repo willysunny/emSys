@@ -6,23 +6,46 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B85914A2-AB76-4DEE-A56E-5C5E7E7BE44A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>emSys2016.My.MyApplication</StartupObject>
-    <RootNamespace>emSys2016</RootNamespace>
-    <AssemblyName>fujunEmSys</AssemblyName>
+    <StartupObject>fujunEmsys.My.MyApplication</StartupObject>
+    <RootNamespace>fujunEmsys</RootNamespace>
+    <AssemblyName>fujunCMS</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>\\fujunNas\web\fujunEmsys\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://192.168.1.100/fujunEmsys/</InstallUrl>
+    <ProductName>福濬生物醫學中央控制系統</ProductName>
+    <PublisherName>福濬生物醫學</PublisherName>
+    <SuiteName>福濬生物醫學</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>fujunEmSys.xml</DocumentationFile>
+    <DocumentationFile>fujunCMS.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,7 +54,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>fujunEmSys.xml</DocumentationFile>
+    <DocumentationFile>fujunCMS.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -46,10 +69,42 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>B3DD11C296BE001256779F57DFCD086245EF397E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>fujunLogo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestTimestampUrl>http://timestamp.verisign.com/scripts/timstamp.dll</ManifestTimestampUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Advantech\DAQNavi\Multimeter\Automation.BDaq.dll</HintPath>
+      <HintPath>C:\Windows\System32\Automation.BDaq.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
@@ -83,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Import Include="Automation.BDaq" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -96,6 +152,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="module\BitmapBytesRGB24.vb" />
     <Compile Include="module\patientInfo.vb" />
     <Compile Include="module\SQLModule.vb" />
@@ -121,6 +178,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="system\pnlMedInfo.Designer.vb">
+      <DependentUpon>pnlMedInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlMedInfo.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="system\pnlMedManage.Designer.vb">
+      <DependentUpon>pnlMedManage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\pnlMedManage.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="system\pnlLogin.Designer.vb">
       <DependentUpon>pnlLogin.vb</DependentUpon>
@@ -193,6 +262,12 @@
     <EmbeddedResource Include="system\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlMedInfo.resx">
+      <DependentUpon>pnlMedInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\pnlMedManage.resx">
+      <DependentUpon>pnlMedManage.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="system\pnlLogin.resx">
       <DependentUpon>pnlLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -219,6 +294,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -256,10 +332,27 @@
     <None Include="Icon\pass.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fujunLogo.ico" />
     <Content Include="Icon\fujunLogo.png" />
     <None Include="Icon\okUp.png" />
     <None Include="Icon\okHover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
