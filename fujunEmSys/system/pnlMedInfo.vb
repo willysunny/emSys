@@ -45,6 +45,19 @@
             .Refresh()
         End With
     End Sub
+    ' 載入藥品資訊
+    Public Sub loadMedItem(ByVal medID As Integer)
+        Dim reader As IDataReader = runQuery("SELECT * FROM med_item WHERE medID=" & medID)
+        With reader
+            While .Read
+                medName.Text = .Item("medName")
+                pinyin.Text = .Item("pinyin")
+                zhuyin.Text = .Item("zhuyin")
+                medDesc.Text = .Item("medDesc")
+
+            End While
+        End With
+    End Sub
 #End Region
 
 #Region "觸發"
@@ -53,6 +66,9 @@
     End Sub
     Private Sub subGroupList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles subGroupList.SelectedIndexChanged
         reloadMedItem(subGroupList.SelectedValue)
+    End Sub
+    Private Sub medList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles medList.SelectedIndexChanged
+        loadMedItem(medList.SelectedValue)
     End Sub
     Private Sub unusedMedList_CheckedChanged(sender As Object, e As EventArgs) Handles unusedMedList.CheckedChanged
         mainGroupList.Enabled = Not unusedMedList.Checked

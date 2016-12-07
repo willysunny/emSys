@@ -32,25 +32,33 @@ Partial Class pnlMedInfo
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.rightTable = New System.Windows.Forms.TableLayoutPanel()
         Me.buttonTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
+        Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
+        Me.MetroButton3 = New MetroFramework.Controls.MetroButton()
+        Me.MetroButton4 = New MetroFramework.Controls.MetroButton()
         Me.medInfoTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.groupAmountUnit = New MetroFramework.Controls.MetroComboBox()
+        Me.groupAmount = New MetroFramework.Controls.MetroTextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.medName = New MetroFramework.Controls.MetroTextBox()
-        Me.pinyinText = New MetroFramework.Controls.MetroTextBox()
-        Me.zhuyinText = New MetroFramework.Controls.MetroTextBox()
+        Me.pinyin = New MetroFramework.Controls.MetroTextBox()
+        Me.zhuyin = New MetroFramework.Controls.MetroTextBox()
         Me.medDesc = New MetroFramework.Controls.MetroTextBox()
         Me.discount = New MetroFramework.Controls.MetroCheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.unitUnitText = New MetroFramework.Controls.MetroComboBox()
-        Me.unitText = New MetroFramework.Controls.MetroTextBox()
+        Me.unitPrice = New MetroFramework.Controls.MetroTextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.groupUnitText = New MetroFramework.Controls.MetroComboBox()
-        Me.groupText = New MetroFramework.Controls.MetroTextBox()
+        Me.groupUnit = New MetroFramework.Controls.MetroComboBox()
+        Me.groupPrice = New MetroFramework.Controls.MetroTextBox()
         CType(Me.medInfoSplit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.medInfoSplit.Panel1.SuspendLayout()
         Me.medInfoSplit.Panel2.SuspendLayout()
@@ -58,7 +66,9 @@ Partial Class pnlMedInfo
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.rightTable.SuspendLayout()
+        Me.buttonTable.SuspendLayout()
         Me.medInfoTable.SuspendLayout()
+        Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
@@ -190,33 +200,85 @@ Partial Class pnlMedInfo
         '
         'buttonTable
         '
-        Me.buttonTable.ColumnCount = 3
-        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.buttonTable.ColumnCount = 4
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.buttonTable.Controls.Add(Me.MetroButton1, 1, 0)
+        Me.buttonTable.Controls.Add(Me.MetroButton2, 2, 0)
+        Me.buttonTable.Controls.Add(Me.MetroButton3, 0, 0)
+        Me.buttonTable.Controls.Add(Me.MetroButton4, 3, 0)
         Me.buttonTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.buttonTable.Location = New System.Drawing.Point(3, 532)
         Me.buttonTable.Name = "buttonTable"
         Me.buttonTable.RowCount = 1
-        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
         Me.buttonTable.Size = New System.Drawing.Size(608, 34)
         Me.buttonTable.TabIndex = 0
+        '
+        'MetroButton1
+        '
+        Me.MetroButton1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroButton1.Location = New System.Drawing.Point(155, 3)
+        Me.MetroButton1.Name = "MetroButton1"
+        Me.MetroButton1.Size = New System.Drawing.Size(146, 28)
+        Me.MetroButton1.TabIndex = 0
+        Me.MetroButton1.Text = "新增藥品"
+        Me.MetroButton1.UseSelectable = True
+        '
+        'MetroButton2
+        '
+        Me.MetroButton2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroButton2.Location = New System.Drawing.Point(307, 3)
+        Me.MetroButton2.Name = "MetroButton2"
+        Me.MetroButton2.Size = New System.Drawing.Size(146, 28)
+        Me.MetroButton2.TabIndex = 0
+        Me.MetroButton2.Text = "修改藥品"
+        Me.MetroButton2.UseSelectable = True
+        '
+        'MetroButton3
+        '
+        Me.MetroButton3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroButton3.Location = New System.Drawing.Point(3, 3)
+        Me.MetroButton3.Name = "MetroButton3"
+        Me.MetroButton3.Size = New System.Drawing.Size(146, 28)
+        Me.MetroButton3.TabIndex = 0
+        Me.MetroButton3.Text = "清除欄位"
+        Me.MetroButton3.UseSelectable = True
+        '
+        'MetroButton4
+        '
+        Me.MetroButton4.BackColor = System.Drawing.Color.Maroon
+        Me.MetroButton4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroButton4.ForeColor = System.Drawing.Color.White
+        Me.MetroButton4.Location = New System.Drawing.Point(459, 3)
+        Me.MetroButton4.Name = "MetroButton4"
+        Me.MetroButton4.Size = New System.Drawing.Size(146, 28)
+        Me.MetroButton4.TabIndex = 0
+        Me.MetroButton4.Text = "刪除藥品"
+        Me.MetroButton4.UseCustomBackColor = True
+        Me.MetroButton4.UseCustomForeColor = True
+        Me.MetroButton4.UseSelectable = True
         '
         'medInfoTable
         '
         Me.medInfoTable.ColumnCount = 2
         Me.medInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119.0!))
         Me.medInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.medInfoTable.Controls.Add(Me.Label8, 0, 6)
+        Me.medInfoTable.Controls.Add(Me.Panel4, 1, 6)
         Me.medInfoTable.Controls.Add(Me.Label5, 0, 3)
         Me.medInfoTable.Controls.Add(Me.Label1, 0, 0)
         Me.medInfoTable.Controls.Add(Me.Label2, 0, 1)
         Me.medInfoTable.Controls.Add(Me.Label3, 0, 2)
-        Me.medInfoTable.Controls.Add(Me.Label4, 0, 6)
+        Me.medInfoTable.Controls.Add(Me.Label4, 0, 7)
         Me.medInfoTable.Controls.Add(Me.medName, 1, 0)
-        Me.medInfoTable.Controls.Add(Me.pinyinText, 1, 1)
-        Me.medInfoTable.Controls.Add(Me.zhuyinText, 1, 2)
+        Me.medInfoTable.Controls.Add(Me.pinyin, 1, 1)
+        Me.medInfoTable.Controls.Add(Me.zhuyin, 1, 2)
         Me.medInfoTable.Controls.Add(Me.medDesc, 1, 3)
-        Me.medInfoTable.Controls.Add(Me.discount, 1, 6)
+        Me.medInfoTable.Controls.Add(Me.discount, 1, 7)
         Me.medInfoTable.Controls.Add(Me.Label6, 0, 5)
         Me.medInfoTable.Controls.Add(Me.Label7, 0, 4)
         Me.medInfoTable.Controls.Add(Me.Panel2, 1, 4)
@@ -224,7 +286,7 @@ Partial Class pnlMedInfo
         Me.medInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.medInfoTable.Location = New System.Drawing.Point(3, 3)
         Me.medInfoTable.Name = "medInfoTable"
-        Me.medInfoTable.RowCount = 7
+        Me.medInfoTable.RowCount = 8
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
@@ -232,8 +294,79 @@ Partial Class pnlMedInfo
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.Size = New System.Drawing.Size(608, 523)
         Me.medInfoTable.TabIndex = 1
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Label8.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label8.ForeColor = System.Drawing.Color.White
+        Me.Label8.Location = New System.Drawing.Point(3, 453)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(113, 35)
+        Me.Label8.TabIndex = 6
+        Me.Label8.Text = "數量"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.groupAmountUnit)
+        Me.Panel4.Controls.Add(Me.groupAmount)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(122, 456)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Padding = New System.Windows.Forms.Padding(0, 0, 100, 0)
+        Me.Panel4.Size = New System.Drawing.Size(483, 29)
+        Me.Panel4.TabIndex = 5
+        '
+        'groupAmountUnit
+        '
+        Me.groupAmountUnit.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.groupAmountUnit.FormattingEnabled = True
+        Me.groupAmountUnit.ItemHeight = 23
+        Me.groupAmountUnit.Items.AddRange(New Object() {"包", "瓶"})
+        Me.groupAmountUnit.Location = New System.Drawing.Point(385, 0)
+        Me.groupAmountUnit.Name = "groupAmountUnit"
+        Me.groupAmountUnit.Size = New System.Drawing.Size(98, 29)
+        Me.groupAmountUnit.TabIndex = 1
+        Me.groupAmountUnit.UseSelectable = True
+        '
+        'groupAmount
+        '
+        '
+        '
+        '
+        Me.groupAmount.CustomButton.Image = Nothing
+        Me.groupAmount.CustomButton.Location = New System.Drawing.Point(355, 1)
+        Me.groupAmount.CustomButton.Name = ""
+        Me.groupAmount.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.groupAmount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.groupAmount.CustomButton.TabIndex = 1
+        Me.groupAmount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.groupAmount.CustomButton.UseSelectable = True
+        Me.groupAmount.CustomButton.Visible = False
+        Me.groupAmount.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.groupAmount.Lines = New String(-1) {}
+        Me.groupAmount.Location = New System.Drawing.Point(0, 0)
+        Me.groupAmount.MaxLength = 32767
+        Me.groupAmount.Name = "groupAmount"
+        Me.groupAmount.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.groupAmount.PromptText = "數量"
+        Me.groupAmount.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.groupAmount.SelectedText = ""
+        Me.groupAmount.SelectionLength = 0
+        Me.groupAmount.SelectionStart = 0
+        Me.groupAmount.ShortcutsEnabled = True
+        Me.groupAmount.Size = New System.Drawing.Size(383, 29)
+        Me.groupAmount.TabIndex = 0
+        Me.groupAmount.UseSelectable = True
+        Me.groupAmount.WaterMark = "數量"
+        Me.groupAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.groupAmount.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Label5
         '
@@ -244,7 +377,7 @@ Partial Class pnlMedInfo
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(3, 105)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(113, 313)
+        Me.Label5.Size = New System.Drawing.Size(113, 278)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "藥物說明"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -338,71 +471,71 @@ Partial Class pnlMedInfo
         Me.medName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.medName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
-        'pinyinText
+        'pinyin
         '
         '
         '
         '
-        Me.pinyinText.CustomButton.Image = Nothing
-        Me.pinyinText.CustomButton.Location = New System.Drawing.Point(455, 1)
-        Me.pinyinText.CustomButton.Name = ""
-        Me.pinyinText.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.pinyinText.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.pinyinText.CustomButton.TabIndex = 1
-        Me.pinyinText.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.pinyinText.CustomButton.UseSelectable = True
-        Me.pinyinText.CustomButton.Visible = False
-        Me.pinyinText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pinyinText.Lines = New String(-1) {}
-        Me.pinyinText.Location = New System.Drawing.Point(122, 38)
-        Me.pinyinText.MaxLength = 32767
-        Me.pinyinText.Name = "pinyinText"
-        Me.pinyinText.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.pinyinText.PromptText = "拼音開頭"
-        Me.pinyinText.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.pinyinText.SelectedText = ""
-        Me.pinyinText.SelectionLength = 0
-        Me.pinyinText.SelectionStart = 0
-        Me.pinyinText.ShortcutsEnabled = True
-        Me.pinyinText.Size = New System.Drawing.Size(483, 29)
-        Me.pinyinText.TabIndex = 1
-        Me.pinyinText.UseSelectable = True
-        Me.pinyinText.WaterMark = "拼音開頭"
-        Me.pinyinText.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.pinyinText.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.pinyin.CustomButton.Image = Nothing
+        Me.pinyin.CustomButton.Location = New System.Drawing.Point(455, 1)
+        Me.pinyin.CustomButton.Name = ""
+        Me.pinyin.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.pinyin.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.pinyin.CustomButton.TabIndex = 1
+        Me.pinyin.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.pinyin.CustomButton.UseSelectable = True
+        Me.pinyin.CustomButton.Visible = False
+        Me.pinyin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pinyin.Lines = New String(-1) {}
+        Me.pinyin.Location = New System.Drawing.Point(122, 38)
+        Me.pinyin.MaxLength = 32767
+        Me.pinyin.Name = "pinyin"
+        Me.pinyin.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.pinyin.PromptText = "拼音開頭"
+        Me.pinyin.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.pinyin.SelectedText = ""
+        Me.pinyin.SelectionLength = 0
+        Me.pinyin.SelectionStart = 0
+        Me.pinyin.ShortcutsEnabled = True
+        Me.pinyin.Size = New System.Drawing.Size(483, 29)
+        Me.pinyin.TabIndex = 1
+        Me.pinyin.UseSelectable = True
+        Me.pinyin.WaterMark = "拼音開頭"
+        Me.pinyin.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.pinyin.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
-        'zhuyinText
-        '
-        '
+        'zhuyin
         '
         '
-        Me.zhuyinText.CustomButton.Image = Nothing
-        Me.zhuyinText.CustomButton.Location = New System.Drawing.Point(455, 1)
-        Me.zhuyinText.CustomButton.Name = ""
-        Me.zhuyinText.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.zhuyinText.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.zhuyinText.CustomButton.TabIndex = 1
-        Me.zhuyinText.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.zhuyinText.CustomButton.UseSelectable = True
-        Me.zhuyinText.CustomButton.Visible = False
-        Me.zhuyinText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.zhuyinText.Lines = New String(-1) {}
-        Me.zhuyinText.Location = New System.Drawing.Point(122, 73)
-        Me.zhuyinText.MaxLength = 32767
-        Me.zhuyinText.Name = "zhuyinText"
-        Me.zhuyinText.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.zhuyinText.PromptText = "注音開頭 (英文)"
-        Me.zhuyinText.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.zhuyinText.SelectedText = ""
-        Me.zhuyinText.SelectionLength = 0
-        Me.zhuyinText.SelectionStart = 0
-        Me.zhuyinText.ShortcutsEnabled = True
-        Me.zhuyinText.Size = New System.Drawing.Size(483, 29)
-        Me.zhuyinText.TabIndex = 1
-        Me.zhuyinText.UseSelectable = True
-        Me.zhuyinText.WaterMark = "注音開頭 (英文)"
-        Me.zhuyinText.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.zhuyinText.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        '
+        Me.zhuyin.CustomButton.Image = Nothing
+        Me.zhuyin.CustomButton.Location = New System.Drawing.Point(455, 1)
+        Me.zhuyin.CustomButton.Name = ""
+        Me.zhuyin.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.zhuyin.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.zhuyin.CustomButton.TabIndex = 1
+        Me.zhuyin.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.zhuyin.CustomButton.UseSelectable = True
+        Me.zhuyin.CustomButton.Visible = False
+        Me.zhuyin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.zhuyin.Lines = New String(-1) {}
+        Me.zhuyin.Location = New System.Drawing.Point(122, 73)
+        Me.zhuyin.MaxLength = 32767
+        Me.zhuyin.Name = "zhuyin"
+        Me.zhuyin.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.zhuyin.PromptText = "注音開頭 (英文)"
+        Me.zhuyin.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.zhuyin.SelectedText = ""
+        Me.zhuyin.SelectionLength = 0
+        Me.zhuyin.SelectionStart = 0
+        Me.zhuyin.ShortcutsEnabled = True
+        Me.zhuyin.Size = New System.Drawing.Size(483, 29)
+        Me.zhuyin.TabIndex = 1
+        Me.zhuyin.UseSelectable = True
+        Me.zhuyin.WaterMark = "注音開頭 (英文)"
+        Me.zhuyin.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.zhuyin.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'medDesc
         '
@@ -410,9 +543,9 @@ Partial Class pnlMedInfo
         '
         '
         Me.medDesc.CustomButton.Image = Nothing
-        Me.medDesc.CustomButton.Location = New System.Drawing.Point(177, 1)
+        Me.medDesc.CustomButton.Location = New System.Drawing.Point(213, 2)
         Me.medDesc.CustomButton.Name = ""
-        Me.medDesc.CustomButton.Size = New System.Drawing.Size(305, 305)
+        Me.medDesc.CustomButton.Size = New System.Drawing.Size(267, 267)
         Me.medDesc.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.medDesc.CustomButton.TabIndex = 1
         Me.medDesc.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -430,7 +563,7 @@ Partial Class pnlMedInfo
         Me.medDesc.SelectionLength = 0
         Me.medDesc.SelectionStart = 0
         Me.medDesc.ShortcutsEnabled = True
-        Me.medDesc.Size = New System.Drawing.Size(483, 307)
+        Me.medDesc.Size = New System.Drawing.Size(483, 272)
         Me.medDesc.TabIndex = 1
         Me.medDesc.UseSelectable = True
         Me.medDesc.WaterMark = "藥物說明"
@@ -456,7 +589,7 @@ Partial Class pnlMedInfo
         Me.Label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label6.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(3, 453)
+        Me.Label6.Location = New System.Drawing.Point(3, 418)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(113, 35)
         Me.Label6.TabIndex = 0
@@ -470,7 +603,7 @@ Partial Class pnlMedInfo
         Me.Label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label7.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(3, 418)
+        Me.Label7.Location = New System.Drawing.Point(3, 383)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(113, 35)
         Me.Label7.TabIndex = 0
@@ -480,9 +613,9 @@ Partial Class pnlMedInfo
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.unitUnitText)
-        Me.Panel2.Controls.Add(Me.unitText)
+        Me.Panel2.Controls.Add(Me.unitPrice)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(122, 421)
+        Me.Panel2.Location = New System.Drawing.Point(122, 386)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(0, 0, 100, 0)
         Me.Panel2.Size = New System.Drawing.Size(483, 29)
@@ -500,94 +633,94 @@ Partial Class pnlMedInfo
         Me.unitUnitText.TabIndex = 1
         Me.unitUnitText.UseSelectable = True
         '
-        'unitText
+        'unitPrice
         '
         '
         '
         '
-        Me.unitText.CustomButton.Image = Nothing
-        Me.unitText.CustomButton.Location = New System.Drawing.Point(355, 1)
-        Me.unitText.CustomButton.Name = ""
-        Me.unitText.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.unitText.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.unitText.CustomButton.TabIndex = 1
-        Me.unitText.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.unitText.CustomButton.UseSelectable = True
-        Me.unitText.CustomButton.Visible = False
-        Me.unitText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.unitText.Lines = New String(-1) {}
-        Me.unitText.Location = New System.Drawing.Point(0, 0)
-        Me.unitText.MaxLength = 32767
-        Me.unitText.Name = "unitText"
-        Me.unitText.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.unitText.PromptText = "單價"
-        Me.unitText.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.unitText.SelectedText = ""
-        Me.unitText.SelectionLength = 0
-        Me.unitText.SelectionStart = 0
-        Me.unitText.ShortcutsEnabled = True
-        Me.unitText.Size = New System.Drawing.Size(383, 29)
-        Me.unitText.TabIndex = 0
-        Me.unitText.UseSelectable = True
-        Me.unitText.WaterMark = "單價"
-        Me.unitText.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.unitText.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.unitPrice.CustomButton.Image = Nothing
+        Me.unitPrice.CustomButton.Location = New System.Drawing.Point(355, 1)
+        Me.unitPrice.CustomButton.Name = ""
+        Me.unitPrice.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.unitPrice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.unitPrice.CustomButton.TabIndex = 1
+        Me.unitPrice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.unitPrice.CustomButton.UseSelectable = True
+        Me.unitPrice.CustomButton.Visible = False
+        Me.unitPrice.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.unitPrice.Lines = New String(-1) {}
+        Me.unitPrice.Location = New System.Drawing.Point(0, 0)
+        Me.unitPrice.MaxLength = 32767
+        Me.unitPrice.Name = "unitPrice"
+        Me.unitPrice.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.unitPrice.PromptText = "單價"
+        Me.unitPrice.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.unitPrice.SelectedText = ""
+        Me.unitPrice.SelectionLength = 0
+        Me.unitPrice.SelectionStart = 0
+        Me.unitPrice.ShortcutsEnabled = True
+        Me.unitPrice.Size = New System.Drawing.Size(383, 29)
+        Me.unitPrice.TabIndex = 0
+        Me.unitPrice.UseSelectable = True
+        Me.unitPrice.WaterMark = "單價"
+        Me.unitPrice.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.unitPrice.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Panel3
         '
-        Me.Panel3.Controls.Add(Me.groupUnitText)
-        Me.Panel3.Controls.Add(Me.groupText)
+        Me.Panel3.Controls.Add(Me.groupUnit)
+        Me.Panel3.Controls.Add(Me.groupPrice)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel3.Location = New System.Drawing.Point(122, 456)
+        Me.Panel3.Location = New System.Drawing.Point(122, 421)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(0, 0, 100, 0)
         Me.Panel3.Size = New System.Drawing.Size(483, 29)
         Me.Panel3.TabIndex = 4
         '
-        'groupUnitText
+        'groupUnit
         '
-        Me.groupUnitText.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.groupUnitText.FormattingEnabled = True
-        Me.groupUnitText.ItemHeight = 23
-        Me.groupUnitText.Items.AddRange(New Object() {"包", "瓶"})
-        Me.groupUnitText.Location = New System.Drawing.Point(385, 0)
-        Me.groupUnitText.Name = "groupUnitText"
-        Me.groupUnitText.Size = New System.Drawing.Size(98, 29)
-        Me.groupUnitText.TabIndex = 1
-        Me.groupUnitText.UseSelectable = True
+        Me.groupUnit.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.groupUnit.FormattingEnabled = True
+        Me.groupUnit.ItemHeight = 23
+        Me.groupUnit.Items.AddRange(New Object() {"包", "瓶"})
+        Me.groupUnit.Location = New System.Drawing.Point(385, 0)
+        Me.groupUnit.Name = "groupUnit"
+        Me.groupUnit.Size = New System.Drawing.Size(98, 29)
+        Me.groupUnit.TabIndex = 1
+        Me.groupUnit.UseSelectable = True
         '
-        'groupText
-        '
-        '
+        'groupPrice
         '
         '
-        Me.groupText.CustomButton.Image = Nothing
-        Me.groupText.CustomButton.Location = New System.Drawing.Point(355, 1)
-        Me.groupText.CustomButton.Name = ""
-        Me.groupText.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.groupText.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.groupText.CustomButton.TabIndex = 1
-        Me.groupText.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.groupText.CustomButton.UseSelectable = True
-        Me.groupText.CustomButton.Visible = False
-        Me.groupText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.groupText.Lines = New String(-1) {}
-        Me.groupText.Location = New System.Drawing.Point(0, 0)
-        Me.groupText.MaxLength = 32767
-        Me.groupText.Name = "groupText"
-        Me.groupText.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.groupText.PromptText = "批發價"
-        Me.groupText.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.groupText.SelectedText = ""
-        Me.groupText.SelectionLength = 0
-        Me.groupText.SelectionStart = 0
-        Me.groupText.ShortcutsEnabled = True
-        Me.groupText.Size = New System.Drawing.Size(383, 29)
-        Me.groupText.TabIndex = 0
-        Me.groupText.UseSelectable = True
-        Me.groupText.WaterMark = "批發價"
-        Me.groupText.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.groupText.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        '
+        Me.groupPrice.CustomButton.Image = Nothing
+        Me.groupPrice.CustomButton.Location = New System.Drawing.Point(355, 1)
+        Me.groupPrice.CustomButton.Name = ""
+        Me.groupPrice.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.groupPrice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.groupPrice.CustomButton.TabIndex = 1
+        Me.groupPrice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.groupPrice.CustomButton.UseSelectable = True
+        Me.groupPrice.CustomButton.Visible = False
+        Me.groupPrice.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.groupPrice.Lines = New String(-1) {}
+        Me.groupPrice.Location = New System.Drawing.Point(0, 0)
+        Me.groupPrice.MaxLength = 32767
+        Me.groupPrice.Name = "groupPrice"
+        Me.groupPrice.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.groupPrice.PromptText = "批發價"
+        Me.groupPrice.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.groupPrice.SelectedText = ""
+        Me.groupPrice.SelectionLength = 0
+        Me.groupPrice.SelectionStart = 0
+        Me.groupPrice.ShortcutsEnabled = True
+        Me.groupPrice.Size = New System.Drawing.Size(383, 29)
+        Me.groupPrice.TabIndex = 0
+        Me.groupPrice.UseSelectable = True
+        Me.groupPrice.WaterMark = "批發價"
+        Me.groupPrice.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.groupPrice.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'pnlMedInfo
         '
@@ -604,8 +737,10 @@ Partial Class pnlMedInfo
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.rightTable.ResumeLayout(False)
+        Me.buttonTable.ResumeLayout(False)
         Me.medInfoTable.ResumeLayout(False)
         Me.medInfoTable.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -629,16 +764,24 @@ Partial Class pnlMedInfo
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents medName As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pinyinText As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents zhuyinText As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pinyin As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents zhuyin As MetroFramework.Controls.MetroTextBox
     Friend WithEvents medDesc As MetroFramework.Controls.MetroTextBox
     Friend WithEvents discount As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents unitText As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents unitPrice As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents groupText As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents groupPrice As MetroFramework.Controls.MetroTextBox
     Friend WithEvents unitUnitText As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents groupUnitText As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents groupUnit As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroButton2 As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroButton3 As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroButton4 As MetroFramework.Controls.MetroButton
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents groupAmountUnit As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents groupAmount As MetroFramework.Controls.MetroTextBox
 End Class

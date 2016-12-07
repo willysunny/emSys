@@ -51,11 +51,9 @@
 #End Region
 #Region "觸發"
     Private Sub mainGroupList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles mainGroupList.SelectedIndexChanged
-        subTable.Enabled = True
         reloadSubGroup(mainGroupList.SelectedValue)
     End Sub
     Private Sub subGroupList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles subGroupList.SelectedIndexChanged
-        medTable.Enabled = True
         reloadMedItem(subGroupList.SelectedValue)
     End Sub
 #End Region
