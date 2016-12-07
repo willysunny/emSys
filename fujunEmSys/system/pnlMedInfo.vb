@@ -8,9 +8,54 @@
 
         ' This call is required by the designer.
         InitializeComponent()
+        owner.WindowState = FormWindowState.Maximized
+        owner.BringToFront()
 
         ' Add any initialization after the InitializeComponent() call.
         reloadMainGroup()
+
+#Region "批發/單價單位"
+        Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
+        unit.Add(1, "克")
+        unit.Add(2, "顆")
+        Dim unitTable As DataTable = New DataTable()
+        With unitTable
+            .Columns.Add("unitCode", GetType(Integer))
+            .Columns.Add("unitName", GetType(String))
+            For Each point As KeyValuePair(Of Integer, String) In unit
+                .Rows.Add(point.Key, point.Value)
+            Next
+        End With
+        With unitUnit
+            .DataSource = unitTable
+            .DisplayMember = "unitName"
+            .ValueMember = "unitCode"
+        End With
+        With groupAmountUnit
+            .DataSource = unitTable
+            .DisplayMember = "unitName"
+            .ValueMember = "unitCode"
+        End With
+#End Region
+#Region "批發單位"
+        Dim gUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
+        gUnit.Add(1, "包")
+        gUnit.Add(2, "瓶")
+        Dim groupUnitTable As DataTable = New DataTable()
+        With groupUnitTable
+            .Columns.Add("unitCode", GetType(Integer))
+            .Columns.Add("unitName", GetType(String))
+            For Each point As KeyValuePair(Of Integer, String) In gUnit
+                .Rows.Add(point.Key, point.Value)
+            Next
+        End With
+        With groupUnit
+            .DataSource = groupUnitTable
+            .DisplayMember = "unitName"
+            .ValueMember = "unitCode"
+        End With
+#End Region
+
     End Sub
 
 #Region "載入資料"
@@ -30,7 +75,9 @@
     End Sub
     ' 載入藥品名稱
     Public Sub reloadMedItem(ByVal subID As Integer)
+        RemoveHandler medList.SelectedIndexChanged, AddressOf medList_SelectedIndexChanged
         reloadList(medList, "medID", "medName", "SELECT * FROM med_item WHERE sID=", subID)
+        AddHandler medList.SelectedIndexChanged, AddressOf medList_SelectedIndexChanged
     End Sub
     ' 載入未使用藥品名稱
     Public Sub reloadUnusedMedItem()
@@ -53,8 +100,14 @@
                 medName.Text = .Item("medName")
                 pinyin.Text = .Item("pinyin")
                 zhuyin.Text = .Item("zhuyin")
-                medDesc.Text = .Item("medDesc")
-
+                If IsDBNull(.Item("medDesc")) Then medDesc.Text = "" Else medDesc.Text = .Item("medDesc")
+                If IsDBNull(.Item("unitPrice")) Then unitPrice.Text = "" Else unitPrice.Text = .Item("unitPrice")
+                If IsDBNull(.Item("unitUnit")) Then unitUnit.SelectedValue = -1 Else unitUnit.SelectedValue = .Item("unitUnit")
+                If IsDBNull(.Item("groupPrice")) Then groupPrice.Text = "" Else groupPrice.Text = .Item("groupPrice")
+                If IsDBNull(.Item("groupUnit")) Then groupUnit.SelectedValue = -1 Else groupUnit.SelectedValue = .Item("groupUnit")
+                If IsDBNull(.Item("groupAmount")) Then groupAmount.Text = "" Else groupAmount.Text = .Item("groupAmount")
+                If IsDBNull(.Item("groupAmountUnit")) Then groupAmountUnit.SelectedValue = -1 Else groupAmountUnit.SelectedValue = .Item("groupAmountUnit")
+                discount.Checked = CBool(.Item("isDiscountable"))
             End While
         End With
     End Sub
@@ -74,9 +127,80 @@
         mainGroupList.Enabled = Not unusedMedList.Checked
         subGroupList.Enabled = Not unusedMedList.Checked
         If unusedMedList.Checked Then
-            reloadMedItem(subGroupList.SelectedValue)
-        Else
             reloadUnusedMedItem()
+        Else
+            reloadMedItem(subGroupList.SelectedValue)
+        End If
+    End Sub
+#End Region
+
+#Region "按鈕"
+    ' 清除欄位
+    Private Sub clearButton_Click(sender As Object, e As EventArgs) Handles clearButton.Click
+        medName.Text = ""
+        pinyin.Text = ""
+        zhuyin.Text = ""
+        medDesc.Text = ""
+        unitPrice.Text = ""
+        unitUnit.SelectedIndex = -1
+        groupPrice.Text = ""
+        groupUnit.SelectedIndex = -1
+        groupAmount.Text = ""
+        groupAmountUnit.SelectedIndex = -1
+    End Sub
+    ' 新增藥品
+    Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
+        If unusedMedList.Checked Then
+            If MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【未分類】?", "新增藥品", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, isDiscountable) VALUES(-1, '" &
+                    medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & discount.Checked & ")"
+                runQuery(sql)
+                MetroFramework.MetroMessageBox.Show(Me, "新增成功", "新增藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                reloadUnusedMedItem()
+            End If
+        Else
+            Dim response As DialogResult = MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & CType(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】?" & vbNewLine & "(若要新增置【未分類】請點 No)", "新增藥品", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+            If Not response = DialogResult.Cancel Then
+                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, isDiscountable) VALUES("
+                If response = DialogResult.Yes Then sql += subGroupList.SelectedValue.ToString Else sql += "-1"
+                sql += ", '" & medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" _
+                    & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & discount.Checked & ")"
+                runQuery(sql)
+                MetroFramework.MetroMessageBox.Show(Me, "新增成功", "新增藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                reloadMedItem(subGroupList.SelectedValue)
+            End If
+        End If
+
+    End Sub
+    ' 修改藥品
+    Private Sub editButton_Click(sender As Object, e As EventArgs) Handles editButton.Click
+        runQuery("UPDATE med_item SET " &
+                 "medName='" & medName.Text & "'," &
+                 "pinyin='" & pinyin.Text & "'," &
+                 "zhuyin='" & zhuyin.Text & "'," &
+                 "medDesc='" & medDesc.Text & "'," &
+                 "unitPrice='" & unitPrice.Text & "'," &
+                 "unitUnit='" & unitUnit.SelectedValue & "'," &
+                 "groupPrice='" & groupPrice.Text & "'," &
+                 "groupUnit='" & groupUnit.SelectedValue & "'," &
+                 "groupAmount='" & groupAmount.Text & "'," &
+                 "groupAmountUnit='" & groupAmountUnit.SelectedValue & "'," &
+                 "isDiscountable=" & discount.Checked & " WHERE medID=" & medList.SelectedValue)
+        MetroFramework.MetroMessageBox.Show(Me, "更新成功", "修改藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If unusedMedList.Checked Then reloadUnusedMedItem() Else reloadMedItem(subGroupList.SelectedValue)
+    End Sub
+    ' 刪除藥品
+    Private Sub delButton_Click(sender As Object, e As EventArgs) Handles delButton.Click
+        Dim question As String = ""
+        If unusedMedList.Checked Then
+            question = "確定要從【未分類】刪除藥品【" & medName.Text & "】?"
+        Else
+            question = "確定要從【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & CType(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】刪除藥品【" & medName.Text & "】?"
+        End If
+        If MetroFramework.MetroMessageBox.Show(Me, question, "刪除藥品", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            runQuery("DELETE FROM med_item WHERE medID=" & medList.SelectedValue)
+            MetroFramework.MetroMessageBox.Show(Me, "刪除成功", "刪除藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            reloadMedItem(subGroupList.SelectedValue)
         End If
     End Sub
 #End Region

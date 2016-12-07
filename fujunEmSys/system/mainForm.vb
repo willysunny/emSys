@@ -10,8 +10,8 @@
     Dim ems As pnlEms = Nothing
     Dim userManage As pnlUserManage = Nothing
     Dim patientInfoPanel As pnlPatientInfo = Nothing
-    Dim medManage As pnlMedManage = Nothing
     Dim medInfo As pnlMedInfo = Nothing
+    Dim medManage As pnlMedManage = Nothing
 
 
     Public Sub New()
@@ -56,6 +56,9 @@
 #End Region
 
 #Region "Button Clicks"
+    Private Sub testButton_Click(sender As Object, e As EventArgs) Handles testButton.Click
+        Debug.WriteLine(patientInfo.pName)
+    End Sub
     Private Sub settingsLink_Click(sender As Object, e As EventArgs) Handles settingsLink.Click
         setting = New pnlSetting(Me)
         AddHandler setting.settingClosed, AddressOf setting_Closed
@@ -76,6 +79,7 @@
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
             AddHandler exitLink.MouseUp, AddressOf emsClose_exit
             ems.swipe()
+
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "請檢查以下狀態後再嘗試:" & vbNewLine & "1. 電源是否有接妥?" & vbNewLine & "2. 頻譜儀USB接上電腦時是否有偵測到?" & vbNewLine & "3. 是否有其他頻譜系統開啟?", "無法與頻譜儀連線", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -115,9 +119,6 @@
         userManage.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf userManage_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-    End Sub
-    Private Sub testButton_Click(sender As Object, e As EventArgs) Handles testButton.Click
-        Debug.WriteLine(patientInfo.pName)
     End Sub
     Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoLink.Click
         patientInfoPanel = New pnlPatientInfo(Me)

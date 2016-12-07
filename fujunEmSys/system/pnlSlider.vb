@@ -31,6 +31,8 @@
         Visible = False
         owner = frmOwner
         frmOwner.Controls.Add(Me)
+        owner.WindowState = FormWindowState.Maximized
+        owner.BringToFront()
         resizeForm()
         BringToFront()
         AddHandler owner.Resize, AddressOf owner_resize
