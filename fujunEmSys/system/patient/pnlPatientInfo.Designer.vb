@@ -24,7 +24,7 @@ Partial Class pnlPatientInfo
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.searchContextMenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
-        Me.新增病患NToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.addButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.editPatientMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.selectPatientMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.searchTable = New System.Windows.Forms.TableLayoutPanel()
@@ -32,7 +32,7 @@ Partial Class pnlPatientInfo
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.searchButton = New MetroFramework.Controls.MetroButton()
-        Me.MetroTextBox1 = New MetroFramework.Controls.MetroTextBox()
+        Me.searchBox = New MetroFramework.Controls.MetroTextBox()
         Me.editTable = New System.Windows.Forms.TableLayoutPanel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
@@ -51,7 +51,6 @@ Partial Class pnlPatientInfo
         Me.patientDOB = New MetroFramework.Controls.MetroDateTime()
         Me.patientSex = New MetroFramework.Controls.MetroComboBox()
         Me.updateButton = New MetroFramework.Controls.MetroButton()
-        Me.pIDLabel = New MetroFramework.Controls.MetroLabel()
         Me.cancelButton = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel9 = New MetroFramework.Controls.MetroLabel()
         Me.patientEmail = New MetroFramework.Controls.MetroTextBox()
@@ -68,15 +67,15 @@ Partial Class pnlPatientInfo
         '
         'searchContextMenu
         '
-        Me.searchContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.新增病患NToolStripMenuItem, Me.editPatientMenu, Me.selectPatientMenu})
+        Me.searchContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.addButton, Me.editPatientMenu, Me.selectPatientMenu})
         Me.searchContextMenu.Name = "searchContextMenu"
         Me.searchContextMenu.Size = New System.Drawing.Size(153, 70)
         '
-        '新增病患NToolStripMenuItem
+        'addButton
         '
-        Me.新增病患NToolStripMenuItem.Name = "新增病患NToolStripMenuItem"
-        Me.新增病患NToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.新增病患NToolStripMenuItem.Text = "新增病患 (&N)"
+        Me.addButton.Name = "addButton"
+        Me.addButton.Size = New System.Drawing.Size(152, 22)
+        Me.addButton.Text = "新增病患 (&N)"
         '
         'editPatientMenu
         '
@@ -128,7 +127,7 @@ Partial Class pnlPatientInfo
         '
         Me.MetroPanel1.Controls.Add(Me.MetroLabel1)
         Me.MetroPanel1.Controls.Add(Me.searchButton)
-        Me.MetroPanel1.Controls.Add(Me.MetroTextBox1)
+        Me.MetroPanel1.Controls.Add(Me.searchBox)
         Me.MetroPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroPanel1.HorizontalScrollbarBarColor = True
         Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
@@ -163,40 +162,40 @@ Partial Class pnlPatientInfo
         Me.searchButton.Text = "搜尋"
         Me.searchButton.UseSelectable = True
         '
-        'MetroTextBox1
+        'searchBox
         '
-        Me.MetroTextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.searchBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         '
         '
-        Me.MetroTextBox1.CustomButton.Image = Nothing
-        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(390, 1)
-        Me.MetroTextBox1.CustomButton.Name = ""
-        Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(33, 33)
-        Me.MetroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.MetroTextBox1.CustomButton.TabIndex = 1
-        Me.MetroTextBox1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.MetroTextBox1.CustomButton.UseSelectable = True
-        Me.MetroTextBox1.CustomButton.Visible = False
-        Me.MetroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.MetroTextBox1.Lines = New String(-1) {}
-        Me.MetroTextBox1.Location = New System.Drawing.Point(13, 38)
-        Me.MetroTextBox1.MaxLength = 32767
-        Me.MetroTextBox1.Name = "MetroTextBox1"
-        Me.MetroTextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.MetroTextBox1.PromptText = "(病歷號碼, 姓名, 身份證字號, 手機號碼)"
-        Me.MetroTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.MetroTextBox1.SelectedText = ""
-        Me.MetroTextBox1.SelectionLength = 0
-        Me.MetroTextBox1.SelectionStart = 0
-        Me.MetroTextBox1.ShortcutsEnabled = True
-        Me.MetroTextBox1.Size = New System.Drawing.Size(424, 35)
-        Me.MetroTextBox1.TabIndex = 2
-        Me.MetroTextBox1.UseSelectable = True
-        Me.MetroTextBox1.WaterMark = "(病歷號碼, 姓名, 身份證字號, 手機號碼)"
-        Me.MetroTextBox1.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.MetroTextBox1.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.0!, System.Drawing.FontStyle.Italic)
+        Me.searchBox.CustomButton.Image = Nothing
+        Me.searchBox.CustomButton.Location = New System.Drawing.Point(390, 1)
+        Me.searchBox.CustomButton.Name = ""
+        Me.searchBox.CustomButton.Size = New System.Drawing.Size(33, 33)
+        Me.searchBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.searchBox.CustomButton.TabIndex = 1
+        Me.searchBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.searchBox.CustomButton.UseSelectable = True
+        Me.searchBox.CustomButton.Visible = False
+        Me.searchBox.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.searchBox.Lines = New String(-1) {}
+        Me.searchBox.Location = New System.Drawing.Point(13, 38)
+        Me.searchBox.MaxLength = 32767
+        Me.searchBox.Name = "searchBox"
+        Me.searchBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.searchBox.PromptText = "(病歷號碼, 姓名, 身份證字號, 手機號碼)"
+        Me.searchBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.searchBox.SelectedText = ""
+        Me.searchBox.SelectionLength = 0
+        Me.searchBox.SelectionStart = 0
+        Me.searchBox.ShortcutsEnabled = True
+        Me.searchBox.Size = New System.Drawing.Size(424, 35)
+        Me.searchBox.TabIndex = 2
+        Me.searchBox.UseSelectable = True
+        Me.searchBox.WaterMark = "(病歷號碼, 姓名, 身份證字號, 手機號碼)"
+        Me.searchBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.searchBox.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.0!, System.Drawing.FontStyle.Italic)
         '
         'editTable
         '
@@ -221,7 +220,6 @@ Partial Class pnlPatientInfo
         Me.editTable.Controls.Add(Me.patientDOB, 1, 3)
         Me.editTable.Controls.Add(Me.patientSex, 1, 2)
         Me.editTable.Controls.Add(Me.updateButton, 1, 10)
-        Me.editTable.Controls.Add(Me.pIDLabel, 0, 9)
         Me.editTable.Controls.Add(Me.cancelButton, 0, 10)
         Me.editTable.Controls.Add(Me.MetroLabel9, 0, 6)
         Me.editTable.Controls.Add(Me.patientEmail, 1, 6)
@@ -591,16 +589,6 @@ Partial Class pnlPatientInfo
         Me.updateButton.Text = "更新資料"
         Me.updateButton.UseSelectable = True
         '
-        'pIDLabel
-        '
-        Me.pIDLabel.AutoSize = True
-        Me.pIDLabel.Location = New System.Drawing.Point(3, 360)
-        Me.pIDLabel.Name = "pIDLabel"
-        Me.pIDLabel.Size = New System.Drawing.Size(16, 19)
-        Me.pIDLabel.TabIndex = 6
-        Me.pIDLabel.Text = "0"
-        Me.pIDLabel.Visible = False
-        '
         'cancelButton
         '
         Me.cancelButton.Dock = System.Windows.Forms.DockStyle.Fill
@@ -684,7 +672,7 @@ Partial Class pnlPatientInfo
     Friend WithEvents updateButton As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents searchButton As MetroFramework.Controls.MetroButton
-    Friend WithEvents MetroTextBox1 As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents searchBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents editTable As TableLayoutPanel
     Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
@@ -702,8 +690,7 @@ Partial Class pnlPatientInfo
     Friend WithEvents patientAddress As MetroFramework.Controls.MetroTextBox
     Friend WithEvents patientDOB As MetroFramework.Controls.MetroDateTime
     Friend WithEvents patientSex As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents 新增病患NToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents pIDLabel As MetroFramework.Controls.MetroLabel
+    Friend WithEvents addButton As ToolStripMenuItem
     Friend WithEvents cancelButton As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
     Friend WithEvents patientEmail As MetroFramework.Controls.MetroTextBox
