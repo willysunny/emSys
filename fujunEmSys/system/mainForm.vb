@@ -12,6 +12,7 @@
     Dim patientInfoPanel As pnlPatientInfo = Nothing
     Dim medInfo As pnlMedInfo = Nothing
     Dim medManage As pnlMedManage = Nothing
+    Dim pBooking As pnlBooking
 
 
     Public Sub New()
@@ -152,6 +153,17 @@
     Private Sub medInfo_exit(sender As Object, e As EventArgs)
         medInfo.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf medInfo_exit
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub patientBookingLink_Click(sender As Object, e As EventArgs) Handles patientBookingLink.Click
+        pBooking = New pnlBooking(Me)
+        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+        AddHandler exitLink.MouseUp, AddressOf patientBooking_exit
+        pBooking.swipe()
+    End Sub
+    Private Sub patientBooking_exit(sender As Object, e As EventArgs)
+        pBooking.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf patientBooking_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
 #End Region
