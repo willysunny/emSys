@@ -199,8 +199,9 @@ Partial Class pnlEms
         '
         'owner
         '
-        Me.owner.ClientSize = New System.Drawing.Size(120, 0)
+        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
+        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'InstantDoCtrl1
         '
@@ -208,6 +209,7 @@ Partial Class pnlEms
         '
         'emsTimer
         '
+        Me.emsTimer.Interval = 10
         '
         'pInfoPanel
         '
@@ -566,7 +568,7 @@ Partial Class pnlEms
         Me.diagTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.diagTab.Location = New System.Drawing.Point(0, 0)
         Me.diagTab.Name = "diagTab"
-        Me.diagTab.SelectedIndex = 1
+        Me.diagTab.SelectedIndex = 0
         Me.diagTab.Size = New System.Drawing.Size(931, 713)
         Me.diagTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.diagTab.TabIndex = 5

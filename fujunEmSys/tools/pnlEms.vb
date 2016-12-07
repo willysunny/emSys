@@ -11,6 +11,8 @@ Public Class pnlEms
 
 #Region "變數"
 
+    Dim tempTrigger As Boolean = True
+
     ' Database
     Const AryLength As Integer = 20
     Const Threshold As Integer = 3
@@ -611,7 +613,7 @@ Public Class pnlEms
     End Sub
     ' 轉算時間
     Private Function getTime(ByVal tick As Integer) As String
-        Dim result As Double = CDbl(tick) / 1000 * 15
+        Dim result As Double = CDbl(tick) / (41/3)
         Return FormatNumber(Math.Round(result, 1), 1)
     End Function
     ' 繪製彩線
@@ -990,6 +992,7 @@ Public Class pnlEms
                         curMax = 0
                         iPlotCount = 0
                         ptCounter = 0
+                        pb.Refresh()
                         iState = 2
                     End If
                 End If
@@ -1001,7 +1004,6 @@ Public Class pnlEms
             'iErr = iErr + 1
             emsTimer.Stop()
             RaiseEvent DEVICE_ERROR(Me, New EventArgs)
-            MessageBox.Show("Sorry ! 請檢查輸入設備後再試, the error code is: " & err.ToString(), "InstantAI")
             emsTimer.Start()
         End If
 
@@ -1444,6 +1446,19 @@ Public Class pnlEms
         'End If
         getMeasurePoint()
     End Sub
+
+    Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
+        tickCounter = 0
+        'If tempTrigger Then
+        '    tickCounter = 0
+        '    emsTimer.Interval = 10
+        '    emsTimer.Start()
+        'Else
+        '    emsTimer.Stop()
+        'End If
+        'tempTrigger = Not tempTrigger
+    End Sub
+
     Private Sub point_CheckedChanged(sender As Object, e As EventArgs) Handles rdoC1.CheckedChanged, rdoC2.CheckedChanged, rdoC3.CheckedChanged, rdoC4.CheckedChanged, rdoC5.CheckedChanged, rdoC6.CheckedChanged
         Static ptCbxStack As New List(Of CheckBox)
 

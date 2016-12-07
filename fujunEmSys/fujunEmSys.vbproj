@@ -152,17 +152,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.Designer.vb">
-      <DependentUpon>AboutBox1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="AboutBox1.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="module\BitmapBytesRGB24.vb" />
     <Compile Include="module\patientInfo.vb" />
     <Compile Include="module\SQLModule.vb" />
     <Compile Include="Settings.vb" />
+    <Compile Include="system\docInfo.Designer.vb">
+      <DependentUpon>docInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\docInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="system\mainForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -185,16 +185,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="system\pnlMedInfo.Designer.vb">
-      <DependentUpon>pnlMedInfo.vb</DependentUpon>
+    <Compile Include="system\patient\pnlBooking.Designer.vb">
+      <DependentUpon>pnlBooking.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\pnlMedInfo.vb">
+    <Compile Include="system\patient\pnlBooking.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\pnlMedManage.Designer.vb">
+    <Compile Include="system\med\pnlMedInfo.Designer.vb">
+      <DependentUpon>pnlMedInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\med\pnlMedInfo.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="system\med\pnlMedManage.Designer.vb">
       <DependentUpon>pnlMedManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\pnlMedManage.vb">
+    <Compile Include="system\med\pnlMedManage.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="system\pnlLogin.Designer.vb">
@@ -203,10 +209,10 @@
     <Compile Include="system\pnlLogin.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\pnlPatientInfo.Designer.vb">
+    <Compile Include="system\patient\pnlPatientInfo.Designer.vb">
       <DependentUpon>pnlPatientInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\pnlPatientInfo.vb">
+    <Compile Include="system\patient\pnlPatientInfo.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="system\pnlSetting.Designer.vb">
@@ -241,9 +247,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AboutBox1.resx">
-      <DependentUpon>AboutBox1.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -253,16 +256,19 @@
     <EmbeddedResource Include="system\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlMedInfo.resx">
+    <EmbeddedResource Include="system\patient\pnlBooking.resx">
+      <DependentUpon>pnlBooking.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\med\pnlMedInfo.resx">
       <DependentUpon>pnlMedInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlMedManage.resx">
+    <EmbeddedResource Include="system\med\pnlMedManage.resx">
       <DependentUpon>pnlMedManage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlLogin.resx">
       <DependentUpon>pnlLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlPatientInfo.resx">
+    <EmbeddedResource Include="system\patient\pnlPatientInfo.resx">
       <DependentUpon>pnlPatientInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSetting.resx">
