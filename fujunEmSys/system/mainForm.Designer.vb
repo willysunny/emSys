@@ -44,6 +44,7 @@ Partial Class mainForm
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
         Me.patientBookingLink = New MetroFramework.Controls.MetroLink()
+        Me.docManageLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -145,7 +146,7 @@ Partial Class mainForm
         '
         'paitientInfoLink
         '
-        Me.paitientInfoLink.Location = New System.Drawing.Point(1086, 146)
+        Me.paitientInfoLink.Location = New System.Drawing.Point(1086, 180)
         Me.paitientInfoLink.Name = "paitientInfoLink"
         Me.paitientInfoLink.Size = New System.Drawing.Size(86, 28)
         Me.paitientInfoLink.TabIndex = 2
@@ -154,7 +155,7 @@ Partial Class mainForm
         '
         'medManageLink
         '
-        Me.medManageLink.Location = New System.Drawing.Point(1086, 180)
+        Me.medManageLink.Location = New System.Drawing.Point(1086, 214)
         Me.medManageLink.Name = "medManageLink"
         Me.medManageLink.Size = New System.Drawing.Size(86, 28)
         Me.medManageLink.TabIndex = 2
@@ -163,7 +164,7 @@ Partial Class mainForm
         '
         'medInfoLink
         '
-        Me.medInfoLink.Location = New System.Drawing.Point(1086, 214)
+        Me.medInfoLink.Location = New System.Drawing.Point(1086, 248)
         Me.medInfoLink.Name = "medInfoLink"
         Me.medInfoLink.Size = New System.Drawing.Size(86, 28)
         Me.medInfoLink.TabIndex = 2
@@ -196,12 +197,21 @@ Partial Class mainForm
         '
         'patientBookingLink
         '
-        Me.patientBookingLink.Location = New System.Drawing.Point(1086, 248)
+        Me.patientBookingLink.Location = New System.Drawing.Point(1086, 282)
         Me.patientBookingLink.Name = "patientBookingLink"
         Me.patientBookingLink.Size = New System.Drawing.Size(86, 28)
         Me.patientBookingLink.TabIndex = 2
         Me.patientBookingLink.Text = "掛號系統"
         Me.patientBookingLink.UseSelectable = True
+        '
+        'docManageLink
+        '
+        Me.docManageLink.Location = New System.Drawing.Point(1086, 146)
+        Me.docManageLink.Name = "docManageLink"
+        Me.docManageLink.Size = New System.Drawing.Size(86, 28)
+        Me.docManageLink.TabIndex = 2
+        Me.docManageLink.Text = "醫師管理"
+        Me.docManageLink.UseSelectable = True
         '
         'mainForm
         '
@@ -215,6 +225,7 @@ Partial Class mainForm
         Me.Controls.Add(Me.medInfoLink)
         Me.Controls.Add(Me.medManageLink)
         Me.Controls.Add(Me.paitientInfoLink)
+        Me.Controls.Add(Me.docManageLink)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
         Me.Controls.Add(Me.emsLink)
@@ -253,4 +264,5 @@ Partial Class mainForm
     Friend WithEvents medInfoLink As MetroFramework.Controls.MetroLink
     Friend WithEvents medManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents patientBookingLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents docManageLink As MetroFramework.Controls.MetroLink
 End Class

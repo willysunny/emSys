@@ -113,7 +113,10 @@
         Dim frm As New frmUserManage
         frm.ShowDialog()
     End Sub
-
+    Private Sub docManageLink_Click(sender As Object, e As EventArgs) Handles docManageLink.Click
+        Dim frm As New frmDocManage
+        frm.ShowDialog()
+    End Sub
     Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoLink.Click
         patientInfoPanel = New pnlPatientInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
