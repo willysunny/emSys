@@ -279,6 +279,7 @@ Partial Class pnlMedInfo
         Me.groupAmount.CustomButton.UseSelectable = True
         Me.groupAmount.CustomButton.Visible = False
         Me.groupAmount.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.groupAmount.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.groupAmount.Lines = New String(-1) {}
         Me.groupAmount.Location = New System.Drawing.Point(0, 0)
         Me.groupAmount.MaxLength = 32767
@@ -295,7 +296,7 @@ Partial Class pnlMedInfo
         Me.groupAmount.UseSelectable = True
         Me.groupAmount.WaterMark = "數量"
         Me.groupAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.groupAmount.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.groupAmount.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'Label5
         '
@@ -382,6 +383,7 @@ Partial Class pnlMedInfo
         Me.medName.CustomButton.UseSelectable = True
         Me.medName.CustomButton.Visible = False
         Me.medName.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medName.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.medName.Lines = New String(-1) {}
         Me.medName.Location = New System.Drawing.Point(122, 3)
         Me.medName.MaxLength = 32767
@@ -398,7 +400,7 @@ Partial Class pnlMedInfo
         Me.medName.UseSelectable = True
         Me.medName.WaterMark = "藥品名稱"
         Me.medName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.medName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.medName.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'pinyin
         '
@@ -415,6 +417,7 @@ Partial Class pnlMedInfo
         Me.pinyin.CustomButton.UseSelectable = True
         Me.pinyin.CustomButton.Visible = False
         Me.pinyin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pinyin.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pinyin.Lines = New String(-1) {}
         Me.pinyin.Location = New System.Drawing.Point(122, 38)
         Me.pinyin.MaxLength = 32767
@@ -431,7 +434,7 @@ Partial Class pnlMedInfo
         Me.pinyin.UseSelectable = True
         Me.pinyin.WaterMark = "拼音開頭"
         Me.pinyin.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.pinyin.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.pinyin.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'zhuyin
         '
@@ -448,6 +451,7 @@ Partial Class pnlMedInfo
         Me.zhuyin.CustomButton.UseSelectable = True
         Me.zhuyin.CustomButton.Visible = False
         Me.zhuyin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.zhuyin.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.zhuyin.Lines = New String(-1) {}
         Me.zhuyin.Location = New System.Drawing.Point(122, 73)
         Me.zhuyin.MaxLength = 32767
@@ -464,7 +468,7 @@ Partial Class pnlMedInfo
         Me.zhuyin.UseSelectable = True
         Me.zhuyin.WaterMark = "注音開頭 (英文)"
         Me.zhuyin.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.zhuyin.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.zhuyin.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'medDesc
         '
@@ -481,9 +485,11 @@ Partial Class pnlMedInfo
         Me.medDesc.CustomButton.UseSelectable = True
         Me.medDesc.CustomButton.Visible = False
         Me.medDesc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medDesc.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.medDesc.Lines = New String(-1) {}
         Me.medDesc.Location = New System.Drawing.Point(122, 108)
         Me.medDesc.MaxLength = 32767
+        Me.medDesc.Multiline = True
         Me.medDesc.Name = "medDesc"
         Me.medDesc.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.medDesc.PromptText = "藥物說明"
@@ -497,7 +503,7 @@ Partial Class pnlMedInfo
         Me.medDesc.UseSelectable = True
         Me.medDesc.WaterMark = "藥物說明"
         Me.medDesc.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.medDesc.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.medDesc.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'discount
         '
@@ -577,6 +583,7 @@ Partial Class pnlMedInfo
         Me.unitPrice.CustomButton.UseSelectable = True
         Me.unitPrice.CustomButton.Visible = False
         Me.unitPrice.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.unitPrice.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.unitPrice.Lines = New String(-1) {}
         Me.unitPrice.Location = New System.Drawing.Point(0, 0)
         Me.unitPrice.MaxLength = 32767
@@ -593,7 +600,7 @@ Partial Class pnlMedInfo
         Me.unitPrice.UseSelectable = True
         Me.unitPrice.WaterMark = "單價"
         Me.unitPrice.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.unitPrice.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.unitPrice.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'Panel3
         '
@@ -633,6 +640,7 @@ Partial Class pnlMedInfo
         Me.groupPrice.CustomButton.UseSelectable = True
         Me.groupPrice.CustomButton.Visible = False
         Me.groupPrice.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.groupPrice.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.groupPrice.Lines = New String(-1) {}
         Me.groupPrice.Location = New System.Drawing.Point(0, 0)
         Me.groupPrice.MaxLength = 32767
@@ -649,7 +657,7 @@ Partial Class pnlMedInfo
         Me.groupPrice.UseSelectable = True
         Me.groupPrice.WaterMark = "批發價"
         Me.groupPrice.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.groupPrice.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.groupPrice.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'TableLayoutPanel1
         '
