@@ -41,17 +41,7 @@
         If Not whereClause = "" Then
             sql += " WHERE " & whereClause
         End If
-        Try
-            MySqlCon = New MySql.Data.MySqlClient.MySqlConnection(getConnectionString())
-            MySqlCon.Open()
-            MySqlAdapter = New MySql.Data.MySqlClient.MySqlDataAdapter(sql & " ORDER BY pID DESC Limit 100;", MySqlCon)
-            resultDT = New DataTable
-            MySqlAdapter.Fill(resultDT)
-            sqlGrid.DataSource = resultDT
-            MySqlCon.Close()
-        Catch ex As Exception
-            MetroFramework.MetroMessageBox.Show(Me, "請確保網路連線是否正常?" & vbNewLine & "(" & ex.Message & ")", "資料庫連線失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        sqlGrid.DataSource = returnData(mainForm, sql & " ORDER BY pID DESC Limit 100;")
     End Sub
     ' 更新按鈕
     Private Sub updateButton_Click(sender As Object, e As EventArgs) Handles updateButton.Click

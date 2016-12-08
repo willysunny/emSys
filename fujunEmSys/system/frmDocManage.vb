@@ -8,7 +8,7 @@
         ' Add any initialization after the InitializeComponent() call.
         refreshData()
     End Sub
-
+    ' 刷新資料
     Private Sub refreshData()
         Dim dt As DataTable = returnData(mainForm, "SELECT docID as '編號', docName as '醫師姓名', docLicence as '醫師證照號' FROM doctor")
         docDataGrid.AutoGenerateColumns = True
@@ -22,7 +22,6 @@
         RemoveHandler okLink.Click, AddressOf adddocLink_OkClick
         RemoveHandler okLink.Click, AddressOf editdocLink_OkClick
     End Sub
-
     ' 新增使用者
     Private Sub adddocButton_Click(sender As Object, e As EventArgs) Handles addDocButton.Click
         docManageTable.ColumnStyles.Item(3).Width = 200
@@ -54,7 +53,10 @@
     ' 修改使用者
     Private Sub editdocButton_Click(sender As Object, e As EventArgs) Handles editDocButton.Click
         If docDataGrid.SelectedRows.Count = 0 Then
-            MetroFramework.MetroMessageBox.Show(Me, "請先選取要修改的醫師。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MetroFramework.MetroMessageBox.Show(Me, "請先選取要修改的醫師。", "注意", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        ElseIf docLicence.Text.Trim = "" Then
+            MetroFramework.MetroMessageBox.Show(Me, "醫師證照號碼欄位不得為空。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            docLicence.Focus()
         Else
             docManageTable.ColumnStyles.Item(3).Width = 200
             docDataGrid.Enabled = False
