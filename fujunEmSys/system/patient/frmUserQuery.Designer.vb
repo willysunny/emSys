@@ -149,7 +149,6 @@ Partial Class frmUserQuery
         'MetroButton1
         '
         Me.MetroButton1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.MetroButton1.Enabled = False
         Me.MetroButton1.Location = New System.Drawing.Point(255, 479)
         Me.MetroButton1.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
         Me.MetroButton1.Name = "MetroButton1"

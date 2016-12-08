@@ -108,11 +108,11 @@
             End Try
         End If
     End Sub
-
+    ' 取消
     Private Sub cancelLink_Click(sender As Object, e As EventArgs) Handles cancelLink.Click
         refreshData()
     End Sub
-
+    ' 離開
     Private Sub exitLink_Click(sender As Object, e As EventArgs) Handles exitLink.Click
         Me.Close()
     End Sub

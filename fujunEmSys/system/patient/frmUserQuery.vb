@@ -11,7 +11,7 @@
     End Sub
     ' 載入資訊
     Public Sub loadData(Optional ByVal whereClause As String = "")
-        Dim sql As String = "SELECT SELECT pID as '病歷號碼', pName as '病患姓名' pPID as '身分證字號', pDOB as '生日', pMobile as '手機號碼' FROM patient"
+        Dim sql As String = "SELECT pID as '病歷號碼', pName as '病患姓名', pPID as '身分證字號', pDOB as '生日', pMobile as '手機號碼' FROM patient"
         If Not whereClause = "" Then
             sql += " WHERE " & whereClause
         End If
