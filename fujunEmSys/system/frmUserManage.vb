@@ -1,14 +1,10 @@
-﻿Public Class pnlUserManage
-    Inherits pnlSlider
-
-    Public Sub New(ByVal owner As Form)
-        MyBase.New(owner)
+﻿Public Class frmUserManage
+    Public Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
-        owner.WindowState = FormWindowState.Maximized
-        owner.BringToFront()
 
+        userManageTable.ColumnStyles.Item(3).Width = 0
         ' Add any initialization after the InitializeComponent() call.
         refreshData()
     End Sub
@@ -18,7 +14,7 @@
         userDataGrid.AutoGenerateColumns = True
         userDataGrid.DataSource = dt
         userDataGrid.Refresh()
-        userManageTable.RowStyles.Item(1).Height = 0
+        userManageTable.ColumnStyles.Item(3).Width = 0
         userDataGrid.Enabled = True
         addUserButton.Enabled = True
         editUserButton.Enabled = True
@@ -29,7 +25,7 @@
 
     ' 新增使用者
     Private Sub addUserButton_Click(sender As Object, e As EventArgs) Handles addUserButton.Click
-        userManageTable.RowStyles.Item(1).Height = 100
+        userManageTable.ColumnStyles.Item(3).Width = 200
         userDataGrid.Enabled = False
         AddHandler okLink.Click, AddressOf addUserLink_OkClick
         userLabel.Text = "新增使用者"
@@ -65,10 +61,10 @@
         If userDataGrid.SelectedRows.Count = 0 Then
             MetroFramework.MetroMessageBox.Show(Me, "請先選取要修改的使用者。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            userManageTable.RowStyles.Item(1).Height = 100
+            userManageTable.ColumnStyles.Item(3).Width = 200
             userDataGrid.Enabled = False
             AddHandler okLink.Click, AddressOf editUserLink_OkClick
-            userLabel.Text = "修改使用者ID - " & userDataGrid.Rows(userDataGrid.SelectedRows.Item(0).Index).Cells("使用者名稱").Value
+            userLabel.Text = "修改使用者"
             userID.Text = userDataGrid.Rows(userDataGrid.SelectedRows.Item(0).Index).Cells("使用者名稱").Value
             userName.Text = userDataGrid.Rows(userDataGrid.SelectedRows.Item(0).Index).Cells("使用者姓名").Value
             userPass.Text = ""
@@ -99,7 +95,9 @@
     End Sub
     ' 刪除使用者
     Private Sub delUserButton_Click(sender As Object, e As EventArgs) Handles delUserButton.Click
-        If MetroFramework.MetroMessageBox.Show(Me, "確認刪除使用者ID: " & userDataGrid.Rows(userDataGrid.SelectedRows.Item(0).Index).Cells("使用者名稱").Value & "?", "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If userDataGrid.SelectedRows.Count = 0 Then
+            MetroFramework.MetroMessageBox.Show(Me, "請先選取要刪除的使用者。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        ElseIf MetroFramework.MetroMessageBox.Show(Me, "確認刪除使用者ID: " & userDataGrid.Rows(userDataGrid.SelectedRows.Item(0).Index).Cells("使用者名稱").Value & "?", "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Try
                 runQuery("DELETE FROM user WHERE uID='" & userDataGrid.Rows(userDataGrid.SelectedRows.Item(0).Index).Cells("編號").Value & "' LIMIT 1;")
                 MetroFramework.MetroMessageBox.Show(Me, "使用者" & userID.Text & "已刪除。", "成功!", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -113,5 +111,9 @@
 
     Private Sub cancelLink_Click(sender As Object, e As EventArgs) Handles cancelLink.Click
         refreshData()
+    End Sub
+
+    Private Sub exitLink_Click(sender As Object, e As EventArgs) Handles exitLink.Click
+        Me.Close()
     End Sub
 End Class
