@@ -157,10 +157,16 @@
     <Compile Include="module\patientInfo.vb" />
     <Compile Include="module\SQLModule.vb" />
     <Compile Include="Settings.vb" />
-    <Compile Include="system\docInfo.Designer.vb">
-      <DependentUpon>docInfo.vb</DependentUpon>
+    <Compile Include="system\frmDocManage.Designer.vb">
+      <DependentUpon>frmDocManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\docInfo.vb">
+    <Compile Include="system\frmDocManage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="system\frmUserManage.Designer.vb">
+      <DependentUpon>frmUserManage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\frmUserManage.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="system\mainForm.vb">
@@ -227,12 +233,6 @@
     <Compile Include="system\pnlSlider.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\pnlUserManage.Designer.vb">
-      <DependentUpon>pnlUserManage.vb</DependentUpon>
-    </Compile>
-    <Compile Include="system\pnlUserManage.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="tools\frmEmsButtons.Designer.vb">
       <DependentUpon>frmEmsButtons.vb</DependentUpon>
     </Compile>
@@ -252,6 +252,12 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\frmDocManage.resx">
+      <DependentUpon>frmDocManage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\frmUserManage.resx">
+      <DependentUpon>frmUserManage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
@@ -276,9 +282,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSlider.resx">
       <DependentUpon>pnlSlider.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlUserManage.resx">
-      <DependentUpon>pnlUserManage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tools\frmEmsButtons.resx">
       <DependentUpon>frmEmsButtons.vb</DependentUpon>

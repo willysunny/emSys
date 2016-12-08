@@ -8,7 +8,6 @@
     Dim login As pnlLogin = Nothing
     Dim setting As pnlSetting = Nothing
     Dim ems As pnlEms = Nothing
-    Dim userManage As pnlUserManage = Nothing
     Dim patientInfoPanel As pnlPatientInfo = Nothing
     Dim medInfo As pnlMedInfo = Nothing
     Dim medManage As pnlMedManage = Nothing
@@ -111,16 +110,10 @@
         login.swipe()
     End Sub
     Private Sub userManageLink_Click(sender As Object, e As EventArgs) Handles userManageLink.Click
-        userManage = New pnlUserManage(Me)
-        RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-        AddHandler exitLink.MouseUp, AddressOf userManage_exit
-        userManage.swipe()
+        Dim frm As New frmUserManage
+        frm.ShowDialog()
     End Sub
-    Private Sub userManage_exit(sender As Object, e As EventArgs)
-        userManage.swipe(False)
-        RemoveHandler exitLink.MouseUp, AddressOf userManage_exit
-        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-    End Sub
+
     Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoLink.Click
         patientInfoPanel = New pnlPatientInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
