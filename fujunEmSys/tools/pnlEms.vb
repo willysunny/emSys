@@ -70,7 +70,6 @@ Public Class pnlEms
     Dim g As Graphics
     Dim myPen As Pen
 #End Region
-
 #Region "測量點"
     Dim sMainPoint As String '主量測點
     Dim sSubPoint As String '次量測點
@@ -81,7 +80,6 @@ Public Class pnlEms
     Dim iMain, iSub, iCode As Integer '主量測點值、次量測點值、代碼值
     Dim LR, HF, Finger, TB, P, S As Integer
 #End Region
-
 #Region "藥檢相關"
     Dim mainIDList As List(Of Integer)
     Dim subIDList As List(Of Integer)
@@ -91,7 +89,6 @@ Public Class pnlEms
     Dim medCali As Boolean = True
     Dim caliberated As Boolean = False
 #End Region
-
 #Region "Conter相關"
     Dim firstChoice As String = ""
     Dim lastChoice As String = ""
@@ -105,13 +102,13 @@ Public Class pnlEms
     Dim tickCounter As Integer = 0
     Dim printPage As Integer = 0
 #End Region
-
 #Region "SQL 相關"
     Dim sqlStr As String = "" 'sql指令串
     Dim lastSqlStr As String = "" 'sql指令串
     Dim ptCounter As Integer = 0 '
     Dim bar2iCode(60) As Integer ' Bar圖中對應點
 #End Region
+    Private patientInfo As pInfo
 
 #End Region
 
@@ -131,27 +128,29 @@ Public Class pnlEms
         Else
             ConfigObjs()
             init()
+
+            If mainForm.offlineMode Then
+                diagTab.TabPages.Remove(tabMed)
+                patientTab.TabPages.Remove(tabBooking)
+            Else
+                Dim sql As String = "SELECT pb.pID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
+                            FROM patient_booking AS pb 
+                            INNER JOIN patient as pi ON pb.pID = pi.pID
+                            WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
+                            ORDER BY pb.bookTime"
+                With waitingList
+                    .DataSource = returnData(mainForm, sql)
+                    .ValueMember = "pID"
+                    .DisplayMember = "patientName"
+                End With
+                tabBooking.Focus()
+            End If
+
             initiated = True
         End If
 
     End Sub
     Private Sub ConfigObjs()
-
-        If Not mainForm.offlineMode Then
-            pName.Text = mainForm.patientInfo.pName
-            If mainForm.patientInfo.pSex = 0 Then
-                pSex.Text = "女"
-            Else
-
-                pSex.Text = "男"
-            End If
-            'Label36.Text = Year(Now) - Year(mainForm.patientInfo.pDOB)
-        Else
-            diagTab.TabPages.Remove(tabMed)
-            'emsTabs.TabPages.Remove(tabEnergy)
-            'emsTabs.TabPages.Remove(tabDetail)
-            'emsTabs.TabPages.Remove(tabPreview)
-        End If
 
         '固定偏離點值
         iFixDevPoint = txtFixDevPoint.Text
@@ -325,7 +324,7 @@ Public Class pnlEms
         bar2iCode(48) = 225240
         bar2iCode(49) = 125240
 
-        graphTab.SelectTab(tabEnergy)
+        graphTab.SelectTab(tabEms)
 
         ' 將量度點新增至下拉選單
         Dim ptTable As DataTable = New DataTable()
@@ -383,6 +382,29 @@ Public Class pnlEms
     End Sub
 #End Region
 
+#Region "載入病患資料"
+    ' 
+    Private Sub waitingList_Click(sender As Object, e As EventArgs) Handles waitingList.Click
+        If Not waitingList.SelectedIndex = -1 Then
+            loadPatientData(waitingList.SelectedValue)
+            patientTab.SelectedTab = tabPatientInfo
+            pName.Text = patientInfo.pName
+            If patientInfo.pSex = 0 Then pSex.Text = "女" Else pSex.Text = "男"
+            pAge.Text = patientInfo.pAge
+        End If
+    End Sub
+    Private Sub loadPatientData(ByVal pID As Integer)
+        patientInfo = New pInfo
+        patientInfo.initiate(pID)
+        Dim reader As IDataReader = runQuery("SELECT bookTime as 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
+        While reader.Read
+            If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime("last_visit") Else pPrevVisit.Text = ""
+            pVisitTimes.Text = reader.Item(1)
+        End While
+    End Sub
+#End Region
+
+
 #Region "繪圖"
     ' 切換分頁
     Private Sub graphTab_TabIndexChanged(sender As Object, e As EventArgs) Handles graphTab.TabIndexChanged
@@ -391,12 +413,9 @@ Public Class pnlEms
     Private Sub graphTab_SelectedIndexChanged(sender As Object, e As EventArgs) Handles graphTab.SelectedIndexChanged
         pb.Refresh()
     End Sub
-
     Private Sub tabEms_GotFocus(sender As Object, e As EventArgs) Handles tabEms.GotFocus
         pb.Refresh()
     End Sub
-
-
     ' 主畫面
     Private Sub pb_Paint(sender As Object, e As PaintEventArgs) Handles pb.Paint
         Dim bmp As Bitmap = New Bitmap(CType(sender, PictureBox).Size.Width, CType(sender, PictureBox).Size.Height)
@@ -672,15 +691,7 @@ Public Class pnlEms
         Dim p As Double = (sideA + sideB + sideC) / 2
         Return Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC))
     End Function
-
-    Private Function parseResult(ByVal value As Integer, Optional outputNum As Boolean = False) As String
-        If outputNum Then
-            If value = -9999 Then Return "0" Else Return value.ToString
-        Else
-            If value = -9999 Then Return "-" Else Return value.ToString
-        End If
-    End Function
-
+    ' 取最大值
     Private Function getMax(ByVal hid As Integer, ByVal iCode As Integer) As Integer
         Dim max As Integer
         Dim queryStr As String = "SELECT max(`ivalue`) as `max_val` FROM ems WHERE `hid`='" & hid & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` LIMIT 50"
@@ -701,7 +712,7 @@ Public Class pnlEms
         End Try
         Return max
     End Function
-
+    ' 取最低值
     Private Function getLow(ByVal hid As Integer, ByVal iCode As Integer) As Integer
         Dim low As Integer
         Dim queryStr As String = "SELECT `iPlotCount`, `iValue` FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC Limit 1"
@@ -735,8 +746,14 @@ Public Class pnlEms
         End Try
         Return low
     End Function
-
-
+    ' 解析結果
+    Private Function parseResult(ByVal value As Integer, Optional outputNum As Boolean = False) As String
+        If outputNum Then
+            If value = -9999 Then Return "0" Else Return value.ToString
+        Else
+            If value = -9999 Then Return "-" Else Return value.ToString
+        End If
+    End Function
 #End Region
 
 #Region "頻譜測量"
@@ -1487,11 +1504,6 @@ Public Class pnlEms
                 AddHandler ckBox.CheckedChanged, AddressOf point_CheckedChanged
             End If
         End With
-        'If sender.checked Then
-        '    sender.backcolor = Color.Green
-        'Else
-        '    sender.backcolor = BackColor
-        'End If
         getMeasurePoint()
     End Sub
     Private Sub finger_CheckedChanged(sender As Object, e As EventArgs) Handles rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged,
@@ -1636,7 +1648,6 @@ Public Class pnlEms
     Private Sub openPanelLink_Click(sender As Object, e As EventArgs) Handles openPanelLink.Click
         buttonPanel.Visible = True
     End Sub
-
 
 #End Region
 End Class

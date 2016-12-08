@@ -33,7 +33,6 @@
             p_pCreatedDate = ""
             p_initiated = False
         End Sub
-
         Public Sub initiate(ByVal pID As Integer)
             Dim reader As IDataReader = runQuery("SELECT pID, pPID, pName, pSex, jul2chi(pdob) as pcdob, pdob, pPhone, pMobile, pAddress, pEmail, jul2chi(pCreatedDate) as pCreatedDate FROM patient WHERE pID='" & pID & "'")
             With reader
@@ -74,7 +73,6 @@
                 p_initiated = value
             End Set
         End Property
-
         ReadOnly Property isNew As Boolean
             Get
                 If p_initiated Then
@@ -86,7 +84,6 @@
                 End If
             End Get
         End Property
-
         Property pID As String
             Get
                 Return p_pID
@@ -194,6 +191,11 @@
             Get
                 Return "INSERT INTO `patient` (pPID, pName, pSex, pDOB, pPhone, pMobile, pAddress, pEmail, pRemarks) " &
                     "VALUES ('" & p_pPID & "', '" & p_pName & "', '" & p_pSex & "', '" & p_pDOB.ToString("yyyy-MM-dd") & "', '" & p_pPhone & "', '" & p_pMobile & "', '" & p_pAddress & "', '" & p_pEmail & "', '" & p_pRemarks & "')"
+            End Get
+        End Property
+        ReadOnly Property pAge As Integer
+            Get
+                Return Now.Date.Year - pDOB.Year
             End Get
         End Property
     End Structure

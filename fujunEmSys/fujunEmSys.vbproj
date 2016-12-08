@@ -30,7 +30,7 @@
     <SuiteName>福濬生物醫學</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -157,16 +157,16 @@
     <Compile Include="module\patientInfo.vb" />
     <Compile Include="module\SQLModule.vb" />
     <Compile Include="Settings.vb" />
-    <Compile Include="system\frmDocManage.Designer.vb">
+    <Compile Include="system\settings\frmDocManage.Designer.vb">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\frmDocManage.vb">
+    <Compile Include="system\settings\frmDocManage.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="system\frmUserManage.Designer.vb">
+    <Compile Include="system\settings\frmUserManage.Designer.vb">
       <DependentUpon>frmUserManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\frmUserManage.vb">
+    <Compile Include="system\settings\frmUserManage.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="system\mainForm.vb">
@@ -227,10 +227,10 @@
     <Compile Include="system\patient\pnlPatientInfo.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\pnlSetting.Designer.vb">
+    <Compile Include="system\settings\pnlSetting.Designer.vb">
       <DependentUpon>pnlSetting.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\pnlSetting.vb">
+    <Compile Include="system\settings\pnlSetting.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="system\pnlSlider.Designer.vb">
@@ -259,10 +259,10 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\frmDocManage.resx">
+    <EmbeddedResource Include="system\settings\frmDocManage.resx">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\frmUserManage.resx">
+    <EmbeddedResource Include="system\settings\frmUserManage.resx">
       <DependentUpon>frmUserManage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\mainForm.resx">
@@ -286,7 +286,7 @@
     <EmbeddedResource Include="system\patient\pnlPatientInfo.resx">
       <DependentUpon>pnlPatientInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlSetting.resx">
+    <EmbeddedResource Include="system\settings\pnlSetting.resx">
       <DependentUpon>pnlSetting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\pnlSlider.resx">

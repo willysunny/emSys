@@ -27,7 +27,8 @@ Partial Class pnlEms
         Me.InstantDoCtrl1 = New Automation.BDaq.InstantDoCtrl(Me.components)
         Me.emsTimer = New System.Windows.Forms.Timer(Me.components)
         Me.pInfoPanel = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.patientTab = New MetroFramework.Controls.MetroTabControl()
+        Me.tabPatientInfo = New System.Windows.Forms.TabPage()
         Me.pInfoTable = New System.Windows.Forms.TableLayoutPanel()
         Me.MetroLink1 = New MetroFramework.Controls.MetroLink()
         Me.sexLabel = New MetroFramework.Controls.MetroLink()
@@ -41,6 +42,8 @@ Partial Class pnlEms
         Me.pAge = New MetroFramework.Controls.MetroTextBox()
         Me.pVisitTimes = New MetroFramework.Controls.MetroTextBox()
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
+        Me.tabBooking = New System.Windows.Forms.TabPage()
+        Me.waitingList = New System.Windows.Forms.ListBox()
         Me.diagTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabGraph = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -154,7 +157,10 @@ Partial Class pnlEms
         Me.tabMed = New System.Windows.Forms.TabPage()
         Me.InstantAiCtrl1 = New Automation.BDaq.InstantAiCtrl(Me.components)
         Me.pInfoPanel.SuspendLayout()
+        Me.patientTab.SuspendLayout()
+        Me.tabPatientInfo.SuspendLayout()
         Me.pInfoTable.SuspendLayout()
+        Me.tabBooking.SuspendLayout()
         Me.diagTab.SuspendLayout()
         Me.tabGraph.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -199,9 +205,8 @@ Partial Class pnlEms
         '
         'owner
         '
-        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
+        Me.owner.ClientSize = New System.Drawing.Size(120, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'InstantDoCtrl1
         '
@@ -216,31 +221,38 @@ Partial Class pnlEms
         Me.pInfoPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pInfoPanel.BackColor = System.Drawing.Color.SeaGreen
-        Me.pInfoPanel.Controls.Add(Me.Label4)
-        Me.pInfoPanel.Controls.Add(Me.pInfoTable)
+        Me.pInfoPanel.Controls.Add(Me.patientTab)
         Me.pInfoPanel.Location = New System.Drawing.Point(931, 0)
         Me.pInfoPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.pInfoPanel.Name = "pInfoPanel"
-        Me.pInfoPanel.Padding = New System.Windows.Forms.Padding(20, 60, 20, 20)
+        Me.pInfoPanel.Padding = New System.Windows.Forms.Padding(20)
         Me.pInfoPanel.Size = New System.Drawing.Size(280, 713)
         Me.pInfoPanel.TabIndex = 4
         '
-        'Label4
+        'patientTab
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Microsoft JhengHei", 18.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(23, 29)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(110, 31)
-        Me.Label4.TabIndex = 2
-        Me.Label4.Text = "病患資料"
+        Me.patientTab.Controls.Add(Me.tabPatientInfo)
+        Me.patientTab.Controls.Add(Me.tabBooking)
+        Me.patientTab.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
+        Me.patientTab.Location = New System.Drawing.Point(20, 20)
+        Me.patientTab.Name = "patientTab"
+        Me.patientTab.SelectedIndex = 0
+        Me.patientTab.Size = New System.Drawing.Size(240, 673)
+        Me.patientTab.TabIndex = 3
+        Me.patientTab.UseSelectable = True
+        '
+        'tabPatientInfo
+        '
+        Me.tabPatientInfo.Controls.Add(Me.pInfoTable)
+        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 44)
+        Me.tabPatientInfo.Name = "tabPatientInfo"
+        Me.tabPatientInfo.Size = New System.Drawing.Size(232, 625)
+        Me.tabPatientInfo.TabIndex = 0
+        Me.tabPatientInfo.Text = "病患資料"
         '
         'pInfoTable
         '
-        Me.pInfoTable.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pInfoTable.ColumnCount = 1
         Me.pInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.pInfoTable.Controls.Add(Me.MetroLink1, 0, 10)
@@ -255,7 +267,8 @@ Partial Class pnlEms
         Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
         Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
         Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 9)
-        Me.pInfoTable.Location = New System.Drawing.Point(23, 63)
+        Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
         Me.pInfoTable.RowCount = 12
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -270,8 +283,8 @@ Partial Class pnlEms
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pInfoTable.Size = New System.Drawing.Size(240, 627)
-        Me.pInfoTable.TabIndex = 1
+        Me.pInfoTable.Size = New System.Drawing.Size(232, 625)
+        Me.pInfoTable.TabIndex = 2
         '
         'MetroLink1
         '
@@ -279,7 +292,7 @@ Partial Class pnlEms
         Me.MetroLink1.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.MetroLink1.Location = New System.Drawing.Point(3, 403)
         Me.MetroLink1.Name = "MetroLink1"
-        Me.MetroLink1.Size = New System.Drawing.Size(234, 34)
+        Me.MetroLink1.Size = New System.Drawing.Size(226, 34)
         Me.MetroLink1.TabIndex = 2
         Me.MetroLink1.Text = "主訴項目:"
         Me.MetroLink1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -291,7 +304,7 @@ Partial Class pnlEms
         Me.sexLabel.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.sexLabel.Location = New System.Drawing.Point(3, 83)
         Me.sexLabel.Name = "sexLabel"
-        Me.sexLabel.Size = New System.Drawing.Size(234, 34)
+        Me.sexLabel.Size = New System.Drawing.Size(226, 34)
         Me.sexLabel.TabIndex = 1
         Me.sexLabel.Text = "性別:"
         Me.sexLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -303,7 +316,7 @@ Partial Class pnlEms
         Me.nameLabel.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.nameLabel.Location = New System.Drawing.Point(3, 3)
         Me.nameLabel.Name = "nameLabel"
-        Me.nameLabel.Size = New System.Drawing.Size(234, 34)
+        Me.nameLabel.Size = New System.Drawing.Size(226, 34)
         Me.nameLabel.TabIndex = 1
         Me.nameLabel.Text = "姓名:"
         Me.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -315,7 +328,7 @@ Partial Class pnlEms
         Me.ageLabel.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.ageLabel.Location = New System.Drawing.Point(3, 163)
         Me.ageLabel.Name = "ageLabel"
-        Me.ageLabel.Size = New System.Drawing.Size(234, 34)
+        Me.ageLabel.Size = New System.Drawing.Size(226, 34)
         Me.ageLabel.TabIndex = 1
         Me.ageLabel.Text = "年齡:"
         Me.ageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -327,7 +340,7 @@ Partial Class pnlEms
         Me.countLabel.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.countLabel.Location = New System.Drawing.Point(3, 243)
         Me.countLabel.Name = "countLabel"
-        Me.countLabel.Size = New System.Drawing.Size(234, 34)
+        Me.countLabel.Size = New System.Drawing.Size(226, 34)
         Me.countLabel.TabIndex = 1
         Me.countLabel.Text = "診次:"
         Me.countLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -339,7 +352,7 @@ Partial Class pnlEms
         Me.lastVisitLabel.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.lastVisitLabel.Location = New System.Drawing.Point(3, 323)
         Me.lastVisitLabel.Name = "lastVisitLabel"
-        Me.lastVisitLabel.Size = New System.Drawing.Size(234, 34)
+        Me.lastVisitLabel.Size = New System.Drawing.Size(226, 34)
         Me.lastVisitLabel.TabIndex = 1
         Me.lastVisitLabel.Text = "前次就診日期:"
         Me.lastVisitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -351,7 +364,7 @@ Partial Class pnlEms
         '
         '
         Me.MetroTextBox1.CustomButton.Image = Nothing
-        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(54, 1)
+        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(46, 1)
         Me.MetroTextBox1.CustomButton.Name = ""
         Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(179, 179)
         Me.MetroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -373,7 +386,7 @@ Partial Class pnlEms
         Me.MetroTextBox1.SelectionLength = 0
         Me.MetroTextBox1.SelectionStart = 0
         Me.MetroTextBox1.ShortcutsEnabled = True
-        Me.MetroTextBox1.Size = New System.Drawing.Size(234, 181)
+        Me.MetroTextBox1.Size = New System.Drawing.Size(226, 181)
         Me.MetroTextBox1.TabIndex = 3
         Me.MetroTextBox1.UseSelectable = True
         Me.MetroTextBox1.WaterMark = "不顯示"
@@ -386,7 +399,7 @@ Partial Class pnlEms
         '
         '
         Me.pName.CustomButton.Image = Nothing
-        Me.pName.CustomButton.Location = New System.Drawing.Point(202, 2)
+        Me.pName.CustomButton.Location = New System.Drawing.Point(194, 2)
         Me.pName.CustomButton.Name = ""
         Me.pName.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.pName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -408,7 +421,7 @@ Partial Class pnlEms
         Me.pName.SelectionLength = 0
         Me.pName.SelectionStart = 0
         Me.pName.ShortcutsEnabled = True
-        Me.pName.Size = New System.Drawing.Size(234, 34)
+        Me.pName.Size = New System.Drawing.Size(226, 34)
         Me.pName.TabIndex = 4
         Me.pName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.pName.UseSelectable = True
@@ -422,7 +435,7 @@ Partial Class pnlEms
         '
         '
         Me.pSex.CustomButton.Image = Nothing
-        Me.pSex.CustomButton.Location = New System.Drawing.Point(202, 2)
+        Me.pSex.CustomButton.Location = New System.Drawing.Point(194, 2)
         Me.pSex.CustomButton.Name = ""
         Me.pSex.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.pSex.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -444,7 +457,7 @@ Partial Class pnlEms
         Me.pSex.SelectionLength = 0
         Me.pSex.SelectionStart = 0
         Me.pSex.ShortcutsEnabled = True
-        Me.pSex.Size = New System.Drawing.Size(234, 34)
+        Me.pSex.Size = New System.Drawing.Size(226, 34)
         Me.pSex.TabIndex = 4
         Me.pSex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.pSex.UseSelectable = True
@@ -458,7 +471,7 @@ Partial Class pnlEms
         '
         '
         Me.pAge.CustomButton.Image = Nothing
-        Me.pAge.CustomButton.Location = New System.Drawing.Point(202, 2)
+        Me.pAge.CustomButton.Location = New System.Drawing.Point(194, 2)
         Me.pAge.CustomButton.Name = ""
         Me.pAge.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.pAge.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -480,7 +493,7 @@ Partial Class pnlEms
         Me.pAge.SelectionLength = 0
         Me.pAge.SelectionStart = 0
         Me.pAge.ShortcutsEnabled = True
-        Me.pAge.Size = New System.Drawing.Size(234, 34)
+        Me.pAge.Size = New System.Drawing.Size(226, 34)
         Me.pAge.TabIndex = 4
         Me.pAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.pAge.UseSelectable = True
@@ -494,7 +507,7 @@ Partial Class pnlEms
         '
         '
         Me.pVisitTimes.CustomButton.Image = Nothing
-        Me.pVisitTimes.CustomButton.Location = New System.Drawing.Point(202, 2)
+        Me.pVisitTimes.CustomButton.Location = New System.Drawing.Point(194, 2)
         Me.pVisitTimes.CustomButton.Name = ""
         Me.pVisitTimes.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.pVisitTimes.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -516,7 +529,7 @@ Partial Class pnlEms
         Me.pVisitTimes.SelectionLength = 0
         Me.pVisitTimes.SelectionStart = 0
         Me.pVisitTimes.ShortcutsEnabled = True
-        Me.pVisitTimes.Size = New System.Drawing.Size(234, 34)
+        Me.pVisitTimes.Size = New System.Drawing.Size(226, 34)
         Me.pVisitTimes.TabIndex = 4
         Me.pVisitTimes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.pVisitTimes.UseSelectable = True
@@ -530,7 +543,7 @@ Partial Class pnlEms
         '
         '
         Me.pPrevVisit.CustomButton.Image = Nothing
-        Me.pPrevVisit.CustomButton.Location = New System.Drawing.Point(202, 2)
+        Me.pPrevVisit.CustomButton.Location = New System.Drawing.Point(194, 2)
         Me.pPrevVisit.CustomButton.Name = ""
         Me.pPrevVisit.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.pPrevVisit.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -552,13 +565,33 @@ Partial Class pnlEms
         Me.pPrevVisit.SelectionLength = 0
         Me.pPrevVisit.SelectionStart = 0
         Me.pPrevVisit.ShortcutsEnabled = True
-        Me.pPrevVisit.Size = New System.Drawing.Size(234, 34)
+        Me.pPrevVisit.Size = New System.Drawing.Size(226, 34)
         Me.pPrevVisit.TabIndex = 4
         Me.pPrevVisit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.pPrevVisit.UseSelectable = True
         Me.pPrevVisit.WaterMark = "不顯示"
         Me.pPrevVisit.WaterMarkColor = System.Drawing.Color.Silver
         Me.pPrevVisit.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        '
+        'tabBooking
+        '
+        Me.tabBooking.Controls.Add(Me.waitingList)
+        Me.tabBooking.Location = New System.Drawing.Point(4, 44)
+        Me.tabBooking.Name = "tabBooking"
+        Me.tabBooking.Size = New System.Drawing.Size(232, 625)
+        Me.tabBooking.TabIndex = 1
+        Me.tabBooking.Text = "等候清單"
+        '
+        'waitingList
+        '
+        Me.waitingList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.waitingList.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.waitingList.FormattingEnabled = True
+        Me.waitingList.ItemHeight = 20
+        Me.waitingList.Location = New System.Drawing.Point(0, 0)
+        Me.waitingList.Name = "waitingList"
+        Me.waitingList.Size = New System.Drawing.Size(232, 625)
+        Me.waitingList.TabIndex = 0
         '
         'diagTab
         '
@@ -2407,8 +2440,10 @@ Partial Class pnlEms
         Me.Padding = New System.Windows.Forms.Padding(0, 0, 280, 0)
         Me.Size = New System.Drawing.Size(1211, 713)
         Me.pInfoPanel.ResumeLayout(False)
-        Me.pInfoPanel.PerformLayout()
+        Me.patientTab.ResumeLayout(False)
+        Me.tabPatientInfo.ResumeLayout(False)
         Me.pInfoTable.ResumeLayout(False)
+        Me.tabBooking.ResumeLayout(False)
         Me.diagTab.ResumeLayout(False)
         Me.tabGraph.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -2484,20 +2519,6 @@ Partial Class pnlEms
     Friend WithEvents InstantDoCtrl1 As Automation.BDaq.InstantDoCtrl
     Friend WithEvents emsTimer As Timer
     Friend WithEvents pInfoPanel As Panel
-    Friend WithEvents Label4 As Label
-    Friend WithEvents pInfoTable As TableLayoutPanel
-    Friend WithEvents MetroLink1 As MetroFramework.Controls.MetroLink
-    Friend WithEvents sexLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents nameLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents ageLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents countLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents lastVisitLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents MetroTextBox1 As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pName As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pSex As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pAge As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pVisitTimes As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents diagTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents tabGraph As TabPage
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
@@ -2610,4 +2631,21 @@ Partial Class pnlEms
     Friend WithEvents rightArea As MetroFramework.Controls.MetroTextBox
     Friend WithEvents totalPercentage As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
+    Friend WithEvents patientTab As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents tabPatientInfo As TabPage
+    Friend WithEvents pInfoTable As TableLayoutPanel
+    Friend WithEvents MetroLink1 As MetroFramework.Controls.MetroLink
+    Friend WithEvents sexLabel As MetroFramework.Controls.MetroLink
+    Friend WithEvents nameLabel As MetroFramework.Controls.MetroLink
+    Friend WithEvents ageLabel As MetroFramework.Controls.MetroLink
+    Friend WithEvents countLabel As MetroFramework.Controls.MetroLink
+    Friend WithEvents lastVisitLabel As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroTextBox1 As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pName As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pSex As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pAge As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pVisitTimes As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents tabBooking As TabPage
+    Friend WithEvents waitingList As ListBox
 End Class
