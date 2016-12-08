@@ -176,8 +176,8 @@
     Private Sub editButton_Click(sender As Object, e As EventArgs) Handles editButton.Click
         runQuery("UPDATE med_item SET " &
                  "medName='" & medName.Text & "'," &
-                 "pinyin='" & pinyin.Text & "'," &
-                 "zhuyin='" & zhuyin.Text & "'," &
+                 "pinyin='" & pinyin.Text.Trim.ToLower & "'," &
+                 "zhuyin='" & zhuyin.Text.Trim.ToLower & "'," &
                  "medDesc='" & medDesc.Text & "'," &
                  "unitPrice='" & unitPrice.Text & "'," &
                  "unitUnit='" & unitUnit.SelectedValue & "'," &

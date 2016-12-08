@@ -51,7 +51,6 @@ Partial Class pnlEms
         Me.measurePoint = New System.Windows.Forms.Label()
         Me.buttonPanel = New MetroFramework.Controls.MetroPanel()
         Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
-        Me.okLink = New MetroFramework.Controls.MetroLink()
         Me.buttonTable = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.rdoEnergy = New System.Windows.Forms.CheckBox()
@@ -102,7 +101,6 @@ Partial Class pnlEms
         Me.Panel27 = New System.Windows.Forms.Panel()
         Me.rdoGraph = New System.Windows.Forms.CheckBox()
         Me.openPanelLink = New MetroFramework.Controls.MetroLink()
-        Me.pb = New System.Windows.Forms.PictureBox()
         Me.graphTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabEms = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -156,6 +154,8 @@ Partial Class pnlEms
         Me.lblCali = New MetroFramework.Controls.MetroLabel()
         Me.tabMed = New System.Windows.Forms.TabPage()
         Me.InstantAiCtrl1 = New Automation.BDaq.InstantAiCtrl(Me.components)
+        Me.okLink = New MetroFramework.Controls.MetroLink()
+        Me.pb = New System.Windows.Forms.PictureBox()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
         Me.tabPatientInfo.SuspendLayout()
@@ -191,7 +191,6 @@ Partial Class pnlEms
         Me.Panel25.SuspendLayout()
         Me.Panel26.SuspendLayout()
         Me.Panel27.SuspendLayout()
-        CType(Me.pb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.graphTab.SuspendLayout()
         Me.tabEms.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -201,6 +200,7 @@ Partial Class pnlEms
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tabCheck.SuspendLayout()
         Me.caliTable.SuspendLayout()
+        CType(Me.pb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'owner
@@ -689,18 +689,6 @@ Partial Class pnlEms
         Me.MetroLabel5.Size = New System.Drawing.Size(112, 25)
         Me.MetroLabel5.TabIndex = 5
         Me.MetroLabel5.Text = "手動量測點"
-        '
-        'okLink
-        '
-        Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.okLink.Image = Global.fujunEmsys.My.Resources.Resources.okHover
-        Me.okLink.ImageSize = 35
-        Me.okLink.Location = New System.Drawing.Point(557, 9)
-        Me.okLink.Name = "okLink"
-        Me.okLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.okUp
-        Me.okLink.Size = New System.Drawing.Size(40, 40)
-        Me.okLink.TabIndex = 4
-        Me.okLink.UseSelectable = True
         '
         'buttonTable
         '
@@ -1397,15 +1385,6 @@ Partial Class pnlEms
         Me.openPanelLink.TabIndex = 2
         Me.openPanelLink.Text = "開啟手動測量點"
         Me.openPanelLink.UseSelectable = True
-        '
-        'pb
-        '
-        Me.pb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pb.Location = New System.Drawing.Point(20, 120)
-        Me.pb.Name = "pb"
-        Me.pb.Size = New System.Drawing.Size(583, 485)
-        Me.pb.TabIndex = 0
-        Me.pb.TabStop = False
         '
         'graphTab
         '
@@ -2430,6 +2409,27 @@ Partial Class pnlEms
         '
         Me.InstantAiCtrl1._StateStream = CType(resources.GetObject("InstantAiCtrl1._StateStream"), Automation.BDaq.DeviceStateStreamer)
         '
+        'okLink
+        '
+        Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.okLink.Image = Global.fujunEmsys.My.Resources.Resources.okHover
+        Me.okLink.ImageSize = 35
+        Me.okLink.Location = New System.Drawing.Point(557, 9)
+        Me.okLink.Name = "okLink"
+        Me.okLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.okUp
+        Me.okLink.Size = New System.Drawing.Size(40, 40)
+        Me.okLink.TabIndex = 4
+        Me.okLink.UseSelectable = True
+        '
+        'pb
+        '
+        Me.pb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pb.Location = New System.Drawing.Point(20, 120)
+        Me.pb.Name = "pb"
+        Me.pb.Size = New System.Drawing.Size(583, 485)
+        Me.pb.TabIndex = 0
+        Me.pb.TabStop = False
+        '
         'pnlEms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -2499,7 +2499,6 @@ Partial Class pnlEms
         Me.Panel26.PerformLayout()
         Me.Panel27.ResumeLayout(False)
         Me.Panel27.PerformLayout()
-        CType(Me.pb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.graphTab.ResumeLayout(False)
         Me.tabEms.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
@@ -2512,6 +2511,7 @@ Partial Class pnlEms
         Me.tabCheck.ResumeLayout(False)
         Me.caliTable.ResumeLayout(False)
         Me.caliTable.PerformLayout()
+        CType(Me.pb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

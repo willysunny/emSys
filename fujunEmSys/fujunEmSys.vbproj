@@ -157,6 +157,12 @@
     <Compile Include="module\patientInfo.vb" />
     <Compile Include="module\SQLModule.vb" />
     <Compile Include="Settings.vb" />
+    <Compile Include="system\med\pnlPerscription.Designer.vb">
+      <DependentUpon>pnlPerscription.vb</DependentUpon>
+    </Compile>
+    <Compile Include="system\med\pnlPerscription.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="system\settings\frmDocManage.Designer.vb">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </Compile>
@@ -258,6 +264,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="system\med\pnlPerscription.resx">
+      <DependentUpon>pnlPerscription.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="system\settings\frmDocManage.resx">
       <DependentUpon>frmDocManage.vb</DependentUpon>
