@@ -1464,7 +1464,7 @@ Public Class pnlEms
         getMeasurePoint()
     End Sub
 
-    Private Sub MetroButton1_Click(sender As Object, e As EventArgs) 
+    Private Sub MetroButton1_Click(sender As Object, e As EventArgs)
         tickCounter = 0
         'If tempTrigger Then
         '    tickCounter = 0

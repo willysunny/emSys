@@ -1,6 +1,8 @@
 ﻿Public Class frmUserQuery
 
     Public Event patientSelected As EventHandler
+    Public Event cancelled As EventHandler
+
     Public resultInfo As New pInfo
 
     Public Sub New()
@@ -28,6 +30,7 @@
     End Sub
     ' 取消
     Private Sub cancelButton_Click(sender As Object, e As EventArgs) Handles cancelButton.Click
+        RaiseEvent cancelled(Me, New EventArgs)
         Me.Close()
     End Sub
     ' 選取

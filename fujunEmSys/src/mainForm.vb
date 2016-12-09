@@ -177,5 +177,11 @@
         RemoveHandler exitLink.MouseUp, AddressOf perscription_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
+    Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportLink.Click
+        If Not offlineMode Then
+            Dim frm As New frmUserReport
+            frm.ShowDialog()
+        End If
+    End Sub
 #End Region
 End Class

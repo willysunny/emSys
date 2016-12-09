@@ -46,6 +46,7 @@ Partial Class mainForm
         Me.patientBookingLink = New MetroFramework.Controls.MetroLink()
         Me.docManageLink = New MetroFramework.Controls.MetroLink()
         Me.perscriptionLink = New MetroFramework.Controls.MetroLink()
+        Me.reportLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -220,8 +221,17 @@ Partial Class mainForm
         Me.perscriptionLink.Name = "perscriptionLink"
         Me.perscriptionLink.Size = New System.Drawing.Size(86, 28)
         Me.perscriptionLink.TabIndex = 2
-        Me.perscriptionLink.Text = "頻譜系統"
+        Me.perscriptionLink.Text = "開藥系統"
         Me.perscriptionLink.UseSelectable = True
+        '
+        'reportLink
+        '
+        Me.reportLink.Location = New System.Drawing.Point(3, 146)
+        Me.reportLink.Name = "reportLink"
+        Me.reportLink.Size = New System.Drawing.Size(86, 28)
+        Me.reportLink.TabIndex = 2
+        Me.reportLink.Text = "報表系統"
+        Me.reportLink.UseSelectable = True
         '
         'mainForm
         '
@@ -238,6 +248,7 @@ Partial Class mainForm
         Me.Controls.Add(Me.docManageLink)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
+        Me.Controls.Add(Me.reportLink)
         Me.Controls.Add(Me.perscriptionLink)
         Me.Controls.Add(Me.emsLink)
         Me.Controls.Add(Me.exitLink)
@@ -277,4 +288,5 @@ Partial Class mainForm
     Friend WithEvents patientBookingLink As MetroFramework.Controls.MetroLink
     Friend WithEvents docManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents perscriptionLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents reportLink As MetroFramework.Controls.MetroLink
 End Class

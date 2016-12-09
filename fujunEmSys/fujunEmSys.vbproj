@@ -118,6 +118,11 @@
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -163,6 +168,12 @@
     <Compile Include="src\med\pnlPerscription.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\report\frmUserReport.Designer.vb">
+      <DependentUpon>frmUserReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\report\frmUserReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\settings\frmDocManage.Designer.vb">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </Compile>
@@ -197,10 +208,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="src\patient\frmUserQuery.Designer.vb">
+    <Compile Include="src\tools\frmUserQuery.Designer.vb">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
     </Compile>
-    <Compile Include="src\patient\frmUserQuery.vb">
+    <Compile Include="src\tools\frmUserQuery.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\patient\pnlBooking.Designer.vb">
@@ -268,6 +279,9 @@
     <EmbeddedResource Include="src\med\pnlPerscription.resx">
       <DependentUpon>pnlPerscription.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\report\frmUserReport.resx">
+      <DependentUpon>frmUserReport.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\settings\frmDocManage.resx">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </EmbeddedResource>
@@ -277,7 +291,7 @@
     <EmbeddedResource Include="src\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\patient\frmUserQuery.resx">
+    <EmbeddedResource Include="src\tools\frmUserQuery.resx">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\patient\pnlBooking.resx">
@@ -310,7 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cert\Fujun_CMS_PFX.pfx" />
-    <None Include="src\report\reportForm.docx">
+    <None Include="reportForm\reportForm.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="My Project\app.manifest" />
