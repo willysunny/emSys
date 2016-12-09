@@ -130,6 +130,7 @@
             pName.Text = patientInfo.pName
             If patientInfo.pSex = 0 Then pSex.Text = "女" Else pSex.Text = "男"
             pAge.Text = patientInfo.pAge
+            medTab.Enabled = True
         End If
     End Sub
     Private Sub loadPatientData(ByVal bID As Integer)
@@ -257,7 +258,7 @@
             End Try
         Next
         With medGroupGrid
-            .Columns("bID").Visible = false
+            .Columns("bID").Visible = False
             .Columns("藥物清單").Visible = True
             .Columns("天數").Visible = True
             .Columns("份量").Visible = True
@@ -279,8 +280,10 @@
             Try
                 runQuery("INSERT INTO medDetail (mgID, medID, medAmount, medUnit) VALUES ('" &
                       medGroupGrid.SelectedRows(0).Cells("mgID").Value & "', '" &
-                      medTree.SelectedNode.name & "', '" & medDetailAmount.Text & "', '" & medDetailUnit.SelectedValue & "');")
+                      medTree.SelectedNode.Name & "', '" & medDetailAmount.Text & "', '" & medDetailUnit.SelectedValue & "');")
+                Dim index As Integer = medGroupGrid.SelectedRows(0).Index
                 reloadMedGroup()
+                medGroupGrid.Rows.Item(index).Selected = True
                 reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
             Catch ex As Exception
                 MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息:" & vbNewLine & ex.Message, "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -341,5 +344,29 @@
     Private Sub medDetailLabel_Click(sender As Object, e As EventArgs) Handles medDetailLabel.Click
         reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
     End Sub
+
 #End Region
+
+    Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
+        If medTab.SelectedTab Is tabFull Then
+            fullListView.DataSource = returnData(mainForm, "Select mg.mgid as '群組編號', mi.medName as '藥品名稱', 
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
+                                                               mg.medDays as '天數', 
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
+                                                               mg.makePill as '打錠', mg.f0
+                                                        FROM medGroup2medDetail as mg
+                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        INNER JOIN med_item as mi on md.medID = mi.medID
+                                                        WHERE bID=" & waitingList.SelectedValue)
+            For Each row As DataGridViewRow In fullListView.Rows
+                Try
+                    row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
+                Catch ex As Exception
+                    row.Cells("單位").Value = unit(1)
+                End Try
+            Next
+            fullListView.Columns("medUnit").Visible = False
+        End If
+    End Sub
 End Class

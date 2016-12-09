@@ -22,6 +22,7 @@ Partial Class pnlPerscription
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.medTable = New System.Windows.Forms.TableLayoutPanel()
         Me.pInfoPanel = New System.Windows.Forms.Panel()
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabPatientInfo = New System.Windows.Forms.TabPage()
@@ -41,14 +42,13 @@ Partial Class pnlPerscription
         Me.tabBooking = New System.Windows.Forms.TabPage()
         Me.MetroDateTime1 = New MetroFramework.Controls.MetroDateTime()
         Me.waitingList = New System.Windows.Forms.ListBox()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
         Me.searchTable = New System.Windows.Forms.TableLayoutPanel()
         Me.searchBox = New MetroFramework.Controls.MetroTextBox()
         Me.unusedMedList = New MetroFramework.Controls.MetroCheckBox()
         Me.medTree = New System.Windows.Forms.TreeView()
         Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroTabControl1 = New MetroFramework.Controls.MetroTabControl()
+        Me.medTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabMedSetup = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
@@ -82,15 +82,17 @@ Partial Class pnlPerscription
         Me.medDetailUnit = New MetroFramework.Controls.MetroComboBox()
         Me.medDetailLabel = New MetroFramework.Controls.MetroLabel()
         Me.medDetailGrid = New System.Windows.Forms.DataGridView()
+        Me.tabFull = New System.Windows.Forms.TabPage()
+        Me.fullListView = New System.Windows.Forms.DataGridView()
+        Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
         Me.tabPatientInfo.SuspendLayout()
         Me.pInfoTable.SuspendLayout()
         Me.tabBooking.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
         Me.MetroPanel2.SuspendLayout()
         Me.searchTable.SuspendLayout()
-        Me.MetroTabControl1.SuspendLayout()
+        Me.medTab.SuspendLayout()
         Me.tabMedSetup.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
@@ -99,6 +101,8 @@ Partial Class pnlPerscription
         Me.medDetailPanel.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.medDetailGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabFull.SuspendLayout()
+        CType(Me.fullListView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'owner
@@ -106,6 +110,23 @@ Partial Class pnlPerscription
         Me.owner.ClientSize = New System.Drawing.Size(0, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
         Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
+        '
+        'medTable
+        '
+        Me.medTable.ColumnCount = 3
+        Me.medTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
+        Me.medTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
+        Me.medTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.medTable.Controls.Add(Me.pInfoPanel, 0, 0)
+        Me.medTable.Controls.Add(Me.MetroPanel2, 1, 0)
+        Me.medTable.Controls.Add(Me.medTab, 2, 0)
+        Me.medTable.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medTable.Location = New System.Drawing.Point(0, 0)
+        Me.medTable.Name = "medTable"
+        Me.medTable.RowCount = 1
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.medTable.Size = New System.Drawing.Size(1273, 725)
+        Me.medTable.TabIndex = 7
         '
         'pInfoPanel
         '
@@ -254,9 +275,9 @@ Partial Class pnlPerscription
         '
         '
         Me.MetroTextBox1.CustomButton.Image = Nothing
-        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(56, 1)
+        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(48, 1)
         Me.MetroTextBox1.CustomButton.Name = ""
-        Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(189, 189)
+        Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(197, 197)
         Me.MetroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.MetroTextBox1.CustomButton.TabIndex = 1
         Me.MetroTextBox1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -276,7 +297,7 @@ Partial Class pnlPerscription
         Me.MetroTextBox1.SelectionLength = 0
         Me.MetroTextBox1.SelectionStart = 0
         Me.MetroTextBox1.ShortcutsEnabled = True
-        Me.MetroTextBox1.Size = New System.Drawing.Size(246, 191)
+        Me.MetroTextBox1.Size = New System.Drawing.Size(246, 199)
         Me.MetroTextBox1.TabIndex = 3
         Me.MetroTextBox1.UseSelectable = True
         Me.MetroTextBox1.WaterMark = "不顯示"
@@ -493,23 +514,6 @@ Partial Class pnlPerscription
         Me.waitingList.Size = New System.Drawing.Size(252, 607)
         Me.waitingList.TabIndex = 0
         '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 3
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.pInfoPanel, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.MetroPanel2, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.MetroTabControl1, 2, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1273, 725)
-        Me.TableLayoutPanel2.TabIndex = 7
-        '
         'MetroPanel2
         '
         Me.MetroPanel2.BackColor = System.Drawing.Color.SaddleBrown
@@ -618,16 +622,18 @@ Partial Class pnlPerscription
         Me.MetroLabel6.UseCustomBackColor = True
         Me.MetroLabel6.UseCustomForeColor = True
         '
-        'MetroTabControl1
+        'medTab
         '
-        Me.MetroTabControl1.Controls.Add(Me.tabMedSetup)
-        Me.MetroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroTabControl1.Location = New System.Drawing.Point(603, 3)
-        Me.MetroTabControl1.Name = "MetroTabControl1"
-        Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(667, 719)
-        Me.MetroTabControl1.TabIndex = 13
-        Me.MetroTabControl1.UseSelectable = True
+        Me.medTab.Controls.Add(Me.tabMedSetup)
+        Me.medTab.Controls.Add(Me.tabFull)
+        Me.medTab.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medTab.Enabled = False
+        Me.medTab.Location = New System.Drawing.Point(603, 3)
+        Me.medTab.Name = "medTab"
+        Me.medTab.SelectedIndex = 0
+        Me.medTab.Size = New System.Drawing.Size(667, 719)
+        Me.medTab.TabIndex = 13
+        Me.medTab.UseSelectable = True
         '
         'tabMedSetup
         '
@@ -1229,24 +1235,46 @@ Partial Class pnlPerscription
         Me.medDetailGrid.Size = New System.Drawing.Size(304, 571)
         Me.medDetailGrid.TabIndex = 2
         '
+        'tabFull
+        '
+        Me.tabFull.Controls.Add(Me.fullListView)
+        Me.tabFull.Location = New System.Drawing.Point(4, 38)
+        Me.tabFull.Name = "tabFull"
+        Me.tabFull.Size = New System.Drawing.Size(659, 677)
+        Me.tabFull.TabIndex = 1
+        Me.tabFull.Text = "總覽"
+        '
+        'fullListView
+        '
+        Me.fullListView.AllowUserToAddRows = False
+        Me.fullListView.AllowUserToDeleteRows = False
+        Me.fullListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.fullListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.fullListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.fullListView.Location = New System.Drawing.Point(0, 0)
+        Me.fullListView.Name = "fullListView"
+        Me.fullListView.RowTemplate.Height = 24
+        Me.fullListView.Size = New System.Drawing.Size(659, 677)
+        Me.fullListView.TabIndex = 0
+        '
         'pnlPerscription
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.TableLayoutPanel2)
+        Me.Controls.Add(Me.medTable)
         Me.Name = "pnlPerscription"
         Me.Size = New System.Drawing.Size(1273, 725)
+        Me.medTable.ResumeLayout(False)
         Me.pInfoPanel.ResumeLayout(False)
         Me.patientTab.ResumeLayout(False)
         Me.tabPatientInfo.ResumeLayout(False)
         Me.pInfoTable.ResumeLayout(False)
         Me.tabBooking.ResumeLayout(False)
-        Me.TableLayoutPanel2.ResumeLayout(False)
         Me.MetroPanel2.ResumeLayout(False)
         Me.MetroPanel2.PerformLayout()
         Me.searchTable.ResumeLayout(False)
         Me.searchTable.PerformLayout()
-        Me.MetroTabControl1.ResumeLayout(False)
+        Me.medTab.ResumeLayout(False)
         Me.tabMedSetup.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
@@ -1259,6 +1287,8 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.medDetailGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabFull.ResumeLayout(False)
+        CType(Me.fullListView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1282,7 +1312,7 @@ Partial Class pnlPerscription
     Friend WithEvents tabBooking As TabPage
     Friend WithEvents waitingList As ListBox
     Friend WithEvents MetroDateTime1 As MetroFramework.Controls.MetroDateTime
-    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents medTable As TableLayoutPanel
     Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
     Friend WithEvents searchTable As TableLayoutPanel
     Friend WithEvents searchBox As MetroFramework.Controls.MetroTextBox
@@ -1315,7 +1345,7 @@ Partial Class pnlPerscription
     Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
     Friend WithEvents medGroupAmount As MetroFramework.Controls.MetroTextBox
     Friend WithEvents medGroupUnit As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents MetroTabControl1 As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents medTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents tabMedSetup As TabPage
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents MetroLabel6 As MetroFramework.Controls.MetroLabel
@@ -1323,4 +1353,6 @@ Partial Class pnlPerscription
     Friend WithEvents addMedGroup As MetroFramework.Controls.MetroButton
     Friend WithEvents delMedDetail As MetroFramework.Controls.MetroButton
     Friend WithEvents addMedDetail As MetroFramework.Controls.MetroButton
+    Friend WithEvents tabFull As TabPage
+    Friend WithEvents fullListView As DataGridView
 End Class
