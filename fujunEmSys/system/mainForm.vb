@@ -11,7 +11,9 @@
     Dim patientInfoPanel As pnlPatientInfo = Nothing
     Dim medInfo As pnlMedInfo = Nothing
     Dim medManage As pnlMedManage = Nothing
-    Dim pBooking As pnlBooking
+    Dim pBooking As pnlBooking = Nothing
+    Dim perscription As pnlPerscription = Nothing
+
 
 
     Public Sub New()
@@ -160,6 +162,19 @@
     Private Sub patientBooking_exit(sender As Object, e As EventArgs)
         pBooking.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf patientBooking_exit
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionLink.Click
+        If Not offlineMode Then
+            perscription = New pnlPerscription(Me)
+            RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+            AddHandler exitLink.MouseUp, AddressOf perscription_exit
+            perscription.swipe()
+        End If
+    End Sub
+    Private Sub perscription_exit(sender As Object, e As EventArgs)
+        perscription.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf perscription_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
 #End Region
