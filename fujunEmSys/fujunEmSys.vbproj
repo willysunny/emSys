@@ -157,28 +157,28 @@
     <Compile Include="module\patientInfo.vb" />
     <Compile Include="module\SQLModule.vb" />
     <Compile Include="Settings.vb" />
-    <Compile Include="system\med\pnlPerscription.Designer.vb">
+    <Compile Include="src\med\pnlPerscription.Designer.vb">
       <DependentUpon>pnlPerscription.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\med\pnlPerscription.vb">
+    <Compile Include="src\med\pnlPerscription.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\settings\frmDocManage.Designer.vb">
+    <Compile Include="src\settings\frmDocManage.Designer.vb">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\settings\frmDocManage.vb">
+    <Compile Include="src\settings\frmDocManage.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="system\settings\frmUserManage.Designer.vb">
+    <Compile Include="src\settings\frmUserManage.Designer.vb">
       <DependentUpon>frmUserManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\settings\frmUserManage.vb">
+    <Compile Include="src\settings\frmUserManage.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="system\mainForm.vb">
+    <Compile Include="src\mainForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="system\mainForm.Designer.vb">
+    <Compile Include="src\mainForm.Designer.vb">
       <DependentUpon>mainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -197,64 +197,64 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="system\patient\frmUserQuery.Designer.vb">
+    <Compile Include="src\patient\frmUserQuery.Designer.vb">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\patient\frmUserQuery.vb">
+    <Compile Include="src\patient\frmUserQuery.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="system\patient\pnlBooking.Designer.vb">
+    <Compile Include="src\patient\pnlBooking.Designer.vb">
       <DependentUpon>pnlBooking.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\patient\pnlBooking.vb">
+    <Compile Include="src\patient\pnlBooking.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\med\pnlMedInfo.Designer.vb">
+    <Compile Include="src\med\pnlMedInfo.Designer.vb">
       <DependentUpon>pnlMedInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\med\pnlMedInfo.vb">
+    <Compile Include="src\med\pnlMedInfo.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\med\pnlMedManage.Designer.vb">
+    <Compile Include="src\med\pnlMedManage.Designer.vb">
       <DependentUpon>pnlMedManage.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\med\pnlMedManage.vb">
+    <Compile Include="src\med\pnlMedManage.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\pnlLogin.Designer.vb">
+    <Compile Include="src\pnlLogin.Designer.vb">
       <DependentUpon>pnlLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\pnlLogin.vb">
+    <Compile Include="src\pnlLogin.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\patient\pnlPatientInfo.Designer.vb">
+    <Compile Include="src\patient\pnlPatientInfo.Designer.vb">
       <DependentUpon>pnlPatientInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\patient\pnlPatientInfo.vb">
+    <Compile Include="src\patient\pnlPatientInfo.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\settings\pnlSetting.Designer.vb">
+    <Compile Include="src\settings\pnlSetting.Designer.vb">
       <DependentUpon>pnlSetting.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\settings\pnlSetting.vb">
+    <Compile Include="src\settings\pnlSetting.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="system\pnlSlider.Designer.vb">
+    <Compile Include="src\pnlSlider.Designer.vb">
       <DependentUpon>pnlSlider.vb</DependentUpon>
     </Compile>
-    <Compile Include="system\pnlSlider.vb">
+    <Compile Include="src\pnlSlider.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="tools\frmEmsButtons.Designer.vb">
+    <Compile Include="src\tools\frmEmsButtons.Designer.vb">
       <DependentUpon>frmEmsButtons.vb</DependentUpon>
     </Compile>
-    <Compile Include="tools\frmEmsButtons.vb">
+    <Compile Include="src\tools\frmEmsButtons.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="tools\pnlEms.Designer.vb">
+    <Compile Include="src\tools\pnlEms.Designer.vb">
       <DependentUpon>pnlEms.vb</DependentUpon>
     </Compile>
-    <Compile Include="tools\pnlEms.vb">
+    <Compile Include="src\tools\pnlEms.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -265,51 +265,54 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\med\pnlPerscription.resx">
+    <EmbeddedResource Include="src\med\pnlPerscription.resx">
       <DependentUpon>pnlPerscription.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\settings\frmDocManage.resx">
+    <EmbeddedResource Include="src\settings\frmDocManage.resx">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\settings\frmUserManage.resx">
+    <EmbeddedResource Include="src\settings\frmUserManage.resx">
       <DependentUpon>frmUserManage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\mainForm.resx">
+    <EmbeddedResource Include="src\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\patient\frmUserQuery.resx">
+    <EmbeddedResource Include="src\patient\frmUserQuery.resx">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\patient\pnlBooking.resx">
+    <EmbeddedResource Include="src\patient\pnlBooking.resx">
       <DependentUpon>pnlBooking.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\med\pnlMedInfo.resx">
+    <EmbeddedResource Include="src\med\pnlMedInfo.resx">
       <DependentUpon>pnlMedInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\med\pnlMedManage.resx">
+    <EmbeddedResource Include="src\med\pnlMedManage.resx">
       <DependentUpon>pnlMedManage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlLogin.resx">
+    <EmbeddedResource Include="src\pnlLogin.resx">
       <DependentUpon>pnlLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\patient\pnlPatientInfo.resx">
+    <EmbeddedResource Include="src\patient\pnlPatientInfo.resx">
       <DependentUpon>pnlPatientInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\settings\pnlSetting.resx">
+    <EmbeddedResource Include="src\settings\pnlSetting.resx">
       <DependentUpon>pnlSetting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="system\pnlSlider.resx">
+    <EmbeddedResource Include="src\pnlSlider.resx">
       <DependentUpon>pnlSlider.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="tools\frmEmsButtons.resx">
+    <EmbeddedResource Include="src\tools\frmEmsButtons.resx">
       <DependentUpon>frmEmsButtons.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="tools\pnlEms.resx">
+    <EmbeddedResource Include="src\tools\pnlEms.resx">
       <DependentUpon>pnlEms.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="cert\Fujun_CMS_PFX.pfx" />
+    <None Include="src\report\reportForm.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -320,7 +323,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="src\App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

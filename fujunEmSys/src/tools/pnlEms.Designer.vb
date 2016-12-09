@@ -115,7 +115,6 @@ Partial Class pnlEms
         Me.txtEvaValue = New System.Windows.Forms.TextBox()
         Me.txtMaxValue = New System.Windows.Forms.TextBox()
         Me.txtDevValue = New System.Windows.Forms.TextBox()
-        Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
         Me.tabEnergy = New System.Windows.Forms.TabPage()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -1458,7 +1457,6 @@ Partial Class pnlEms
         Me.TableLayoutPanel2.Controls.Add(Me.txtEvaValue, 0, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.txtMaxValue, 0, 5)
         Me.TableLayoutPanel2.Controls.Add(Me.txtDevValue, 0, 7)
-        Me.TableLayoutPanel2.Controls.Add(Me.MetroButton1, 0, 8)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(20, 20)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
@@ -1567,15 +1565,6 @@ Partial Class pnlEms
         Me.txtDevValue.TabIndex = 5
         Me.txtDevValue.Text = "0"
         Me.txtDevValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'MetroButton1
-        '
-        Me.MetroButton1.Location = New System.Drawing.Point(3, 483)
-        Me.MetroButton1.Name = "MetroButton1"
-        Me.MetroButton1.Size = New System.Drawing.Size(246, 53)
-        Me.MetroButton1.TabIndex = 6
-        Me.MetroButton1.Text = "MetroButton1"
-        Me.MetroButton1.UseSelectable = True
         '
         'tabEnergy
         '
@@ -2630,7 +2619,6 @@ Partial Class pnlEms
     Friend WithEvents leftArea As MetroFramework.Controls.MetroTextBox
     Friend WithEvents rightArea As MetroFramework.Controls.MetroTextBox
     Friend WithEvents totalPercentage As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
     Friend WithEvents patientTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents tabPatientInfo As TabPage
     Friend WithEvents pInfoTable As TableLayoutPanel
