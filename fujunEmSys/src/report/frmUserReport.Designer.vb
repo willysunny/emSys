@@ -32,9 +32,9 @@ Partial Class frmUserReport
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.pName = New MetroFramework.Controls.MetroTextBox()
-        Me.printGraph = New MetroFramework.Controls.MetroButton()
-        Me.printEnergy = New MetroFramework.Controls.MetroButton()
-        Me.printFee = New MetroFramework.Controls.MetroButton()
+        Me.printGraphButton = New MetroFramework.Controls.MetroButton()
+        Me.printEnergyButton = New MetroFramework.Controls.MetroButton()
+        Me.printFeeButton = New MetroFramework.Controls.MetroButton()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -42,6 +42,9 @@ Partial Class frmUserReport
         '
         Me.printDlg.Document = Me.printDoc
         Me.printDlg.UseEXDialog = True
+        '
+        'printDoc
+        '
         '
         'printPreviewDlg
         '
@@ -154,41 +157,41 @@ Partial Class frmUserReport
         Me.pName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.pName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
-        'printGraph
+        'printGraphButton
         '
-        Me.printGraph.Location = New System.Drawing.Point(427, 125)
-        Me.printGraph.Name = "printGraph"
-        Me.printGraph.Size = New System.Drawing.Size(75, 23)
-        Me.printGraph.TabIndex = 3
-        Me.printGraph.Text = "頻譜報告"
-        Me.printGraph.UseSelectable = True
+        Me.printGraphButton.Location = New System.Drawing.Point(427, 125)
+        Me.printGraphButton.Name = "printGraphButton"
+        Me.printGraphButton.Size = New System.Drawing.Size(75, 23)
+        Me.printGraphButton.TabIndex = 3
+        Me.printGraphButton.Text = "頻譜報告"
+        Me.printGraphButton.UseSelectable = True
         '
-        'printEnergy
+        'printEnergyButton
         '
-        Me.printEnergy.Location = New System.Drawing.Point(427, 164)
-        Me.printEnergy.Name = "printEnergy"
-        Me.printEnergy.Size = New System.Drawing.Size(75, 23)
-        Me.printEnergy.TabIndex = 3
-        Me.printEnergy.Text = "元氣報告"
-        Me.printEnergy.UseSelectable = True
+        Me.printEnergyButton.Location = New System.Drawing.Point(427, 164)
+        Me.printEnergyButton.Name = "printEnergyButton"
+        Me.printEnergyButton.Size = New System.Drawing.Size(75, 23)
+        Me.printEnergyButton.TabIndex = 3
+        Me.printEnergyButton.Text = "元氣報告"
+        Me.printEnergyButton.UseSelectable = True
         '
-        'printFee
+        'printFeeButton
         '
-        Me.printFee.Location = New System.Drawing.Point(427, 207)
-        Me.printFee.Name = "printFee"
-        Me.printFee.Size = New System.Drawing.Size(75, 23)
-        Me.printFee.TabIndex = 3
-        Me.printFee.Text = "列印金額"
-        Me.printFee.UseSelectable = True
+        Me.printFeeButton.Location = New System.Drawing.Point(427, 207)
+        Me.printFeeButton.Name = "printFeeButton"
+        Me.printFeeButton.Size = New System.Drawing.Size(75, 23)
+        Me.printFeeButton.TabIndex = 3
+        Me.printFeeButton.Text = "列印金額"
+        Me.printFeeButton.UseSelectable = True
         '
         'frmUserReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(753, 457)
-        Me.Controls.Add(Me.printFee)
-        Me.Controls.Add(Me.printEnergy)
-        Me.Controls.Add(Me.printGraph)
+        Me.Controls.Add(Me.printFeeButton)
+        Me.Controls.Add(Me.printEnergyButton)
+        Me.Controls.Add(Me.printGraphButton)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "frmUserReport"
         Me.Text = "病患報告"
@@ -206,7 +209,7 @@ Partial Class frmUserReport
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
     Friend WithEvents pName As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents printGraph As MetroFramework.Controls.MetroButton
-    Friend WithEvents printEnergy As MetroFramework.Controls.MetroButton
-    Friend WithEvents printFee As MetroFramework.Controls.MetroButton
+    Friend WithEvents printGraphButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents printEnergyButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents printFeeButton As MetroFramework.Controls.MetroButton
 End Class

@@ -232,7 +232,7 @@ Public Class frmUserReport
 #End Region
 
 #Region "頻譜列印"
-    Private Sub printGraph_Click(sender As Object, e As EventArgs) Handles printGraph.Click
+    Private Sub printGraph_Click(sender As Object, e As EventArgs) Handles printGraphButton.Click
         If Not historyBox.SelectedIndex = -1 Then
 
             Try
@@ -506,7 +506,7 @@ Public Class frmUserReport
 #End Region
 
 #Region "元氣列印"
-    Private Sub printEnergy_Click(sender As Object, e As EventArgs) Handles printEnergy.Click
+    Private Sub printEnergy_Click(sender As Object, e As EventArgs) Handles printEnergyButton.Click
         printDoc.OriginAtMargins = False
         printDoc.DocumentName = "報表"
 
@@ -648,7 +648,6 @@ Public Class frmUserReport
         printPage += 1
         If printPage < 3 Then e.HasMorePages = True Else e.HasMorePages = False
     End Sub
-
     ' 列印外框
     Private Sub drawOutline(ByRef e As Printing.PrintPageEventArgs, ByRef outlinePath As Drawing2D.GraphicsPath, ByVal title As String, Optional alt As Boolean = False)
         Dim useFont As Font = New Font("標楷體", 20, FontStyle.Regular)
@@ -730,7 +729,6 @@ Public Class frmUserReport
             End If
         Next
     End Sub
-
     ' 列印長條圖
     Private Sub printBar(ByRef e As Printing.PrintPageEventArgs, ByRef outlinePath As Drawing2D.GraphicsPath,
                          ByVal xPos As Integer, ByVal index As Integer, ByVal iCode As Integer,
@@ -821,7 +819,6 @@ Public Class frmUserReport
         End If
         outlinePath.Reset()
     End Sub
-
     '垂直文字
     Private Function verText(ByVal input As String) As String
         verText = ""
@@ -831,6 +828,200 @@ Public Class frmUserReport
             End If
         Next
         Return verText
+    End Function
+    ' 列印元氣
+    Private Sub printEnergy(ByRef e As Printing.PrintPageEventArgs, ByRef outlinePath As Drawing2D.GraphicsPath)
+
+        Dim rectWidth As Integer = printDoc.DefaultPageSettings.Bounds.Width - 100
+        Dim rectHeight As Integer = (printDoc.DefaultPageSettings.Bounds.Height - 150) / 2 - 20
+        Dim xPos As Integer = 50
+        Dim yPos As Integer = 100
+
+        'For i = 1 To size
+        '    g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(i * rectSize.Width / size, 0), New Point(i * rectSize.Width / size, rectSize.Height))
+        '    g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, i * rectSize.Height / size), New Point(rectSize.Width, i * rectSize.Height / size))
+        'Next
+
+        ' 筆刷
+        Dim barPen As New Pen(Brushes.Green, CSng(rectWidth / 20))
+        barPen.Alignment = Drawing2D.PenAlignment.Center
+
+        ' 四邊
+        Dim top_pos As String = parseResult(getMax(historyBox.SelectedValue, 12), True)
+        Dim bot_pos As String = parseResult(getMax(historyBox.SelectedValue, 3), True)
+        Dim left_pos As String = parseResult(getMax(historyBox.SelectedValue, 10), True)
+        Dim right_pos As String = parseResult(getMax(historyBox.SelectedValue, 5), True)
+        Dim diagLeft As String = parseResult(getMax(historyBox.SelectedValue, 9), True)
+        Dim diagRight As String = parseResult(getMax(historyBox.SelectedValue, 6), True)
+
+        ' 繪製文字
+        Dim useFont As Font = New Font("微軟正黑體", 20, FontStyle.Regular)
+        Dim fontsize As Integer = 20
+        Dim stringFormat As New StringFormat()
+        stringFormat.FormatFlags = StringFormatFlags.NoClip
+
+
+        If top_pos = "0" Or bot_pos = "0" Or left_pos = "0" Or right_pos = "0" Or diagLeft = "0" Or diagRight = "0" Then
+            stringFormat.Alignment = StringAlignment.Center
+            stringFormat.LineAlignment = StringAlignment.Center
+            outlinePath.AddString("- 元氣點資料不足 -", useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + rectWidth / 2, yPos + rectHeight / 2), stringFormat)
+
+            e.Graphics.FillPath(Brushes.Black, outlinePath)
+            e.Graphics.DrawPath(Pens.Black, outlinePath)
+            outlinePath.Reset()
+        Else
+            Dim center As New Point(rectWidth / 2, rectHeight / 2)
+
+            Dim upLeft As Double = rectWidth / 2 - rectWidth * 0.004 * top_pos
+            Dim upRight As Double = rectWidth / 2 + rectWidth * 0.004 * top_pos
+            Dim downLeft As Double = rectWidth / 2 - rectWidth * 0.004 * bot_pos
+            Dim downRight As Double = rectWidth / 2 + rectWidth * 0.004 * bot_pos
+
+            Dim leftUp As Double = rectHeight / 2 - rectHeight * 0.004 * left_pos
+            Dim leftDown As Double = rectHeight / 2 + rectHeight * 0.004 * left_pos
+            Dim rightUp As Double = rectHeight / 2 - rectHeight * 0.004 * right_pos
+            Dim rightDown As Double = rectHeight / 2 + rectHeight * 0.004 * right_pos
+
+
+            If (upLeft - downRight) = 0 Or (upRight - downLeft) = 0 Then
+            Else
+                ' m1 = (Ytl - Ybr) / (Xtl - Xbr)
+                ' b1 = y - m1*x
+                Dim m1 As Double = (leftUp - rightDown) / (upLeft - downRight)
+                Dim b1 As Double = leftUp - m1 * upLeft
+                'If Not b1 = CDbl(-rightDown - m1 * downRight) Then MsgBox("錯誤發生!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+
+                ' m2 = (Ytr - Ybl) / (Xtr - Xbl)
+                ' b2 = y - m2*x
+                Dim m2 As Double = (rightUp - leftDown) / (upRight - downLeft)
+                Dim b2 As Double = rightUp - m2 * upRight
+                'If Not b2 = -leftDown - m2 * -downLeft Then MsgBox("錯誤發生!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+
+                Dim shiftX As Double = (b2 - b1) / (m1 - m2)
+                Dim shiftY As Double = m1 * shiftX + b1
+                'If Not shiftY = m2 * shiftX + b2 Then MsgBox("錯誤發生!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+
+                'Debug.WriteLine("Center = (" & center.X & ", " & center.Y & ") | Intercept = (" & shiftX & ", " & shiftY & ")")
+                shiftX = (shiftX - center.X)
+                shiftY = (shiftY - center.Y)
+                'Debug.WriteLine("New Intercept = (" & shiftX & ", " & shiftY & ")")
+
+                printLineColor(top_pos, New Point(xPos + upLeft - shiftX, yPos + rectHeight / 20),
+                                       New Point(xPos + upRight - shiftX, yPos + rectHeight / 20), e, outlinePath, rectHeight / 20, True)
+
+                printLineColor(bot_pos, New Point(xPos + downLeft - shiftX, yPos + rectHeight / 20 * 19),
+                                       New Point(xPos + downRight - shiftX, yPos + rectHeight / 20 * 19), e, outlinePath, rectHeight / 20, True)
+
+                printLineColor(left_pos, New Point(xPos + rectWidth / 20, yPos + leftUp - shiftY),
+                                        New Point(xPos + rectWidth / 20, yPos + leftDown - shiftY), e, outlinePath, rectWidth / 20, True)
+
+                printLineColor(right_pos, New Point(xPos + rectWidth / 20 * 19, yPos + rightUp - shiftY),
+                                         New Point(xPos + rectWidth / 20 * 19, yPos + rightDown - shiftY), e, outlinePath, rectWidth / 20, True)
+
+                ' 四ㄋㄈ角
+                Dim topLeft As New Point(xPos + upLeft - shiftX, yPos + leftUp - shiftY)
+                Dim topRight As New Point(xPos + upRight - shiftX, yPos + rightUp - shiftY)
+                Dim botLeft As New Point(xPos + downLeft - shiftX, yPos + leftDown - shiftY)
+                Dim botRight As New Point(xPos + downRight - shiftX, yPos + rightDown - shiftY)
+                center = New Point(center.X + xPos, center.Y + yPos)
+
+                printLineColor(CInt(getSide(topLeft, center) / getSide(topLeft, botRight) * diagLeft) * 2, topLeft, center, e, outlinePath, 5, True)    ' 左上
+                printLineColor(CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * diagRight) * 2, center, botLeft, e, outlinePath, 5, True)   ' 左下
+                printLineColor(CInt(getSide(topRight, center) / getSide(topRight, botLeft) * diagRight) * 2, topRight, center, e, outlinePath, 5, True) ' 右上
+                printLineColor(CInt(getSide(botRight, center) / getSide(topLeft, botRight) * diagLeft) * 2, center, botRight, e, outlinePath, 5, True)  ' 右下
+
+
+                stringFormat.Alignment = StringAlignment.Center
+                stringFormat.LineAlignment = StringAlignment.Center
+
+                ' 左上
+                outlinePath.AddString(CInt(getSide(topLeft, center) / getSide(topLeft, botRight) * diagLeft).ToString & "/" & diagLeft & vbNewLine &
+                                      CInt(getSide(topLeft, center) / getSide(topLeft, botRight) * 100) & "%",
+                                      useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + rectWidth / 4, yPos + rectHeight / 4), stringFormat)
+
+                ' 右上
+                outlinePath.AddString(CInt(getSide(topRight, center) / getSide(topRight, botLeft) * diagRight).ToString & "/" & diagRight & vbNewLine &
+                                      CInt(getSide(topRight, center) / getSide(topRight, botLeft) * 100) & "%",
+                                      useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + rectWidth - rectWidth / 4, yPos + rectHeight / 4), stringFormat)
+
+                ' 左下
+                outlinePath.AddString(CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * diagRight).ToString & "/" & diagLeft & vbNewLine &
+                                      CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * 100) & "%",
+                                      useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + rectWidth / 4, yPos + rectHeight - rectHeight / 4), stringFormat)
+
+                ' 右下
+                outlinePath.AddString(CInt(getSide(botRight, center) / getSide(topLeft, botRight) * diagLeft).ToString & "/" & diagRight & vbNewLine &
+                                      CInt(getSide(botRight, center) / getSide(topLeft, botRight) * 100) & "%",
+                                      useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + rectWidth - rectWidth / 4, yPos + rectHeight - rectHeight / 4), stringFormat)
+
+                e.Graphics.FillPath(Brushes.Black, outlinePath)
+                e.Graphics.DrawPath(Pens.Black, outlinePath)
+                outlinePath.Reset()
+
+            End If
+        End If
+
+        ' 格線
+        outlinePath.AddLine(New Point(xPos, yPos + rectHeight / 2), New Point(xPos + rectWidth, yPos + rectHeight / 2))
+        e.Graphics.DrawPath(Pens.DarkGreen, outlinePath)
+        outlinePath.Reset()
+        outlinePath.AddLine(New Point(xPos + rectWidth / 2, yPos), New Point(xPos + rectWidth / 2, yPos + rectHeight))
+        e.Graphics.DrawPath(Pens.DarkGreen, outlinePath)
+        outlinePath.Reset()
+    End Sub
+    ' 列印線條顏色
+    Private Sub printLineColor(ByVal value As Double, ByVal pt1 As Point, ByVal pt2 As Point, ByRef e As Printing.PrintPageEventArgs,
+                              ByRef outlinePath As Drawing2D.GraphicsPath, ByVal lineSize As Double, Optional ByVal useAlt As Boolean = False)
+
+        ' 筆刷
+        Dim greenPen As New Pen(Brushes.Green, CSng(lineSize))
+        greenPen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim blackPen As New Pen(Brushes.Black, CSng(lineSize))
+        blackPen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim orangePen As New Pen(Brushes.Orange, CSng(lineSize))
+        orangePen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim redPen As New Pen(Brushes.Red, CSng(lineSize))
+        redPen.Alignment = Drawing2D.PenAlignment.Center
+
+        Dim upperDanger, upperWarning, lowerWarning, lowerDanger As Integer
+
+        With My.Settings
+            upperDanger = .emsUpperDanger
+            upperWarning = .emsUpperWarning
+            lowerWarning = .emsLowerWarning
+            lowerDanger = .emsLowerDanger
+            If useAlt Then
+                upperDanger = .engUpperDanger
+                upperWarning = .engUpperWarning
+                lowerWarning = .engLowerWarning
+                lowerDanger = .engLowerDanger
+            End If
+        End With
+
+        outlinePath.AddLine(pt1, pt2)
+
+        If value = -9999 Then
+            e.Graphics.DrawPath(blackPen, outlinePath)
+        ElseIf value > upperDanger Or value < lowerDanger Then
+            e.Graphics.DrawPath(redPen, outlinePath)
+        ElseIf value > upperWarning Or value < lowerWarning Then
+            e.Graphics.DrawPath(orangePen, outlinePath)
+        Else
+            e.Graphics.DrawPath(greenPen, outlinePath)
+        End If
+        outlinePath.Reset()
+
+        greenPen.Dispose()
+        blackPen.Dispose()
+        orangePen.Dispose()
+        redPen.Dispose()
+    End Sub
+    '計算邊長
+    Private Function getSide(ByVal pt1 As Point, ByVal pt2 As Point) As Double
+        Return Math.Sqrt(Math.Abs(pt2.X - pt1.X) ^ 2 + Math.Abs(pt2.Y - pt1.Y) ^ 2)
     End Function
 #End Region
 
