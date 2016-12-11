@@ -157,20 +157,6 @@
                 p_pCreatedDate = value
             End Set
         End Property
-        ReadOnly Property pLastVisit As String
-            Get
-                Dim reader As IDataReader = runQuery("SELECT jul2chi(visitTime) FROM medhistory WHERE pID='" & p_pID & "' ORDER BY visitTime")
-                If reader.Read Then
-                    If reader.Read Then
-                        Return reader.GetString(0)
-                    Else
-                        Return "無"
-                    End If
-                Else
-                    Return "無"
-                End If
-            End Get
-        End Property
         Property pcDOB As String
             Get
                 Return p_pcDOB
@@ -196,6 +182,22 @@
         ReadOnly Property pAge As Integer
             Get
                 Return Now.Date.Year - pDOB.Year
+            End Get
+        End Property
+        ReadOnly Property pLastVisit As Date
+            Get
+                Dim reader As IDataReader = runQuery("SELECT bookTime as 'last_visit' FROM patient_booking WHERE arrived=1 AND pID=" & p_pID & " ORDER BY bookTime DESC Limit 1")
+                If reader.Read Then
+                    Return reader.GetDateTime(0)
+                End If
+                Return Nothing
+            End Get
+        End Property
+
+        ReadOnly Property pVisitCount As Integer
+            Get
+                Dim reader As IDataReader = runQuery("SELECT count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & p_pID)
+                Return reader.GetInt32(0)
             End Get
         End Property
     End Structure

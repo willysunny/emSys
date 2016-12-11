@@ -146,7 +146,7 @@ Public Class frmUserReport
 
     Private Sub loadHistory()
         With historyBox
-            .DataSource = returnData(Me, "SELECT bID, bookTime FROM patient_booking WHERE pID=" & userInfo.resultInfo.pID)
+            .DataSource = returnData(Me, "SELECT bID, bookTime FROM patient_booking WHERE pID=" & userInfo.resultInfo.pID & " ORDER BY bookTime DESC")
             .ValueMember = "bID"
             .DisplayMember = "bookTime"
         End With
@@ -250,8 +250,13 @@ Public Class frmUserReport
                 If userInfo.resultInfo.pSex = 0 Then oDoc.Bookmarks.Item("pSex").Range.Text = "女" Else oDoc.Bookmarks.Item("pSex").Range.Text = "男"
                 oDoc.Bookmarks.Item("pBDay").Range.Text = userInfo.resultInfo.pcDOB
                 oDoc.Bookmarks.Item("pAge").Range.Text = Year(Now) - userInfo.resultInfo.pAge
-                'oDoc.Bookmarks.Item("pCreatedDate").Range.Text = userInfo.resultInfo.pCreatedDate
-                'oDoc.Bookmarks.Item("pLastVisit").Range.Text = userInfo.resultInfo.pLastVisit
+                oDoc.Bookmarks.Item("pCreatedDate").Range.Text = userInfo.resultInfo.pCreatedDate
+                oDoc.Bookmarks.Item("pLastVisit").Range.Text = userInfo.resultInfo.pLastVisit
+                oDoc.Bookmarks.Item("pTimes").Range.Text = userInfo.resultInfo.pVisitCount
+                Dim reader As IDataReader = runQuery("SELECT doctor.docName FROM patient_booking INNER JOIN doctor ON patient_booking.docID = doctor.docID WHERE bID=" & historyBox.SelectedValue)
+                If reader.Read() Then
+                    oDoc.Bookmarks.Item("pDocName").Range.Text = reader.GetString(0)
+                End If
 
                 Dim colorIndex As Integer = 0
                 ' 本次測量點
@@ -519,7 +524,6 @@ Public Class frmUserReport
             Console.WriteLine(ex.Message)
         End Try
     End Sub
-
     '結束列印重製頁數
     Private Sub PrintDoc_EndPrint(sender As Object, e As Printing.PrintEventArgs) Handles printDoc.EndPrint
         printPage = 0
@@ -919,7 +923,7 @@ Public Class frmUserReport
                 printLineColor(right_pos, New Point(xPos + rectWidth / 20 * 19, yPos + rightUp - shiftY),
                                          New Point(xPos + rectWidth / 20 * 19, yPos + rightDown - shiftY), e, outlinePath, rectWidth / 20, True)
 
-                ' 四ㄋㄈ角
+                ' 四角
                 Dim topLeft As New Point(xPos + upLeft - shiftX, yPos + leftUp - shiftY)
                 Dim topRight As New Point(xPos + upRight - shiftX, yPos + rightUp - shiftY)
                 Dim botLeft As New Point(xPos + downLeft - shiftX, yPos + leftDown - shiftY)

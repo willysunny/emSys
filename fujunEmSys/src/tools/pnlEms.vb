@@ -111,7 +111,6 @@ Public Class pnlEms
     Private patientInfo As pInfo
 
 #End Region
-
 #Region "初始"
     Public Sub New(ByVal owner As Form)
         MyBase.New(owner)
@@ -381,7 +380,6 @@ Public Class pnlEms
         emsTimer.Enabled = True
     End Sub
 #End Region
-
 #Region "載入病患資料"
     ' 
     Private Sub waitingList_Click(sender As Object, e As EventArgs) Handles waitingList.Click
@@ -396,15 +394,10 @@ Public Class pnlEms
     Private Sub loadPatientData(ByVal pID As Integer)
         patientInfo = New pInfo
         patientInfo.initiate(pID)
-        Dim reader As IDataReader = runQuery("SELECT bookTime as 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
-        While reader.Read
-            If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime("last_visit") Else pPrevVisit.Text = ""
-            pVisitTimes.Text = reader.Item(1)
-        End While
+        pPrevVisit.Text = patientInfo.pLastVisit
+        pVisitTimes.Text = patientInfo.pVisitCount
     End Sub
 #End Region
-
-
 #Region "繪圖"
     ' 切換分頁
     Private Sub graphTab_TabIndexChanged(sender As Object, e As EventArgs) Handles graphTab.TabIndexChanged
@@ -680,7 +673,6 @@ Public Class pnlEms
         redPen.Dispose()
     End Sub
 #End Region
-
 #Region "元氣計算"
     ' 距離計算
     Private Function getSide(ByVal pt1 As Point, ByVal pt2 As Point) As Double
@@ -755,7 +747,6 @@ Public Class pnlEms
         End If
     End Function
 #End Region
-
 #Region "頻譜測量"
     Private Sub emsTimer_Tick(sender As Object, e As EventArgs) Handles emsTimer.Tick
         Dim dValue As Double
