@@ -162,9 +162,9 @@ Public Class frmUserReport
         End If
     End Function
     ' 取高
-    Private Function getMax(ByVal hid As Integer, ByVal iCode As Integer) As Integer
+    Private Function getMax(ByVal bID As Integer, ByVal iCode As Integer) As Integer
         Dim max As Integer
-        Dim queryStr As String = "SELECT max(`ivalue`) as `max_val` FROM ems WHERE `hid`='" & hid & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` LIMIT 50"
+        Dim queryStr As String = "SELECT max(`ivalue`) as `max_val` FROM ems WHERE `bID`='" & bID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` LIMIT 50"
         Dim reader As IDataReader = runQuery(queryStr)
         Try
 
@@ -183,9 +183,9 @@ Public Class frmUserReport
         Return max
     End Function
     ' 取低
-    Private Function getLow(ByVal hid As Integer, ByVal iCode As Integer) As Integer
+    Private Function getLow(ByVal bID As Integer, ByVal iCode As Integer) As Integer
         Dim low As Integer
-        Dim queryStr As String = "SELECT `iPlotCount`, `iValue` FROM ems WHERE `hid`='" & historyBox.SelectedValue & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC Limit 1"
+        Dim queryStr As String = "SELECT `iPlotCount`, `iValue` FROM ems WHERE `bID`='" & bID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC Limit 1"
         Dim reader As IDataReader = runQuery(queryStr)
         Try
             If Not reader.Read Then
@@ -511,6 +511,7 @@ Public Class frmUserReport
         printDoc.DocumentName = "報表"
 
         Try
+            printPreviewDlg.Document = printDoc
             printDlg.Document = printDoc
             printPreviewDlg.ShowDialog()
             If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
@@ -697,8 +698,8 @@ Public Class frmUserReport
 
                 Dim normalvalue As Integer = (upperWarning + lowerWarning) / 2
                 ' 繪製標準線
-                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * normalValue / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * normalValue / 100))
-                outlinePath.AddString(normalValue.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * normalValue / 100)), stringFormat)
+                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * normalvalue / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * normalvalue / 100))
+                outlinePath.AddString(normalvalue.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * normalvalue / 100)), stringFormat)
                 e.Graphics.DrawPath(Pens.Green, outlinePath)
                 outlinePath.Reset()
 
