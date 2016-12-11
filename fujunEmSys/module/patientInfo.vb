@@ -198,7 +198,7 @@
             Get
                 Dim reader As IDataReader = runQuery("SELECT count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & p_pID)
                 reader.Read()
-                Return reader.GetInt32(0)
+                Return reader.GetInt64(0)
             End Get
         End Property
     End Structure

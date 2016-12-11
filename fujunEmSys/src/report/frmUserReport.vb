@@ -249,7 +249,7 @@ Public Class frmUserReport
                 oDoc.Bookmarks.Item("pName").Range.Text = userInfo.resultInfo.pName
                 If userInfo.resultInfo.pSex = 0 Then oDoc.Bookmarks.Item("pSex").Range.Text = "女" Else oDoc.Bookmarks.Item("pSex").Range.Text = "男"
                 oDoc.Bookmarks.Item("pBDay").Range.Text = userInfo.resultInfo.pcDOB
-                oDoc.Bookmarks.Item("pAge").Range.Text = Year(Now) - userInfo.resultInfo.pAge
+                oDoc.Bookmarks.Item("pAge").Range.Text = userInfo.resultInfo.pAge
                 oDoc.Bookmarks.Item("pCreatedDate").Range.Text = userInfo.resultInfo.pCreatedDate
                 oDoc.Bookmarks.Item("pLastVisit").Range.Text = userInfo.resultInfo.pLastVisit
                 oDoc.Bookmarks.Item("pTimes").Range.Text = userInfo.resultInfo.pVisitCount
@@ -281,33 +281,33 @@ Public Class frmUserReport
                         ElseIf point.Key = 225260 Then
                         Else
                             setResult(oDoc, parseResult(getMax(historyBox.SelectedValue, point.Key)), point, "C" & bookmark, My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                            If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, parseResult(getMax(CType(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key)), point, "C" & bookmark, My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                            If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, parseResult(getMax(CType(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key)), point, "P" & bookmark, My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                         End If
 
                     Else
                         Dim maxValue As String
                         maxValue = parseResult(getMax(historyBox.SelectedValue, point.Key))
                         Dim pMaxValue As String = ""
-                        If Not historyBox.SelectedIndex < historyBox.Items.Count Then pMaxValue = parseResult(getMax(CType(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key))
+                        If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then pMaxValue = parseResult(getMax(CType(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key))
                         Select Case point.Key
                             Case 12
                                 setResult(oDoc, maxValue, point, "CE1", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                                If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, pMaxValue, point, "PE1", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                                If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, pMaxValue, point, "PE1", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                             Case 3
                                 setResult(oDoc, maxValue, point, "CE2", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                                If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, pMaxValue, point, "PE2", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                                If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, pMaxValue, point, "PE2", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                             Case 10
                                 setResult(oDoc, maxValue, point, "CE3", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                                If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, pMaxValue, point, "PE3", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                                If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, pMaxValue, point, "PE3", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                             Case 5
                                 setResult(oDoc, maxValue, point, "CE4", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                                If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, pMaxValue, point, "PE4", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                                If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, pMaxValue, point, "PE4", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                             Case 9
                                 setResult(oDoc, maxValue, point, "CE5", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                                If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, pMaxValue, point, "PE5", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                                If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, pMaxValue, point, "PE5", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                             Case 6
                                 setResult(oDoc, maxValue, point, "CE6", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                                If Not historyBox.SelectedIndex < historyBox.Items.Count Then setResult(oDoc, pMaxValue, point, "PE6", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                                If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, pMaxValue, point, "PE6", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                         End Select
                     End If
                 Next
