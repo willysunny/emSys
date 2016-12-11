@@ -14,8 +14,6 @@
     Private p_pRemarks As String = ""
     Private p_initiated As Boolean = False
     Private p_isNull As Boolean = True
-    Private p_hID As String = ""
-    Private p_phID As String = ""
     Private p_doc As String = ""
 
     Public Structure pInfo
@@ -76,9 +74,9 @@
         ReadOnly Property isNew As Boolean
             Get
                 If p_initiated Then
-                    Dim reader As IDataReader = runQuery("select p.pID as 'ID', count(mh.hID) as 'times' from patient as p LEFT join medhistory as mh on p.pid = mh.pid where p.pid = '" & p_pID & "';")
+                    Dim reader As IDataReader = runQuery("SELECT count(bID) FROM patient_booking WHERE arrived=1 AND pID=" & p_pID)
                     reader.Read()
-                    If reader.GetInt64(1) = 0 Then Return True Else Return False
+                    If reader.GetInt64(0) = 0 Then Return True Else Return False
                 Else
                     Return True
                 End If
@@ -201,100 +199,5 @@
                 Return reader.GetInt64(0)
             End Get
         End Property
-    End Structure
-
-    Public Structure pHistory
-        Private pIsSet As Boolean
-
-        ReadOnly Property initiated As Boolean
-            Get
-                If p_hID = "" Then Return False Else Return True
-            End Get
-        End Property
-        ReadOnly Property isSet As Boolean
-            Get
-                Return pIsSet
-            End Get
-        End Property
-
-        Public Sub initiate()
-            p_phID = ""
-            p_hID = ""
-            pIsSet = False
-        End Sub
-
-        Public Sub initiate(ByVal recTime As DateTime, ByVal docName As String)
-            Dim reader As IDataReader = runQuery("SELECT * FROM medHistory WHERE visitTime<='" & recTime.ToString("yyyy-MM-dd HH:mm:ss") & "' AND pID='" & mainForm.patientInfo.pID & "' ORDER BY visitTime DESC")
-            If reader.Read Then
-                If reader.GetDateTime(2) = recTime Then
-                    p_hID = reader.GetInt32(0)
-                    If reader.Read Then
-                        p_phID = reader.GetInt32(0)
-                    Else
-                        p_phID = ""
-                    End If
-                Else
-                    runQuery("INSERT INTO medHistory(pID,visitTime,docName) VALUES('" & mainForm.patientInfo.pID & "', '" & recTime.ToString("yyyy-MM-dd HH:mm:ss") & "', '" & docName & "')")
-                    Dim result As IDataReader = runQuery("SELECT * FROM medHistory WHERE visitTime<='" & recTime.ToString("yyyy-MM-dd HH:mm:ss") & "' AND pID='" & mainForm.patientInfo.pID & "' ORDER BY visitTime DESC")
-                    result.Read()
-                    p_hID = result.GetInt32(0)
-                    p_doc = result.GetString(3)
-                    p_phID = reader.GetInt32(0)
-                End If
-            Else
-                runQuery("INSERT INTO medHistory(pID,visitTime,docName) VALUES('" & mainForm.patientInfo.pID & "', '" & recTime.ToString("yyyy-MM-dd HH:mm:ss") & "', '" & docName & "')")
-                Dim result As IDataReader = runQuery("SELECT * FROM medHistory WHERE visitTime<='" & recTime.ToString("yyyy-MM-dd HH:mm:ss") & "' AND pID='" & mainForm.patientInfo.pID & "' ORDER BY visitTime DESC")
-                result.Read()
-                p_hID = result.GetInt32(0)
-                p_doc = result.GetString(3)
-                p_phID = ""
-            End If
-            pIsSet = True
-        End Sub
-
-        ReadOnly Property prevIsNull As Boolean
-            Get
-                If p_phID = "" Then Return True Else Return False
-            End Get
-        End Property
-        Property hID As String
-            Get
-                Return p_hID
-            End Get
-            Set(value As String)
-                p_hID = value
-            End Set
-        End Property
-        Property phID As String
-            Get
-                Return p_phID
-            End Get
-            Set(value As String)
-                p_phID = value
-            End Set
-        End Property
-        ReadOnly Property docName As String
-            Get
-                If pIsSet Then
-                    Dim reader As IDataReader = runQuery("SELECT * FROM medHistory WHERE hID='" & p_hID & "'")
-                    reader.Read()
-                    Return reader.GetString(3)
-                Else
-                    Return "-未設定紀錄-"
-                End If
-            End Get
-        End Property
-        ReadOnly Property visitTime As Date
-            Get
-                If pIsSet Then
-                    Dim reader As IDataReader = runQuery("SELECT * FROM medHistory WHERE hID='" & p_hID & "'")
-                    reader.Read()
-                    Return reader.GetDateTime(2)
-                Else
-                    Return Nothing
-                End If
-            End Get
-        End Property
-
     End Structure
 End Module

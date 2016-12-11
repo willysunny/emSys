@@ -2,7 +2,6 @@
     Inherits MetroFramework.Forms.MetroForm
 
     Public patientInfo As New pInfo
-    Public patientHistory As New pHistory
     Public offlineMode As Boolean = False
 
     Dim login As pnlLogin = Nothing

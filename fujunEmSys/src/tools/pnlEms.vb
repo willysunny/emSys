@@ -132,14 +132,14 @@ Public Class pnlEms
                 diagTab.TabPages.Remove(tabMed)
                 patientTab.TabPages.Remove(tabBooking)
             Else
-                Dim sql As String = "SELECT pb.pID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
+                Dim sql As String = "SELECT pb.bID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
                             WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
                             ORDER BY pb.bookTime"
                 With waitingList
                     .DataSource = returnData(mainForm, sql)
-                    .ValueMember = "pID"
+                    .ValueMember = "bID"
                     .DisplayMember = "patientName"
                 End With
                 tabBooking.Focus()
@@ -391,12 +391,17 @@ Public Class pnlEms
             pAge.Text = patientInfo.pAge
         End If
     End Sub
-    Private Sub loadPatientData(ByVal pID As Integer)
+    Private Sub loadPatientData(ByVal bID As Integer)
         patientInfo = New pInfo
-        patientInfo.initiate(pID)
+        patientInfo.initiate(bID2pID(bID))
         pPrevVisit.Text = patientInfo.pLastVisit
         pVisitTimes.Text = patientInfo.pVisitCount
     End Sub
+    Private Function bID2pID(ByVal bID As Integer) As Integer
+        Dim reader As IDataReader = runQuery("SELECT pID FROM patient_booking where bID=" & bID & " LIMIT 1")
+        reader.Read()
+        Return reader.GetInt32(0)
+    End Function
 #End Region
 #Region "繪圖"
     ' 切換分頁
@@ -474,12 +479,12 @@ Public Class pnlEms
 
             If Not mainForm.offlineMode Then
                 ' 四邊
-                top_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 12), True)
-                bot_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 3), True)
-                left_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 10), True)
-                right_pos.Text = parseResult(getMax(mainForm.patientHistory.hID, 5), True)
-                diagLeft.Text = parseResult(getMax(mainForm.patientHistory.hID, 9), True)
-                diagRight.Text = parseResult(getMax(mainForm.patientHistory.hID, 6), True)
+                top_pos.Text = parseResult(getMax(historyBox.selectedValue, 12), True)
+                bot_pos.Text = parseResult(getMax(historyBox.selectedValue, 3), True)
+                left_pos.Text = parseResult(getMax(historyBox.selectedValue, 10), True)
+                right_pos.Text = parseResult(getMax(historyBox.selectedValue, 5), True)
+                diagLeft.Text = parseResult(getMax(historyBox.selectedValue, 9), True)
+                diagRight.Text = parseResult(getMax(historyBox.selectedValue, 6), True)
             End If
 
             If top_pos.Text = "" Or bot_pos.Text = "" Or left_pos.Text = "" Or right_pos.Text = "" Or diagLeft.Text = "" Or diagRight.Text = "" Then
@@ -625,7 +630,7 @@ Public Class pnlEms
     End Sub
     ' 轉算時間
     Private Function getTime(ByVal tick As Integer) As String
-        Dim result As Double = CDbl(tick) / (41/3)
+        Dim result As Double = CDbl(tick) / (41 / 3)
         Return FormatNumber(Math.Round(result, 1), 1)
     End Function
     ' 繪製彩線
@@ -684,9 +689,9 @@ Public Class pnlEms
         Return Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC))
     End Function
     ' 取最大值
-    Private Function getMax(ByVal hid As Integer, ByVal iCode As Integer) As Integer
+    Private Function getMax(ByVal bID As Integer, ByVal iCode As Integer) As Integer
         Dim max As Integer
-        Dim queryStr As String = "SELECT max(`ivalue`) as `max_val` FROM ems WHERE `hid`='" & hid & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` LIMIT 50"
+        Dim queryStr As String = "SELECT max(`ivalue`) as `max_val` FROM ems WHERE `bID`='" & bID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` LIMIT 50"
         Dim reader As IDataReader = runQuery(queryStr)
         Try
 
@@ -705,9 +710,9 @@ Public Class pnlEms
         Return max
     End Function
     ' 取最低值
-    Private Function getLow(ByVal hid As Integer, ByVal iCode As Integer) As Integer
+    Private Function getLow(ByVal bID As Integer, ByVal iCode As Integer) As Integer
         Dim low As Integer
-        Dim queryStr As String = "SELECT `iPlotCount`, `iValue` FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC Limit 1"
+        Dim queryStr As String = "SELECT `iPlotCount`, `iValue` FROM ems WHERE `bID`='" & bID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC Limit 1"
         Dim reader As IDataReader = runQuery(queryStr)
         Try
             If Not reader.Read Then
@@ -716,7 +721,7 @@ Public Class pnlEms
             Else
                 If reader.GetInt32(0) > 50 Then
                     reader.Close()
-                    queryStr = "SELECT * FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC"
+                    queryStr = "SELECT * FROM ems WHERE `bID`='" & bID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC"
                     reader = runQuery(queryStr)
                     While reader.Read()
                         If reader.GetInt32(0) = 50 Then
@@ -1055,7 +1060,7 @@ Public Class pnlEms
         'ptCounter = ptCounter + 1
         ptCounter = iPlotCount
         idx1 = (idx1 + 1) Mod (XMAX + 1)
-        sqlStr = sqlStr & "(' " & mainForm.patientHistory.hID & "','" & iCode & "','" & ptCounter & "','" & dValue & "'),"
+        sqlStr = sqlStr & "(' " & waitingList.SelectedValue & "','" & iCode & "','" & ptCounter & "','" & dValue & "'),"
         pb.Invalidate()
         Refresh()
         If iPlotCount > XMAX Then
@@ -1065,20 +1070,19 @@ Public Class pnlEms
     End Sub
     ' 儲存至SQL
     Private Sub SaveRecord()
-
-
         ' 檢查重複資訊
         Try
-            Dim reader As IDataReader = runQuery("SELECT count(`icode`) FROM ems WHERE `hid`='" & mainForm.patientHistory.hID & "' AND `iCode`='" & iCode & "'")
+            Dim reader As IDataReader = runQuery("SELECT count(`icode`) FROM ems WHERE `bID`='" & waitingList.SelectedValue & "' AND `iCode`='" & iCode & "'")
             reader.Read()
             If Not reader.GetInt64(0) = 0 Then
                 reader.Close()
-                runQuery("DELETE FROM `ems` WHERE `hid`='" & mainForm.patientHistory.hID & "' and `iCode`='" & iCode & "'")
-                runQuery("INSERT INTO ems(hID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
+                runQuery("DELETE FROM `ems` WHERE `bID`='" & waitingList.SelectedValue & "' and `iCode`='" & iCode & "'")
+                runQuery("INSERT INTO ems(bID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
             Else
                 reader.Close()
-                runQuery("INSERT INTO ems(hID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
+                runQuery("INSERT INTO ems(bID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
             End If
+            runQuery("UPDATE patient_booking SET arrived=1 WHERE bID=" & waitingList.SelectedValue)
         Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
         End Try

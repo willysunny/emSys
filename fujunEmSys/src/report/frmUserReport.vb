@@ -194,7 +194,7 @@ Public Class frmUserReport
             Else
                 If reader.GetInt32(0) > 50 Then
                     reader.Close()
-                    queryStr = "SELECT * FROM ems WHERE `hid`='" & historyBox.SelectedValue & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC"
+                    queryStr = "SELECT * FROM ems WHERE `bID`='" & bID & "' and `iCode`='" & iCode & "' ORDER BY `iPlotCount` DESC"
                     reader = runQuery(queryStr)
                     While reader.Read()
                         If reader.GetInt32(0) = 50 Then
