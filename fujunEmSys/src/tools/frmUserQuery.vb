@@ -34,7 +34,7 @@
         Me.Close()
     End Sub
     ' 選取
-    Private Sub selectButton_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
+    Private Sub selectButton_Click(sender As Object, e As EventArgs) Handles selectButton.Click
         If sqlGrid.SelectedRows.Count = 0 Then
             MetroFramework.MetroMessageBox.Show(Me, "請先選擇病人。", "注意", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
@@ -47,5 +47,11 @@
         resultInfo.initiate(sqlGrid.SelectedRows(0).Cells("病歷號碼").Value)
         RaiseEvent patientSelected(Me, New EventArgs())
         Me.Close()
+    End Sub
+    ' 按下Enter = 搜尋
+    Private Sub searchBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles searchBox.KeyPress
+        If e.KeyChar = Chr(Keys.Enter) Then
+            searchButton_Click(Me, New EventArgs)
+        End If
     End Sub
 End Class

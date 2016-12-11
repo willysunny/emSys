@@ -28,7 +28,7 @@ Partial Class frmUserQuery
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.searchButton = New MetroFramework.Controls.MetroButton()
         Me.searchBox = New MetroFramework.Controls.MetroTextBox()
-        Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
+        Me.selectButton = New MetroFramework.Controls.MetroButton()
         Me.cancelButton = New MetroFramework.Controls.MetroButton()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.sqlGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,7 +42,7 @@ Partial Class frmUserQuery
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.sqlGrid, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.MetroPanel1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroButton1, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.selectButton, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.cancelButton, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(20, 60)
@@ -146,16 +146,16 @@ Partial Class frmUserQuery
         Me.searchBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.searchBox.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.0!, System.Drawing.FontStyle.Italic)
         '
-        'MetroButton1
+        'selectButton
         '
-        Me.MetroButton1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.MetroButton1.Location = New System.Drawing.Point(255, 479)
-        Me.MetroButton1.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.MetroButton1.Name = "MetroButton1"
-        Me.MetroButton1.Size = New System.Drawing.Size(75, 23)
-        Me.MetroButton1.TabIndex = 4
-        Me.MetroButton1.Text = "選擇"
-        Me.MetroButton1.UseSelectable = True
+        Me.selectButton.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.selectButton.Location = New System.Drawing.Point(255, 479)
+        Me.selectButton.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
+        Me.selectButton.Name = "selectButton"
+        Me.selectButton.Size = New System.Drawing.Size(75, 23)
+        Me.selectButton.TabIndex = 4
+        Me.selectButton.Text = "選擇"
+        Me.selectButton.UseSelectable = True
         '
         'cancelButton
         '
@@ -189,7 +189,7 @@ Partial Class frmUserQuery
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents searchButton As MetroFramework.Controls.MetroButton
     Friend WithEvents searchBox As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
+    Friend WithEvents selectButton As MetroFramework.Controls.MetroButton
     Friend WithEvents cancelButton As MetroFramework.Controls.MetroButton
     Friend WithEvents sqlGrid As DataGridView
 End Class
