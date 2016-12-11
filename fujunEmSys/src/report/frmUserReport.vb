@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frmUserReport
     Private userInfo As frmUserQuery = Nothing
     Private pt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
+    Private printPage As Integer = 0
 
     Public Sub New()
 
@@ -230,6 +231,7 @@ Public Class frmUserReport
     End Sub
 #End Region
 
+#Region "頻譜列印"
     Private Sub printGraph_Click(sender As Object, e As EventArgs) Handles printGraph.Click
         If Not historyBox.SelectedIndex = -1 Then
 
@@ -501,5 +503,335 @@ Public Class frmUserReport
             End Try
         End If
     End Sub
+#End Region
+
+#Region "元氣列印"
+    Private Sub printEnergy_Click(sender As Object, e As EventArgs) Handles printEnergy.Click
+        printDoc.OriginAtMargins = False
+        printDoc.DocumentName = "報表"
+
+        Try
+            printDlg.Document = printDoc
+            printPreviewDlg.ShowDialog()
+            If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
+    End Sub
+
+    '結束列印重製頁數
+    Private Sub PrintDoc_EndPrint(sender As Object, e As Printing.PrintEventArgs) Handles printDoc.EndPrint
+        printPage = 0
+    End Sub
+    ' 列印報表
+    Private Sub PrintDoc_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles printDoc.PrintPage
+        If printPage = 3 Then printPage = 0
+
+        ' 文字設定
+        Dim outlinePath As New Drawing2D.GraphicsPath
+        Dim useFont As Font = New Font("標楷體", 20, FontStyle.Regular)
+        Dim fontsize As Integer
+        Dim stringFormat As New StringFormat()
+        stringFormat.FormatFlags = StringFormatFlags.NoClip
+
+        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+        ' 取得Bar Chart數值
+        Const size As Integer = 16
+        Static hand(size) As Integer
+        Static handName(size) As String
+        Static foot(size) As Integer
+        Static footName(size) As String
+        Dim hCounter As Integer = 1
+        Dim fCounter As Integer = 1
+
+        Select Case printPage
+            Case 0 ' 第一頁
+                ' 與伺服器連線
+                '標題設定
+                fontsize = 18
+                stringFormat.Alignment = StringAlignment.Far
+
+                Dim resultData As DataTable = returnData(Me, "SELECT icode FROM ems WHERE bID='" & historyBox.SelectedValue & "' group by icode")
+                For Each row As DataRow In resultData.Rows
+                    If row.Item("icode") > 1000 Then
+                        Dim LR As Boolean = CBool(CInt(Mid(row.Item("icode").ToString(), 1, 1)) = 1)
+                        Dim HF As Integer = CInt(Mid(row.Item("icode").ToString(), 2, 1))
+                        If HF = 1 Then
+                            ' 手
+                            If Not hand.Contains(CInt(Mid(row.Item("icode").ToString(), 3))) And hCounter <= size Then
+                                hand(hCounter) = CInt(Mid(row.Item("icode").ToString(), 3))
+                                handName(hCounter) = pt(row.Item("icode"))
+                                '' 繪製文字
+                                'outlinePath.AddString(pt(row.item("icode")), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(170, 335 + (hCounter - 1) * 55), stringFormat)
+                                'e.Graphics.FillPath(Brushes.Black, outlinePath)
+                                'e.Graphics.DrawPath(Pens.Black, outlinePath)
+                                'outlinePath.Reset()
+                                hCounter += 1
+                            End If
+                            'For i = 1 To size
+                            '    If hand(i) = CInt(Mid(row.item("icode").tostring(), 3)) Then
+                            '        printBar(e, outlinePath, 170, i, row.item("icode"), LR)
+                            '        Exit For
+                            '    End If
+                            'Next i
+                        ElseIf HF = 2 Then
+                            ' 腳
+                            If Not foot.Contains(CInt(Mid(row.Item("icode").ToString(), 3))) And fCounter <= size Then
+                                foot(fCounter) = CInt(Mid(row.Item("icode").ToString(), 3))
+                                footName(fCounter) = pt(row.Item("icode"))
+                                fCounter += 1
+                            End If
+                        End If
+                    End If
+                Next
+
+                For i = 1 To size
+                    If Not hand(i) = 0 Then
+                        printBar(e, outlinePath, 50, i - 1, CInt("11" & hand(i)), True)
+                        printBar(e, outlinePath, 50, i - 1, CInt("21" & hand(i)), False)
+                    End If
+                Next i
+
+                drawOutline(e, outlinePath, "頻譜檢驗數據圖 - 手部")
+
+            Case 1 ' 第二頁
+
+                For i = 1 To size
+                    If Not foot(i) = 0 Then
+                        printBar(e, outlinePath, 50, i - 1, CInt("12" & foot(i)), True)
+                        printBar(e, outlinePath, 50, i - 1, CInt("22" & foot(i)), False)
+                    End If
+                Next i
+
+                drawOutline(e, outlinePath, "頻譜檢驗數據圖 - 足部")
+
+            Case 2 ' 第三頁
+
+                ' 繪製元氣值
+                printBar(e, outlinePath, 50, size / 2 + 1, 12, True)
+                printBar(e, outlinePath, 50, size / 2 + 2, 3, True)
+                printBar(e, outlinePath, 50, size / 2 + 3, 10, True)
+                printBar(e, outlinePath, 50, size / 2 + 4, 5, True)
+                printBar(e, outlinePath, 50, size / 2 + 5, 9, True)
+                printBar(e, outlinePath, 50, size / 2 + 6, 6, True)
+                printBar(e, outlinePath, 50, size / 2 + 1, 12, False)
+                printBar(e, outlinePath, 50, size / 2 + 2, 3, False)
+                printBar(e, outlinePath, 50, size / 2 + 3, 10, False)
+                printBar(e, outlinePath, 50, size / 2 + 4, 5, False)
+                printBar(e, outlinePath, 50, size / 2 + 5, 9, False)
+                printBar(e, outlinePath, 50, size / 2 + 6, 6, False)
+
+                printEnergy(e, outlinePath)
+
+                drawOutline(e, outlinePath, "元氣檢驗數據圖", True)
+
+        End Select
+
+        '' 基本框線
+        'outlinePath.AddRectangle(New Rectangle(170, 90, 238, 160))
+        'outlinePath.AddRectangle(New Rectangle(540, 90, 238, 160))
+        'outlinePath.AddRectangle(New Rectangle(170, 310, 238, 780))
+        'outlinePath.AddRectangle(New Rectangle(540, 310, 238, 780))
+
+        '' 繪製基本框線
+        'e.Graphics.DrawPath(Pens.Black, outlinePath)
+        'outlinePath.Reset()
+
+        useFont.Dispose()
+
+        'e.Graphics.FillPath(Brushes.LightGray, outlinePath)
+        'e.Graphics.TranslateTransform(-1, -1)
+        'e.Graphics.TranslateTransform(1, 1)
+        outlinePath.Dispose()
+        printPage += 1
+        If printPage < 3 Then e.HasMorePages = True Else e.HasMorePages = False
+    End Sub
+
+    ' 列印外框
+    Private Sub drawOutline(ByRef e As Printing.PrintPageEventArgs, ByRef outlinePath As Drawing2D.GraphicsPath, ByVal title As String, Optional alt As Boolean = False)
+        Dim useFont As Font = New Font("標楷體", 20, FontStyle.Regular)
+        Dim stringFormat As New StringFormat()
+        stringFormat.FormatFlags = StringFormatFlags.NoClip
+        stringFormat.Alignment = StringAlignment.Near
+        stringFormat.LineAlignment = StringAlignment.Near
+
+        '標題
+        Dim fontsize As Integer = 24
+        stringFormat.Alignment = StringAlignment.Near
+        outlinePath.AddString(title, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(50, 50), stringFormat)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        outlinePath.Reset()
+
+        Dim height As Integer = (printDoc.DefaultPageSettings.Bounds.Height - 150) / 2  ' 完整高度
+        Dim textHeight As Integer = height / 4                                          ' 文字高度
+        Dim barHeight As Integer = height - textHeight                                  ' 圖表高度
+
+        Dim upperDanger, upperWarning, lowerWarning, lowerDanger As Integer
+
+        With My.Settings
+            upperDanger = .emsUpperDanger
+            upperWarning = .emsUpperWarning
+            lowerWarning = .emsLowerWarning
+            lowerDanger = .emsLowerDanger
+            If alt Then
+                upperDanger = .engUpperDanger
+                upperWarning = .engUpperWarning
+                lowerWarning = .engLowerWarning
+                lowerDanger = .engLowerDanger
+            End If
+        End With
+
+        For i = 0 To 1
+            If alt And i = 0 Then
+                ' 基本框線
+                outlinePath.AddRectangle(New Rectangle(50, 100, printDoc.DefaultPageSettings.Bounds.Width - 100, height - 20))
+                e.Graphics.DrawPath(Pens.Black, outlinePath)
+                outlinePath.Reset()
+            Else
+                stringFormat.Alignment = StringAlignment.Far
+                stringFormat.LineAlignment = StringAlignment.Center
+
+                fontsize = 12
+
+                Dim normalvalue As Integer = (upperWarning + lowerWarning) / 2
+                ' 繪製標準線
+                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * normalValue / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * normalValue / 100))
+                outlinePath.AddString(normalValue.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * normalValue / 100)), stringFormat)
+                e.Graphics.DrawPath(Pens.Green, outlinePath)
+                outlinePath.Reset()
+
+                ' 繪製注意線
+                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * upperWarning / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * upperWarning / 100))
+                outlinePath.AddString(upperWarning.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * upperWarning / 100)), stringFormat)
+                e.Graphics.DrawPath(Pens.Orange, outlinePath)
+                outlinePath.Reset()
+                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * lowerWarning / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * lowerWarning / 100))
+                outlinePath.AddString(lowerWarning.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * lowerWarning / 100)), stringFormat)
+                e.Graphics.DrawPath(Pens.Orange, outlinePath)
+                outlinePath.Reset()
+
+                ' 繪製警戒線
+                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * upperDanger / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * upperDanger / 100))
+                outlinePath.AddString(upperDanger.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * upperDanger / 100)), stringFormat)
+                e.Graphics.DrawPath(Pens.Red, outlinePath)
+                outlinePath.Reset()
+                outlinePath.AddLine(50, 100 + i * height + CInt(barHeight - barHeight * lowerDanger / 100), printDoc.DefaultPageSettings.Bounds.Width - 50, 100 + i * height + CInt(barHeight - barHeight * lowerDanger / 100))
+                outlinePath.AddString(lowerDanger.ToString, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(45, 100 + i * height + CInt(barHeight - barHeight * lowerDanger / 100)), stringFormat)
+                e.Graphics.DrawPath(Pens.Red, outlinePath)
+                outlinePath.Reset()
+
+                ' 基本框線
+                outlinePath.AddRectangle(New Rectangle(50, 100 + i * height, printDoc.DefaultPageSettings.Bounds.Width - 100, barHeight))
+                e.Graphics.DrawPath(Pens.Black, outlinePath)
+                outlinePath.Reset()
+            End If
+        Next
+    End Sub
+
+    ' 列印長條圖
+    Private Sub printBar(ByRef e As Printing.PrintPageEventArgs, ByRef outlinePath As Drawing2D.GraphicsPath,
+                         ByVal xPos As Integer, ByVal index As Integer, ByVal iCode As Integer,
+                         Optional ByVal Left As Boolean = True)
+
+        ' Bar Chart處理
+
+        ' 基本變數
+        Dim barCount As Integer = 8                                                     ' 一排多少個
+        Dim width As Integer = printDoc.DefaultPageSettings.Bounds.Width - 100          ' 完整寬度
+        Dim height As Integer = (printDoc.DefaultPageSettings.Bounds.Height - 150) / 2  ' 完整高度
+        Dim textHeight As Integer = height / 4                                          ' 文字高度
+        Dim barHeight As Integer = height - textHeight                                  ' 圖表高度
+        Dim barWidth As Integer = width / barCount                                      ' 圖表寬度
+        Dim LR As Integer = 0
+
+        Dim useFont As Font = New Font("標楷體", 20, FontStyle.Regular)
+        Dim fontsize As Integer
+        Dim stringFormat As New StringFormat()
+        stringFormat.FormatFlags = StringFormatFlags.NoClip
+
+        Dim shift As Integer = 0
+
+        Dim upperDanger, upperWarning, lowerWarning, lowerDanger As Integer
+
+        With My.Settings
+            upperDanger = .emsUpperDanger
+            upperWarning = .emsUpperWarning
+            lowerWarning = .emsLowerWarning
+            lowerDanger = .emsLowerDanger
+            If iCode < 1000 Then
+                upperDanger = .engUpperDanger
+                upperWarning = .engUpperWarning
+                lowerWarning = .engLowerWarning
+                lowerDanger = .engLowerDanger
+            Else
+                LR = CInt(Mid(iCode.ToString, 1, 1)) - 1
+            End If
+        End With
+
+        ' 取得高低值
+        Dim max As Integer = getMax(historyBox.SelectedValue, iCode)
+        Dim low As Integer = getLow(historyBox.SelectedValue, iCode)
+
+        If Not max = -9999 Then
+            'outlinePath.AddRectangle(New Rectangle(xPos, shift + yPos + (index - 1) * 55, width * max / 100, 20))
+            Dim x As Integer = xPos + (index Mod barCount) * barWidth + barWidth / 6 + LR * barWidth / 3
+            Dim y As Integer = 100 + height * Math.Floor(index / barCount) + barHeight - max * barHeight / 100
+            outlinePath.AddRectangle(New Rectangle(x, y, barWidth / 3, max * barHeight / 100))
+            ' Drop
+            If max - low > 10 Then
+                e.Graphics.FillPath(Brushes.Red, outlinePath)
+            ElseIf max - low > 4 Then
+                e.Graphics.FillPath(Brushes.Orange, outlinePath)
+            Else
+                e.Graphics.FillPath(Brushes.Green, outlinePath)
+            End If
+            outlinePath.Reset()
+
+            'outlinePath.AddRectangle(New Rectangle(xPos, shift + yPos + (index - 1) * 55, width * low / 100, 20))
+            y = 100 + height * Math.Floor(index / barCount) + barHeight - low * barHeight / 100
+            outlinePath.AddRectangle(New Rectangle(x, y, barWidth / 3, low * barHeight / 100))
+            ' Result
+            If max > upperDanger Or max < lowerDanger Then
+                e.Graphics.FillPath(Brushes.DarkRed, outlinePath)
+            ElseIf max > upperWarning Or max < lowerWarning Then
+                e.Graphics.FillPath(Brushes.DarkOrange, outlinePath)
+            Else
+                e.Graphics.FillPath(Brushes.DarkGreen, outlinePath)
+            End If
+            outlinePath.Reset()
+
+            ' 繪製文字
+            Dim vertical As New Drawing2D.Matrix()
+            fontsize = 18
+            stringFormat.Alignment = StringAlignment.Near
+            'outlinePath.AddString(max & "/" & max - low, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + 238, shift + yPos + (index - 1) * 55), stringFormat)
+            outlinePath.AddString(max & "/" & max - low, useFont.FontFamily, FontStyle.Regular, fontsize, New Point(x + barWidth / 3, 100 + height * Math.Floor(index / barCount)), stringFormat)
+            vertical.RotateAt(90, New Point(x + barWidth / 3, 100 + height * Math.Floor(index / barCount)))
+            outlinePath.Transform(vertical)
+            e.Graphics.FillPath(Brushes.Black, outlinePath)
+            e.Graphics.DrawPath(Pens.Black, outlinePath)
+            outlinePath.Reset()
+            outlinePath.AddString(verText(pt(iCode)), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + (index Mod barCount) * barWidth + barWidth / 3, 100 + height * Math.Floor(index / barCount) + barHeight), stringFormat)
+            e.Graphics.FillPath(Brushes.Black, outlinePath)
+            e.Graphics.DrawPath(Pens.Black, outlinePath)
+            outlinePath.Reset()
+        End If
+        outlinePath.Reset()
+    End Sub
+
+    '垂直文字
+    Private Function verText(ByVal input As String) As String
+        verText = ""
+        For i = 0 To Len(input)
+            If Not Mid(input, i + 1, 1) = " " Then
+                verText += Mid(input, i + 1, 1) + vbNewLine
+            End If
+        Next
+        Return verText
+    End Function
+#End Region
 
 End Class

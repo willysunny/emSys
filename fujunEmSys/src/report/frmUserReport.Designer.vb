@@ -29,12 +29,12 @@ Partial Class frmUserReport
         Me.historyBox = New System.Windows.Forms.ListBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.changePatient = New MetroFramework.Controls.MetroButton()
-        Me.printGraph = New MetroFramework.Controls.MetroButton()
-        Me.printEnergy = New MetroFramework.Controls.MetroButton()
-        Me.printFee = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.pName = New MetroFramework.Controls.MetroTextBox()
+        Me.printGraph = New MetroFramework.Controls.MetroButton()
+        Me.printEnergy = New MetroFramework.Controls.MetroButton()
+        Me.printFee = New MetroFramework.Controls.MetroButton()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -95,33 +95,6 @@ Partial Class frmUserReport
         Me.changePatient.Text = "變更病患"
         Me.changePatient.UseSelectable = True
         '
-        'printGraph
-        '
-        Me.printGraph.Location = New System.Drawing.Point(427, 125)
-        Me.printGraph.Name = "printGraph"
-        Me.printGraph.Size = New System.Drawing.Size(75, 23)
-        Me.printGraph.TabIndex = 3
-        Me.printGraph.Text = "頻譜報告"
-        Me.printGraph.UseSelectable = True
-        '
-        'printEnergy
-        '
-        Me.printEnergy.Location = New System.Drawing.Point(427, 164)
-        Me.printEnergy.Name = "printEnergy"
-        Me.printEnergy.Size = New System.Drawing.Size(75, 23)
-        Me.printEnergy.TabIndex = 3
-        Me.printEnergy.Text = "元氣報告"
-        Me.printEnergy.UseSelectable = True
-        '
-        'printFee
-        '
-        Me.printFee.Location = New System.Drawing.Point(427, 207)
-        Me.printFee.Name = "printFee"
-        Me.printFee.Size = New System.Drawing.Size(75, 23)
-        Me.printFee.TabIndex = 3
-        Me.printFee.Text = "列印金額"
-        Me.printFee.UseSelectable = True
-        '
         'MetroLabel1
         '
         Me.MetroLabel1.AutoSize = True
@@ -180,6 +153,33 @@ Partial Class frmUserReport
         Me.pName.WaterMark = "未顯示"
         Me.pName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.pName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'printGraph
+        '
+        Me.printGraph.Location = New System.Drawing.Point(427, 125)
+        Me.printGraph.Name = "printGraph"
+        Me.printGraph.Size = New System.Drawing.Size(75, 23)
+        Me.printGraph.TabIndex = 3
+        Me.printGraph.Text = "頻譜報告"
+        Me.printGraph.UseSelectable = True
+        '
+        'printEnergy
+        '
+        Me.printEnergy.Location = New System.Drawing.Point(427, 164)
+        Me.printEnergy.Name = "printEnergy"
+        Me.printEnergy.Size = New System.Drawing.Size(75, 23)
+        Me.printEnergy.TabIndex = 3
+        Me.printEnergy.Text = "元氣報告"
+        Me.printEnergy.UseSelectable = True
+        '
+        'printFee
+        '
+        Me.printFee.Location = New System.Drawing.Point(427, 207)
+        Me.printFee.Name = "printFee"
+        Me.printFee.Size = New System.Drawing.Size(75, 23)
+        Me.printFee.TabIndex = 3
+        Me.printFee.Text = "列印金額"
+        Me.printFee.UseSelectable = True
         '
         'frmUserReport
         '
