@@ -83,6 +83,46 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property bookingSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bookingSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property emSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("emSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property medInfoSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("medInfoSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property medSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("medSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property okHover() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("okHover", resourceCulture)
@@ -106,6 +146,36 @@ Namespace My.Resources
         Friend ReadOnly Property pass() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("pass", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property patientSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("patientSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property perscriptionSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("perscriptionSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property reportSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("reportSys", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

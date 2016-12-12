@@ -34,19 +34,19 @@ Partial Class mainForm
         Me.aboutMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.emsLink = New MetroFramework.Controls.MetroLink()
         Me.loginButton = New MetroFramework.Controls.MetroLink()
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
         Me.testButton = New MetroFramework.Controls.MetroButton()
-        Me.paitientInfoLink = New MetroFramework.Controls.MetroLink()
-        Me.medManageLink = New MetroFramework.Controls.MetroLink()
-        Me.medInfoLink = New MetroFramework.Controls.MetroLink()
+        Me.docManageLink = New MetroFramework.Controls.MetroLink()
+        Me.reportTile = New MetroFramework.Controls.MetroTile()
+        Me.medManageTile = New MetroFramework.Controls.MetroTile()
+        Me.medInfoTile = New MetroFramework.Controls.MetroTile()
+        Me.perscriptionTile = New MetroFramework.Controls.MetroTile()
+        Me.paitientInfoTile = New MetroFramework.Controls.MetroTile()
+        Me.bookingTile = New MetroFramework.Controls.MetroTile()
+        Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
-        Me.patientBookingLink = New MetroFramework.Controls.MetroLink()
-        Me.docManageLink = New MetroFramework.Controls.MetroLink()
-        Me.perscriptionLink = New MetroFramework.Controls.MetroLink()
-        Me.reportLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -110,15 +110,6 @@ Partial Class mainForm
         Me.exitMenu.Size = New System.Drawing.Size(143, 22)
         Me.exitMenu.Text = "離開 (&X)"
         '
-        'emsLink
-        '
-        Me.emsLink.Location = New System.Drawing.Point(3, 78)
-        Me.emsLink.Name = "emsLink"
-        Me.emsLink.Size = New System.Drawing.Size(86, 28)
-        Me.emsLink.TabIndex = 2
-        Me.emsLink.Text = "頻譜系統"
-        Me.emsLink.UseSelectable = True
-        '
         'loginButton
         '
         Me.loginButton.Location = New System.Drawing.Point(1086, 78)
@@ -146,39 +137,119 @@ Partial Class mainForm
         Me.testButton.Text = "Test Button"
         Me.testButton.UseSelectable = True
         '
-        'paitientInfoLink
+        'docManageLink
         '
-        Me.paitientInfoLink.Location = New System.Drawing.Point(1086, 180)
-        Me.paitientInfoLink.Name = "paitientInfoLink"
-        Me.paitientInfoLink.Size = New System.Drawing.Size(86, 28)
-        Me.paitientInfoLink.TabIndex = 2
-        Me.paitientInfoLink.Text = "病人管理"
-        Me.paitientInfoLink.UseSelectable = True
+        Me.docManageLink.Location = New System.Drawing.Point(1086, 146)
+        Me.docManageLink.Name = "docManageLink"
+        Me.docManageLink.Size = New System.Drawing.Size(86, 28)
+        Me.docManageLink.TabIndex = 2
+        Me.docManageLink.Text = "醫師管理"
+        Me.docManageLink.UseSelectable = True
         '
-        'medManageLink
+        'reportTile
         '
-        Me.medManageLink.Location = New System.Drawing.Point(1086, 214)
-        Me.medManageLink.Name = "medManageLink"
-        Me.medManageLink.Size = New System.Drawing.Size(86, 28)
-        Me.medManageLink.TabIndex = 2
-        Me.medManageLink.Text = "藥品分類管理"
-        Me.medManageLink.UseSelectable = True
+        Me.reportTile.ActiveControl = Nothing
+        Me.reportTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.reportTile.Location = New System.Drawing.Point(653, 290)
+        Me.reportTile.Name = "reportTile"
+        Me.reportTile.Size = New System.Drawing.Size(120, 120)
+        Me.reportTile.TabIndex = 4
+        Me.reportTile.Text = "檢驗報告"
+        Me.reportTile.TileImage = CType(resources.GetObject("reportTile.TileImage"), System.Drawing.Image)
+        Me.reportTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.reportTile.UseSelectable = True
+        Me.reportTile.UseTileImage = True
         '
-        'medInfoLink
+        'medManageTile
         '
-        Me.medInfoLink.Location = New System.Drawing.Point(1086, 248)
-        Me.medInfoLink.Name = "medInfoLink"
-        Me.medInfoLink.Size = New System.Drawing.Size(86, 28)
-        Me.medInfoLink.TabIndex = 2
-        Me.medInfoLink.Text = "藥品管理"
-        Me.medInfoLink.UseSelectable = True
+        Me.medManageTile.ActiveControl = Nothing
+        Me.medManageTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.medManageTile.Location = New System.Drawing.Point(527, 416)
+        Me.medManageTile.Name = "medManageTile"
+        Me.medManageTile.Size = New System.Drawing.Size(120, 120)
+        Me.medManageTile.TabIndex = 4
+        Me.medManageTile.Text = "藥品分類管理"
+        Me.medManageTile.TileImage = CType(resources.GetObject("medManageTile.TileImage"), System.Drawing.Image)
+        Me.medManageTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.medManageTile.UseSelectable = True
+        Me.medManageTile.UseTileImage = True
+        '
+        'medInfoTile
+        '
+        Me.medInfoTile.ActiveControl = Nothing
+        Me.medInfoTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.medInfoTile.Location = New System.Drawing.Point(401, 416)
+        Me.medInfoTile.Name = "medInfoTile"
+        Me.medInfoTile.Size = New System.Drawing.Size(120, 120)
+        Me.medInfoTile.TabIndex = 4
+        Me.medInfoTile.Text = "藥品管理"
+        Me.medInfoTile.TileImage = Global.fujunEmsys.My.Resources.Resources.medInfoSys
+        Me.medInfoTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.medInfoTile.UseSelectable = True
+        Me.medInfoTile.UseTileImage = True
+        '
+        'perscriptionTile
+        '
+        Me.perscriptionTile.ActiveControl = Nothing
+        Me.perscriptionTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.perscriptionTile.Location = New System.Drawing.Point(527, 290)
+        Me.perscriptionTile.Name = "perscriptionTile"
+        Me.perscriptionTile.Size = New System.Drawing.Size(120, 120)
+        Me.perscriptionTile.TabIndex = 4
+        Me.perscriptionTile.Text = "處方籤"
+        Me.perscriptionTile.TileImage = Global.fujunEmsys.My.Resources.Resources.perscriptionSys
+        Me.perscriptionTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.perscriptionTile.UseSelectable = True
+        Me.perscriptionTile.UseTileImage = True
+        '
+        'paitientInfoTile
+        '
+        Me.paitientInfoTile.ActiveControl = Nothing
+        Me.paitientInfoTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.paitientInfoTile.Location = New System.Drawing.Point(527, 164)
+        Me.paitientInfoTile.Name = "paitientInfoTile"
+        Me.paitientInfoTile.Size = New System.Drawing.Size(120, 120)
+        Me.paitientInfoTile.TabIndex = 4
+        Me.paitientInfoTile.Text = "病人資料維護"
+        Me.paitientInfoTile.TileImage = Global.fujunEmsys.My.Resources.Resources.patientSys
+        Me.paitientInfoTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.paitientInfoTile.UseSelectable = True
+        Me.paitientInfoTile.UseTileImage = True
+        '
+        'bookingTile
+        '
+        Me.bookingTile.ActiveControl = Nothing
+        Me.bookingTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.bookingTile.Location = New System.Drawing.Point(401, 164)
+        Me.bookingTile.Name = "bookingTile"
+        Me.bookingTile.Size = New System.Drawing.Size(120, 120)
+        Me.bookingTile.TabIndex = 4
+        Me.bookingTile.Text = "掛號預約系統"
+        Me.bookingTile.TileImage = Global.fujunEmsys.My.Resources.Resources.bookingSys
+        Me.bookingTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.bookingTile.UseSelectable = True
+        Me.bookingTile.UseTileImage = True
+        '
+        'emsTile
+        '
+        Me.emsTile.ActiveControl = Nothing
+        Me.emsTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.emsTile.Location = New System.Drawing.Point(401, 290)
+        Me.emsTile.Name = "emsTile"
+        Me.emsTile.Size = New System.Drawing.Size(120, 120)
+        Me.emsTile.TabIndex = 4
+        Me.emsTile.Text = "能量頻譜"
+        Me.emsTile.TileImage = CType(resources.GetObject("emsTile.TileImage"), System.Drawing.Image)
+        Me.emsTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.emsTile.UseSelectable = True
+        Me.emsTile.UseTileImage = True
         '
         'exitLink
         '
         Me.exitLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.exitLink.Image = Global.fujunEmsys.My.Resources.Resources.shutdownHover
         Me.exitLink.ImageSize = 40
-        Me.exitLink.Location = New System.Drawing.Point(1122, 22)
+        Me.exitLink.Location = New System.Drawing.Point(1102, 22)
         Me.exitLink.Name = "exitLink"
         Me.exitLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.shutdownUp
         Me.exitLink.Size = New System.Drawing.Size(50, 50)
@@ -190,48 +261,12 @@ Partial Class mainForm
         Me.settingsLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.settingsLink.Image = Global.fujunEmsys.My.Resources.Resources.settingHover
         Me.settingsLink.ImageSize = 40
-        Me.settingsLink.Location = New System.Drawing.Point(1066, 22)
+        Me.settingsLink.Location = New System.Drawing.Point(1046, 22)
         Me.settingsLink.Name = "settingsLink"
         Me.settingsLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.settingUp
         Me.settingsLink.Size = New System.Drawing.Size(50, 50)
         Me.settingsLink.TabIndex = 0
         Me.settingsLink.UseSelectable = True
-        '
-        'patientBookingLink
-        '
-        Me.patientBookingLink.Location = New System.Drawing.Point(1086, 282)
-        Me.patientBookingLink.Name = "patientBookingLink"
-        Me.patientBookingLink.Size = New System.Drawing.Size(86, 28)
-        Me.patientBookingLink.TabIndex = 2
-        Me.patientBookingLink.Text = "掛號系統"
-        Me.patientBookingLink.UseSelectable = True
-        '
-        'docManageLink
-        '
-        Me.docManageLink.Location = New System.Drawing.Point(1086, 146)
-        Me.docManageLink.Name = "docManageLink"
-        Me.docManageLink.Size = New System.Drawing.Size(86, 28)
-        Me.docManageLink.TabIndex = 2
-        Me.docManageLink.Text = "醫師管理"
-        Me.docManageLink.UseSelectable = True
-        '
-        'perscriptionLink
-        '
-        Me.perscriptionLink.Location = New System.Drawing.Point(3, 112)
-        Me.perscriptionLink.Name = "perscriptionLink"
-        Me.perscriptionLink.Size = New System.Drawing.Size(86, 28)
-        Me.perscriptionLink.TabIndex = 2
-        Me.perscriptionLink.Text = "開藥系統"
-        Me.perscriptionLink.UseSelectable = True
-        '
-        'reportLink
-        '
-        Me.reportLink.Location = New System.Drawing.Point(3, 146)
-        Me.reportLink.Name = "reportLink"
-        Me.reportLink.Size = New System.Drawing.Size(86, 28)
-        Me.reportLink.TabIndex = 2
-        Me.reportLink.Text = "報表系統"
-        Me.reportLink.UseSelectable = True
         '
         'mainForm
         '
@@ -240,22 +275,22 @@ Partial Class mainForm
         Me.BackMaxSize = 4096
         Me.ClientSize = New System.Drawing.Size(1175, 700)
         Me.ControlBox = False
+        Me.Controls.Add(Me.reportTile)
+        Me.Controls.Add(Me.medManageTile)
+        Me.Controls.Add(Me.medInfoTile)
+        Me.Controls.Add(Me.perscriptionTile)
+        Me.Controls.Add(Me.paitientInfoTile)
+        Me.Controls.Add(Me.bookingTile)
+        Me.Controls.Add(Me.emsTile)
         Me.Controls.Add(Me.testButton)
-        Me.Controls.Add(Me.patientBookingLink)
-        Me.Controls.Add(Me.medInfoLink)
-        Me.Controls.Add(Me.medManageLink)
-        Me.Controls.Add(Me.paitientInfoLink)
         Me.Controls.Add(Me.docManageLink)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
-        Me.Controls.Add(Me.reportLink)
-        Me.Controls.Add(Me.perscriptionLink)
-        Me.Controls.Add(Me.emsLink)
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "mainForm"
-        Me.Padding = New System.Windows.Forms.Padding(0, 70, 0, 0)
+        Me.Padding = New System.Windows.Forms.Padding(20, 70, 20, 20)
         Me.Style = MetroFramework.MetroColorStyle.[Default]
         Me.Text = "福濬生物醫學系統"
         Me.Theme = MetroFramework.MetroThemeStyle.[Default]
@@ -278,15 +313,15 @@ Partial Class mainForm
     Friend WithEvents aboutMenu As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents exitMenu As ToolStripMenuItem
-    Friend WithEvents emsLink As MetroFramework.Controls.MetroLink
     Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
     Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents testButton As MetroFramework.Controls.MetroButton
-    Friend WithEvents paitientInfoLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents medInfoLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents medManageLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents patientBookingLink As MetroFramework.Controls.MetroLink
     Friend WithEvents docManageLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents perscriptionLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents reportLink As MetroFramework.Controls.MetroLink
+    Friend WithEvents emsTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents perscriptionTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents reportTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents paitientInfoTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents bookingTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents medManageTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents medInfoTile As MetroFramework.Controls.MetroTile
 End Class

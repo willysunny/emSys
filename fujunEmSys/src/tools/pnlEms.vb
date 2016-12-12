@@ -479,12 +479,12 @@ Public Class pnlEms
 
             If Not mainForm.offlineMode Then
                 ' 四邊
-                top_pos.Text = parseResult(getMax(historyBox.selectedValue, 12), True)
-                bot_pos.Text = parseResult(getMax(historyBox.selectedValue, 3), True)
-                left_pos.Text = parseResult(getMax(historyBox.selectedValue, 10), True)
-                right_pos.Text = parseResult(getMax(historyBox.selectedValue, 5), True)
-                diagLeft.Text = parseResult(getMax(historyBox.selectedValue, 9), True)
-                diagRight.Text = parseResult(getMax(historyBox.selectedValue, 6), True)
+                top_pos.Text = parseResult(getMax(waitingList.SelectedValue, 12), True)
+                bot_pos.Text = parseResult(getMax(waitingList.SelectedValue, 3), True)
+                left_pos.Text = parseResult(getMax(waitingList.SelectedValue, 10), True)
+                right_pos.Text = parseResult(getMax(waitingList.SelectedValue, 5), True)
+                diagLeft.Text = parseResult(getMax(waitingList.SelectedValue, 9), True)
+                diagRight.Text = parseResult(getMax(waitingList.SelectedValue, 6), True)
             End If
 
             If top_pos.Text = "" Or bot_pos.Text = "" Or left_pos.Text = "" Or right_pos.Text = "" Or diagLeft.Text = "" Or diagRight.Text = "" Then

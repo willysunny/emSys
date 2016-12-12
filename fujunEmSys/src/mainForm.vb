@@ -73,7 +73,7 @@
             loginMenu.Show(exitLink, 0, exitLink.Height)
         End If
     End Sub
-    Private Sub emsLink_Click(sender As Object, e As EventArgs) Handles emsLink.Click
+    Private Sub emsLink_Click(sender As Object, e As EventArgs) Handles emsTile.Click
         Try
             ems = New pnlEms(Me)
             AddHandler ems.DEVICE_ERROR, AddressOf ems_device_error
@@ -118,7 +118,7 @@
         Dim frm As New frmDocManage
         frm.ShowDialog()
     End Sub
-    Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoLink.Click
+    Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoTile.Click
         patientInfoPanel = New pnlPatientInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf paitientInfoLink_MouseUp
@@ -130,7 +130,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf paitientInfoLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub medManageLink_Click(sender As Object, e As EventArgs) Handles medManageLink.Click
+    Private Sub medManageLink_Click(sender As Object, e As EventArgs) Handles medManageTile.Click
         medManage = New pnlMedManage(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf medManage_exit
@@ -141,7 +141,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf medManage_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoLink.Click
+    Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoTile.Click
         medInfo = New pnlMedInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf medInfo_exit
@@ -152,7 +152,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf medInfo_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub patientBookingLink_Click(sender As Object, e As EventArgs) Handles patientBookingLink.Click
+    Private Sub patientBookingLink_Click(sender As Object, e As EventArgs) Handles bookingTile.Click
         pBooking = New pnlBooking(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf patientBooking_exit
@@ -163,7 +163,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf patientBooking_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionLink.Click
+    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionTile.Click, medManageTile.Click, medInfoTile.Click
         If Not offlineMode Then
             perscription = New pnlPerscription(Me)
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
@@ -176,7 +176,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf perscription_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportLink.Click
+    Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportTile.Click
         If Not offlineMode Then
             Dim frm As New frmUserReport
             frm.ShowDialog()

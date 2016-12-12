@@ -236,7 +236,7 @@ Partial Class pnlEms
         Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
-        Me.patientTab.SelectedIndex = 0
+        Me.patientTab.SelectedIndex = 1
         Me.patientTab.Size = New System.Drawing.Size(240, 673)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
