@@ -22,6 +22,7 @@ Partial Class pnlPerscription
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pnlPerscription))
         Me.medTable = New System.Windows.Forms.TableLayoutPanel()
         Me.pInfoPanel = New System.Windows.Forms.Panel()
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
@@ -40,7 +41,8 @@ Partial Class pnlPerscription
         Me.pVisitTimes = New MetroFramework.Controls.MetroTextBox()
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
         Me.tabBooking = New System.Windows.Forms.TabPage()
-        Me.MetroDateTime1 = New MetroFramework.Controls.MetroDateTime()
+        Me.refreshWaitingListButton = New MetroFramework.Controls.MetroButton()
+        Me.checkDate = New MetroFramework.Controls.MetroDateTime()
         Me.waitingList = New System.Windows.Forms.ListBox()
         Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
         Me.searchTable = New System.Windows.Forms.TableLayoutPanel()
@@ -83,7 +85,13 @@ Partial Class pnlPerscription
         Me.medDetailLabel = New MetroFramework.Controls.MetroLabel()
         Me.medDetailGrid = New System.Windows.Forms.DataGridView()
         Me.tabFull = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.fullListView = New System.Windows.Forms.DataGridView()
+        Me.historyBox = New System.Windows.Forms.ListBox()
+        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
+        Me.printMedButton = New MetroFramework.Controls.MetroButton()
+        Me.printDoc = New System.Drawing.Printing.PrintDocument()
+        Me.printPreview = New System.Windows.Forms.PrintPreviewDialog()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
@@ -102,6 +110,7 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.medDetailGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabFull.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -486,22 +495,32 @@ Partial Class pnlPerscription
         '
         'tabBooking
         '
-        Me.tabBooking.Controls.Add(Me.MetroDateTime1)
+        Me.tabBooking.Controls.Add(Me.refreshWaitingListButton)
+        Me.tabBooking.Controls.Add(Me.checkDate)
         Me.tabBooking.Controls.Add(Me.waitingList)
         Me.tabBooking.Location = New System.Drawing.Point(4, 44)
         Me.tabBooking.Name = "tabBooking"
-        Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 0)
+        Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 50)
         Me.tabBooking.Size = New System.Drawing.Size(252, 637)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
-        'MetroDateTime1
+        'refreshWaitingListButton
         '
-        Me.MetroDateTime1.Location = New System.Drawing.Point(0, 0)
-        Me.MetroDateTime1.MinimumSize = New System.Drawing.Size(0, 29)
-        Me.MetroDateTime1.Name = "MetroDateTime1"
-        Me.MetroDateTime1.Size = New System.Drawing.Size(229, 29)
-        Me.MetroDateTime1.TabIndex = 1
+        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 590)
+        Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
+        Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
+        Me.refreshWaitingListButton.TabIndex = 2
+        Me.refreshWaitingListButton.Text = "重新整理"
+        Me.refreshWaitingListButton.UseSelectable = True
+        '
+        'checkDate
+        '
+        Me.checkDate.Location = New System.Drawing.Point(0, 0)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.checkDate.Name = "checkDate"
+        Me.checkDate.Size = New System.Drawing.Size(252, 29)
+        Me.checkDate.TabIndex = 1
         '
         'waitingList
         '
@@ -511,7 +530,7 @@ Partial Class pnlPerscription
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 30)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(252, 607)
+        Me.waitingList.Size = New System.Drawing.Size(252, 557)
         Me.waitingList.TabIndex = 0
         '
         'MetroPanel2
@@ -1237,12 +1256,31 @@ Partial Class pnlPerscription
         '
         'tabFull
         '
-        Me.tabFull.Controls.Add(Me.fullListView)
+        Me.tabFull.Controls.Add(Me.TableLayoutPanel2)
         Me.tabFull.Location = New System.Drawing.Point(4, 38)
         Me.tabFull.Name = "tabFull"
         Me.tabFull.Size = New System.Drawing.Size(659, 677)
         Me.tabFull.TabIndex = 1
         Me.tabFull.Text = "總覽"
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.fullListView, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.historyBox, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.MetroLabel2, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.printMedButton, 0, 2)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 3
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(659, 677)
+        Me.TableLayoutPanel2.TabIndex = 1
         '
         'fullListView
         '
@@ -1251,11 +1289,58 @@ Partial Class pnlPerscription
         Me.fullListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.fullListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.fullListView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.fullListView.Location = New System.Drawing.Point(0, 0)
+        Me.fullListView.Location = New System.Drawing.Point(153, 3)
         Me.fullListView.Name = "fullListView"
+        Me.TableLayoutPanel2.SetRowSpan(Me.fullListView, 3)
         Me.fullListView.RowTemplate.Height = 24
-        Me.fullListView.Size = New System.Drawing.Size(659, 677)
+        Me.fullListView.Size = New System.Drawing.Size(503, 671)
         Me.fullListView.TabIndex = 0
+        '
+        'historyBox
+        '
+        Me.historyBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.historyBox.FormattingEnabled = True
+        Me.historyBox.ItemHeight = 12
+        Me.historyBox.Location = New System.Drawing.Point(3, 43)
+        Me.historyBox.Name = "historyBox"
+        Me.historyBox.Size = New System.Drawing.Size(144, 571)
+        Me.historyBox.TabIndex = 1
+        '
+        'MetroLabel2
+        '
+        Me.MetroLabel2.AutoSize = True
+        Me.MetroLabel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel2.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel2.Name = "MetroLabel2"
+        Me.MetroLabel2.Size = New System.Drawing.Size(144, 40)
+        Me.MetroLabel2.TabIndex = 2
+        Me.MetroLabel2.Text = "處方簽紀錄"
+        Me.MetroLabel2.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'printMedButton
+        '
+        Me.printMedButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.printMedButton.Location = New System.Drawing.Point(3, 620)
+        Me.printMedButton.Name = "printMedButton"
+        Me.printMedButton.Size = New System.Drawing.Size(144, 54)
+        Me.printMedButton.TabIndex = 3
+        Me.printMedButton.Text = "列印藥單"
+        Me.printMedButton.UseSelectable = True
+        '
+        'printDoc
+        '
+        '
+        'printPreview
+        '
+        Me.printPreview.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.printPreview.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.printPreview.ClientSize = New System.Drawing.Size(400, 300)
+        Me.printPreview.Document = Me.printDoc
+        Me.printPreview.Enabled = True
+        Me.printPreview.Icon = CType(resources.GetObject("printPreview.Icon"), System.Drawing.Icon)
+        Me.printPreview.Name = "printPreview"
+        Me.printPreview.Visible = False
         '
         'pnlPerscription
         '
@@ -1288,6 +1373,8 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.medDetailGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabFull.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -1311,7 +1398,7 @@ Partial Class pnlPerscription
     Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents tabBooking As TabPage
     Friend WithEvents waitingList As ListBox
-    Friend WithEvents MetroDateTime1 As MetroFramework.Controls.MetroDateTime
+    Friend WithEvents checkDate As MetroFramework.Controls.MetroDateTime
     Friend WithEvents medTable As TableLayoutPanel
     Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
     Friend WithEvents searchTable As TableLayoutPanel
@@ -1355,4 +1442,11 @@ Partial Class pnlPerscription
     Friend WithEvents addMedDetail As MetroFramework.Controls.MetroButton
     Friend WithEvents tabFull As TabPage
     Friend WithEvents fullListView As DataGridView
+    Friend WithEvents refreshWaitingListButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents historyBox As ListBox
+    Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents printMedButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents printDoc As Printing.PrintDocument
+    Friend WithEvents printPreview As PrintPreviewDialog
 End Class

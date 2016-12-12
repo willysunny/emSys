@@ -42,8 +42,8 @@
         resizeForm(menuStatus, rightSide)
     End Sub
 
-    Public Sub resizeForm(Optional ByVal isMenu As Boolean = False, Optional fromRight As Boolean = False)
-        If Not isMenu Then Width = owner.Width
+    Public Sub resizeForm(Optional ByVal isMenu As Boolean = False, Optional fromRight As Boolean = False, Optional menuWidth As Integer = 400)
+        If isMenu Then Width = menuWidth Else Width = owner.Width
         Height = owner.Height - 70
         If loaded Then
             If isMenu Then

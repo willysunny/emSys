@@ -1,4 +1,6 @@
-﻿Public Class pnlPerscription
+﻿Imports System.Drawing.Printing
+
+Public Class pnlPerscription
     Inherits pnlSlider
 
     Private patientInfo As New pInfo
@@ -15,7 +17,7 @@
 
         ' Add any initialization after the InitializeComponent() call.
         loadTree()
-        refreshBooking()
+        refreshBooking(Now)
 
         unit.Add(1, "克")
         unit.Add(2, "顆")
@@ -51,11 +53,11 @@
 #End Region
 
 #Region "載入資料"
-    Private Sub refreshBooking()
+    Private Sub refreshBooking(ByVal checkDate As Date)
         Dim sql As String = "SELECT pb.bID, pb.pID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
-                            WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
+                            WHERE pb.bookTime >= '" & checkDate & "' AND pb.bookTime < '" & checkDate.AddDays(1) & "' 
                             ORDER BY pb.bookTime"
         With waitingList
             .DataSource = returnData(mainForm, sql)
@@ -63,6 +65,9 @@
             .DisplayMember = "patientName"
         End With
         tabBooking.Focus()
+    End Sub
+    Private Sub checkDate_ValueChanged(sender As Object, e As EventArgs) Handles checkDate.ValueChanged, refreshWaitingListButton.Click
+        refreshBooking(checkDate.Value)
     End Sub
 #Region "載入藥品清單"
     ' 載入樹狀圖
@@ -139,17 +144,20 @@
             Dim pID As Integer = reader.Item("pID")
             patientInfo = New pInfo
             patientInfo.initiate(pID)
-            reader = runQuery("Select bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
+            reader = runQuery("SELECT bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
             While reader.Read
-                If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime("last_visit") Else pPrevVisit.Text = ""
+                If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime(0) Else pPrevVisit.Text = ""
                 pVisitTimes.Text = reader.Item(1)
             End While
         End If
+        With historyBox
+            .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
+            .ValueMember = "bID"
+            .DisplayMember = "bookTime"
+        End With
         reloadMedGroup()
     End Sub
-
 #End Region
-
 #End Region
 
 #Region "搜尋"
@@ -349,24 +357,85 @@
 
     Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
         If medTab.SelectedTab Is tabFull Then
-            fullListView.DataSource = returnData(mainForm, "Select mg.mgid as '群組編號', mi.medName as '藥品名稱', 
+            If Not historyBox.SelectedIndex = -1 Then
+                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', 
                                                                mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位',
-                                                               mg.makePill as '打錠', mg.f0
+                                                               mg.makePill as '打錠'
                                                         FROM medGroup2medDetail as mg
                                                         INNER JOIN medDetail AS md ON mg.mgID = md.mgID
                                                         INNER JOIN med_item as mi on md.medID = mi.medID
-                                                        WHERE bID=" & waitingList.SelectedValue)
-            For Each row As DataGridViewRow In fullListView.Rows
-                Try
-                    row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
-                Catch ex As Exception
-                    row.Cells("單位").Value = unit(1)
-                End Try
-            Next
-            fullListView.Columns("medUnit").Visible = False
+                                                        WHERE bID=" & historyBox.SelectedValue & "
+                                                        GROUP BY mg.mgid")
+                For Each row As DataGridViewRow In fullListView.Rows
+                    Try
+                        row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
+                    Catch ex As Exception
+                        row.Cells("單位").Value = unit(1)
+                    End Try
+                Next
+                fullListView.Columns("medUnit").Visible = False
+            End If
         End If
+    End Sub
+
+    Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
+        printPreview.Document = printDoc
+        printPreview.ShowDialog()
+
+        'Try
+        '    With printDoc
+        '        .PrinterSettings.PrinterName = "Ring 412PE+"
+        '        .DefaultPageSettings.Landscape = False
+        '        .Print()
+        '    End With
+        'Catch ex As Exception
+        '    MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'End Try
+    End Sub
+
+    Private Sub printDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles printDoc.PrintPage
+        ' 文字設定
+        Dim outlinePath As New Drawing2D.GraphicsPath
+        Dim useFont As Font = New Font("標楷體", 20, FontStyle.Regular)
+        Dim fontsize As Integer
+        Dim stringFormat As New StringFormat()
+        stringFormat.FormatFlags = StringFormatFlags.NoClip
+
+        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+        Dim taiwanCalender As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
+
+        outlinePath.AddString("福濬中醫診所用藥說明", useFont.FontFamily, FontStyle.Regular, 28, New Point(205, 380), stringFormat)
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        outlinePath.Reset()
+        outlinePath.AddString("姓名: " & pName.Text, useFont.FontFamily, FontStyle.Regular, 18, New Point(20, 415), stringFormat)
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        outlinePath.Reset()
+        outlinePath.AddString("病歷號:" & patientInfo.pID, useFont.FontFamily, FontStyle.Regular, 18, New Point(215, 415), stringFormat)
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        outlinePath.Reset()
+
+        outlinePath.AddLine(New Point(380, 435), New Point(215, 435))
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        outlinePath.Reset()
+
+        outlinePath.AddLine(New Point(20, 435), New Point(200, 435))
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        outlinePath.Reset()
+
+        outlinePath.AddString("藥物內容:", useFont.FontFamily, FontStyle.Regular, 16, New Point(20, 440), stringFormat)
+        e.Graphics.DrawPath(Pens.Black, outlinePath)
+        e.Graphics.FillPath(Brushes.Black, outlinePath)
+        outlinePath.Reset()
+
     End Sub
 End Class

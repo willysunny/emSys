@@ -159,27 +159,27 @@ Partial Class frmUserReport
         '
         'printGraphButton
         '
-        Me.printGraphButton.Location = New System.Drawing.Point(427, 125)
+        Me.printGraphButton.Location = New System.Drawing.Point(334, 63)
         Me.printGraphButton.Name = "printGraphButton"
-        Me.printGraphButton.Size = New System.Drawing.Size(75, 23)
+        Me.printGraphButton.Size = New System.Drawing.Size(120, 60)
         Me.printGraphButton.TabIndex = 3
         Me.printGraphButton.Text = "頻譜報告"
         Me.printGraphButton.UseSelectable = True
         '
         'printEnergyButton
         '
-        Me.printEnergyButton.Location = New System.Drawing.Point(427, 164)
+        Me.printEnergyButton.Location = New System.Drawing.Point(334, 129)
         Me.printEnergyButton.Name = "printEnergyButton"
-        Me.printEnergyButton.Size = New System.Drawing.Size(75, 23)
+        Me.printEnergyButton.Size = New System.Drawing.Size(120, 60)
         Me.printEnergyButton.TabIndex = 3
         Me.printEnergyButton.Text = "元氣報告"
         Me.printEnergyButton.UseSelectable = True
         '
         'printFeeButton
         '
-        Me.printFeeButton.Location = New System.Drawing.Point(427, 207)
+        Me.printFeeButton.Location = New System.Drawing.Point(331, 374)
         Me.printFeeButton.Name = "printFeeButton"
-        Me.printFeeButton.Size = New System.Drawing.Size(75, 23)
+        Me.printFeeButton.Size = New System.Drawing.Size(120, 60)
         Me.printFeeButton.TabIndex = 3
         Me.printFeeButton.Text = "列印金額"
         Me.printFeeButton.UseSelectable = True
@@ -188,7 +188,7 @@ Partial Class frmUserReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(753, 457)
+        Me.ClientSize = New System.Drawing.Size(473, 457)
         Me.Controls.Add(Me.printFeeButton)
         Me.Controls.Add(Me.printEnergyButton)
         Me.Controls.Add(Me.printGraphButton)

@@ -150,7 +150,7 @@ Partial Class mainForm
         '
         Me.reportTile.ActiveControl = Nothing
         Me.reportTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.reportTile.Location = New System.Drawing.Point(653, 290)
+        Me.reportTile.Location = New System.Drawing.Point(653, 340)
         Me.reportTile.Name = "reportTile"
         Me.reportTile.Size = New System.Drawing.Size(120, 120)
         Me.reportTile.TabIndex = 4
@@ -164,7 +164,7 @@ Partial Class mainForm
         '
         Me.medManageTile.ActiveControl = Nothing
         Me.medManageTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.medManageTile.Location = New System.Drawing.Point(527, 416)
+        Me.medManageTile.Location = New System.Drawing.Point(527, 466)
         Me.medManageTile.Name = "medManageTile"
         Me.medManageTile.Size = New System.Drawing.Size(120, 120)
         Me.medManageTile.TabIndex = 4
@@ -178,7 +178,7 @@ Partial Class mainForm
         '
         Me.medInfoTile.ActiveControl = Nothing
         Me.medInfoTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.medInfoTile.Location = New System.Drawing.Point(401, 416)
+        Me.medInfoTile.Location = New System.Drawing.Point(401, 466)
         Me.medInfoTile.Name = "medInfoTile"
         Me.medInfoTile.Size = New System.Drawing.Size(120, 120)
         Me.medInfoTile.TabIndex = 4
@@ -192,7 +192,7 @@ Partial Class mainForm
         '
         Me.perscriptionTile.ActiveControl = Nothing
         Me.perscriptionTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.perscriptionTile.Location = New System.Drawing.Point(527, 290)
+        Me.perscriptionTile.Location = New System.Drawing.Point(527, 340)
         Me.perscriptionTile.Name = "perscriptionTile"
         Me.perscriptionTile.Size = New System.Drawing.Size(120, 120)
         Me.perscriptionTile.TabIndex = 4
@@ -206,7 +206,7 @@ Partial Class mainForm
         '
         Me.paitientInfoTile.ActiveControl = Nothing
         Me.paitientInfoTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.paitientInfoTile.Location = New System.Drawing.Point(527, 164)
+        Me.paitientInfoTile.Location = New System.Drawing.Point(527, 214)
         Me.paitientInfoTile.Name = "paitientInfoTile"
         Me.paitientInfoTile.Size = New System.Drawing.Size(120, 120)
         Me.paitientInfoTile.TabIndex = 4
@@ -220,7 +220,7 @@ Partial Class mainForm
         '
         Me.bookingTile.ActiveControl = Nothing
         Me.bookingTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.bookingTile.Location = New System.Drawing.Point(401, 164)
+        Me.bookingTile.Location = New System.Drawing.Point(401, 214)
         Me.bookingTile.Name = "bookingTile"
         Me.bookingTile.Size = New System.Drawing.Size(120, 120)
         Me.bookingTile.TabIndex = 4
@@ -234,7 +234,7 @@ Partial Class mainForm
         '
         Me.emsTile.ActiveControl = Nothing
         Me.emsTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.emsTile.Location = New System.Drawing.Point(401, 290)
+        Me.emsTile.Location = New System.Drawing.Point(401, 340)
         Me.emsTile.Name = "emsTile"
         Me.emsTile.Size = New System.Drawing.Size(120, 120)
         Me.emsTile.TabIndex = 4
@@ -273,7 +273,7 @@ Partial Class mainForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackMaxSize = 4096
-        Me.ClientSize = New System.Drawing.Size(1175, 700)
+        Me.ClientSize = New System.Drawing.Size(1175, 800)
         Me.ControlBox = False
         Me.Controls.Add(Me.reportTile)
         Me.Controls.Add(Me.medManageTile)
@@ -289,6 +289,7 @@ Partial Class mainForm
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(800, 800)
         Me.Name = "mainForm"
         Me.Padding = New System.Windows.Forms.Padding(20, 70, 20, 20)
         Me.Style = MetroFramework.MetroColorStyle.[Default]
