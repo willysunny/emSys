@@ -12,6 +12,7 @@
     Dim medManage As pnlMedManage = Nothing
     Dim pBooking As pnlBooking = Nothing
     Dim perscription As pnlPerscription = Nothing
+    Dim payment As pnlPayment = Nothing
 
     Public Sub New()
 
@@ -171,6 +172,19 @@
     Private Sub perscription_exit(sender As Object, e As EventArgs)
         perscription.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf perscription_exit
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub paymentLink_Click(sender As Object, e As EventArgs) Handles paymentTile.Click
+        If Not offlineMode Then
+            payment = New pnlpayment(Me)
+            RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+            AddHandler exitLink.MouseUp, AddressOf payment_exit
+            payment.swipe()
+        End If
+    End Sub
+    Private Sub payment_exit(sender As Object, e As EventArgs)
+        payment.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf payment_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportTile.Click
