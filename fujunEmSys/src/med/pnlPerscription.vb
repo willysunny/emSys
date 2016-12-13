@@ -6,6 +6,7 @@ Public Class pnlPerscription
     Private patientInfo As New pInfo
     Private bID As Integer = -1
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 單位
+    Dim printIndex As Integer = 0
 
 #Region "初始"
     Public Sub New(ByVal owner As Form)
@@ -382,6 +383,7 @@ Public Class pnlPerscription
     End Sub
 
     Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
+        printIndex = 0
         printPreview.Document = printDoc
         printPreview.ShowDialog()
 
@@ -398,44 +400,95 @@ Public Class pnlPerscription
 
     Private Sub printDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles printDoc.PrintPage
         ' 文字設定
-        Dim outlinePath As New Drawing2D.GraphicsPath
-        Dim useFont As Font = New Font("標楷體", 20, FontStyle.Regular)
-        Dim fontsize As Integer
+        Dim titleFont As Font = New Font("微軟正黑體", 18, FontStyle.Regular)
+        Dim headerFont As Font = New Font("微軟正黑體", 12, FontStyle.Regular)
+        Dim textFont As Font = New Font("微軟正黑體", 10, FontStyle.Regular)
+        Dim subFont As Font = New Font("微軟正黑體", 8, FontStyle.Regular)
+        Dim fontsize As Integer = 18
         Dim stringFormat As New StringFormat()
         stringFormat.FormatFlags = StringFormatFlags.NoClip
 
         e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
-        Dim taiwanCalender As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
+        stringFormat.Alignment = StringAlignment.Center
+        e.Graphics.DrawString("福濬中醫診所用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
 
-        outlinePath.AddString("福濬中醫診所用藥說明", useFont.FontFamily, FontStyle.Regular, 28, New Point(205, 380), stringFormat)
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        outlinePath.Reset()
-        outlinePath.AddString("姓名: " & pName.Text, useFont.FontFamily, FontStyle.Regular, 18, New Point(20, 415), stringFormat)
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        outlinePath.Reset()
-        outlinePath.AddString("病歷號:" & patientInfo.pID, useFont.FontFamily, FontStyle.Regular, 18, New Point(215, 415), stringFormat)
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        outlinePath.Reset()
+        stringFormat.Alignment = StringAlignment.Near
+        e.Graphics.DrawString("姓名: " & pName.Text, headerFont, Brushes.Black, New Point(20, 415), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(60, 435), New Point(180, 435))
+        e.Graphics.DrawString("病歷號: " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(280, 435), New Point(380, 435))
 
-        outlinePath.AddLine(New Point(380, 435), New Point(215, 435))
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        outlinePath.Reset()
+        e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
 
-        outlinePath.AddLine(New Point(20, 435), New Point(200, 435))
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        outlinePath.Reset()
 
-        outlinePath.AddString("藥物內容:", useFont.FontFamily, FontStyle.Regular, 16, New Point(20, 440), stringFormat)
-        e.Graphics.DrawPath(Pens.Black, outlinePath)
-        e.Graphics.FillPath(Brushes.Black, outlinePath)
-        outlinePath.Reset()
+        Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes(fullListView.Rows(printIndex).Cells("藥品清單").Value)
+        'Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes("這是一個非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常長的字串")
+        Dim strmMem As New System.IO.MemoryStream(aBytes)
+        Dim streamToPrint As New IO.StreamReader(strmMem)
+        Dim line As String = streamToPrint.ReadLine()
+        Dim sf As StringFormat = StringFormat.GenericTypographic
+        sf.Alignment = StringAlignment.Near
+        sf.LineAlignment = StringAlignment.Near
+        sf.FormatFlags = StringFormatFlags.LineLimit
+        sf.Trimming = StringTrimming.Word
+        Dim actual = e.Graphics.MeasureString(line, textFont, New SizeF(350, 60), sf)
+        e.Graphics.DrawString(line, textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
 
+        Dim usage As String = ""
+        Dim trigger As Boolean = False
+        If fullListView.Rows(printIndex).Cells("早").Value Then
+            usage = "早"
+            trigger = True
+        End If
+        If fullListView.Rows(printIndex).Cells("午").Value And trigger Then
+            usage += "/午"
+        ElseIf fullListView.Rows(printIndex).Cells("午").Value Then
+            usage = "午"
+            trigger = True
+        End If
+        If fullListView.Rows(printIndex).Cells("晚").Value And trigger Then
+            usage += "/晚"
+        ElseIf fullListView.Rows(printIndex).Cells("晚").Value Then
+            usage = "晚"
+            trigger = True
+        End If
+        trigger = False
+        If fullListView.Rows(printIndex).Cells("飯前").Value Then
+            usage += "飯前"
+            trigger = True
+        End If
+        If fullListView.Rows(printIndex).Cells("飯後").Value And trigger Then
+            usage += "或飯後"
+        ElseIf fullListView.Rows(printIndex).Cells("飯後").Value Then
+            usage += "飯後"
+        End If
+        If fullListView.Rows(printIndex).Cells("睡前").Value Then
+            usage += "以及睡前"
+        End If
+        usage += fullListView.Rows(printIndex).Cells("份量").Value & fullListView.Rows(printIndex).Cells("單位").Value
+        If fullListView.Rows(printIndex).Cells("不適時").Value Then
+            usage += "不適時也吃"
+        End If
+        e.Graphics.DrawString("服用方法: " & usage, headerFont, Brushes.Black, New Point(20, 525), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 545), New Point(95, 545))
+
+        e.Graphics.DrawString("福濬中醫診所 (03)327-7900" & vbNewLine & "桃園市龜山區文化二路30-11號", subFont, Brushes.Black, New Point(20, 550), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 580), New Point(160, 580))
+
+
+        Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
+        stringFormat.Alignment = StringAlignment.Far
+        e.Graphics.DrawString("製造日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(300, 580))
+
+        If printIndex < fullListView.Rows.Count - 1 Then
+            printIndex += 1
+            e.HasMorePages = True
+        Else
+            e.HasMorePages = False
+        End If
     End Sub
 End Class
