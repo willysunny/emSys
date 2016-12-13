@@ -13,8 +13,6 @@
     Dim pBooking As pnlBooking = Nothing
     Dim perscription As pnlPerscription = Nothing
 
-
-
     Public Sub New()
 
         ' This call is required by the designer.
@@ -163,7 +161,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf patientBooking_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionTile.Click, medManageTile.Click, medInfoTile.Click
+    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionTile.Click
         If Not offlineMode Then
             perscription = New pnlPerscription(Me)
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp

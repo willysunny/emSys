@@ -152,7 +152,7 @@ Public Class pnlPerscription
             End While
         End If
         With historyBox
-            .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
+            .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE pID=" & patientInfo.pID)
             .ValueMember = "bID"
             .DisplayMember = "bookTime"
         End With
@@ -207,7 +207,7 @@ Public Class pnlPerscription
                     "morning=" & morning.Checked & "," &
                     "noon=" & noon.Checked & "," &
                     "night=" & night.Checked & "," &
-                    "beforeSleep=" & beforeMeal.Checked & "," &
+                    "beforeSleep=" & beforeSleep.Checked & "," &
                     "notWell=" & notWell.Checked & "," &
                     "beforeMeal=" & beforeMeal.Checked & "," &
                     "afterMeal=" & afterMeal.Checked & "," &
@@ -470,7 +470,7 @@ Public Class pnlPerscription
         End If
         usage += fullListView.Rows(printIndex).Cells("份量").Value & fullListView.Rows(printIndex).Cells("單位").Value
         If fullListView.Rows(printIndex).Cells("不適時").Value Then
-            usage += "不適時也吃"
+            usage += ", 有症狀服用"
         End If
         e.Graphics.DrawString("服用方法: " & usage, headerFont, Brushes.Black, New Point(20, 525), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(20, 545), New Point(95, 545))

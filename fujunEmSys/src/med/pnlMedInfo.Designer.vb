@@ -32,6 +32,8 @@ Partial Class pnlMedInfo
         Me.clearButton = New MetroFramework.Controls.MetroButton()
         Me.delButton = New MetroFramework.Controls.MetroButton()
         Me.medInfoTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.groupExclude = New MetroFramework.Controls.MetroCheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.groupAmountUnit = New MetroFramework.Controls.MetroComboBox()
@@ -196,6 +198,8 @@ Partial Class pnlMedInfo
         Me.medInfoTable.ColumnCount = 2
         Me.medInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119.0!))
         Me.medInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.medInfoTable.Controls.Add(Me.Label9, 0, 8)
+        Me.medInfoTable.Controls.Add(Me.groupExclude, 0, 8)
         Me.medInfoTable.Controls.Add(Me.Label8, 0, 6)
         Me.medInfoTable.Controls.Add(Me.Panel4, 1, 6)
         Me.medInfoTable.Controls.Add(Me.Label5, 0, 3)
@@ -215,7 +219,7 @@ Partial Class pnlMedInfo
         Me.medInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.medInfoTable.Location = New System.Drawing.Point(3, 3)
         Me.medInfoTable.Name = "medInfoTable"
-        Me.medInfoTable.RowCount = 8
+        Me.medInfoTable.RowCount = 9
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
@@ -224,8 +228,33 @@ Partial Class pnlMedInfo
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.medInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.medInfoTable.Size = New System.Drawing.Size(735, 517)
         Me.medInfoTable.TabIndex = 1
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label9.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Label9.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.White
+        Me.Label9.Location = New System.Drawing.Point(3, 482)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(113, 35)
+        Me.Label9.TabIndex = 7
+        Me.Label9.Text = "藥粉另計"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'groupExclude
+        '
+        Me.groupExclude.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.groupExclude.Location = New System.Drawing.Point(129, 493)
+        Me.groupExclude.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
+        Me.groupExclude.Name = "groupExclude"
+        Me.groupExclude.Size = New System.Drawing.Size(12, 12)
+        Me.groupExclude.TabIndex = 8
+        Me.groupExclude.UseSelectable = True
         '
         'Label8
         '
@@ -234,7 +263,7 @@ Partial Class pnlMedInfo
         Me.Label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label8.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.White
-        Me.Label8.Location = New System.Drawing.Point(3, 447)
+        Me.Label8.Location = New System.Drawing.Point(3, 412)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(113, 35)
         Me.Label8.TabIndex = 6
@@ -246,7 +275,7 @@ Partial Class pnlMedInfo
         Me.Panel4.Controls.Add(Me.groupAmountUnit)
         Me.Panel4.Controls.Add(Me.groupAmount)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(122, 450)
+        Me.Panel4.Location = New System.Drawing.Point(122, 415)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Padding = New System.Windows.Forms.Padding(0, 0, 100, 0)
         Me.Panel4.Size = New System.Drawing.Size(610, 29)
@@ -307,7 +336,7 @@ Partial Class pnlMedInfo
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(3, 105)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(113, 272)
+        Me.Label5.Size = New System.Drawing.Size(113, 237)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "藥物說明"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -361,7 +390,7 @@ Partial Class pnlMedInfo
         Me.Label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label4.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(3, 482)
+        Me.Label4.Location = New System.Drawing.Point(3, 447)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(113, 35)
         Me.Label4.TabIndex = 0
@@ -476,9 +505,9 @@ Partial Class pnlMedInfo
         '
         '
         Me.medDesc.CustomButton.Image = Nothing
-        Me.medDesc.CustomButton.Location = New System.Drawing.Point(346, 2)
+        Me.medDesc.CustomButton.Location = New System.Drawing.Point(380, 1)
         Me.medDesc.CustomButton.Name = ""
-        Me.medDesc.CustomButton.Size = New System.Drawing.Size(261, 261)
+        Me.medDesc.CustomButton.Size = New System.Drawing.Size(229, 229)
         Me.medDesc.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.medDesc.CustomButton.TabIndex = 1
         Me.medDesc.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -498,7 +527,7 @@ Partial Class pnlMedInfo
         Me.medDesc.SelectionLength = 0
         Me.medDesc.SelectionStart = 0
         Me.medDesc.ShortcutsEnabled = True
-        Me.medDesc.Size = New System.Drawing.Size(610, 266)
+        Me.medDesc.Size = New System.Drawing.Size(610, 231)
         Me.medDesc.TabIndex = 1
         Me.medDesc.UseSelectable = True
         Me.medDesc.WaterMark = "藥物說明"
@@ -510,7 +539,7 @@ Partial Class pnlMedInfo
         Me.discount.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.discount.Checked = True
         Me.discount.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.discount.Location = New System.Drawing.Point(129, 493)
+        Me.discount.Location = New System.Drawing.Point(129, 458)
         Me.discount.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
         Me.discount.Name = "discount"
         Me.discount.Size = New System.Drawing.Size(12, 12)
@@ -524,7 +553,7 @@ Partial Class pnlMedInfo
         Me.Label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label6.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(3, 412)
+        Me.Label6.Location = New System.Drawing.Point(3, 377)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(113, 35)
         Me.Label6.TabIndex = 0
@@ -538,7 +567,7 @@ Partial Class pnlMedInfo
         Me.Label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label7.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(3, 377)
+        Me.Label7.Location = New System.Drawing.Point(3, 342)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(113, 35)
         Me.Label7.TabIndex = 0
@@ -550,7 +579,7 @@ Partial Class pnlMedInfo
         Me.Panel2.Controls.Add(Me.unitUnit)
         Me.Panel2.Controls.Add(Me.unitPrice)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(122, 380)
+        Me.Panel2.Location = New System.Drawing.Point(122, 345)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(0, 0, 100, 0)
         Me.Panel2.Size = New System.Drawing.Size(610, 29)
@@ -607,7 +636,7 @@ Partial Class pnlMedInfo
         Me.Panel3.Controls.Add(Me.groupUnit)
         Me.Panel3.Controls.Add(Me.groupPrice)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel3.Location = New System.Drawing.Point(122, 415)
+        Me.Panel3.Location = New System.Drawing.Point(122, 380)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(0, 0, 100, 0)
         Me.Panel3.Size = New System.Drawing.Size(610, 29)
@@ -784,4 +813,6 @@ Partial Class pnlMedInfo
     Friend WithEvents mainGroupList As MetroFramework.Controls.MetroComboBox
     Friend WithEvents subGroupList As MetroFramework.Controls.MetroComboBox
     Friend WithEvents unusedMedList As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents groupExclude As MetroFramework.Controls.MetroCheckBox
 End Class

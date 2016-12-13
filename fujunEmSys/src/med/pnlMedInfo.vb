@@ -108,6 +108,7 @@
                 If IsDBNull(.Item("groupAmount")) Then groupAmount.Text = "" Else groupAmount.Text = .Item("groupAmount")
                 If IsDBNull(.Item("groupAmountUnit")) Then groupAmountUnit.SelectedValue = -1 Else groupAmountUnit.SelectedValue = .Item("groupAmountUnit")
                 discount.Checked = CBool(.Item("isDiscountable"))
+                groupExclude.Checked = CBool(.Item("groupExclude"))
             End While
         End With
     End Sub
@@ -152,8 +153,8 @@
     Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
         If unusedMedList.Checked Then
             If MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【未分類】?", "新增藥品", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, isDiscountable) VALUES(-1, '" &
-                    medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & discount.Checked & ")"
+                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, groupExclude, isDiscountable) VALUES(-1, '" &
+                    medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & groupExclude.Checked & "', " & discount.Checked & ")"
                 runQuery(sql)
                 MetroFramework.MetroMessageBox.Show(Me, "新增成功", "新增藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 reloadUnusedMedItem()
@@ -161,10 +162,10 @@
         Else
             Dim response As DialogResult = MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & CType(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】?" & vbNewLine & "(若要新增置【未分類】請點 No)", "新增藥品", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
             If Not response = DialogResult.Cancel Then
-                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, isDiscountable) VALUES("
+                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, groupExclude, isDiscountable) VALUES("
                 If response = DialogResult.Yes Then sql += subGroupList.SelectedValue.ToString Else sql += "-1"
                 sql += ", '" & medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" _
-                    & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & discount.Checked & ")"
+                    & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & groupExclude.Checked & "', " & discount.Checked & ")"
                 runQuery(sql)
                 MetroFramework.MetroMessageBox.Show(Me, "新增成功", "新增藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 reloadMedItem(subGroupList.SelectedValue)
@@ -185,6 +186,7 @@
                  "groupUnit='" & groupUnit.SelectedValue & "'," &
                  "groupAmount='" & groupAmount.Text & "'," &
                  "groupAmountUnit='" & groupAmountUnit.SelectedValue & "'," &
+                 "groupExclude='" & groupExclude.Checked & "'," &
                  "isDiscountable=" & discount.Checked & " WHERE medID=" & medList.SelectedValue)
         MetroFramework.MetroMessageBox.Show(Me, "更新成功", "修改藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
         If unusedMedList.Checked Then reloadUnusedMedItem() Else reloadMedItem(subGroupList.SelectedValue)
