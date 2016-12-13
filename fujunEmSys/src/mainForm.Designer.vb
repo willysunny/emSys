@@ -36,7 +36,6 @@ Partial Class mainForm
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.loginButton = New MetroFramework.Controls.MetroLink()
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
-        Me.testButton = New MetroFramework.Controls.MetroButton()
         Me.docManageLink = New MetroFramework.Controls.MetroLink()
         Me.reportTile = New MetroFramework.Controls.MetroTile()
         Me.medManageTile = New MetroFramework.Controls.MetroTile()
@@ -47,6 +46,7 @@ Partial Class mainForm
         Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
+        Me.paymentTile = New MetroFramework.Controls.MetroTile()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -127,15 +127,6 @@ Partial Class mainForm
         Me.userManageLink.TabIndex = 2
         Me.userManageLink.Text = "使用者管理"
         Me.userManageLink.UseSelectable = True
-        '
-        'testButton
-        '
-        Me.testButton.Location = New System.Drawing.Point(3, 674)
-        Me.testButton.Name = "testButton"
-        Me.testButton.Size = New System.Drawing.Size(75, 23)
-        Me.testButton.TabIndex = 3
-        Me.testButton.Text = "Test Button"
-        Me.testButton.UseSelectable = True
         '
         'docManageLink
         '
@@ -268,6 +259,19 @@ Partial Class mainForm
         Me.settingsLink.TabIndex = 0
         Me.settingsLink.UseSelectable = True
         '
+        'paymentTile
+        '
+        Me.paymentTile.ActiveControl = Nothing
+        Me.paymentTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.paymentTile.Location = New System.Drawing.Point(653, 466)
+        Me.paymentTile.Name = "paymentTile"
+        Me.paymentTile.Size = New System.Drawing.Size(120, 120)
+        Me.paymentTile.TabIndex = 4
+        Me.paymentTile.Text = "批價系統"
+        Me.paymentTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.paymentTile.UseSelectable = True
+        Me.paymentTile.UseTileImage = True
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -277,12 +281,12 @@ Partial Class mainForm
         Me.ControlBox = False
         Me.Controls.Add(Me.reportTile)
         Me.Controls.Add(Me.medManageTile)
+        Me.Controls.Add(Me.paymentTile)
         Me.Controls.Add(Me.medInfoTile)
         Me.Controls.Add(Me.perscriptionTile)
         Me.Controls.Add(Me.paitientInfoTile)
         Me.Controls.Add(Me.bookingTile)
         Me.Controls.Add(Me.emsTile)
-        Me.Controls.Add(Me.testButton)
         Me.Controls.Add(Me.docManageLink)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
@@ -316,7 +320,6 @@ Partial Class mainForm
     Friend WithEvents exitMenu As ToolStripMenuItem
     Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
     Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents testButton As MetroFramework.Controls.MetroButton
     Friend WithEvents docManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents emsTile As MetroFramework.Controls.MetroTile
     Friend WithEvents perscriptionTile As MetroFramework.Controls.MetroTile
@@ -325,4 +328,5 @@ Partial Class mainForm
     Friend WithEvents bookingTile As MetroFramework.Controls.MetroTile
     Friend WithEvents medManageTile As MetroFramework.Controls.MetroTile
     Friend WithEvents medInfoTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents paymentTile As MetroFramework.Controls.MetroTile
 End Class

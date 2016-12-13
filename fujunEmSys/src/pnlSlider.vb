@@ -71,8 +71,8 @@
             trans.add(Me, "Left", 0)
             trans.run()
             While Not (Left = 0)
-                Application.DoEvents()
                 If Now > saftyTimeOut Then Exit Sub
+                Application.DoEvents()
             End While
             loaded = True
             resizeForm()
@@ -82,8 +82,8 @@
             trans.add(Me, "Left", -owner.Width)
             trans.run()
             While Not (Left = -owner.Width)
-                Application.DoEvents()
                 If Now > saftyTimeOut Then Exit Sub
+                Application.DoEvents()
             End While
             closed(New EventArgs())
             RemoveHandler owner.Resize, AddressOf owner_resize

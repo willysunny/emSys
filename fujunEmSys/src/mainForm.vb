@@ -55,9 +55,6 @@
 #End Region
 
 #Region "Button Clicks"
-    Private Sub testButton_Click(sender As Object, e As EventArgs) Handles testButton.Click
-        Debug.WriteLine(patientInfo.pName)
-    End Sub
     Private Sub settingsLink_Click(sender As Object, e As EventArgs) Handles settingsLink.Click
         setting = New pnlSetting(Me)
         AddHandler setting.settingClosed, AddressOf setting_Closed
@@ -142,12 +139,14 @@
     Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoTile.Click
         medInfo = New pnlMedInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-        AddHandler exitLink.MouseUp, AddressOf medInfo_exit
+        AddHandler exitLink.MouseUp, AddressOf medInfo.stopSearch
+        AddHandler medInfo.searchAborted, AddressOf medInfo_exit
         medInfo.swipe()
     End Sub
     Private Sub medInfo_exit(sender As Object, e As EventArgs)
         medInfo.swipe(False)
-        RemoveHandler exitLink.MouseUp, AddressOf medInfo_exit
+        RemoveHandler exitLink.MouseUp, AddressOf medInfo.stopSearch
+        RemoveHandler medInfo.searchAborted, AddressOf medInfo_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub patientBookingLink_Click(sender As Object, e As EventArgs) Handles bookingTile.Click
