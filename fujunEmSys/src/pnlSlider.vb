@@ -63,6 +63,7 @@
     End Sub
 
     Public Sub swipe(Optional show As Boolean = True)
+        Dim saftyTimeOut As DateTime = Now.AddSeconds(10)
         resizeForm()
         Visible = True
         If show Then
@@ -71,6 +72,7 @@
             trans.run()
             While Not (Left = 0)
                 Application.DoEvents()
+                If Now > saftyTimeOut Then Exit Sub
             End While
             loaded = True
             resizeForm()
@@ -81,6 +83,7 @@
             trans.run()
             While Not (Left = -owner.Width)
                 Application.DoEvents()
+                If Now > saftyTimeOut Then Exit Sub
             End While
             closed(New EventArgs())
             RemoveHandler owner.Resize, AddressOf owner_resize
