@@ -6,6 +6,7 @@ Public Class pnlPerscription
     Private patientInfo As New pInfo
     Private bID As Integer = -1
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 單位
+    Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
     Dim printIndex As Integer = 0
 
 #Region "初始"
@@ -35,13 +36,15 @@ Public Class pnlPerscription
             .DisplayMember = "unitName"
             .ValueMember = "unitCode"
         End With
-        unit.Add(3, "包")
-        unit.Add(4, "瓶")
+
+        groupUnit.Add(1, "包")
+        groupUnit.Add(2, "顆")
+        groupUnit.Add(3, "匙")
         Dim groupUnitTable As DataTable = New DataTable()
         With groupUnitTable
             .Columns.Add("unitCode", GetType(Integer))
             .Columns.Add("unitName", GetType(String))
-            For Each point As KeyValuePair(Of Integer, String) In unit
+            For Each point As KeyValuePair(Of Integer, String) In groupUnit
                 .Rows.Add(point.Key, point.Value)
             Next
         End With
@@ -172,6 +175,16 @@ Public Class pnlPerscription
         End If
     End Sub
 #End Region
+
+    Private Sub medTree_doubleClick(sender As Object, e As EventArgs) Handles medTree.DoubleClick
+        If medGroupGrid.Rows.Count = 0 Then
+            addMedGroup_Click(Me, New EventArgs)
+            medGroupGrid.Rows.Item(0).Selected = True
+            addMedDetail_Click(Me, New EventArgs)
+        ElseIf medGroupGrid.SelectedRows.Count = 1 Then
+            addMedDetail_Click(Me, New EventArgs)
+        End If
+    End Sub
 
 #Region "藥物群組"
     ' 新增群組
@@ -307,11 +320,13 @@ Public Class pnlPerscription
             MetroFramework.MetroMessageBox.Show(Me, "沒有任何資料可刪除", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             runQuery("DELETE FROM medDetail WHERE mdID=" & medDetailGrid.SelectedRows(0).Cells("mdID").Value)
+            reloadMedGroup()
             reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
         End If
     End Sub
     ' 變更藥物
     Private Sub medDetailChange_Click(sender As Object, e As EventArgs) Handles medDetailChange.Click
+        Dim index As Integer = medDetailGrid.SelectedRows(0).Index
         Try
             runQuery("UPDATE medDetail SET " &
                     "medAmount=" & medDetailAmount.Text & "," &
@@ -319,6 +334,11 @@ Public Class pnlPerscription
                     " WHERE mdID=" & medDetailGrid.SelectedRows(0).Cells("mdID").Value)
             MetroFramework.MetroMessageBox.Show(Me, "更新成功", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information)
             reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
+            If index + 1 < medDetailGrid.Rows.Count Then
+                medDetailGrid.Rows.Item(index + 1).Selected = True
+            Else
+                medDetailGrid.Rows.Item(index).Selected = True
+            End If
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "更新失敗", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -355,7 +375,7 @@ Public Class pnlPerscription
     End Sub
 
 #End Region
-
+    ' 總覽
     Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
         If medTab.SelectedTab Is tabFull Then
             If Not historyBox.SelectedIndex = -1 Then
@@ -381,23 +401,37 @@ Public Class pnlPerscription
             End If
         End If
     End Sub
-
+    ' 列印按鈕
     Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
+        Dim keepPrinting As Boolean = True
         printIndex = 0
-        printPreview.Document = printDoc
-        printPreview.ShowDialog()
+        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單', count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes' 
+                                                    FROM medGroup2medDetail as mg LEFT JOIN medDetail as md ON mg.mgID = md.mgID LEFT JOIN med_item as mi on md.medID = mi.medID 
+                                                    WHERE mg.medUnit = 1 AND bID=" & historyBox.SelectedValue &
+                                                    " GROUP BY mg.mgID")
+        For Each row As DataRow In dt.Rows
+            If row.Item("totalMeds") > 1 And Not row.Item("totalGram") Mod row.Item("totalTimes") = 0 Then
+                If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥包 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
+                    keepPrinting = False
+                End If
+                If Not keepPrinting Then Exit Sub
+            End If
+        Next
 
-        'Try
-        '    With printDoc
-        '        .PrinterSettings.PrinterName = "Ring 412PE+"
-        '        .DefaultPageSettings.Landscape = False
-        '        .Print()
-        '    End With
-        'Catch ex As Exception
-        '    MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End Try
+        If keepPrinting Then
+            'printPreview.ShowDialog()
+            Try
+                With printDoc
+                    .PrinterSettings.PrinterName = "Ring 412PE+"
+                    .DefaultPageSettings.Landscape = False
+                    .Print()
+                End With
+            Catch ex As Exception
+                MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
     End Sub
-
+    ' 列印標籤
     Private Sub printDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles printDoc.PrintPage
         ' 文字設定
         Dim titleFont As Font = New Font("微軟正黑體", 18, FontStyle.Regular)
@@ -476,7 +510,7 @@ Public Class pnlPerscription
         e.Graphics.DrawLine(Pens.Black, New Point(20, 545), New Point(95, 545))
 
         e.Graphics.DrawString("福濬中醫診所 (03)327-7900" & vbNewLine & "桃園市龜山區文化二路30-11號", subFont, Brushes.Black, New Point(20, 550), stringFormat)
-        e.Graphics.DrawLine(Pens.Black, New Point(20, 580), New Point(160, 580))
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 580), New Point(180, 580))
 
 
         Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
@@ -489,6 +523,13 @@ Public Class pnlPerscription
             e.HasMorePages = True
         Else
             e.HasMorePages = False
+        End If
+    End Sub
+
+    Private Sub medDetailAmount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles medDetailAmount.KeyPress
+        If e.KeyChar = Chr(Keys.Enter) Then
+            medDetailChange_Click(Me, New EventArgs)
+            medDetailAmount.Focus()
         End If
     End Sub
 End Class

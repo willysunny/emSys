@@ -23,6 +23,8 @@ Partial Class pnlPerscription
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pnlPerscription))
+        Me.printDoc = New System.Drawing.Printing.PrintDocument()
+        Me.printPreview = New System.Windows.Forms.PrintPreviewDialog()
         Me.medTable = New System.Windows.Forms.TableLayoutPanel()
         Me.pInfoPanel = New System.Windows.Forms.Panel()
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
@@ -90,8 +92,6 @@ Partial Class pnlPerscription
         Me.historyBox = New System.Windows.Forms.ListBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.printMedButton = New MetroFramework.Controls.MetroButton()
-        Me.printDoc = New System.Drawing.Printing.PrintDocument()
-        Me.printPreview = New System.Windows.Forms.PrintPreviewDialog()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
@@ -119,6 +119,20 @@ Partial Class pnlPerscription
         Me.owner.ClientSize = New System.Drawing.Size(0, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
         Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
+        '
+        'printDoc
+        '
+        '
+        'printPreview
+        '
+        Me.printPreview.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.printPreview.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.printPreview.ClientSize = New System.Drawing.Size(400, 300)
+        Me.printPreview.Document = Me.printDoc
+        Me.printPreview.Enabled = True
+        Me.printPreview.Icon = CType(resources.GetObject("printPreview.Icon"), System.Drawing.Icon)
+        Me.printPreview.Name = "printPreview"
+        Me.printPreview.Visible = False
         '
         'medTable
         '
@@ -507,6 +521,8 @@ Partial Class pnlPerscription
         '
         'refreshWaitingListButton
         '
+        Me.refreshWaitingListButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 590)
         Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
         Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
@@ -649,7 +665,7 @@ Partial Class pnlPerscription
         Me.medTab.Enabled = False
         Me.medTab.Location = New System.Drawing.Point(603, 3)
         Me.medTab.Name = "medTab"
-        Me.medTab.SelectedIndex = 0
+        Me.medTab.SelectedIndex = 1
         Me.medTab.Size = New System.Drawing.Size(667, 719)
         Me.medTab.TabIndex = 13
         Me.medTab.UseSelectable = True
@@ -820,7 +836,7 @@ Partial Class pnlPerscription
         Me.medGroupAmount.CustomButton.UseSelectable = True
         Me.medGroupAmount.CustomButton.Visible = False
         Me.medGroupAmount.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.medGroupAmount.Lines = New String() {"14"}
+        Me.medGroupAmount.Lines = New String() {"1"}
         Me.medGroupAmount.Location = New System.Drawing.Point(63, 89)
         Me.medGroupAmount.MaxLength = 32767
         Me.medGroupAmount.Name = "medGroupAmount"
@@ -833,7 +849,7 @@ Partial Class pnlPerscription
         Me.medGroupAmount.ShortcutsEnabled = True
         Me.medGroupAmount.Size = New System.Drawing.Size(114, 30)
         Me.medGroupAmount.TabIndex = 8
-        Me.medGroupAmount.Text = "14"
+        Me.medGroupAmount.Text = "1"
         Me.medGroupAmount.UseSelectable = True
         Me.medGroupAmount.WaterMark = "天數"
         Me.medGroupAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1183,7 +1199,7 @@ Partial Class pnlPerscription
         Me.medDetailAmount.CustomButton.UseSelectable = True
         Me.medDetailAmount.CustomButton.Visible = False
         Me.medDetailAmount.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.medDetailAmount.Lines = New String() {"14"}
+        Me.medDetailAmount.Lines = New String() {"6"}
         Me.medDetailAmount.Location = New System.Drawing.Point(83, 5)
         Me.medDetailAmount.MaxLength = 32767
         Me.medDetailAmount.Name = "medDetailAmount"
@@ -1196,7 +1212,7 @@ Partial Class pnlPerscription
         Me.medDetailAmount.ShortcutsEnabled = True
         Me.medDetailAmount.Size = New System.Drawing.Size(83, 30)
         Me.medDetailAmount.TabIndex = 5
-        Me.medDetailAmount.Text = "14"
+        Me.medDetailAmount.Text = "6"
         Me.medDetailAmount.UseSelectable = True
         Me.medDetailAmount.WaterMark = "天數"
         Me.medDetailAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1232,9 +1248,9 @@ Partial Class pnlPerscription
         Me.medDetailLabel.ForeColor = System.Drawing.Color.White
         Me.medDetailLabel.Location = New System.Drawing.Point(10, 22)
         Me.medDetailLabel.Name = "medDetailLabel"
-        Me.medDetailLabel.Size = New System.Drawing.Size(92, 25)
+        Me.medDetailLabel.Size = New System.Drawing.Size(171, 25)
         Me.medDetailLabel.TabIndex = 13
-        Me.medDetailLabel.Text = "藥物清單"
+        Me.medDetailLabel.Text = "藥物清單 (一天量)"
         Me.medDetailLabel.UseCustomBackColor = True
         Me.medDetailLabel.UseCustomForeColor = True
         '
@@ -1327,20 +1343,6 @@ Partial Class pnlPerscription
         Me.printMedButton.TabIndex = 3
         Me.printMedButton.Text = "列印藥單"
         Me.printMedButton.UseSelectable = True
-        '
-        'printDoc
-        '
-        '
-        'printPreview
-        '
-        Me.printPreview.AutoScrollMargin = New System.Drawing.Size(0, 0)
-        Me.printPreview.AutoScrollMinSize = New System.Drawing.Size(0, 0)
-        Me.printPreview.ClientSize = New System.Drawing.Size(400, 300)
-        Me.printPreview.Document = Me.printDoc
-        Me.printPreview.Enabled = True
-        Me.printPreview.Icon = CType(resources.GetObject("printPreview.Icon"), System.Drawing.Icon)
-        Me.printPreview.Name = "printPreview"
-        Me.printPreview.Visible = False
         '
         'pnlPerscription
         '
