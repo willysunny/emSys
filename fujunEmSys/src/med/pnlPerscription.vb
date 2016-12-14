@@ -40,6 +40,7 @@ Public Class pnlPerscription
         groupUnit.Add(1, "包")
         groupUnit.Add(2, "顆")
         groupUnit.Add(3, "匙")
+        groupUnit.Add(4, "盒")
         Dim groupUnitTable As DataTable = New DataTable()
         With groupUnitTable
             .Columns.Add("unitCode", GetType(Integer))
@@ -274,9 +275,9 @@ Public Class pnlPerscription
         For Each row As DataGridViewRow In medGroupGrid.Rows
             If IsDBNull(row.Cells("藥物清單").Value) Then row.Cells("藥物清單").Value = "新群組"
             Try
-                row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
+                row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
             Catch ex As Exception
-                row.Cells("單位").Value = unit(1)
+                row.Cells("單位").Value = groupUnit(1)
             End Try
         Next
         With medGroupGrid
@@ -299,6 +300,21 @@ Public Class pnlPerscription
     ' 新增藥物
     Private Sub addMedDetail_Click(sender As Object, e As EventArgs) Handles addMedDetail.Click
         If medTree.SelectedNode.GetNodeCount(True) = 0 And medTree.SelectedNode.FullPath.Split("\").Length = 3 Then
+            ' 檢查特殊狀況
+            If medDetailGrid.Rows.Count >= 1 Then
+                For Each row As DataGridViewRow In medDetailGrid.Rows
+                    If row.Cells("bioMed").Value And Not row.Cells("groupExclude").Value Then
+                        MetroFramework.MetroMessageBox.Show(Me, "錯誤: 無法將藥品 (" & row.Cells("藥物名稱").Value & ") 轉變成藥粉, 請檢查!", "藥包錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                Next
+                Dim reader As IDataReader = runQuery("SELECT bioMed, groupExclude FROM med_item WHERE medID=" & medTree.SelectedNode.Name)
+                reader.Read()
+                If reader.Item("bioMed") And Not reader.Item("groupExclude") Then
+                    MetroFramework.MetroMessageBox.Show(Me, "錯誤: 無法將藥品 (" & medTree.SelectedNode.text & ") 轉變成藥粉, 請檢查!", "藥包錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+            End If
             Try
                 runQuery("INSERT INTO medDetail (mgID, medID, medAmount, medUnit) VALUES ('" &
                       medGroupGrid.SelectedRows(0).Cells("mgID").Value & "', '" &
@@ -354,7 +370,7 @@ Public Class pnlPerscription
     End Sub
     ' 載入藥物群組
     Private Sub reloadMedDetail(ByVal mgID As Integer)
-        medDetailGrid.DataSource = returnData(mainForm, "Select md.mdID, mi.medName as '藥物名稱', md.medAmount as '份量', md.medUnit, null as '單位'
+        medDetailGrid.DataSource = returnData(mainForm, "Select md.mdID, mi.medName as '藥物名稱', md.medAmount as '份量', md.medUnit, null as '單位', mi.bioMed, mi.groupExclude
                                                         FROM medDetail AS md 
                                                         LEFT JOIN med_item as mi on md.medID = mi.medID
                                                         WHERE mgID=" & mgID)
@@ -368,6 +384,8 @@ Public Class pnlPerscription
         With medDetailGrid
             .Columns("mdID").Visible = False
             .Columns("medUnit").Visible = False
+            .Columns("bioMed").Visible = False
+            .Columns("groupExclude").Visible = False
         End With
     End Sub
     Private Sub medDetailLabel_Click(sender As Object, e As EventArgs) Handles medDetailLabel.Click
@@ -392,12 +410,14 @@ Public Class pnlPerscription
                                                         GROUP BY mg.mgid")
                 For Each row As DataGridViewRow In fullListView.Rows
                     Try
-                        row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
+                        row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
                     Catch ex As Exception
-                        row.Cells("單位").Value = unit(1)
+                        row.Cells("單位").Value = groupUnit(1)
                     End Try
                 Next
                 fullListView.Columns("medUnit").Visible = False
+                fullListView.Columns("bioMed").Visible = False
+                fullListView.Columns("groupExclude").Visible = False
             End If
         End If
     End Sub
@@ -405,16 +425,17 @@ Public Class pnlPerscription
     Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
         Dim keepPrinting As Boolean = True
         printIndex = 0
-        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單', count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes' 
+        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單', count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes'
                                                     FROM medGroup2medDetail as mg LEFT JOIN medDetail as md ON mg.mgID = md.mgID LEFT JOIN med_item as mi on md.medID = mi.medID 
-                                                    WHERE mg.medUnit = 1 AND bID=" & historyBox.SelectedValue &
-                                                    " GROUP BY mg.mgID")
+                                                    WHERE bID=" & historyBox.SelectedValue & " GROUP BY mg.mgID")
         For Each row As DataRow In dt.Rows
-            If row.Item("totalMeds") > 1 And Not row.Item("totalGram") Mod row.Item("totalTimes") = 0 Then
-                If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥包 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
-                    keepPrinting = False
+            If row.Item("totalMeds") > 1 Then
+                If Not row.Item("totalGram") / 6 = row.Item("totalTimes") Then
+                    If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥包 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
+                        keepPrinting = False
+                    End If
+                    If Not keepPrinting Then Exit Sub
                 End If
-                If Not keepPrinting Then Exit Sub
             End If
         Next
 

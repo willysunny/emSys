@@ -665,7 +665,7 @@ Partial Class pnlPerscription
         Me.medTab.Enabled = False
         Me.medTab.Location = New System.Drawing.Point(603, 3)
         Me.medTab.Name = "medTab"
-        Me.medTab.SelectedIndex = 1
+        Me.medTab.SelectedIndex = 0
         Me.medTab.Size = New System.Drawing.Size(667, 719)
         Me.medTab.TabIndex = 13
         Me.medTab.UseSelectable = True

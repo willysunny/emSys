@@ -539,9 +539,9 @@ Partial Class pnlMedInfo
         '
         '
         Me.medDesc.CustomButton.Image = Nothing
-        Me.medDesc.CustomButton.Location = New System.Drawing.Point(275, 2)
+        Me.medDesc.CustomButton.Location = New System.Drawing.Point(277, 2)
         Me.medDesc.CustomButton.Name = ""
-        Me.medDesc.CustomButton.Size = New System.Drawing.Size(137, 137)
+        Me.medDesc.CustomButton.Size = New System.Drawing.Size(135, 135)
         Me.medDesc.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.medDesc.CustomButton.TabIndex = 1
         Me.medDesc.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
