@@ -12,8 +12,7 @@
     Dim medManage As pnlMedManage = Nothing
     Dim pBooking As pnlBooking = Nothing
     Dim perscription As pnlPerscription = Nothing
-
-
+    Dim payment As pnlPayment = Nothing
 
     Public Sub New()
 
@@ -57,9 +56,6 @@
 #End Region
 
 #Region "Button Clicks"
-    Private Sub testButton_Click(sender As Object, e As EventArgs) Handles testButton.Click
-        Debug.WriteLine(patientInfo.pName)
-    End Sub
     Private Sub settingsLink_Click(sender As Object, e As EventArgs) Handles settingsLink.Click
         setting = New pnlSetting(Me)
         AddHandler setting.settingClosed, AddressOf setting_Closed
@@ -144,12 +140,14 @@
     Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoTile.Click
         medInfo = New pnlMedInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
-        AddHandler exitLink.MouseUp, AddressOf medInfo_exit
+        AddHandler exitLink.MouseUp, AddressOf medInfo.stopSearch
+        AddHandler medInfo.searchAborted, AddressOf medInfo_exit
         medInfo.swipe()
     End Sub
     Private Sub medInfo_exit(sender As Object, e As EventArgs)
         medInfo.swipe(False)
-        RemoveHandler exitLink.MouseUp, AddressOf medInfo_exit
+        RemoveHandler exitLink.MouseUp, AddressOf medInfo.stopSearch
+        RemoveHandler medInfo.searchAborted, AddressOf medInfo_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub patientBookingLink_Click(sender As Object, e As EventArgs) Handles bookingTile.Click
@@ -163,7 +161,7 @@
         RemoveHandler exitLink.MouseUp, AddressOf patientBooking_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
-    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionTile.Click, medManageTile.Click, medInfoTile.Click
+    Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionTile.Click
         If Not offlineMode Then
             perscription = New pnlPerscription(Me)
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
@@ -174,6 +172,19 @@
     Private Sub perscription_exit(sender As Object, e As EventArgs)
         perscription.swipe(False)
         RemoveHandler exitLink.MouseUp, AddressOf perscription_exit
+        AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+    End Sub
+    Private Sub paymentLink_Click(sender As Object, e As EventArgs) Handles paymentTile.Click
+        If Not offlineMode Then
+            payment = New pnlpayment(Me)
+            RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
+            AddHandler exitLink.MouseUp, AddressOf payment_exit
+            payment.swipe()
+        End If
+    End Sub
+    Private Sub payment_exit(sender As Object, e As EventArgs)
+        payment.swipe(False)
+        RemoveHandler exitLink.MouseUp, AddressOf payment_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportTile.Click

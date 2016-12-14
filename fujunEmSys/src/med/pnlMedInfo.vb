@@ -2,6 +2,11 @@
     Inherits pnlSlider
 
     Public Event finish_edit As EventHandler
+    Public Event searchAborted As EventHandler
+    Public isSearching As Boolean = False
+    Public abortSearch As Boolean = False
+    Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
+    Dim gUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
 
     Public Sub New(ByVal owner As Form)
         MyBase.New(owner)
@@ -15,7 +20,6 @@
         reloadMainGroup()
 
 #Region "批發/單價單位"
-        Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
         unit.Add(1, "克")
         unit.Add(2, "顆")
         Dim unitTable As DataTable = New DataTable()
@@ -38,7 +42,6 @@
         End With
 #End Region
 #Region "批發單位"
-        Dim gUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
         gUnit.Add(1, "包")
         gUnit.Add(2, "瓶")
         Dim groupUnitTable As DataTable = New DataTable()
@@ -55,7 +58,6 @@
             .ValueMember = "unitCode"
         End With
 #End Region
-
     End Sub
 
 #Region "載入資料"
@@ -107,7 +109,8 @@
                 If IsDBNull(.Item("groupUnit")) Then groupUnit.SelectedValue = -1 Else groupUnit.SelectedValue = .Item("groupUnit")
                 If IsDBNull(.Item("groupAmount")) Then groupAmount.Text = "" Else groupAmount.Text = .Item("groupAmount")
                 If IsDBNull(.Item("groupAmountUnit")) Then groupAmountUnit.SelectedValue = -1 Else groupAmountUnit.SelectedValue = .Item("groupAmountUnit")
-                discount.Checked = CBool(.Item("isDiscountable"))
+                bioMed.Checked = CBool(.Item("bioMed"))
+                groupExclude.Checked = CBool(.Item("groupExclude"))
             End While
         End With
     End Sub
@@ -152,8 +155,8 @@
     Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
         If unusedMedList.Checked Then
             If MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【未分類】?", "新增藥品", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, isDiscountable) VALUES(-1, '" &
-                    medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & discount.Checked & ")"
+                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, groupExclude, bioMed) VALUES(-1, '" &
+                    medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & groupExclude.Checked & ", " & bioMed.Checked & ")"
                 runQuery(sql)
                 MetroFramework.MetroMessageBox.Show(Me, "新增成功", "新增藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 reloadUnusedMedItem()
@@ -161,10 +164,10 @@
         Else
             Dim response As DialogResult = MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & CType(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】?" & vbNewLine & "(若要新增置【未分類】請點 No)", "新增藥品", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
             If Not response = DialogResult.Cancel Then
-                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, isDiscountable) VALUES("
+                Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, groupExclude, bioMed) VALUES("
                 If response = DialogResult.Yes Then sql += subGroupList.SelectedValue.ToString Else sql += "-1"
                 sql += ", '" & medName.Text & "', '" & pinyin.Text & "', '" & zhuyin.Text & "', '" & medDesc.Text & "', '" & unitPrice.Text & "', '" & unitUnit.SelectedValue & "', '" _
-                    & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & discount.Checked & ")"
+                    & groupPrice.Text & "', '" & groupUnit.SelectedValue & "', '" & groupAmount.Text & "', '" & groupAmountUnit.SelectedValue & "', " & groupExclude.Checked & ", " & bioMed.Checked & ")"
                 runQuery(sql)
                 MetroFramework.MetroMessageBox.Show(Me, "新增成功", "新增藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 reloadMedItem(subGroupList.SelectedValue)
@@ -174,6 +177,7 @@
     End Sub
     ' 修改藥品
     Private Sub editButton_Click(sender As Object, e As EventArgs) Handles editButton.Click
+        Dim index As Integer = medList.SelectedIndex
         runQuery("UPDATE med_item SET " &
                  "medName='" & medName.Text & "'," &
                  "pinyin='" & pinyin.Text.Trim.ToLower & "'," &
@@ -185,9 +189,11 @@
                  "groupUnit='" & groupUnit.SelectedValue & "'," &
                  "groupAmount='" & groupAmount.Text & "'," &
                  "groupAmountUnit='" & groupAmountUnit.SelectedValue & "'," &
-                 "isDiscountable=" & discount.Checked & " WHERE medID=" & medList.SelectedValue)
+                 "groupExclude=" & groupExclude.Checked & "," &
+                 "bioMed=" & bioMed.Checked & " WHERE medID=" & medList.SelectedValue)
         MetroFramework.MetroMessageBox.Show(Me, "更新成功", "修改藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
         If unusedMedList.Checked Then reloadUnusedMedItem() Else reloadMedItem(subGroupList.SelectedValue)
+        medList.SelectedIndex = index
     End Sub
     ' 刪除藥品
     Private Sub delButton_Click(sender As Object, e As EventArgs) Handles delButton.Click
@@ -202,6 +208,76 @@
             MetroFramework.MetroMessageBox.Show(Me, "刪除成功", "刪除藥品", MessageBoxButtons.OK, MessageBoxIcon.Information)
             reloadMedItem(subGroupList.SelectedValue)
         End If
+    End Sub
+
+    Private Sub reloadFullList_Click(sender As Object, e As EventArgs) Handles reloadFullList.Click
+        loadFullList()
+    End Sub
+
+    Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
+        If medTab.SelectedTab Is tabFull Then
+            ' Only need to do once
+            RemoveHandler medTab.Click, AddressOf medTab_Click
+            loadFullList()
+        End If
+    End Sub
+
+    Public Sub stopSearch(sender As Object, e As EventArgs)
+        If Not isSearching Then
+            RaiseEvent searchAborted(Me, New EventArgs)
+        Else
+            abortSearch = True
+        End If
+    End Sub
+
+    Private Sub loadFullList()
+        isSearching = True
+        reloadFullList.Enabled = False
+        fullListView.Visible = False
+        loadingPanel.Visible = True
+        fullListView.DataSource = returnData(mainForm, "Select mi.bioMed as '生醫', mm.mName AS '主分類', ms.sName AS '子分類', mi.medName AS '藥物名稱', mi.pinyin AS '拼音簡寫', mi.zhuyin AS '注音簡寫', 
+                                                            mi.unitPrice AS '單價', mi.unitUnit, null AS '單價單位', mi.groupPrice AS '批發價', mi.groupUnit, null AS '批發單位', groupAmount AS '批發量', groupAmountUnit, null AS '批量單位'
+                                                            FROM med_item AS mi INNER JOIN med_sub AS ms ON mi.sID = ms.sID
+                                                            INNER JOIN med_main as mm ON ms.mID = mm.mID")
+        loadProgress.Maximum = fullListView.Rows.Count
+        loadProgress.Value = 0
+        For Each row As DataGridViewRow In fullListView.Rows
+            If abortSearch Then
+                dataLoadLabel.Text = "已取消"
+                isSearching = False
+                Exit Sub
+            End If
+            dataLoadLabel.Text = "(" & loadProgress.Value & "/" & loadProgress.Maximum & ") 載入" & row.Cells("藥物名稱").Value
+            Try
+                row.Cells("單價單位").Value = unit(row.Cells("unitUnit").Value)
+            Catch ex As Exception
+                row.Cells("單價單位").Value = ""
+            End Try
+            Try
+                row.Cells("批量單位").Value = unit(row.Cells("groupAmountUnit").Value)
+            Catch ex As Exception
+                row.Cells("批量單位").Value = ""
+            End Try
+            Try
+                row.Cells("批發單位").Value = gUnit(row.Cells("groupUnit").Value)
+            Catch ex As Exception
+                row.Cells("批發單位").Value = ""
+            End Try
+            loadProgress.PerformStep()
+            Application.DoEvents()
+        Next
+        If abortSearch Then
+            dataLoadLabel.Text = "已取消"
+            isSearching = false
+            Exit Sub
+        End If
+        fullListView.Columns("unitUnit").Visible = False
+        fullListView.Columns("groupAmountUnit").Visible = False
+        fullListView.Columns("groupUnit").Visible = False
+        fullListView.Visible = True
+        loadingPanel.Visible = False
+        reloadFullList.Enabled = True
+        isSearching = False
     End Sub
 #End Region
 End Class

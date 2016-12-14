@@ -30,7 +30,7 @@
     <SuiteName>福濬生物醫學</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -174,6 +174,12 @@
     <Compile Include="src\report\frmUserReport.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="src\report\pnlPayment.Designer.vb">
+      <DependentUpon>pnlPayment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\report\pnlPayment.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="src\settings\frmDocManage.Designer.vb">
       <DependentUpon>frmDocManage.vb</DependentUpon>
     </Compile>
@@ -281,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\report\frmUserReport.resx">
       <DependentUpon>frmUserReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\report\pnlPayment.resx">
+      <DependentUpon>pnlPayment.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\settings\frmDocManage.resx">
       <DependentUpon>frmDocManage.vb</DependentUpon>

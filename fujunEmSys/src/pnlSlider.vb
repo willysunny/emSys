@@ -42,8 +42,8 @@
         resizeForm(menuStatus, rightSide)
     End Sub
 
-    Public Sub resizeForm(Optional ByVal isMenu As Boolean = False, Optional fromRight As Boolean = False)
-        If Not isMenu Then Width = owner.Width
+    Public Sub resizeForm(Optional ByVal isMenu As Boolean = False, Optional fromRight As Boolean = False, Optional menuWidth As Integer = 400)
+        If isMenu Then Width = menuWidth Else Width = owner.Width
         Height = owner.Height - 70
         If loaded Then
             If isMenu Then
@@ -63,6 +63,7 @@
     End Sub
 
     Public Sub swipe(Optional show As Boolean = True)
+        Dim saftyTimeOut As DateTime = Now.AddSeconds(5)
         resizeForm()
         Visible = True
         If show Then
@@ -70,6 +71,7 @@
             trans.add(Me, "Left", 0)
             trans.run()
             While Not (Left = 0)
+                If Now > saftyTimeOut Then Exit Sub
                 Application.DoEvents()
             End While
             loaded = True
@@ -80,6 +82,7 @@
             trans.add(Me, "Left", -owner.Width)
             trans.run()
             While Not (Left = -owner.Width)
+                If Now > saftyTimeOut Then Exit Sub
                 Application.DoEvents()
             End While
             closed(New EventArgs())

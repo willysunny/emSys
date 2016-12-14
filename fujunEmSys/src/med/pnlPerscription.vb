@@ -1,9 +1,13 @@
-﻿Public Class pnlPerscription
+﻿Imports System.Drawing.Printing
+
+Public Class pnlPerscription
     Inherits pnlSlider
 
     Private patientInfo As New pInfo
     Private bID As Integer = -1
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 單位
+    Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
+    Dim printIndex As Integer = 0
 
 #Region "初始"
     Public Sub New(ByVal owner As Form)
@@ -15,7 +19,7 @@
 
         ' Add any initialization after the InitializeComponent() call.
         loadTree()
-        refreshBooking()
+        refreshBooking(Now)
 
         unit.Add(1, "克")
         unit.Add(2, "顆")
@@ -32,13 +36,16 @@
             .DisplayMember = "unitName"
             .ValueMember = "unitCode"
         End With
-        unit.Add(3, "包")
-        unit.Add(4, "瓶")
+
+        groupUnit.Add(1, "包")
+        groupUnit.Add(2, "顆")
+        groupUnit.Add(3, "匙")
+        groupUnit.Add(4, "盒")
         Dim groupUnitTable As DataTable = New DataTable()
         With groupUnitTable
             .Columns.Add("unitCode", GetType(Integer))
             .Columns.Add("unitName", GetType(String))
-            For Each point As KeyValuePair(Of Integer, String) In unit
+            For Each point As KeyValuePair(Of Integer, String) In groupUnit
                 .Rows.Add(point.Key, point.Value)
             Next
         End With
@@ -51,11 +58,11 @@
 #End Region
 
 #Region "載入資料"
-    Private Sub refreshBooking()
+    Private Sub refreshBooking(ByVal checkDate As Date)
         Dim sql As String = "SELECT pb.bID, pb.pID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
-                            WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
+                            WHERE pb.bookTime >= '" & checkDate & "' AND pb.bookTime < '" & checkDate.AddDays(1) & "' 
                             ORDER BY pb.bookTime"
         With waitingList
             .DataSource = returnData(mainForm, sql)
@@ -63,6 +70,9 @@
             .DisplayMember = "patientName"
         End With
         tabBooking.Focus()
+    End Sub
+    Private Sub checkDate_ValueChanged(sender As Object, e As EventArgs) Handles checkDate.ValueChanged, refreshWaitingListButton.Click
+        refreshBooking(checkDate.Value)
     End Sub
 #Region "載入藥品清單"
     ' 載入樹狀圖
@@ -139,17 +149,20 @@
             Dim pID As Integer = reader.Item("pID")
             patientInfo = New pInfo
             patientInfo.initiate(pID)
-            reader = runQuery("Select bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
+            reader = runQuery("SELECT bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
             While reader.Read
-                If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime("last_visit") Else pPrevVisit.Text = ""
+                If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime(0) Else pPrevVisit.Text = ""
                 pVisitTimes.Text = reader.Item(1)
             End While
         End If
+        With historyBox
+            .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE pID=" & patientInfo.pID)
+            .ValueMember = "bID"
+            .DisplayMember = "bookTime"
+        End With
         reloadMedGroup()
     End Sub
-
 #End Region
-
 #End Region
 
 #Region "搜尋"
@@ -163,6 +176,16 @@
         End If
     End Sub
 #End Region
+
+    Private Sub medTree_doubleClick(sender As Object, e As EventArgs) Handles medTree.DoubleClick
+        If medGroupGrid.Rows.Count = 0 Then
+            addMedGroup_Click(Me, New EventArgs)
+            medGroupGrid.Rows.Item(0).Selected = True
+            addMedDetail_Click(Me, New EventArgs)
+        ElseIf medGroupGrid.SelectedRows.Count = 1 Then
+            addMedDetail_Click(Me, New EventArgs)
+        End If
+    End Sub
 
 #Region "藥物群組"
     ' 新增群組
@@ -198,7 +221,7 @@
                     "morning=" & morning.Checked & "," &
                     "noon=" & noon.Checked & "," &
                     "night=" & night.Checked & "," &
-                    "beforeSleep=" & beforeMeal.Checked & "," &
+                    "beforeSleep=" & beforeSleep.Checked & "," &
                     "notWell=" & notWell.Checked & "," &
                     "beforeMeal=" & beforeMeal.Checked & "," &
                     "afterMeal=" & afterMeal.Checked & "," &
@@ -252,9 +275,9 @@
         For Each row As DataGridViewRow In medGroupGrid.Rows
             If IsDBNull(row.Cells("藥物清單").Value) Then row.Cells("藥物清單").Value = "新群組"
             Try
-                row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
+                row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
             Catch ex As Exception
-                row.Cells("單位").Value = unit(1)
+                row.Cells("單位").Value = groupUnit(1)
             End Try
         Next
         With medGroupGrid
@@ -277,6 +300,21 @@
     ' 新增藥物
     Private Sub addMedDetail_Click(sender As Object, e As EventArgs) Handles addMedDetail.Click
         If medTree.SelectedNode.GetNodeCount(True) = 0 And medTree.SelectedNode.FullPath.Split("\").Length = 3 Then
+            ' 檢查特殊狀況
+            If medDetailGrid.Rows.Count >= 1 Then
+                For Each row As DataGridViewRow In medDetailGrid.Rows
+                    If row.Cells("bioMed").Value And Not row.Cells("groupExclude").Value Then
+                        MetroFramework.MetroMessageBox.Show(Me, "錯誤: 無法將藥品 (" & row.Cells("藥物名稱").Value & ") 轉變成藥粉, 請檢查!", "藥包錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                Next
+                Dim reader As IDataReader = runQuery("SELECT bioMed, groupExclude FROM med_item WHERE medID=" & medTree.SelectedNode.Name)
+                reader.Read()
+                If reader.Item("bioMed") And Not reader.Item("groupExclude") Then
+                    MetroFramework.MetroMessageBox.Show(Me, "錯誤: 無法將藥品 (" & medTree.SelectedNode.text & ") 轉變成藥粉, 請檢查!", "藥包錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+            End If
             Try
                 runQuery("INSERT INTO medDetail (mgID, medID, medAmount, medUnit) VALUES ('" &
                       medGroupGrid.SelectedRows(0).Cells("mgID").Value & "', '" &
@@ -298,11 +336,13 @@
             MetroFramework.MetroMessageBox.Show(Me, "沒有任何資料可刪除", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             runQuery("DELETE FROM medDetail WHERE mdID=" & medDetailGrid.SelectedRows(0).Cells("mdID").Value)
+            reloadMedGroup()
             reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
         End If
     End Sub
     ' 變更藥物
     Private Sub medDetailChange_Click(sender As Object, e As EventArgs) Handles medDetailChange.Click
+        Dim index As Integer = medDetailGrid.SelectedRows(0).Index
         Try
             runQuery("UPDATE medDetail SET " &
                     "medAmount=" & medDetailAmount.Text & "," &
@@ -310,6 +350,11 @@
                     " WHERE mdID=" & medDetailGrid.SelectedRows(0).Cells("mdID").Value)
             MetroFramework.MetroMessageBox.Show(Me, "更新成功", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information)
             reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
+            If index + 1 < medDetailGrid.Rows.Count Then
+                medDetailGrid.Rows.Item(index + 1).Selected = True
+            Else
+                medDetailGrid.Rows.Item(index).Selected = True
+            End If
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "更新失敗", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -325,7 +370,7 @@
     End Sub
     ' 載入藥物群組
     Private Sub reloadMedDetail(ByVal mgID As Integer)
-        medDetailGrid.DataSource = returnData(mainForm, "Select md.mdID, mi.medName as '藥物名稱', md.medAmount as '份量', md.medUnit, null as '單位'
+        medDetailGrid.DataSource = returnData(mainForm, "Select md.mdID, mi.medName as '藥物名稱', md.medAmount as '份量', md.medUnit, null as '單位', mi.bioMed, mi.groupExclude
                                                         FROM medDetail AS md 
                                                         LEFT JOIN med_item as mi on md.medID = mi.medID
                                                         WHERE mgID=" & mgID)
@@ -339,6 +384,8 @@
         With medDetailGrid
             .Columns("mdID").Visible = False
             .Columns("medUnit").Visible = False
+            .Columns("bioMed").Visible = False
+            .Columns("groupExclude").Visible = False
         End With
     End Sub
     Private Sub medDetailLabel_Click(sender As Object, e As EventArgs) Handles medDetailLabel.Click
@@ -346,27 +393,209 @@
     End Sub
 
 #End Region
-
+    ' 總覽
     Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
         If medTab.SelectedTab Is tabFull Then
-            fullListView.DataSource = returnData(mainForm, "Select mg.mgid as '群組編號', mi.medName as '藥品名稱', 
+            If Not historyBox.SelectedIndex = -1 Then
+                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', 
                                                                mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位',
-                                                               mg.makePill as '打錠', mg.f0
+                                                               mg.makePill as '打錠'
                                                         FROM medGroup2medDetail as mg
                                                         INNER JOIN medDetail AS md ON mg.mgID = md.mgID
                                                         INNER JOIN med_item as mi on md.medID = mi.medID
-                                                        WHERE bID=" & waitingList.SelectedValue)
-            For Each row As DataGridViewRow In fullListView.Rows
-                Try
-                    row.Cells("單位").Value = unit(row.Cells("medUnit").Value)
-                Catch ex As Exception
-                    row.Cells("單位").Value = unit(1)
-                End Try
-            Next
-            fullListView.Columns("medUnit").Visible = False
+                                                        WHERE bID=" & historyBox.SelectedValue & "
+                                                        GROUP BY mg.mgid")
+                For Each row As DataGridViewRow In fullListView.Rows
+                    Try
+                        row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
+                    Catch ex As Exception
+                        row.Cells("單位").Value = groupUnit(1)
+                    End Try
+                Next
+                fullListView.Columns("medUnit").Visible = False
+            End If
         End If
     End Sub
+    ' 列印按鈕
+    Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
+        Dim keepPrinting As Boolean = True
+        printIndex = 0
+        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單', count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes'
+                                                    FROM medGroup2medDetail as mg LEFT JOIN medDetail as md ON mg.mgID = md.mgID LEFT JOIN med_item as mi on md.medID = mi.medID 
+                                                    WHERE bID=" & historyBox.SelectedValue & " GROUP BY mg.mgID")
+        For Each row As DataRow In dt.Rows
+            If row.Item("totalMeds") > 1 Then
+                If Not row.Item("totalGram") / 6 = row.Item("totalTimes") Then
+                    If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥包 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
+                        keepPrinting = False
+                    End If
+                    If Not keepPrinting Then Exit Sub
+                End If
+            End If
+        Next
+
+        If keepPrinting Then
+            'printPreview.ShowDialog()
+            Try
+                With printDoc
+                    .PrinterSettings.PrinterName = "Ring 412PE+"
+                    .DefaultPageSettings.Landscape = False
+                    .Print()
+                End With
+            Catch ex As Exception
+                MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
+    ' 列印標籤
+    Private Sub printDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles printDoc.PrintPage
+        ' 文字設定
+        Dim titleFont As Font = New Font("微軟正黑體", 18, FontStyle.Regular)
+        Dim headerFont As Font = New Font("微軟正黑體", 12, FontStyle.Regular)
+        Dim textFont As Font = New Font("微軟正黑體", 10, FontStyle.Regular)
+        Dim subFont As Font = New Font("微軟正黑體", 8, FontStyle.Regular)
+        Dim fontsize As Integer = 18
+        Dim stringFormat As New StringFormat()
+        stringFormat.FormatFlags = StringFormatFlags.NoClip
+
+        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+        stringFormat.Alignment = StringAlignment.Center
+        e.Graphics.DrawString("福濬中醫診所用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
+
+        stringFormat.Alignment = StringAlignment.Near
+        e.Graphics.DrawString("姓名: " & pName.Text, headerFont, Brushes.Black, New Point(20, 415), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(60, 435), New Point(180, 435))
+        e.Graphics.DrawString("病歷號: " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(280, 435), New Point(380, 435))
+
+        e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
+
+
+        Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes(fullListView.Rows(printIndex).Cells("藥品清單").Value)
+        'Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes("這是一個非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常長的字串")
+        Dim strmMem As New System.IO.MemoryStream(aBytes)
+        Dim streamToPrint As New IO.StreamReader(strmMem)
+        Dim line As String = streamToPrint.ReadLine()
+        Dim sf As StringFormat = StringFormat.GenericTypographic
+        sf.Alignment = StringAlignment.Near
+        sf.LineAlignment = StringAlignment.Near
+        sf.FormatFlags = StringFormatFlags.LineLimit
+        sf.Trimming = StringTrimming.Word
+        Dim actual = e.Graphics.MeasureString(line, textFont, New SizeF(350, 60), sf)
+        e.Graphics.DrawString(line, textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
+
+        Dim usage As String = ""
+        Dim trigger As Boolean = False
+        If fullListView.Rows(printIndex).Cells("早").Value Then
+            usage = "早"
+            trigger = True
+        End If
+        If fullListView.Rows(printIndex).Cells("午").Value And trigger Then
+            usage += "/午"
+        ElseIf fullListView.Rows(printIndex).Cells("午").Value Then
+            usage = "午"
+            trigger = True
+        End If
+        If fullListView.Rows(printIndex).Cells("晚").Value And trigger Then
+            usage += "/晚"
+        ElseIf fullListView.Rows(printIndex).Cells("晚").Value Then
+            usage = "晚"
+            trigger = True
+        End If
+        trigger = False
+        If fullListView.Rows(printIndex).Cells("飯前").Value Then
+            usage += "飯前"
+            trigger = True
+        End If
+        If fullListView.Rows(printIndex).Cells("飯後").Value And trigger Then
+            usage += "或飯後"
+        ElseIf fullListView.Rows(printIndex).Cells("飯後").Value Then
+            usage += "飯後"
+        End If
+        If fullListView.Rows(printIndex).Cells("睡前").Value Then
+            usage += "以及睡前"
+        End If
+        usage += fullListView.Rows(printIndex).Cells("份量").Value & fullListView.Rows(printIndex).Cells("單位").Value
+        If fullListView.Rows(printIndex).Cells("不適時").Value Then
+            usage += ", 有症狀服用"
+        End If
+        e.Graphics.DrawString("服用方法: " & usage, headerFont, Brushes.Black, New Point(20, 525), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 545), New Point(95, 545))
+
+        e.Graphics.DrawString("福濬中醫診所 (03)327-7900" & vbNewLine & "桃園市龜山區文化二路30-11號", subFont, Brushes.Black, New Point(20, 550), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(20, 580), New Point(180, 580))
+
+
+        Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
+        stringFormat.Alignment = StringAlignment.Far
+        e.Graphics.DrawString("製造日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(300, 580))
+
+        If printIndex < fullListView.Rows.Count - 1 Then
+            printIndex += 1
+            e.HasMorePages = True
+        Else
+            e.HasMorePages = False
+        End If
+    End Sub
+
+    Private Sub medDetailAmount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles medDetailAmount.KeyPress
+        If e.KeyChar = Chr(Keys.Enter) Then
+            medDetailChange_Click(Me, New EventArgs)
+            medDetailAmount.Focus()
+        End If
+    End Sub
+#Region "計算機"
+
+    Private Sub dayCalc_Click(sender As Object, e As EventArgs) Handles dayCalc.Click
+        Try
+            If Not CInt(timeBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+                dayBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text) / CInt(timeBox.Text)
+            End If
+        Catch
+            dayBox.Text = "-ERR-"
+        End Try
+    End Sub
+
+    Private Sub timeCalc_Click(sender As Object, e As EventArgs) Handles timeCalc.Click
+        Try
+            If Not CInt(dayBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+                timeBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text) / CInt(timeBox.Text)
+            End If
+        Catch
+            timeBox.Text = "-ERR-"
+        End Try
+    End Sub
+
+    Private Sub singleCalc_Click(sender As Object, e As EventArgs) Handles singleCalc.Click
+        Try
+            If Not CInt(dayBox.Text) = 0 Or CInt(timeBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+                singleBox.Text = CInt(totalBox.Text) / CInt(timeBox.Text)
+            End If
+        Catch
+            singleBox.Text = "-ERR-"
+        End Try
+    End Sub
+    Private Sub totalCalc_Click(sender As Object, e As EventArgs) Handles totalCalc.Click
+        Try
+            totalBox.Text = CInt(timeBox.Text) * CInt(singleBox.Text) * CInt(dayBox.Text)
+        Catch
+            totalBox.Text = "-ERR-"
+        End Try
+    End Sub
+
+    Private Sub clearCalc_Click(sender As Object, e As EventArgs) Handles clearCalc.Click
+        dayBox.Text = "14"
+        timeBox.Text = "4"
+        singleBox.Text = "6"
+        totalBox.Text = "336"
+    End Sub
+
+#End Region
 End Class

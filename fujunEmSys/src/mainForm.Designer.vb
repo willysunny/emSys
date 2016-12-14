@@ -36,7 +36,6 @@ Partial Class mainForm
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.loginButton = New MetroFramework.Controls.MetroLink()
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
-        Me.testButton = New MetroFramework.Controls.MetroButton()
         Me.docManageLink = New MetroFramework.Controls.MetroLink()
         Me.reportTile = New MetroFramework.Controls.MetroTile()
         Me.medManageTile = New MetroFramework.Controls.MetroTile()
@@ -47,6 +46,7 @@ Partial Class mainForm
         Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
+        Me.paymentTile = New MetroFramework.Controls.MetroTile()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -128,15 +128,6 @@ Partial Class mainForm
         Me.userManageLink.Text = "使用者管理"
         Me.userManageLink.UseSelectable = True
         '
-        'testButton
-        '
-        Me.testButton.Location = New System.Drawing.Point(3, 674)
-        Me.testButton.Name = "testButton"
-        Me.testButton.Size = New System.Drawing.Size(75, 23)
-        Me.testButton.TabIndex = 3
-        Me.testButton.Text = "Test Button"
-        Me.testButton.UseSelectable = True
-        '
         'docManageLink
         '
         Me.docManageLink.Location = New System.Drawing.Point(1086, 146)
@@ -150,7 +141,7 @@ Partial Class mainForm
         '
         Me.reportTile.ActiveControl = Nothing
         Me.reportTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.reportTile.Location = New System.Drawing.Point(653, 290)
+        Me.reportTile.Location = New System.Drawing.Point(653, 340)
         Me.reportTile.Name = "reportTile"
         Me.reportTile.Size = New System.Drawing.Size(120, 120)
         Me.reportTile.TabIndex = 4
@@ -164,7 +155,7 @@ Partial Class mainForm
         '
         Me.medManageTile.ActiveControl = Nothing
         Me.medManageTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.medManageTile.Location = New System.Drawing.Point(527, 416)
+        Me.medManageTile.Location = New System.Drawing.Point(527, 466)
         Me.medManageTile.Name = "medManageTile"
         Me.medManageTile.Size = New System.Drawing.Size(120, 120)
         Me.medManageTile.TabIndex = 4
@@ -178,7 +169,7 @@ Partial Class mainForm
         '
         Me.medInfoTile.ActiveControl = Nothing
         Me.medInfoTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.medInfoTile.Location = New System.Drawing.Point(401, 416)
+        Me.medInfoTile.Location = New System.Drawing.Point(401, 466)
         Me.medInfoTile.Name = "medInfoTile"
         Me.medInfoTile.Size = New System.Drawing.Size(120, 120)
         Me.medInfoTile.TabIndex = 4
@@ -192,7 +183,7 @@ Partial Class mainForm
         '
         Me.perscriptionTile.ActiveControl = Nothing
         Me.perscriptionTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.perscriptionTile.Location = New System.Drawing.Point(527, 290)
+        Me.perscriptionTile.Location = New System.Drawing.Point(527, 340)
         Me.perscriptionTile.Name = "perscriptionTile"
         Me.perscriptionTile.Size = New System.Drawing.Size(120, 120)
         Me.perscriptionTile.TabIndex = 4
@@ -206,7 +197,7 @@ Partial Class mainForm
         '
         Me.paitientInfoTile.ActiveControl = Nothing
         Me.paitientInfoTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.paitientInfoTile.Location = New System.Drawing.Point(527, 164)
+        Me.paitientInfoTile.Location = New System.Drawing.Point(527, 214)
         Me.paitientInfoTile.Name = "paitientInfoTile"
         Me.paitientInfoTile.Size = New System.Drawing.Size(120, 120)
         Me.paitientInfoTile.TabIndex = 4
@@ -220,7 +211,7 @@ Partial Class mainForm
         '
         Me.bookingTile.ActiveControl = Nothing
         Me.bookingTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.bookingTile.Location = New System.Drawing.Point(401, 164)
+        Me.bookingTile.Location = New System.Drawing.Point(401, 214)
         Me.bookingTile.Name = "bookingTile"
         Me.bookingTile.Size = New System.Drawing.Size(120, 120)
         Me.bookingTile.TabIndex = 4
@@ -234,7 +225,7 @@ Partial Class mainForm
         '
         Me.emsTile.ActiveControl = Nothing
         Me.emsTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.emsTile.Location = New System.Drawing.Point(401, 290)
+        Me.emsTile.Location = New System.Drawing.Point(401, 340)
         Me.emsTile.Name = "emsTile"
         Me.emsTile.Size = New System.Drawing.Size(120, 120)
         Me.emsTile.TabIndex = 4
@@ -268,27 +259,41 @@ Partial Class mainForm
         Me.settingsLink.TabIndex = 0
         Me.settingsLink.UseSelectable = True
         '
+        'paymentTile
+        '
+        Me.paymentTile.ActiveControl = Nothing
+        Me.paymentTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.paymentTile.Location = New System.Drawing.Point(653, 466)
+        Me.paymentTile.Name = "paymentTile"
+        Me.paymentTile.Size = New System.Drawing.Size(120, 120)
+        Me.paymentTile.TabIndex = 4
+        Me.paymentTile.Text = "批價系統"
+        Me.paymentTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.paymentTile.UseSelectable = True
+        Me.paymentTile.UseTileImage = True
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackMaxSize = 4096
-        Me.ClientSize = New System.Drawing.Size(1175, 700)
+        Me.ClientSize = New System.Drawing.Size(1175, 800)
         Me.ControlBox = False
         Me.Controls.Add(Me.reportTile)
         Me.Controls.Add(Me.medManageTile)
+        Me.Controls.Add(Me.paymentTile)
         Me.Controls.Add(Me.medInfoTile)
         Me.Controls.Add(Me.perscriptionTile)
         Me.Controls.Add(Me.paitientInfoTile)
         Me.Controls.Add(Me.bookingTile)
         Me.Controls.Add(Me.emsTile)
-        Me.Controls.Add(Me.testButton)
         Me.Controls.Add(Me.docManageLink)
         Me.Controls.Add(Me.userManageLink)
         Me.Controls.Add(Me.loginButton)
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(800, 800)
         Me.Name = "mainForm"
         Me.Padding = New System.Windows.Forms.Padding(20, 70, 20, 20)
         Me.Style = MetroFramework.MetroColorStyle.[Default]
@@ -315,7 +320,6 @@ Partial Class mainForm
     Friend WithEvents exitMenu As ToolStripMenuItem
     Friend WithEvents loginButton As MetroFramework.Controls.MetroLink
     Friend WithEvents userManageLink As MetroFramework.Controls.MetroLink
-    Friend WithEvents testButton As MetroFramework.Controls.MetroButton
     Friend WithEvents docManageLink As MetroFramework.Controls.MetroLink
     Friend WithEvents emsTile As MetroFramework.Controls.MetroTile
     Friend WithEvents perscriptionTile As MetroFramework.Controls.MetroTile
@@ -324,4 +328,5 @@ Partial Class mainForm
     Friend WithEvents bookingTile As MetroFramework.Controls.MetroTile
     Friend WithEvents medManageTile As MetroFramework.Controls.MetroTile
     Friend WithEvents medInfoTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents paymentTile As MetroFramework.Controls.MetroTile
 End Class

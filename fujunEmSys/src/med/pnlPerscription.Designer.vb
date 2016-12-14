@@ -22,6 +22,9 @@ Partial Class pnlPerscription
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pnlPerscription))
+        Me.printDoc = New System.Drawing.Printing.PrintDocument()
+        Me.printPreview = New System.Windows.Forms.PrintPreviewDialog()
         Me.medTable = New System.Windows.Forms.TableLayoutPanel()
         Me.pInfoPanel = New System.Windows.Forms.Panel()
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
@@ -40,7 +43,8 @@ Partial Class pnlPerscription
         Me.pVisitTimes = New MetroFramework.Controls.MetroTextBox()
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
         Me.tabBooking = New System.Windows.Forms.TabPage()
-        Me.MetroDateTime1 = New MetroFramework.Controls.MetroDateTime()
+        Me.refreshWaitingListButton = New MetroFramework.Controls.MetroButton()
+        Me.checkDate = New MetroFramework.Controls.MetroDateTime()
         Me.waitingList = New System.Windows.Forms.ListBox()
         Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
         Me.searchTable = New System.Windows.Forms.TableLayoutPanel()
@@ -56,6 +60,17 @@ Partial Class pnlPerscription
         Me.addMedGroup = New MetroFramework.Controls.MetroButton()
         Me.medGroupGrid = New System.Windows.Forms.DataGridView()
         Me.medGroupLabel = New MetroFramework.Controls.MetroLabel()
+        Me.medDetailPanel = New MetroFramework.Controls.MetroPanel()
+        Me.delMedDetail = New MetroFramework.Controls.MetroButton()
+        Me.addMedDetail = New MetroFramework.Controls.MetroButton()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.medDetailAmount = New MetroFramework.Controls.MetroTextBox()
+        Me.medDetailChange = New MetroFramework.Controls.MetroButton()
+        Me.medDetailUnit = New MetroFramework.Controls.MetroComboBox()
+        Me.medDetailLabel = New MetroFramework.Controls.MetroLabel()
+        Me.medDetailGrid = New System.Windows.Forms.DataGridView()
+        Me.MetroPanel3 = New MetroFramework.Controls.MetroPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.medGroupAmount = New MetroFramework.Controls.MetroTextBox()
@@ -72,18 +87,28 @@ Partial Class pnlPerscription
         Me.medGroupDays = New MetroFramework.Controls.MetroTextBox()
         Me.medGroupChange = New MetroFramework.Controls.MetroButton()
         Me.medGroupUnit = New MetroFramework.Controls.MetroComboBox()
-        Me.medDetailPanel = New MetroFramework.Controls.MetroPanel()
-        Me.delMedDetail = New MetroFramework.Controls.MetroButton()
-        Me.addMedDetail = New MetroFramework.Controls.MetroButton()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.medDetailAmount = New MetroFramework.Controls.MetroTextBox()
-        Me.medDetailChange = New MetroFramework.Controls.MetroButton()
-        Me.medDetailUnit = New MetroFramework.Controls.MetroComboBox()
-        Me.medDetailLabel = New MetroFramework.Controls.MetroLabel()
-        Me.medDetailGrid = New System.Windows.Forms.DataGridView()
+        Me.MetroPanel4 = New MetroFramework.Controls.MetroPanel()
+        Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.dayBox = New MetroFramework.Controls.MetroTextBox()
+        Me.timeBox = New MetroFramework.Controls.MetroTextBox()
+        Me.singleBox = New MetroFramework.Controls.MetroTextBox()
+        Me.totalBox = New MetroFramework.Controls.MetroTextBox()
+        Me.clearCalc = New MetroFramework.Controls.MetroButton()
+        Me.dayCalc = New MetroFramework.Controls.MetroButton()
+        Me.timeCalc = New MetroFramework.Controls.MetroButton()
+        Me.singleCalc = New MetroFramework.Controls.MetroButton()
+        Me.totalCalc = New MetroFramework.Controls.MetroButton()
+        Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel8 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel9 = New MetroFramework.Controls.MetroLabel()
         Me.tabFull = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.fullListView = New System.Windows.Forms.DataGridView()
+        Me.historyBox = New System.Windows.Forms.ListBox()
+        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
+        Me.printMedButton = New MetroFramework.Controls.MetroButton()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
@@ -97,11 +122,15 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel3.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
         CType(Me.medGroupGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
         Me.medDetailPanel.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.medDetailGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MetroPanel3.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.MetroPanel4.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.tabFull.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -110,6 +139,20 @@ Partial Class pnlPerscription
         Me.owner.ClientSize = New System.Drawing.Size(0, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
         Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
+        '
+        'printDoc
+        '
+        '
+        'printPreview
+        '
+        Me.printPreview.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.printPreview.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.printPreview.ClientSize = New System.Drawing.Size(400, 300)
+        Me.printPreview.Document = Me.printDoc
+        Me.printPreview.Enabled = True
+        Me.printPreview.Icon = CType(resources.GetObject("printPreview.Icon"), System.Drawing.Icon)
+        Me.printPreview.Name = "printPreview"
+        Me.printPreview.Visible = False
         '
         'medTable
         '
@@ -486,22 +529,34 @@ Partial Class pnlPerscription
         '
         'tabBooking
         '
-        Me.tabBooking.Controls.Add(Me.MetroDateTime1)
+        Me.tabBooking.Controls.Add(Me.refreshWaitingListButton)
+        Me.tabBooking.Controls.Add(Me.checkDate)
         Me.tabBooking.Controls.Add(Me.waitingList)
         Me.tabBooking.Location = New System.Drawing.Point(4, 44)
         Me.tabBooking.Name = "tabBooking"
-        Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 0)
+        Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 50)
         Me.tabBooking.Size = New System.Drawing.Size(252, 637)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
-        'MetroDateTime1
+        'refreshWaitingListButton
         '
-        Me.MetroDateTime1.Location = New System.Drawing.Point(0, 0)
-        Me.MetroDateTime1.MinimumSize = New System.Drawing.Size(0, 29)
-        Me.MetroDateTime1.Name = "MetroDateTime1"
-        Me.MetroDateTime1.Size = New System.Drawing.Size(229, 29)
-        Me.MetroDateTime1.TabIndex = 1
+        Me.refreshWaitingListButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 590)
+        Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
+        Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
+        Me.refreshWaitingListButton.TabIndex = 2
+        Me.refreshWaitingListButton.Text = "重新整理"
+        Me.refreshWaitingListButton.UseSelectable = True
+        '
+        'checkDate
+        '
+        Me.checkDate.Location = New System.Drawing.Point(0, 0)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.checkDate.Name = "checkDate"
+        Me.checkDate.Size = New System.Drawing.Size(252, 29)
+        Me.checkDate.TabIndex = 1
         '
         'waitingList
         '
@@ -511,7 +566,7 @@ Partial Class pnlPerscription
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 30)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(252, 607)
+        Me.waitingList.Size = New System.Drawing.Size(252, 557)
         Me.waitingList.TabIndex = 0
         '
         'MetroPanel2
@@ -651,11 +706,14 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.MetroPanel1, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.medDetailPanel, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.MetroPanel3, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.MetroPanel4, 1, 1)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 1
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.RowCount = 2
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(659, 677)
         Me.TableLayoutPanel3.TabIndex = 0
         '
@@ -666,15 +724,15 @@ Partial Class pnlPerscription
         Me.MetroPanel1.Controls.Add(Me.addMedGroup)
         Me.MetroPanel1.Controls.Add(Me.medGroupGrid)
         Me.MetroPanel1.Controls.Add(Me.medGroupLabel)
-        Me.MetroPanel1.Controls.Add(Me.TableLayoutPanel1)
         Me.MetroPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroPanel1.HorizontalScrollbarBarColor = True
         Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.HorizontalScrollbarSize = 10
         Me.MetroPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.MetroPanel1.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Padding = New System.Windows.Forms.Padding(10, 50, 10, 180)
-        Me.MetroPanel1.Size = New System.Drawing.Size(323, 671)
+        Me.MetroPanel1.Padding = New System.Windows.Forms.Padding(10, 50, 10, 5)
+        Me.MetroPanel1.Size = New System.Drawing.Size(323, 494)
         Me.MetroPanel1.TabIndex = 12
         Me.MetroPanel1.UseCustomBackColor = True
         Me.MetroPanel1.VerticalScrollbarBarColor = True
@@ -714,7 +772,7 @@ Partial Class pnlPerscription
         Me.medGroupGrid.ReadOnly = True
         Me.medGroupGrid.RowTemplate.Height = 24
         Me.medGroupGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.medGroupGrid.Size = New System.Drawing.Size(303, 441)
+        Me.medGroupGrid.Size = New System.Drawing.Size(303, 439)
         Me.medGroupGrid.TabIndex = 14
         '
         'medGroupLabel
@@ -731,342 +789,6 @@ Partial Class pnlPerscription
         Me.medGroupLabel.UseCustomBackColor = True
         Me.medGroupLabel.UseCustomForeColor = True
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.ColumnCount = 5
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel4, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.medGroupAmount, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.F0, 4, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.afterMeal, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.morning, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.noon, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.night, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.beforeSleep, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.beforeMeal, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.makePill, 3, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.notWell, 4, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel1, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.medGroupDays, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.medGroupChange, 4, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.medGroupUnit, 3, 2)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(10, 497)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 4
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(303, 164)
-        Me.TableLayoutPanel1.TabIndex = 12
-        '
-        'MetroLabel4
-        '
-        Me.MetroLabel4.AutoSize = True
-        Me.MetroLabel4.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel4.ForeColor = System.Drawing.Color.White
-        Me.MetroLabel4.Location = New System.Drawing.Point(3, 84)
-        Me.MetroLabel4.Name = "MetroLabel4"
-        Me.MetroLabel4.Size = New System.Drawing.Size(54, 40)
-        Me.MetroLabel4.TabIndex = 7
-        Me.MetroLabel4.Text = "份量"
-        Me.MetroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.MetroLabel4.UseCustomBackColor = True
-        Me.MetroLabel4.UseCustomForeColor = True
-        '
-        'medGroupAmount
-        '
-        Me.medGroupAmount.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.SetColumnSpan(Me.medGroupAmount, 2)
-        '
-        '
-        '
-        Me.medGroupAmount.CustomButton.Image = Nothing
-        Me.medGroupAmount.CustomButton.Location = New System.Drawing.Point(86, 2)
-        Me.medGroupAmount.CustomButton.Name = ""
-        Me.medGroupAmount.CustomButton.Size = New System.Drawing.Size(25, 25)
-        Me.medGroupAmount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.medGroupAmount.CustomButton.TabIndex = 1
-        Me.medGroupAmount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.medGroupAmount.CustomButton.UseSelectable = True
-        Me.medGroupAmount.CustomButton.Visible = False
-        Me.medGroupAmount.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.medGroupAmount.Lines = New String() {"14"}
-        Me.medGroupAmount.Location = New System.Drawing.Point(63, 89)
-        Me.medGroupAmount.MaxLength = 32767
-        Me.medGroupAmount.Name = "medGroupAmount"
-        Me.medGroupAmount.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.medGroupAmount.PromptText = "天數"
-        Me.medGroupAmount.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.medGroupAmount.SelectedText = ""
-        Me.medGroupAmount.SelectionLength = 0
-        Me.medGroupAmount.SelectionStart = 0
-        Me.medGroupAmount.ShortcutsEnabled = True
-        Me.medGroupAmount.Size = New System.Drawing.Size(114, 30)
-        Me.medGroupAmount.TabIndex = 8
-        Me.medGroupAmount.Text = "14"
-        Me.medGroupAmount.UseSelectable = True
-        Me.medGroupAmount.WaterMark = "天數"
-        Me.medGroupAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.medGroupAmount.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        '
-        'F0
-        '
-        Me.F0.Appearance = System.Windows.Forms.Appearance.Button
-        Me.F0.AutoSize = True
-        Me.F0.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.F0.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.F0.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
-        Me.F0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.F0.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.F0.ForeColor = System.Drawing.Color.White
-        Me.F0.Location = New System.Drawing.Point(243, 45)
-        Me.F0.Name = "F0"
-        Me.F0.Size = New System.Drawing.Size(57, 36)
-        Me.F0.TabIndex = 3
-        Me.F0.Text = "F0"
-        Me.F0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.F0.UseVisualStyleBackColor = False
-        '
-        'afterMeal
-        '
-        Me.afterMeal.Appearance = System.Windows.Forms.Appearance.Button
-        Me.afterMeal.AutoSize = True
-        Me.afterMeal.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.afterMeal.Checked = True
-        Me.afterMeal.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.afterMeal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.afterMeal.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
-        Me.afterMeal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.afterMeal.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.afterMeal.ForeColor = System.Drawing.Color.White
-        Me.afterMeal.Location = New System.Drawing.Point(63, 45)
-        Me.afterMeal.Name = "afterMeal"
-        Me.afterMeal.Size = New System.Drawing.Size(54, 36)
-        Me.afterMeal.TabIndex = 2
-        Me.afterMeal.Text = "飯後"
-        Me.afterMeal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.afterMeal.UseVisualStyleBackColor = False
-        '
-        'morning
-        '
-        Me.morning.Appearance = System.Windows.Forms.Appearance.Button
-        Me.morning.AutoSize = True
-        Me.morning.BackColor = System.Drawing.Color.SteelBlue
-        Me.morning.Checked = True
-        Me.morning.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.morning.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.morning.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.morning.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.morning.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.morning.ForeColor = System.Drawing.Color.White
-        Me.morning.Location = New System.Drawing.Point(3, 3)
-        Me.morning.Name = "morning"
-        Me.morning.Size = New System.Drawing.Size(54, 36)
-        Me.morning.TabIndex = 0
-        Me.morning.Text = "早"
-        Me.morning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.morning.UseVisualStyleBackColor = False
-        '
-        'noon
-        '
-        Me.noon.Appearance = System.Windows.Forms.Appearance.Button
-        Me.noon.AutoSize = True
-        Me.noon.BackColor = System.Drawing.Color.SteelBlue
-        Me.noon.Checked = True
-        Me.noon.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.noon.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.noon.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.noon.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.noon.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.noon.ForeColor = System.Drawing.Color.White
-        Me.noon.Location = New System.Drawing.Point(63, 3)
-        Me.noon.Name = "noon"
-        Me.noon.Size = New System.Drawing.Size(54, 36)
-        Me.noon.TabIndex = 1
-        Me.noon.Text = "中"
-        Me.noon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.noon.UseVisualStyleBackColor = False
-        '
-        'night
-        '
-        Me.night.Appearance = System.Windows.Forms.Appearance.Button
-        Me.night.AutoSize = True
-        Me.night.BackColor = System.Drawing.Color.SteelBlue
-        Me.night.Checked = True
-        Me.night.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.night.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.night.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.night.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.night.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.night.ForeColor = System.Drawing.Color.White
-        Me.night.Location = New System.Drawing.Point(123, 3)
-        Me.night.Name = "night"
-        Me.night.Size = New System.Drawing.Size(54, 36)
-        Me.night.TabIndex = 1
-        Me.night.Text = "晚"
-        Me.night.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.night.UseVisualStyleBackColor = False
-        '
-        'beforeSleep
-        '
-        Me.beforeSleep.Appearance = System.Windows.Forms.Appearance.Button
-        Me.beforeSleep.AutoSize = True
-        Me.beforeSleep.BackColor = System.Drawing.Color.SteelBlue
-        Me.beforeSleep.Checked = True
-        Me.beforeSleep.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.beforeSleep.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.beforeSleep.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.beforeSleep.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.beforeSleep.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.beforeSleep.ForeColor = System.Drawing.Color.White
-        Me.beforeSleep.Location = New System.Drawing.Point(183, 3)
-        Me.beforeSleep.Name = "beforeSleep"
-        Me.beforeSleep.Size = New System.Drawing.Size(54, 36)
-        Me.beforeSleep.TabIndex = 1
-        Me.beforeSleep.Text = "睡前"
-        Me.beforeSleep.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.beforeSleep.UseVisualStyleBackColor = False
-        '
-        'beforeMeal
-        '
-        Me.beforeMeal.Appearance = System.Windows.Forms.Appearance.Button
-        Me.beforeMeal.AutoSize = True
-        Me.beforeMeal.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.beforeMeal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.beforeMeal.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
-        Me.beforeMeal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.beforeMeal.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.beforeMeal.ForeColor = System.Drawing.Color.White
-        Me.beforeMeal.Location = New System.Drawing.Point(3, 45)
-        Me.beforeMeal.Name = "beforeMeal"
-        Me.beforeMeal.Size = New System.Drawing.Size(54, 36)
-        Me.beforeMeal.TabIndex = 1
-        Me.beforeMeal.Text = "飯前"
-        Me.beforeMeal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.beforeMeal.UseVisualStyleBackColor = False
-        '
-        'makePill
-        '
-        Me.makePill.Appearance = System.Windows.Forms.Appearance.Button
-        Me.makePill.AutoSize = True
-        Me.makePill.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.makePill.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.makePill.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
-        Me.makePill.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.makePill.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.makePill.ForeColor = System.Drawing.Color.White
-        Me.makePill.Location = New System.Drawing.Point(183, 45)
-        Me.makePill.Name = "makePill"
-        Me.makePill.Size = New System.Drawing.Size(54, 36)
-        Me.makePill.TabIndex = 1
-        Me.makePill.Text = "打錠"
-        Me.makePill.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.makePill.UseVisualStyleBackColor = False
-        '
-        'notWell
-        '
-        Me.notWell.Appearance = System.Windows.Forms.Appearance.Button
-        Me.notWell.AutoSize = True
-        Me.notWell.BackColor = System.Drawing.Color.CornflowerBlue
-        Me.notWell.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.notWell.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.notWell.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.notWell.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.notWell.ForeColor = System.Drawing.Color.Transparent
-        Me.notWell.Location = New System.Drawing.Point(243, 3)
-        Me.notWell.Name = "notWell"
-        Me.notWell.Size = New System.Drawing.Size(57, 36)
-        Me.notWell.TabIndex = 1
-        Me.notWell.Text = "不適"
-        Me.notWell.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.notWell.UseVisualStyleBackColor = False
-        '
-        'MetroLabel1
-        '
-        Me.MetroLabel1.AutoSize = True
-        Me.MetroLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel1.ForeColor = System.Drawing.Color.White
-        Me.MetroLabel1.Location = New System.Drawing.Point(3, 124)
-        Me.MetroLabel1.Name = "MetroLabel1"
-        Me.MetroLabel1.Size = New System.Drawing.Size(54, 40)
-        Me.MetroLabel1.TabIndex = 4
-        Me.MetroLabel1.Text = "天數"
-        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.MetroLabel1.UseCustomBackColor = True
-        Me.MetroLabel1.UseCustomForeColor = True
-        '
-        'medGroupDays
-        '
-        Me.medGroupDays.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.SetColumnSpan(Me.medGroupDays, 3)
-        '
-        '
-        '
-        Me.medGroupDays.CustomButton.Image = Nothing
-        Me.medGroupDays.CustomButton.Location = New System.Drawing.Point(146, 2)
-        Me.medGroupDays.CustomButton.Name = ""
-        Me.medGroupDays.CustomButton.Size = New System.Drawing.Size(25, 25)
-        Me.medGroupDays.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.medGroupDays.CustomButton.TabIndex = 1
-        Me.medGroupDays.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.medGroupDays.CustomButton.UseSelectable = True
-        Me.medGroupDays.CustomButton.Visible = False
-        Me.medGroupDays.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.medGroupDays.Lines = New String() {"14"}
-        Me.medGroupDays.Location = New System.Drawing.Point(63, 129)
-        Me.medGroupDays.MaxLength = 32767
-        Me.medGroupDays.Name = "medGroupDays"
-        Me.medGroupDays.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.medGroupDays.PromptText = "天數"
-        Me.medGroupDays.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.medGroupDays.SelectedText = ""
-        Me.medGroupDays.SelectionLength = 0
-        Me.medGroupDays.SelectionStart = 0
-        Me.medGroupDays.ShortcutsEnabled = True
-        Me.medGroupDays.Size = New System.Drawing.Size(174, 30)
-        Me.medGroupDays.TabIndex = 5
-        Me.medGroupDays.Text = "14"
-        Me.medGroupDays.UseSelectable = True
-        Me.medGroupDays.WaterMark = "天數"
-        Me.medGroupDays.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.medGroupDays.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        '
-        'medGroupChange
-        '
-        Me.medGroupChange.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.medGroupChange.Location = New System.Drawing.Point(243, 127)
-        Me.medGroupChange.Name = "medGroupChange"
-        Me.medGroupChange.Size = New System.Drawing.Size(57, 34)
-        Me.medGroupChange.TabIndex = 6
-        Me.medGroupChange.Text = "變更"
-        Me.medGroupChange.UseSelectable = True
-        '
-        'medGroupUnit
-        '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.medGroupUnit, 2)
-        Me.medGroupUnit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.medGroupUnit.FontSize = MetroFramework.MetroComboBoxSize.Tall
-        Me.medGroupUnit.FormattingEnabled = True
-        Me.medGroupUnit.ItemHeight = 29
-        Me.medGroupUnit.Location = New System.Drawing.Point(183, 87)
-        Me.medGroupUnit.Name = "medGroupUnit"
-        Me.medGroupUnit.Size = New System.Drawing.Size(117, 35)
-        Me.medGroupUnit.TabIndex = 9
-        Me.medGroupUnit.UseSelectable = True
-        '
         'medDetailPanel
         '
         Me.medDetailPanel.BackColor = System.Drawing.Color.DimGray
@@ -1082,7 +804,7 @@ Partial Class pnlPerscription
         Me.medDetailPanel.Location = New System.Drawing.Point(332, 3)
         Me.medDetailPanel.Name = "medDetailPanel"
         Me.medDetailPanel.Padding = New System.Windows.Forms.Padding(10, 50, 10, 50)
-        Me.medDetailPanel.Size = New System.Drawing.Size(324, 671)
+        Me.medDetailPanel.Size = New System.Drawing.Size(324, 491)
         Me.medDetailPanel.TabIndex = 12
         Me.medDetailPanel.UseCustomBackColor = True
         Me.medDetailPanel.VerticalScrollbarBarColor = True
@@ -1123,7 +845,7 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel4.Controls.Add(Me.medDetailAmount, 1, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.medDetailChange, 3, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.medDetailUnit, 2, 0)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(10, 627)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(10, 447)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -1134,14 +856,15 @@ Partial Class pnlPerscription
         '
         'MetroLabel3
         '
+        Me.MetroLabel3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MetroLabel3.AutoSize = True
         Me.MetroLabel3.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular
         Me.MetroLabel3.ForeColor = System.Drawing.Color.White
-        Me.MetroLabel3.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel3.Location = New System.Drawing.Point(3, 21)
         Me.MetroLabel3.Name = "MetroLabel3"
-        Me.MetroLabel3.Size = New System.Drawing.Size(74, 40)
+        Me.MetroLabel3.Size = New System.Drawing.Size(74, 19)
         Me.MetroLabel3.TabIndex = 4
         Me.MetroLabel3.Text = "份量"
         Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1164,7 +887,7 @@ Partial Class pnlPerscription
         Me.medDetailAmount.CustomButton.UseSelectable = True
         Me.medDetailAmount.CustomButton.Visible = False
         Me.medDetailAmount.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.medDetailAmount.Lines = New String() {"14"}
+        Me.medDetailAmount.Lines = New String() {"6"}
         Me.medDetailAmount.Location = New System.Drawing.Point(83, 5)
         Me.medDetailAmount.MaxLength = 32767
         Me.medDetailAmount.Name = "medDetailAmount"
@@ -1177,7 +900,7 @@ Partial Class pnlPerscription
         Me.medDetailAmount.ShortcutsEnabled = True
         Me.medDetailAmount.Size = New System.Drawing.Size(83, 30)
         Me.medDetailAmount.TabIndex = 5
-        Me.medDetailAmount.Text = "14"
+        Me.medDetailAmount.Text = "6"
         Me.medDetailAmount.UseSelectable = True
         Me.medDetailAmount.WaterMark = "天數"
         Me.medDetailAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1213,9 +936,9 @@ Partial Class pnlPerscription
         Me.medDetailLabel.ForeColor = System.Drawing.Color.White
         Me.medDetailLabel.Location = New System.Drawing.Point(10, 22)
         Me.medDetailLabel.Name = "medDetailLabel"
-        Me.medDetailLabel.Size = New System.Drawing.Size(92, 25)
+        Me.medDetailLabel.Size = New System.Drawing.Size(171, 25)
         Me.medDetailLabel.TabIndex = 13
-        Me.medDetailLabel.Text = "藥物清單"
+        Me.medDetailLabel.Text = "藥物清單 (一天量)"
         Me.medDetailLabel.UseCustomBackColor = True
         Me.medDetailLabel.UseCustomForeColor = True
         '
@@ -1232,17 +955,700 @@ Partial Class pnlPerscription
         Me.medDetailGrid.ReadOnly = True
         Me.medDetailGrid.RowTemplate.Height = 24
         Me.medDetailGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.medDetailGrid.Size = New System.Drawing.Size(304, 571)
+        Me.medDetailGrid.Size = New System.Drawing.Size(304, 391)
         Me.medDetailGrid.TabIndex = 2
+        '
+        'MetroPanel3
+        '
+        Me.MetroPanel3.BackColor = System.Drawing.Color.DarkCyan
+        Me.MetroPanel3.Controls.Add(Me.TableLayoutPanel1)
+        Me.MetroPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroPanel3.HorizontalScrollbarBarColor = True
+        Me.MetroPanel3.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel3.HorizontalScrollbarSize = 10
+        Me.MetroPanel3.Location = New System.Drawing.Point(3, 497)
+        Me.MetroPanel3.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.MetroPanel3.Name = "MetroPanel3"
+        Me.MetroPanel3.Padding = New System.Windows.Forms.Padding(10, 5, 10, 10)
+        Me.MetroPanel3.Size = New System.Drawing.Size(323, 177)
+        Me.MetroPanel3.TabIndex = 13
+        Me.MetroPanel3.UseCustomBackColor = True
+        Me.MetroPanel3.VerticalScrollbarBarColor = True
+        Me.MetroPanel3.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel3.VerticalScrollbarSize = 10
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 5
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel4, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.medGroupAmount, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.F0, 4, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.afterMeal, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.morning, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.noon, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.night, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.beforeSleep, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.beforeMeal, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.makePill, 3, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.notWell, 4, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel1, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.medGroupDays, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.medGroupChange, 4, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.medGroupUnit, 3, 2)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(10, 5)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 4
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(303, 162)
+        Me.TableLayoutPanel1.TabIndex = 12
+        '
+        'MetroLabel4
+        '
+        Me.MetroLabel4.AutoSize = True
+        Me.MetroLabel4.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel4.ForeColor = System.Drawing.Color.White
+        Me.MetroLabel4.Location = New System.Drawing.Point(3, 82)
+        Me.MetroLabel4.Name = "MetroLabel4"
+        Me.MetroLabel4.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel4.TabIndex = 7
+        Me.MetroLabel4.Text = "份量"
+        Me.MetroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.MetroLabel4.UseCustomBackColor = True
+        Me.MetroLabel4.UseCustomForeColor = True
+        '
+        'medGroupAmount
+        '
+        Me.medGroupAmount.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.medGroupAmount, 2)
+        '
+        '
+        '
+        Me.medGroupAmount.CustomButton.Image = Nothing
+        Me.medGroupAmount.CustomButton.Location = New System.Drawing.Point(86, 2)
+        Me.medGroupAmount.CustomButton.Name = ""
+        Me.medGroupAmount.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.medGroupAmount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.medGroupAmount.CustomButton.TabIndex = 1
+        Me.medGroupAmount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.medGroupAmount.CustomButton.UseSelectable = True
+        Me.medGroupAmount.CustomButton.Visible = False
+        Me.medGroupAmount.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.medGroupAmount.Lines = New String() {"1"}
+        Me.medGroupAmount.Location = New System.Drawing.Point(63, 87)
+        Me.medGroupAmount.MaxLength = 32767
+        Me.medGroupAmount.Name = "medGroupAmount"
+        Me.medGroupAmount.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.medGroupAmount.PromptText = "天數"
+        Me.medGroupAmount.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.medGroupAmount.SelectedText = ""
+        Me.medGroupAmount.SelectionLength = 0
+        Me.medGroupAmount.SelectionStart = 0
+        Me.medGroupAmount.ShortcutsEnabled = True
+        Me.medGroupAmount.Size = New System.Drawing.Size(114, 30)
+        Me.medGroupAmount.TabIndex = 8
+        Me.medGroupAmount.Text = "1"
+        Me.medGroupAmount.UseSelectable = True
+        Me.medGroupAmount.WaterMark = "天數"
+        Me.medGroupAmount.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.medGroupAmount.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'F0
+        '
+        Me.F0.Appearance = System.Windows.Forms.Appearance.Button
+        Me.F0.AutoSize = True
+        Me.F0.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.F0.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.F0.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
+        Me.F0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.F0.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.F0.ForeColor = System.Drawing.Color.White
+        Me.F0.Location = New System.Drawing.Point(243, 44)
+        Me.F0.Name = "F0"
+        Me.F0.Size = New System.Drawing.Size(57, 35)
+        Me.F0.TabIndex = 3
+        Me.F0.Text = "F0"
+        Me.F0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.F0.UseVisualStyleBackColor = False
+        '
+        'afterMeal
+        '
+        Me.afterMeal.Appearance = System.Windows.Forms.Appearance.Button
+        Me.afterMeal.AutoSize = True
+        Me.afterMeal.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.afterMeal.Checked = True
+        Me.afterMeal.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.afterMeal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.afterMeal.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
+        Me.afterMeal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.afterMeal.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.afterMeal.ForeColor = System.Drawing.Color.White
+        Me.afterMeal.Location = New System.Drawing.Point(63, 44)
+        Me.afterMeal.Name = "afterMeal"
+        Me.afterMeal.Size = New System.Drawing.Size(54, 35)
+        Me.afterMeal.TabIndex = 2
+        Me.afterMeal.Text = "飯後"
+        Me.afterMeal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.afterMeal.UseVisualStyleBackColor = False
+        '
+        'morning
+        '
+        Me.morning.Appearance = System.Windows.Forms.Appearance.Button
+        Me.morning.AutoSize = True
+        Me.morning.BackColor = System.Drawing.Color.SteelBlue
+        Me.morning.Checked = True
+        Me.morning.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.morning.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.morning.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.morning.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.morning.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.morning.ForeColor = System.Drawing.Color.White
+        Me.morning.Location = New System.Drawing.Point(3, 3)
+        Me.morning.Name = "morning"
+        Me.morning.Size = New System.Drawing.Size(54, 35)
+        Me.morning.TabIndex = 0
+        Me.morning.Text = "早"
+        Me.morning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.morning.UseVisualStyleBackColor = False
+        '
+        'noon
+        '
+        Me.noon.Appearance = System.Windows.Forms.Appearance.Button
+        Me.noon.AutoSize = True
+        Me.noon.BackColor = System.Drawing.Color.SteelBlue
+        Me.noon.Checked = True
+        Me.noon.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.noon.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.noon.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.noon.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.noon.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.noon.ForeColor = System.Drawing.Color.White
+        Me.noon.Location = New System.Drawing.Point(63, 3)
+        Me.noon.Name = "noon"
+        Me.noon.Size = New System.Drawing.Size(54, 35)
+        Me.noon.TabIndex = 1
+        Me.noon.Text = "中"
+        Me.noon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.noon.UseVisualStyleBackColor = False
+        '
+        'night
+        '
+        Me.night.Appearance = System.Windows.Forms.Appearance.Button
+        Me.night.AutoSize = True
+        Me.night.BackColor = System.Drawing.Color.SteelBlue
+        Me.night.Checked = True
+        Me.night.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.night.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.night.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.night.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.night.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.night.ForeColor = System.Drawing.Color.White
+        Me.night.Location = New System.Drawing.Point(123, 3)
+        Me.night.Name = "night"
+        Me.night.Size = New System.Drawing.Size(54, 35)
+        Me.night.TabIndex = 1
+        Me.night.Text = "晚"
+        Me.night.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.night.UseVisualStyleBackColor = False
+        '
+        'beforeSleep
+        '
+        Me.beforeSleep.Appearance = System.Windows.Forms.Appearance.Button
+        Me.beforeSleep.AutoSize = True
+        Me.beforeSleep.BackColor = System.Drawing.Color.SteelBlue
+        Me.beforeSleep.Checked = True
+        Me.beforeSleep.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.beforeSleep.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.beforeSleep.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.beforeSleep.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.beforeSleep.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.beforeSleep.ForeColor = System.Drawing.Color.White
+        Me.beforeSleep.Location = New System.Drawing.Point(183, 3)
+        Me.beforeSleep.Name = "beforeSleep"
+        Me.beforeSleep.Size = New System.Drawing.Size(54, 35)
+        Me.beforeSleep.TabIndex = 1
+        Me.beforeSleep.Text = "睡前"
+        Me.beforeSleep.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.beforeSleep.UseVisualStyleBackColor = False
+        '
+        'beforeMeal
+        '
+        Me.beforeMeal.Appearance = System.Windows.Forms.Appearance.Button
+        Me.beforeMeal.AutoSize = True
+        Me.beforeMeal.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.beforeMeal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.beforeMeal.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
+        Me.beforeMeal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.beforeMeal.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.beforeMeal.ForeColor = System.Drawing.Color.White
+        Me.beforeMeal.Location = New System.Drawing.Point(3, 44)
+        Me.beforeMeal.Name = "beforeMeal"
+        Me.beforeMeal.Size = New System.Drawing.Size(54, 35)
+        Me.beforeMeal.TabIndex = 1
+        Me.beforeMeal.Text = "飯前"
+        Me.beforeMeal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.beforeMeal.UseVisualStyleBackColor = False
+        '
+        'makePill
+        '
+        Me.makePill.Appearance = System.Windows.Forms.Appearance.Button
+        Me.makePill.AutoSize = True
+        Me.makePill.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.makePill.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.makePill.FlatAppearance.CheckedBackColor = System.Drawing.Color.Green
+        Me.makePill.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.makePill.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.makePill.ForeColor = System.Drawing.Color.White
+        Me.makePill.Location = New System.Drawing.Point(183, 44)
+        Me.makePill.Name = "makePill"
+        Me.makePill.Size = New System.Drawing.Size(54, 35)
+        Me.makePill.TabIndex = 1
+        Me.makePill.Text = "打錠"
+        Me.makePill.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.makePill.UseVisualStyleBackColor = False
+        '
+        'notWell
+        '
+        Me.notWell.Appearance = System.Windows.Forms.Appearance.Button
+        Me.notWell.AutoSize = True
+        Me.notWell.BackColor = System.Drawing.Color.CornflowerBlue
+        Me.notWell.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.notWell.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.notWell.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.notWell.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.notWell.ForeColor = System.Drawing.Color.Transparent
+        Me.notWell.Location = New System.Drawing.Point(243, 3)
+        Me.notWell.Name = "notWell"
+        Me.notWell.Size = New System.Drawing.Size(57, 35)
+        Me.notWell.TabIndex = 1
+        Me.notWell.Text = "不適"
+        Me.notWell.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.notWell.UseVisualStyleBackColor = False
+        '
+        'MetroLabel1
+        '
+        Me.MetroLabel1.AutoSize = True
+        Me.MetroLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel1.ForeColor = System.Drawing.Color.White
+        Me.MetroLabel1.Location = New System.Drawing.Point(3, 122)
+        Me.MetroLabel1.Name = "MetroLabel1"
+        Me.MetroLabel1.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel1.TabIndex = 4
+        Me.MetroLabel1.Text = "天數"
+        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.MetroLabel1.UseCustomBackColor = True
+        Me.MetroLabel1.UseCustomForeColor = True
+        '
+        'medGroupDays
+        '
+        Me.medGroupDays.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.medGroupDays, 3)
+        '
+        '
+        '
+        Me.medGroupDays.CustomButton.Image = Nothing
+        Me.medGroupDays.CustomButton.Location = New System.Drawing.Point(146, 2)
+        Me.medGroupDays.CustomButton.Name = ""
+        Me.medGroupDays.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.medGroupDays.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.medGroupDays.CustomButton.TabIndex = 1
+        Me.medGroupDays.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.medGroupDays.CustomButton.UseSelectable = True
+        Me.medGroupDays.CustomButton.Visible = False
+        Me.medGroupDays.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.medGroupDays.Lines = New String() {"14"}
+        Me.medGroupDays.Location = New System.Drawing.Point(63, 127)
+        Me.medGroupDays.MaxLength = 32767
+        Me.medGroupDays.Name = "medGroupDays"
+        Me.medGroupDays.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.medGroupDays.PromptText = "天數"
+        Me.medGroupDays.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.medGroupDays.SelectedText = ""
+        Me.medGroupDays.SelectionLength = 0
+        Me.medGroupDays.SelectionStart = 0
+        Me.medGroupDays.ShortcutsEnabled = True
+        Me.medGroupDays.Size = New System.Drawing.Size(174, 30)
+        Me.medGroupDays.TabIndex = 5
+        Me.medGroupDays.Text = "14"
+        Me.medGroupDays.UseSelectable = True
+        Me.medGroupDays.WaterMark = "天數"
+        Me.medGroupDays.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.medGroupDays.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'medGroupChange
+        '
+        Me.medGroupChange.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medGroupChange.Location = New System.Drawing.Point(243, 125)
+        Me.medGroupChange.Name = "medGroupChange"
+        Me.medGroupChange.Size = New System.Drawing.Size(57, 34)
+        Me.medGroupChange.TabIndex = 6
+        Me.medGroupChange.Text = "變更"
+        Me.medGroupChange.UseSelectable = True
+        '
+        'medGroupUnit
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.medGroupUnit, 2)
+        Me.medGroupUnit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medGroupUnit.FontSize = MetroFramework.MetroComboBoxSize.Tall
+        Me.medGroupUnit.FormattingEnabled = True
+        Me.medGroupUnit.ItemHeight = 29
+        Me.medGroupUnit.Location = New System.Drawing.Point(183, 85)
+        Me.medGroupUnit.Name = "medGroupUnit"
+        Me.medGroupUnit.Size = New System.Drawing.Size(117, 35)
+        Me.medGroupUnit.TabIndex = 9
+        Me.medGroupUnit.UseSelectable = True
+        '
+        'MetroPanel4
+        '
+        Me.MetroPanel4.BackColor = System.Drawing.Color.LightBlue
+        Me.MetroPanel4.Controls.Add(Me.MetroLabel10)
+        Me.MetroPanel4.Controls.Add(Me.TableLayoutPanel5)
+        Me.MetroPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroPanel4.HorizontalScrollbarBarColor = True
+        Me.MetroPanel4.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel4.HorizontalScrollbarSize = 10
+        Me.MetroPanel4.Location = New System.Drawing.Point(332, 500)
+        Me.MetroPanel4.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.MetroPanel4.Name = "MetroPanel4"
+        Me.MetroPanel4.Padding = New System.Windows.Forms.Padding(10, 50, 10, 10)
+        Me.MetroPanel4.Size = New System.Drawing.Size(324, 177)
+        Me.MetroPanel4.TabIndex = 13
+        Me.MetroPanel4.UseCustomBackColor = True
+        Me.MetroPanel4.VerticalScrollbarBarColor = True
+        Me.MetroPanel4.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel4.VerticalScrollbarSize = 10
+        '
+        'MetroLabel10
+        '
+        Me.MetroLabel10.AutoSize = True
+        Me.MetroLabel10.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel10.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel10.Location = New System.Drawing.Point(10, 15)
+        Me.MetroLabel10.Name = "MetroLabel10"
+        Me.MetroLabel10.Size = New System.Drawing.Size(112, 25)
+        Me.MetroLabel10.TabIndex = 3
+        Me.MetroLabel10.Text = "重量計算機"
+        Me.MetroLabel10.UseCustomBackColor = True
+        '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.ColumnCount = 5
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.dayBox, 0, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.timeBox, 1, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.singleBox, 2, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.totalBox, 3, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.clearCalc, 4, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.dayCalc, 0, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.timeCalc, 1, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.singleCalc, 2, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.totalCalc, 3, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel5, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel7, 1, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel8, 2, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel9, 3, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(10, 50)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 3
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(304, 117)
+        Me.TableLayoutPanel5.TabIndex = 2
+        '
+        'dayBox
+        '
+        '
+        '
+        '
+        Me.dayBox.CustomButton.Image = Nothing
+        Me.dayBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.dayBox.CustomButton.Name = ""
+        Me.dayBox.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.dayBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.dayBox.CustomButton.TabIndex = 1
+        Me.dayBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.dayBox.CustomButton.UseSelectable = True
+        Me.dayBox.CustomButton.Visible = False
+        Me.dayBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dayBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.dayBox.Lines = New String() {"14"}
+        Me.dayBox.Location = New System.Drawing.Point(3, 43)
+        Me.dayBox.MaxLength = 32767
+        Me.dayBox.Name = "dayBox"
+        Me.dayBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.dayBox.PromptText = "天數"
+        Me.dayBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.dayBox.SelectedText = ""
+        Me.dayBox.SelectionLength = 0
+        Me.dayBox.SelectionStart = 0
+        Me.dayBox.ShortcutsEnabled = True
+        Me.dayBox.Size = New System.Drawing.Size(54, 34)
+        Me.dayBox.TabIndex = 0
+        Me.dayBox.Text = "14"
+        Me.dayBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.dayBox.UseSelectable = True
+        Me.dayBox.WaterMark = "天數"
+        Me.dayBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.dayBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'timeBox
+        '
+        '
+        '
+        '
+        Me.timeBox.CustomButton.Image = Nothing
+        Me.timeBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.timeBox.CustomButton.Name = ""
+        Me.timeBox.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.timeBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.timeBox.CustomButton.TabIndex = 1
+        Me.timeBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.timeBox.CustomButton.UseSelectable = True
+        Me.timeBox.CustomButton.Visible = False
+        Me.timeBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.timeBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.timeBox.Lines = New String() {"4"}
+        Me.timeBox.Location = New System.Drawing.Point(63, 43)
+        Me.timeBox.MaxLength = 32767
+        Me.timeBox.Name = "timeBox"
+        Me.timeBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.timeBox.PromptText = "次數"
+        Me.timeBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.timeBox.SelectedText = ""
+        Me.timeBox.SelectionLength = 0
+        Me.timeBox.SelectionStart = 0
+        Me.timeBox.ShortcutsEnabled = True
+        Me.timeBox.Size = New System.Drawing.Size(54, 34)
+        Me.timeBox.TabIndex = 0
+        Me.timeBox.Text = "4"
+        Me.timeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.timeBox.UseSelectable = True
+        Me.timeBox.WaterMark = "次數"
+        Me.timeBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.timeBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'singleBox
+        '
+        '
+        '
+        '
+        Me.singleBox.CustomButton.Image = Nothing
+        Me.singleBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.singleBox.CustomButton.Name = ""
+        Me.singleBox.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.singleBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.singleBox.CustomButton.TabIndex = 1
+        Me.singleBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.singleBox.CustomButton.UseSelectable = True
+        Me.singleBox.CustomButton.Visible = False
+        Me.singleBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.singleBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.singleBox.Lines = New String() {"0"}
+        Me.singleBox.Location = New System.Drawing.Point(123, 43)
+        Me.singleBox.MaxLength = 32767
+        Me.singleBox.Name = "singleBox"
+        Me.singleBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.singleBox.PromptText = "總量"
+        Me.singleBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.singleBox.SelectedText = ""
+        Me.singleBox.SelectionLength = 0
+        Me.singleBox.SelectionStart = 0
+        Me.singleBox.ShortcutsEnabled = True
+        Me.singleBox.Size = New System.Drawing.Size(54, 34)
+        Me.singleBox.TabIndex = 0
+        Me.singleBox.Text = "0"
+        Me.singleBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.singleBox.UseSelectable = True
+        Me.singleBox.WaterMark = "總量"
+        Me.singleBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.singleBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'totalBox
+        '
+        '
+        '
+        '
+        Me.totalBox.CustomButton.Image = Nothing
+        Me.totalBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.totalBox.CustomButton.Name = ""
+        Me.totalBox.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.totalBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.totalBox.CustomButton.TabIndex = 1
+        Me.totalBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.totalBox.CustomButton.UseSelectable = True
+        Me.totalBox.CustomButton.Visible = False
+        Me.totalBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.totalBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.totalBox.Lines = New String() {"0"}
+        Me.totalBox.Location = New System.Drawing.Point(183, 43)
+        Me.totalBox.MaxLength = 32767
+        Me.totalBox.Name = "totalBox"
+        Me.totalBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.totalBox.PromptText = "單量"
+        Me.totalBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.totalBox.SelectedText = ""
+        Me.totalBox.SelectionLength = 0
+        Me.totalBox.SelectionStart = 0
+        Me.totalBox.ShortcutsEnabled = True
+        Me.totalBox.Size = New System.Drawing.Size(54, 34)
+        Me.totalBox.TabIndex = 0
+        Me.totalBox.Text = "0"
+        Me.totalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.totalBox.UseSelectable = True
+        Me.totalBox.WaterMark = "單量"
+        Me.totalBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.totalBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'clearCalc
+        '
+        Me.clearCalc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clearCalc.Location = New System.Drawing.Point(243, 43)
+        Me.clearCalc.Name = "clearCalc"
+        Me.clearCalc.Size = New System.Drawing.Size(58, 34)
+        Me.clearCalc.TabIndex = 1
+        Me.clearCalc.Text = "清除"
+        Me.clearCalc.UseSelectable = True
+        '
+        'dayCalc
+        '
+        Me.dayCalc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dayCalc.Location = New System.Drawing.Point(3, 83)
+        Me.dayCalc.Name = "dayCalc"
+        Me.dayCalc.Size = New System.Drawing.Size(54, 34)
+        Me.dayCalc.TabIndex = 2
+        Me.dayCalc.Text = "計算"
+        Me.dayCalc.UseSelectable = True
+        '
+        'timeCalc
+        '
+        Me.timeCalc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.timeCalc.Location = New System.Drawing.Point(63, 83)
+        Me.timeCalc.Name = "timeCalc"
+        Me.timeCalc.Size = New System.Drawing.Size(54, 34)
+        Me.timeCalc.TabIndex = 2
+        Me.timeCalc.Text = "計算"
+        Me.timeCalc.UseSelectable = True
+        '
+        'singleCalc
+        '
+        Me.singleCalc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.singleCalc.Location = New System.Drawing.Point(123, 83)
+        Me.singleCalc.Name = "singleCalc"
+        Me.singleCalc.Size = New System.Drawing.Size(54, 34)
+        Me.singleCalc.TabIndex = 2
+        Me.singleCalc.Text = "計算"
+        Me.singleCalc.UseSelectable = True
+        '
+        'totalCalc
+        '
+        Me.totalCalc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.totalCalc.Location = New System.Drawing.Point(183, 83)
+        Me.totalCalc.Name = "totalCalc"
+        Me.totalCalc.Size = New System.Drawing.Size(54, 34)
+        Me.totalCalc.TabIndex = 2
+        Me.totalCalc.Text = "計算"
+        Me.totalCalc.UseSelectable = True
+        '
+        'MetroLabel5
+        '
+        Me.MetroLabel5.AutoSize = True
+        Me.MetroLabel5.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel5.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel5.Name = "MetroLabel5"
+        Me.MetroLabel5.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel5.TabIndex = 3
+        Me.MetroLabel5.Text = "天數"
+        Me.MetroLabel5.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.MetroLabel5.UseCustomBackColor = True
+        '
+        'MetroLabel7
+        '
+        Me.MetroLabel7.AutoSize = True
+        Me.MetroLabel7.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel7.Location = New System.Drawing.Point(63, 0)
+        Me.MetroLabel7.Name = "MetroLabel7"
+        Me.MetroLabel7.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel7.TabIndex = 3
+        Me.MetroLabel7.Text = "次數"
+        Me.MetroLabel7.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.MetroLabel7.UseCustomBackColor = True
+        '
+        'MetroLabel8
+        '
+        Me.MetroLabel8.AutoSize = True
+        Me.MetroLabel8.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel8.Location = New System.Drawing.Point(123, 0)
+        Me.MetroLabel8.Name = "MetroLabel8"
+        Me.MetroLabel8.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel8.TabIndex = 3
+        Me.MetroLabel8.Text = "單天"
+        Me.MetroLabel8.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.MetroLabel8.UseCustomBackColor = True
+        '
+        'MetroLabel9
+        '
+        Me.MetroLabel9.AutoSize = True
+        Me.MetroLabel9.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel9.Location = New System.Drawing.Point(183, 0)
+        Me.MetroLabel9.Name = "MetroLabel9"
+        Me.MetroLabel9.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel9.TabIndex = 3
+        Me.MetroLabel9.Text = "總量"
+        Me.MetroLabel9.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.MetroLabel9.UseCustomBackColor = True
         '
         'tabFull
         '
-        Me.tabFull.Controls.Add(Me.fullListView)
+        Me.tabFull.Controls.Add(Me.TableLayoutPanel2)
         Me.tabFull.Location = New System.Drawing.Point(4, 38)
         Me.tabFull.Name = "tabFull"
         Me.tabFull.Size = New System.Drawing.Size(659, 677)
         Me.tabFull.TabIndex = 1
         Me.tabFull.Text = "總覽"
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.fullListView, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.historyBox, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.MetroLabel2, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.printMedButton, 0, 2)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 3
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(659, 677)
+        Me.TableLayoutPanel2.TabIndex = 1
         '
         'fullListView
         '
@@ -1251,11 +1657,44 @@ Partial Class pnlPerscription
         Me.fullListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.fullListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.fullListView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.fullListView.Location = New System.Drawing.Point(0, 0)
+        Me.fullListView.Location = New System.Drawing.Point(153, 3)
         Me.fullListView.Name = "fullListView"
+        Me.TableLayoutPanel2.SetRowSpan(Me.fullListView, 3)
         Me.fullListView.RowTemplate.Height = 24
-        Me.fullListView.Size = New System.Drawing.Size(659, 677)
+        Me.fullListView.Size = New System.Drawing.Size(503, 671)
         Me.fullListView.TabIndex = 0
+        '
+        'historyBox
+        '
+        Me.historyBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.historyBox.FormattingEnabled = True
+        Me.historyBox.ItemHeight = 12
+        Me.historyBox.Location = New System.Drawing.Point(3, 43)
+        Me.historyBox.Name = "historyBox"
+        Me.historyBox.Size = New System.Drawing.Size(144, 571)
+        Me.historyBox.TabIndex = 1
+        '
+        'MetroLabel2
+        '
+        Me.MetroLabel2.AutoSize = True
+        Me.MetroLabel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel2.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel2.Name = "MetroLabel2"
+        Me.MetroLabel2.Size = New System.Drawing.Size(144, 40)
+        Me.MetroLabel2.TabIndex = 2
+        Me.MetroLabel2.Text = "處方簽紀錄"
+        Me.MetroLabel2.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'printMedButton
+        '
+        Me.printMedButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.printMedButton.Location = New System.Drawing.Point(3, 620)
+        Me.printMedButton.Name = "printMedButton"
+        Me.printMedButton.Size = New System.Drawing.Size(144, 54)
+        Me.printMedButton.TabIndex = 3
+        Me.printMedButton.Text = "列印藥單"
+        Me.printMedButton.UseSelectable = True
         '
         'pnlPerscription
         '
@@ -1280,14 +1719,21 @@ Partial Class pnlPerscription
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel1.PerformLayout()
         CType(Me.medGroupGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
         Me.medDetailPanel.ResumeLayout(False)
         Me.medDetailPanel.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.medDetailGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MetroPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.MetroPanel4.ResumeLayout(False)
+        Me.MetroPanel4.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel5.PerformLayout()
         Me.tabFull.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -1311,7 +1757,7 @@ Partial Class pnlPerscription
     Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents tabBooking As TabPage
     Friend WithEvents waitingList As ListBox
-    Friend WithEvents MetroDateTime1 As MetroFramework.Controls.MetroDateTime
+    Friend WithEvents checkDate As MetroFramework.Controls.MetroDateTime
     Friend WithEvents medTable As TableLayoutPanel
     Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
     Friend WithEvents searchTable As TableLayoutPanel
@@ -1355,4 +1801,28 @@ Partial Class pnlPerscription
     Friend WithEvents addMedDetail As MetroFramework.Controls.MetroButton
     Friend WithEvents tabFull As TabPage
     Friend WithEvents fullListView As DataGridView
+    Friend WithEvents refreshWaitingListButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents historyBox As ListBox
+    Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents printMedButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents printDoc As Printing.PrintDocument
+    Friend WithEvents printPreview As PrintPreviewDialog
+    Friend WithEvents MetroPanel3 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents MetroPanel4 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Friend WithEvents dayBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents timeBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents singleBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents totalBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents clearCalc As MetroFramework.Controls.MetroButton
+    Friend WithEvents dayCalc As MetroFramework.Controls.MetroButton
+    Friend WithEvents timeCalc As MetroFramework.Controls.MetroButton
+    Friend WithEvents singleCalc As MetroFramework.Controls.MetroButton
+    Friend WithEvents totalCalc As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroLabel5 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel7 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel8 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
 End Class
