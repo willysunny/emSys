@@ -416,8 +416,6 @@ Public Class pnlPerscription
                     End Try
                 Next
                 fullListView.Columns("medUnit").Visible = False
-                fullListView.Columns("bioMed").Visible = False
-                fullListView.Columns("groupExclude").Visible = False
             End If
         End If
     End Sub

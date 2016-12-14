@@ -88,6 +88,7 @@ Partial Class pnlPerscription
         Me.medGroupChange = New MetroFramework.Controls.MetroButton()
         Me.medGroupUnit = New MetroFramework.Controls.MetroComboBox()
         Me.MetroPanel4 = New MetroFramework.Controls.MetroPanel()
+        Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.dayBox = New MetroFramework.Controls.MetroTextBox()
         Me.timeBox = New MetroFramework.Controls.MetroTextBox()
@@ -108,7 +109,6 @@ Partial Class pnlPerscription
         Me.historyBox = New System.Windows.Forms.ListBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.printMedButton = New MetroFramework.Controls.MetroButton()
-        Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
@@ -833,6 +833,8 @@ Partial Class pnlPerscription
         '
         'TableLayoutPanel4
         '
+        Me.TableLayoutPanel4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel4.ColumnCount = 4
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
@@ -1330,6 +1332,19 @@ Partial Class pnlPerscription
         Me.MetroPanel4.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel4.VerticalScrollbarSize = 10
         '
+        'MetroLabel10
+        '
+        Me.MetroLabel10.AutoSize = True
+        Me.MetroLabel10.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel10.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel10.Location = New System.Drawing.Point(10, 15)
+        Me.MetroLabel10.Name = "MetroLabel10"
+        Me.MetroLabel10.Size = New System.Drawing.Size(112, 25)
+        Me.MetroLabel10.TabIndex = 3
+        Me.MetroLabel10.Text = "重量計算機"
+        Me.MetroLabel10.UseCustomBackColor = True
+        '
         'TableLayoutPanel5
         '
         Me.TableLayoutPanel5.ColumnCount = 5
@@ -1680,19 +1695,6 @@ Partial Class pnlPerscription
         Me.printMedButton.TabIndex = 3
         Me.printMedButton.Text = "列印藥單"
         Me.printMedButton.UseSelectable = True
-        '
-        'MetroLabel10
-        '
-        Me.MetroLabel10.AutoSize = True
-        Me.MetroLabel10.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel10.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel10.Location = New System.Drawing.Point(10, 15)
-        Me.MetroLabel10.Name = "MetroLabel10"
-        Me.MetroLabel10.Size = New System.Drawing.Size(112, 25)
-        Me.MetroLabel10.TabIndex = 3
-        Me.MetroLabel10.Text = "重量計算機"
-        Me.MetroLabel10.UseCustomBackColor = True
         '
         'pnlPerscription
         '

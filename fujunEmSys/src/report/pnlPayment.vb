@@ -19,6 +19,9 @@
 
         ' Add any initialization after the InitializeComponent() call.
         RemoveHandler discountBox.SelectedIndexChanged, AddressOf discountBox_SelectedIndexChanged
+        RemoveHandler medFee.CellValidated, AddressOf medFee_bioFee_CellValidated
+        RemoveHandler bioFee.CellValidated, AddressOf medFee_bioFee_CellValidated
+
         refreshBooking(Now)
         Dim discountTable As DataTable = returnData(mainForm, "SELECT * FROM discount_type")
         For Each row As DataRow In discountTable.Rows
@@ -49,6 +52,9 @@
             .DisplayMember = "name"
         End With
         AddHandler discountBox.SelectedIndexChanged, AddressOf discountBox_SelectedIndexChanged
+        AddHandler medFee.CellValidated, AddressOf medFee_bioFee_CellValidated
+        AddHandler bioFee.CellValidated, AddressOf medFee_bioFee_CellValidated
+
     End Sub
 #End Region
 
@@ -97,57 +103,58 @@
             End If
         End If
 
-        medFee.DataSource = returnData(mainForm, "Select mi.bioMed, mi.medName as '藥品名稱', (mg.morning + mg.noon + mg.night + mg.beforeSleep) AS 'medTimes', 
-                                                  (mg.medDays * md.medAmount) AS '總量', md.medUnit, null as '單位', mi.unitPrice, 
-                                                  (SELECT count(mgID) FROM medDetail WHERE mgID=mg.mgID) AS 'origPrice', null AS '金額',mg.makePill as '打錠', mi.groupExclude
-                                                  FROM medGroup2medDetail as mg
-                                                  INNER JOIN medDetail AS md ON mg.mgID = md.mgID
-                                                  INNER JOIN med_item as mi on md.medID = mi.medID
-                                                  WHERE bID=" & bID & " AND bioMed=0
-                                                  ORDER BY mg.mgid")
-        bioFee.DataSource = returnData(mainForm, "Select mi.bioMed, mi.medName as '藥品名稱', (mg.morning + mg.noon + mg.night + mg.beforeSleep) AS 'medTimes', 
-                                                  (mg.medDays * md.medAmount) AS '總量', md.medUnit, null as '單位', mi.unitPrice, 
-                                                  (SELECT count(mgID) FROM medDetail WHERE mgID=mg.mgID) AS 'origPrice', null AS '金額',mg.makePill as '打錠', mi.groupExclude
-                                                  FROM medGroup2medDetail as mg
-                                                  INNER JOIN medDetail AS md ON mg.mgID = md.mgID
-                                                  INNER JOIN med_item as mi on md.medID = mi.medID
-                                                  WHERE bID=" & bID & " AND bioMed=1
-                                                  ORDER BY mg.mgid")
-        For Each row As DataGridViewRow In medFee.Rows
-            If row.Cells("origPrice").Value = 1 Then
-                row.Cells("origPrice").Value = row.Cells("unitPrice").Value * row.Cells("總量").Value
-                row.Cells("金額").Value = row.Cells("origPrice").Value
-            ElseIf row.Cells("origPrice").Value > 1 Then
-                Dim pricePerGram As Double = 7.5
-                If row.Cells("medTimes").Value = 3 Then pricePerGram = 10
-                If row.Cells("groupExclude").Value Then
-                    row.Cells("origPrice").Value = row.Cells("總量").Value * (row.Cells("unitPrice").Value - pricePerGram)
-                Else
-                    row.Cells("origPrice").Value = row.Cells("總量").Value * pricePerGram
-                End If
-                row.Cells("金額").Value = row.Cells("origPrice").Value
-            End If
-        Next
-        For Each row As DataGridViewRow In bioFee.Rows
-            If row.Cells("origPrice").Value = 1 Then
-                row.Cells("origPrice").Value = row.Cells("unitPrice").Value * row.Cells("總量").Value
-                row.Cells("金額").Value = row.Cells("origPrice").Value
-            ElseIf row.Cells("origPrice").Value > 1 Then
-                Dim pricePerGram As Double = 7.5
-                If row.Cells("medTimes").Value = 3 Then pricePerGram = 10
-                If row.Cells("groupExclude").Value Then
-                    row.Cells("origPrice").Value = row.Cells("總量").Value * (row.Cells("unitPrice").Value - pricePerGram)
-                Else
-                    row.Cells("origPrice").Value = row.Cells("總量").Value * pricePerGram
-                End If
-                row.Cells("金額").Value = row.Cells("origPrice").Value
-            End If
-        Next
+        setupTables(medFee, bID, False)
+        setupTables(bioFee, bID, True)
         getTotal()
 
     End Sub
     Private Sub loadFromRecordID(ByVal recordID As Integer)
 
+    End Sub
+
+    Private Sub setupTables(ByRef grid As DataGridView, ByVal bID As Integer, ByVal bioMed As Boolean)
+        RemoveHandler grid.CellValidated, AddressOf medFee_bioFee_CellValidated
+        grid.DataSource = returnData(mainForm, "Select mi.bioMed, mi.medName as '藥品名稱', mg.medDays, (mg.morning + mg.noon + mg.night + mg.beforeSleep) AS 'medTimes', 
+                                                  (mg.medDays * md.medAmount) AS '總量', md.medUnit, null as '單位', mi.unitPrice, 
+                                                  (SELECT count(mgID) FROM medDetail WHERE mgID=mg.mgID) as 'groupCount', null AS 'origPrice', null AS '金額',mg.makePill, null as '打錠費', mi.groupExclude
+                                                  FROM medGroup2medDetail as mg
+                                                  INNER JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                  INNER JOIN med_item as mi on md.medID = mi.medID
+                                                  WHERE bID=" & bID & " AND bioMed=" & bioMed &
+                                                  " ORDER BY mg.mgid")
+        For Each col As DataGridViewColumn In grid.Columns
+            col.Visible = False
+            col.ReadOnly = True
+        Next
+        grid.Columns.Item("藥品名稱").Visible = True
+        grid.Columns.Item("總量").Visible = True
+        grid.Columns.Item("單位").Visible = True
+        grid.Columns.Item("打錠費").Visible = True
+        grid.Columns.Item("打錠費").ReadOnly = False
+        grid.Columns.Item("金額").Visible = True
+        grid.Columns.Item("金額").ReadOnly = False
+
+        For Each row As DataGridViewRow In grid.Rows
+            If row.Cells("groupCount").Value = 1 Then
+                row.Cells("origPrice").Value = row.Cells("unitPrice").Value * row.Cells("總量").Value
+                row.Cells("金額").Value = row.Cells("origPrice").Value
+            ElseIf row.Cells("groupCount").Value > 1 Then
+                Dim pricePerGram As Double = 7.5
+                If row.Cells("medTimes").Value = 3 Then pricePerGram = 10
+                If row.Cells("groupExclude").Value Then
+                    row.Cells("origPrice").Value = row.Cells("總量").Value * (row.Cells("groupCount").Value - pricePerGram)
+                Else
+                    row.Cells("origPrice").Value = row.Cells("總量").Value * pricePerGram
+                End If
+                row.Cells("金額").Value = row.Cells("origPrice").Value
+            End If
+            If row.Cells("makePill").Value Then
+                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("medDays").Value / 7) / row.Cells("groupCount").Value)
+            Else
+                row.Cells("打錠費").Value = 0
+            End If
+        Next
+        AddHandler grid.CellValidated, AddressOf medFee_bioFee_CellValidated
     End Sub
 #End Region
 
@@ -165,14 +172,18 @@
         Dim medSum As Integer = 0
         Dim bioSum As Integer = 0
         For Each row As DataGridViewRow In medFee.Rows
-            medSum += row.Cells("金額").Value
+            medSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
         Next
         For Each row As DataGridViewRow In bioFee.Rows
-            bioSum += row.Cells("金額").Value
+            bioSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
         Next
         medTotal.Text = medSum
         bioTotal.Text = bioSum
         totalSum.Text = medSum + bioSum + firstTimer.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
+    End Sub
+
+    Private Sub medFee_bioFee_CellValidated(sender As Object, e As DataGridViewCellEventArgs) Handles medFee.CellValidated, bioFee.CellValidated
+        getTotal()
     End Sub
 #End Region
 #End Region
@@ -540,6 +551,7 @@
         Next
         Return verText
     End Function
+
 
 #End Region
 End Class
