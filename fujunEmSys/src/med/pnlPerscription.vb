@@ -553,4 +553,51 @@ Public Class pnlPerscription
             medDetailAmount.Focus()
         End If
     End Sub
+#Region "計算機"
+
+    Private Sub dayCalc_Click(sender As Object, e As EventArgs) Handles dayCalc.Click
+        Try
+            If Not CInt(timeBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+                dayBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text) / CInt(timeBox.Text)
+            End If
+        Catch
+            dayBox.Text = "-ERR-"
+        End Try
+    End Sub
+
+    Private Sub timeCalc_Click(sender As Object, e As EventArgs) Handles timeCalc.Click
+        Try
+            If Not CInt(dayBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+                timeBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text) / CInt(timeBox.Text)
+            End If
+        Catch
+            timeBox.Text = "-ERR-"
+        End Try
+    End Sub
+
+    Private Sub singleCalc_Click(sender As Object, e As EventArgs) Handles singleCalc.Click
+        Try
+            If Not CInt(dayBox.Text) = 0 Or CInt(timeBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+                singleBox.Text = CInt(totalBox.Text) / CInt(timeBox.Text)
+            End If
+        Catch
+            singleBox.Text = "-ERR-"
+        End Try
+    End Sub
+    Private Sub totalCalc_Click(sender As Object, e As EventArgs) Handles totalCalc.Click
+        Try
+            totalBox.Text = CInt(timeBox.Text) * CInt(singleBox.Text) * CInt(dayBox.Text)
+        Catch
+            totalBox.Text = "-ERR-"
+        End Try
+    End Sub
+
+    Private Sub clearCalc_Click(sender As Object, e As EventArgs) Handles clearCalc.Click
+        dayBox.Text = "14"
+        timeBox.Text = "4"
+        singleBox.Text = "6"
+        totalBox.Text = "336"
+    End Sub
+
+#End Region
 End Class
