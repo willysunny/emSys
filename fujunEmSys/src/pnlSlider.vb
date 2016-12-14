@@ -63,7 +63,7 @@
     End Sub
 
     Public Sub swipe(Optional show As Boolean = True)
-        Dim saftyTimeOut As DateTime = Now.AddSeconds(10)
+        Dim saftyTimeOut As DateTime = Now.AddSeconds(5)
         resizeForm()
         Visible = True
         If show Then
