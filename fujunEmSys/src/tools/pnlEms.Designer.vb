@@ -1194,7 +1194,7 @@ Partial Class pnlEms
         Me.tabCheck.Controls.Add(Me.caliTable)
         Me.tabCheck.Location = New System.Drawing.Point(4, 44)
         Me.tabCheck.Name = "tabCheck"
-        Me.tabCheck.Size = New System.Drawing.Size(492, 812)
+        Me.tabCheck.Size = New System.Drawing.Size(492, 804)
         Me.tabCheck.TabIndex = 2
         Me.tabCheck.Text = "儀器資訊"
         '
@@ -1447,7 +1447,7 @@ Partial Class pnlEms
         Me.tabEnergy.Controls.Add(Me.Panel3)
         Me.tabEnergy.Location = New System.Drawing.Point(4, 44)
         Me.tabEnergy.Name = "tabEnergy"
-        Me.tabEnergy.Size = New System.Drawing.Size(492, 812)
+        Me.tabEnergy.Size = New System.Drawing.Size(492, 804)
         Me.tabEnergy.TabIndex = 1
         Me.tabEnergy.Text = "元氣"
         '
@@ -1460,7 +1460,7 @@ Partial Class pnlEms
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel3.Size = New System.Drawing.Size(492, 812)
+        Me.Panel3.Size = New System.Drawing.Size(492, 804)
         Me.Panel3.TabIndex = 2
         '
         'TableLayoutPanel3
@@ -1508,7 +1508,7 @@ Partial Class pnlEms
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(452, 772)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(452, 764)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'Label6
@@ -2032,9 +2032,9 @@ Partial Class pnlEms
         '
         'tabMed
         '
-        Me.tabMed.Location = New System.Drawing.Point(4, 36)
+        Me.tabMed.Location = New System.Drawing.Point(4, 44)
         Me.tabMed.Name = "tabMed"
-        Me.tabMed.Size = New System.Drawing.Size(1392, 860)
+        Me.tabMed.Size = New System.Drawing.Size(1392, 852)
         Me.tabMed.TabIndex = 1
         Me.tabMed.Text = "藥物檢查"
         '
@@ -2067,9 +2067,9 @@ Partial Class pnlEms
         'tabPatientInfo
         '
         Me.tabPatientInfo.Controls.Add(Me.pInfoTable)
-        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 36)
+        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 44)
         Me.tabPatientInfo.Name = "tabPatientInfo"
-        Me.tabPatientInfo.Size = New System.Drawing.Size(352, 820)
+        Me.tabPatientInfo.Size = New System.Drawing.Size(352, 812)
         Me.tabPatientInfo.TabIndex = 0
         Me.tabPatientInfo.Text = "病患資料"
         '
@@ -2105,7 +2105,7 @@ Partial Class pnlEms
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pInfoTable.Size = New System.Drawing.Size(352, 820)
+        Me.pInfoTable.Size = New System.Drawing.Size(352, 812)
         Me.pInfoTable.TabIndex = 2
         '
         'MetroLink1
