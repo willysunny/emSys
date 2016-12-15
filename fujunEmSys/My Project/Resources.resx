@@ -151,6 +151,9 @@
   <data name="backHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icon\backHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="medInfoSys" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icon\medInfoSys.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icon\pass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -166,7 +169,7 @@
   <data name="perscriptionSys" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icon\perscriptionSys.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="medInfoSys" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icon\medInfoSys.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="paymentSys" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icon\paymentSys.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

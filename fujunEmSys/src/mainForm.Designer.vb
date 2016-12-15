@@ -37,6 +37,7 @@ Partial Class mainForm
         Me.loginButton = New MetroFramework.Controls.MetroLink()
         Me.userManageLink = New MetroFramework.Controls.MetroLink()
         Me.docManageLink = New MetroFramework.Controls.MetroLink()
+        Me.paymentTile = New MetroFramework.Controls.MetroTile()
         Me.reportTile = New MetroFramework.Controls.MetroTile()
         Me.medManageTile = New MetroFramework.Controls.MetroTile()
         Me.medInfoTile = New MetroFramework.Controls.MetroTile()
@@ -46,7 +47,6 @@ Partial Class mainForm
         Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
-        Me.paymentTile = New MetroFramework.Controls.MetroTile()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -137,6 +137,20 @@ Partial Class mainForm
         Me.docManageLink.Text = "醫師管理"
         Me.docManageLink.UseSelectable = True
         '
+        'paymentTile
+        '
+        Me.paymentTile.ActiveControl = Nothing
+        Me.paymentTile.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.paymentTile.Location = New System.Drawing.Point(653, 466)
+        Me.paymentTile.Name = "paymentTile"
+        Me.paymentTile.Size = New System.Drawing.Size(120, 120)
+        Me.paymentTile.TabIndex = 4
+        Me.paymentTile.Text = "批價系統"
+        Me.paymentTile.TileImage = Global.fujunEmsys.My.Resources.Resources.paymentSys
+        Me.paymentTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.paymentTile.UseSelectable = True
+        Me.paymentTile.UseTileImage = True
+        '
         'reportTile
         '
         Me.reportTile.ActiveControl = Nothing
@@ -146,7 +160,7 @@ Partial Class mainForm
         Me.reportTile.Size = New System.Drawing.Size(120, 120)
         Me.reportTile.TabIndex = 4
         Me.reportTile.Text = "檢驗報告"
-        Me.reportTile.TileImage = CType(resources.GetObject("reportTile.TileImage"), System.Drawing.Image)
+        Me.reportTile.TileImage = Global.fujunEmsys.My.Resources.Resources.reportSys
         Me.reportTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.reportTile.UseSelectable = True
         Me.reportTile.UseTileImage = True
@@ -160,7 +174,7 @@ Partial Class mainForm
         Me.medManageTile.Size = New System.Drawing.Size(120, 120)
         Me.medManageTile.TabIndex = 4
         Me.medManageTile.Text = "藥品分類管理"
-        Me.medManageTile.TileImage = CType(resources.GetObject("medManageTile.TileImage"), System.Drawing.Image)
+        Me.medManageTile.TileImage = Global.fujunEmsys.My.Resources.Resources.medSys
         Me.medManageTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.medManageTile.UseSelectable = True
         Me.medManageTile.UseTileImage = True
@@ -230,7 +244,7 @@ Partial Class mainForm
         Me.emsTile.Size = New System.Drawing.Size(120, 120)
         Me.emsTile.TabIndex = 4
         Me.emsTile.Text = "能量頻譜"
-        Me.emsTile.TileImage = CType(resources.GetObject("emsTile.TileImage"), System.Drawing.Image)
+        Me.emsTile.TileImage = Global.fujunEmsys.My.Resources.Resources.emSys
         Me.emsTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.emsTile.UseSelectable = True
         Me.emsTile.UseTileImage = True
@@ -258,19 +272,6 @@ Partial Class mainForm
         Me.settingsLink.Size = New System.Drawing.Size(50, 50)
         Me.settingsLink.TabIndex = 0
         Me.settingsLink.UseSelectable = True
-        '
-        'paymentTile
-        '
-        Me.paymentTile.ActiveControl = Nothing
-        Me.paymentTile.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.paymentTile.Location = New System.Drawing.Point(653, 466)
-        Me.paymentTile.Name = "paymentTile"
-        Me.paymentTile.Size = New System.Drawing.Size(120, 120)
-        Me.paymentTile.TabIndex = 4
-        Me.paymentTile.Text = "批價系統"
-        Me.paymentTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.paymentTile.UseSelectable = True
-        Me.paymentTile.UseTileImage = True
         '
         'mainForm
         '

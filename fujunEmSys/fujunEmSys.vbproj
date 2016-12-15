@@ -375,6 +375,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fujunLogo.ico" />
+    <None Include="Icon\paymentSys.png" />
     <None Include="Icon\medInfoSys.png" />
     <None Include="Icon\perscriptionSys.png" />
     <None Include="Icon\patientSys.png" />
