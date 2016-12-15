@@ -556,7 +556,7 @@ Public Class pnlPerscription
     Private Sub dayCalc_Click(sender As Object, e As EventArgs) Handles dayCalc.Click
         Try
             If Not CInt(timeBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
-                dayBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text) / CInt(timeBox.Text)
+                dayBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text)
             End If
         Catch
             dayBox.Text = "-ERR-"
@@ -576,7 +576,7 @@ Public Class pnlPerscription
     Private Sub singleCalc_Click(sender As Object, e As EventArgs) Handles singleCalc.Click
         Try
             If Not CInt(dayBox.Text) = 0 Or CInt(timeBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
-                singleBox.Text = CInt(totalBox.Text) / CInt(timeBox.Text)
+                singleBox.Text = CInt(totalBox.Text) / CInt(dayBox.Text)
             End If
         Catch
             singleBox.Text = "-ERR-"
@@ -584,7 +584,7 @@ Public Class pnlPerscription
     End Sub
     Private Sub totalCalc_Click(sender As Object, e As EventArgs) Handles totalCalc.Click
         Try
-            totalBox.Text = CInt(timeBox.Text) * CInt(singleBox.Text) * CInt(dayBox.Text)
+            totalBox.Text = CInt(singleBox.Text) * CInt(dayBox.Text)
         Catch
             totalBox.Text = "-ERR-"
         End Try

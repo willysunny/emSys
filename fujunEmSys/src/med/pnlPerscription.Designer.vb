@@ -109,6 +109,7 @@ Partial Class pnlPerscription
         Me.historyBox = New System.Windows.Forms.ListBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.printMedButton = New MetroFramework.Controls.MetroButton()
+        Me.printDlg = New System.Windows.Forms.PrintDialog()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
@@ -1696,6 +1697,11 @@ Partial Class pnlPerscription
         Me.printMedButton.Text = "列印藥單"
         Me.printMedButton.UseSelectable = True
         '
+        'printDlg
+        '
+        Me.printDlg.Document = Me.printDoc
+        Me.printDlg.UseEXDialog = True
+        '
         'pnlPerscription
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1825,4 +1831,5 @@ Partial Class pnlPerscription
     Friend WithEvents MetroLabel8 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents printDlg As PrintDialog
 End Class

@@ -22,32 +22,16 @@ Partial Class pnlPayment
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pnlPayment))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
-        Me.medFee = New System.Windows.Forms.DataGridView()
-        Me.bioFee = New System.Windows.Forms.DataGridView()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.printButton = New MetroFramework.Controls.MetroButton()
-        Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
-        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
-        Me.discountBox = New MetroFramework.Controls.MetroComboBox()
-        Me.firstTimer = New MetroFramework.Controls.MetroComboBox()
-        Me.totalSum = New MetroFramework.Controls.MetroTextBox()
-        Me.medTotal = New MetroFramework.Controls.MetroTextBox()
-        Me.bioTotal = New MetroFramework.Controls.MetroTextBox()
-        Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
         Me.printDoc = New System.Drawing.Printing.PrintDocument()
+        Me.printPreviewDlg = New System.Windows.Forms.PrintPreviewDialog()
+        Me.printDlg = New System.Windows.Forms.PrintDialog()
         Me.pInfoPanel = New System.Windows.Forms.Panel()
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabPatientInfo = New System.Windows.Forms.TabPage()
@@ -64,421 +48,61 @@ Partial Class pnlPayment
         Me.refreshWaitingListButton = New MetroFramework.Controls.MetroButton()
         Me.checkDate = New MetroFramework.Controls.MetroDateTime()
         Me.waitingList = New System.Windows.Forms.ListBox()
-        Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.medFee, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.bioFee, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel2.SuspendLayout()
-        Me.MetroPanel1.SuspendLayout()
+        Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
+        Me.medFee = New System.Windows.Forms.DataGridView()
+        Me.bioFee = New System.Windows.Forms.DataGridView()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.printButton = New MetroFramework.Controls.MetroButton()
+        Me.resetButton = New MetroFramework.Controls.MetroButton()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
+        Me.discountBox = New MetroFramework.Controls.MetroComboBox()
+        Me.diagFee = New MetroFramework.Controls.MetroComboBox()
+        Me.totalSum = New MetroFramework.Controls.MetroTextBox()
+        Me.medTotal = New MetroFramework.Controls.MetroTextBox()
+        Me.bioTotal = New MetroFramework.Controls.MetroTextBox()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
         Me.tabPatientInfo.SuspendLayout()
         Me.pInfoTable.SuspendLayout()
         Me.tabBooking.SuspendLayout()
+        Me.MetroPanel1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.medFee, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.bioFee, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'owner
         '
-        Me.owner.ClientSize = New System.Drawing.Size(120, 0)
+        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
         Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel1, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel2, 2, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.medFee, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.bioFee, 2, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 2, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel3, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel4, 2, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel5, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel6, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel7, 0, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.discountBox, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.firstTimer, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.totalSum, 1, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.medTotal, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.bioTotal, 3, 3)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(20, 20)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 5
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(533, 560)
-        Me.TableLayoutPanel1.TabIndex = 6
-        '
-        'MetroLabel1
-        '
-        Me.MetroLabel1.AutoSize = True
-        Me.MetroLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel1.Location = New System.Drawing.Point(3, 490)
-        Me.MetroLabel1.Name = "MetroLabel1"
-        Me.MetroLabel1.Size = New System.Drawing.Size(74, 35)
-        Me.MetroLabel1.TabIndex = 0
-        Me.MetroLabel1.Text = "小記:"
-        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLabel1.UseCustomBackColor = True
-        '
-        'MetroLabel2
-        '
-        Me.MetroLabel2.AutoSize = True
-        Me.MetroLabel2.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel2.Location = New System.Drawing.Point(269, 490)
-        Me.MetroLabel2.Name = "MetroLabel2"
-        Me.MetroLabel2.Size = New System.Drawing.Size(74, 35)
-        Me.MetroLabel2.TabIndex = 0
-        Me.MetroLabel2.Text = "小記:"
-        Me.MetroLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLabel2.UseCustomBackColor = True
-        '
-        'medFee
-        '
-        Me.medFee.AllowUserToAddRows = False
-        Me.medFee.AllowUserToDeleteRows = False
-        Me.medFee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.medFee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.medFee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.TableLayoutPanel1.SetColumnSpan(Me.medFee, 2)
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.medFee.DefaultCellStyle = DataGridViewCellStyle2
-        Me.medFee.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.medFee.Location = New System.Drawing.Point(3, 73)
-        Me.medFee.Name = "medFee"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.medFee.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.medFee.RowTemplate.Height = 24
-        Me.medFee.Size = New System.Drawing.Size(260, 414)
-        Me.medFee.TabIndex = 2
-        '
-        'bioFee
-        '
-        Me.bioFee.AllowUserToAddRows = False
-        Me.bioFee.AllowUserToDeleteRows = False
-        Me.bioFee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.bioFee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.bioFee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.TableLayoutPanel1.SetColumnSpan(Me.bioFee, 2)
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.bioFee.DefaultCellStyle = DataGridViewCellStyle5
-        Me.bioFee.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.bioFee.Location = New System.Drawing.Point(269, 73)
-        Me.bioFee.Name = "bioFee"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.bioFee.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.bioFee.RowTemplate.Height = 24
-        Me.bioFee.Size = New System.Drawing.Size(261, 414)
-        Me.bioFee.TabIndex = 3
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel1.SetColumnSpan(Me.TableLayoutPanel2, 2)
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.printButton, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.MetroButton2, 0, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(269, 528)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(261, 29)
-        Me.TableLayoutPanel2.TabIndex = 4
-        '
-        'printButton
-        '
-        Me.printButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.printButton.Location = New System.Drawing.Point(133, 3)
-        Me.printButton.Name = "printButton"
-        Me.printButton.Size = New System.Drawing.Size(125, 23)
-        Me.printButton.TabIndex = 0
-        Me.printButton.Text = "列印"
-        Me.printButton.UseSelectable = True
-        '
-        'MetroButton2
-        '
-        Me.MetroButton2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroButton2.Location = New System.Drawing.Point(3, 3)
-        Me.MetroButton2.Name = "MetroButton2"
-        Me.MetroButton2.Size = New System.Drawing.Size(124, 23)
-        Me.MetroButton2.TabIndex = 1
-        Me.MetroButton2.Text = "重製"
-        Me.MetroButton2.UseSelectable = True
-        '
-        'MetroLabel3
-        '
-        Me.MetroLabel3.AutoSize = True
-        Me.MetroLabel3.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLabel3, 2)
-        Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel3.Location = New System.Drawing.Point(3, 35)
-        Me.MetroLabel3.Name = "MetroLabel3"
-        Me.MetroLabel3.Size = New System.Drawing.Size(260, 35)
-        Me.MetroLabel3.TabIndex = 5
-        Me.MetroLabel3.Text = "診所"
-        Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.MetroLabel3.UseCustomBackColor = True
-        '
-        'MetroLabel4
-        '
-        Me.MetroLabel4.AutoSize = True
-        Me.MetroLabel4.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLabel4, 2)
-        Me.MetroLabel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel4.Location = New System.Drawing.Point(269, 35)
-        Me.MetroLabel4.Name = "MetroLabel4"
-        Me.MetroLabel4.Size = New System.Drawing.Size(261, 35)
-        Me.MetroLabel4.TabIndex = 5
-        Me.MetroLabel4.Text = "生醫"
-        Me.MetroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.MetroLabel4.UseCustomBackColor = True
-        '
-        'MetroLabel5
-        '
-        Me.MetroLabel5.AutoSize = True
-        Me.MetroLabel5.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel5.Location = New System.Drawing.Point(3, 0)
-        Me.MetroLabel5.Name = "MetroLabel5"
-        Me.MetroLabel5.Size = New System.Drawing.Size(74, 35)
-        Me.MetroLabel5.TabIndex = 5
-        Me.MetroLabel5.Text = "折扣:"
-        Me.MetroLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLabel5.UseCustomBackColor = True
-        '
-        'MetroLabel6
-        '
-        Me.MetroLabel6.AutoSize = True
-        Me.MetroLabel6.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel6.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel6.Location = New System.Drawing.Point(269, 0)
-        Me.MetroLabel6.Name = "MetroLabel6"
-        Me.MetroLabel6.Size = New System.Drawing.Size(74, 35)
-        Me.MetroLabel6.TabIndex = 5
-        Me.MetroLabel6.Text = "診費:"
-        Me.MetroLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLabel6.UseCustomBackColor = True
-        '
-        'MetroLabel7
-        '
-        Me.MetroLabel7.AutoSize = True
-        Me.MetroLabel7.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel7.Location = New System.Drawing.Point(3, 525)
-        Me.MetroLabel7.Name = "MetroLabel7"
-        Me.MetroLabel7.Size = New System.Drawing.Size(74, 35)
-        Me.MetroLabel7.TabIndex = 5
-        Me.MetroLabel7.Text = "總額:"
-        Me.MetroLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLabel7.UseCustomBackColor = True
-        '
-        'discountBox
-        '
-        Me.discountBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.discountBox.FormattingEnabled = True
-        Me.discountBox.ItemHeight = 23
-        Me.discountBox.Location = New System.Drawing.Point(83, 3)
-        Me.discountBox.Name = "discountBox"
-        Me.discountBox.Size = New System.Drawing.Size(180, 29)
-        Me.discountBox.TabIndex = 6
-        Me.discountBox.UseSelectable = True
-        '
-        'firstTimer
-        '
-        Me.firstTimer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.firstTimer.FormattingEnabled = True
-        Me.firstTimer.ItemHeight = 23
-        Me.firstTimer.Location = New System.Drawing.Point(349, 3)
-        Me.firstTimer.Name = "firstTimer"
-        Me.firstTimer.Size = New System.Drawing.Size(181, 29)
-        Me.firstTimer.TabIndex = 7
-        Me.firstTimer.UseSelectable = True
-        '
-        'totalSum
-        '
-        '
-        '
-        '
-        Me.totalSum.CustomButton.Image = Nothing
-        Me.totalSum.CustomButton.Location = New System.Drawing.Point(152, 1)
-        Me.totalSum.CustomButton.Name = ""
-        Me.totalSum.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.totalSum.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.totalSum.CustomButton.TabIndex = 1
-        Me.totalSum.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.totalSum.CustomButton.UseSelectable = True
-        Me.totalSum.CustomButton.Visible = False
-        Me.totalSum.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.totalSum.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.totalSum.Lines = New String() {"0"}
-        Me.totalSum.Location = New System.Drawing.Point(83, 528)
-        Me.totalSum.MaxLength = 32767
-        Me.totalSum.Name = "totalSum"
-        Me.totalSum.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.totalSum.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.totalSum.SelectedText = ""
-        Me.totalSum.SelectionLength = 0
-        Me.totalSum.SelectionStart = 0
-        Me.totalSum.ShortcutsEnabled = True
-        Me.totalSum.Size = New System.Drawing.Size(180, 29)
-        Me.totalSum.TabIndex = 8
-        Me.totalSum.Text = "0"
-        Me.totalSum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.totalSum.UseSelectable = True
-        Me.totalSum.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.totalSum.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'medTotal
-        '
-        '
-        '
-        '
-        Me.medTotal.CustomButton.Image = Nothing
-        Me.medTotal.CustomButton.Location = New System.Drawing.Point(152, 1)
-        Me.medTotal.CustomButton.Name = ""
-        Me.medTotal.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.medTotal.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.medTotal.CustomButton.TabIndex = 1
-        Me.medTotal.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.medTotal.CustomButton.UseSelectable = True
-        Me.medTotal.CustomButton.Visible = False
-        Me.medTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.medTotal.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.medTotal.Lines = New String() {"0"}
-        Me.medTotal.Location = New System.Drawing.Point(83, 493)
-        Me.medTotal.MaxLength = 32767
-        Me.medTotal.Name = "medTotal"
-        Me.medTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.medTotal.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.medTotal.SelectedText = ""
-        Me.medTotal.SelectionLength = 0
-        Me.medTotal.SelectionStart = 0
-        Me.medTotal.ShortcutsEnabled = True
-        Me.medTotal.Size = New System.Drawing.Size(180, 29)
-        Me.medTotal.TabIndex = 8
-        Me.medTotal.Text = "0"
-        Me.medTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.medTotal.UseSelectable = True
-        Me.medTotal.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.medTotal.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'bioTotal
-        '
-        '
-        '
-        '
-        Me.bioTotal.CustomButton.Image = Nothing
-        Me.bioTotal.CustomButton.Location = New System.Drawing.Point(153, 1)
-        Me.bioTotal.CustomButton.Name = ""
-        Me.bioTotal.CustomButton.Size = New System.Drawing.Size(27, 27)
-        Me.bioTotal.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.bioTotal.CustomButton.TabIndex = 1
-        Me.bioTotal.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.bioTotal.CustomButton.UseSelectable = True
-        Me.bioTotal.CustomButton.Visible = False
-        Me.bioTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.bioTotal.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.bioTotal.Lines = New String() {"0"}
-        Me.bioTotal.Location = New System.Drawing.Point(349, 493)
-        Me.bioTotal.MaxLength = 32767
-        Me.bioTotal.Name = "bioTotal"
-        Me.bioTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.bioTotal.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.bioTotal.SelectedText = ""
-        Me.bioTotal.SelectionLength = 0
-        Me.bioTotal.SelectionStart = 0
-        Me.bioTotal.ShortcutsEnabled = True
-        Me.bioTotal.Size = New System.Drawing.Size(181, 29)
-        Me.bioTotal.TabIndex = 8
-        Me.bioTotal.Text = "0"
-        Me.bioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.bioTotal.UseSelectable = True
-        Me.bioTotal.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.bioTotal.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'MetroPanel1
-        '
-        Me.MetroPanel1.BackColor = System.Drawing.Color.BurlyWood
-        Me.MetroPanel1.Controls.Add(Me.TableLayoutPanel1)
-        Me.MetroPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroPanel1.HorizontalScrollbarBarColor = True
-        Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
-        Me.MetroPanel1.HorizontalScrollbarSize = 10
-        Me.MetroPanel1.Location = New System.Drawing.Point(280, 0)
-        Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Padding = New System.Windows.Forms.Padding(20)
-        Me.MetroPanel1.Size = New System.Drawing.Size(573, 600)
-        Me.MetroPanel1.TabIndex = 7
-        Me.MetroPanel1.UseCustomBackColor = True
-        Me.MetroPanel1.VerticalScrollbarBarColor = True
-        Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
-        Me.MetroPanel1.VerticalScrollbarSize = 10
+        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'printDoc
         '
+        '
+        'printPreviewDlg
+        '
+        Me.printPreviewDlg.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.printPreviewDlg.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.printPreviewDlg.ClientSize = New System.Drawing.Size(400, 300)
+        Me.printPreviewDlg.Document = Me.printDoc
+        Me.printPreviewDlg.Enabled = True
+        Me.printPreviewDlg.Icon = CType(resources.GetObject("printPreviewDlg.Icon"), System.Drawing.Icon)
+        Me.printPreviewDlg.Name = "printPreviewDlg"
+        Me.printPreviewDlg.Visible = False
+        '
+        'printDlg
+        '
+        Me.printDlg.Document = Me.printDoc
+        Me.printDlg.UseEXDialog = True
         '
         'pInfoPanel
         '
@@ -743,10 +367,10 @@ Partial Class pnlPayment
         Me.tabBooking.Controls.Add(Me.refreshWaitingListButton)
         Me.tabBooking.Controls.Add(Me.checkDate)
         Me.tabBooking.Controls.Add(Me.waitingList)
-        Me.tabBooking.Location = New System.Drawing.Point(4, 44)
+        Me.tabBooking.Location = New System.Drawing.Point(4, 36)
         Me.tabBooking.Name = "tabBooking"
         Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 50)
-        Me.tabBooking.Size = New System.Drawing.Size(252, 512)
+        Me.tabBooking.Size = New System.Drawing.Size(252, 520)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
@@ -754,7 +378,7 @@ Partial Class pnlPayment
         '
         Me.refreshWaitingListButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 465)
+        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 473)
         Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
         Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
         Me.refreshWaitingListButton.TabIndex = 2
@@ -777,8 +401,404 @@ Partial Class pnlPayment
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 30)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(252, 432)
+        Me.waitingList.Size = New System.Drawing.Size(252, 440)
         Me.waitingList.TabIndex = 0
+        '
+        'MetroPanel1
+        '
+        Me.MetroPanel1.BackColor = System.Drawing.Color.BurlyWood
+        Me.MetroPanel1.Controls.Add(Me.TableLayoutPanel1)
+        Me.MetroPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroPanel1.HorizontalScrollbarBarColor = True
+        Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel1.HorizontalScrollbarSize = 10
+        Me.MetroPanel1.Location = New System.Drawing.Point(280, 0)
+        Me.MetroPanel1.Name = "MetroPanel1"
+        Me.MetroPanel1.Padding = New System.Windows.Forms.Padding(20)
+        Me.MetroPanel1.Size = New System.Drawing.Size(573, 600)
+        Me.MetroPanel1.TabIndex = 7
+        Me.MetroPanel1.UseCustomBackColor = True
+        Me.MetroPanel1.VerticalScrollbarBarColor = True
+        Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel1.VerticalScrollbarSize = 10
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 4
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel1, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel2, 2, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.medFee, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.bioFee, 2, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 2, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel3, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel4, 2, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel5, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel6, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel7, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.discountBox, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.diagFee, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.totalSum, 1, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.medTotal, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.bioTotal, 3, 3)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(20, 20)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 5
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(533, 560)
+        Me.TableLayoutPanel1.TabIndex = 6
+        '
+        'MetroLabel1
+        '
+        Me.MetroLabel1.AutoSize = True
+        Me.MetroLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel1.Location = New System.Drawing.Point(3, 490)
+        Me.MetroLabel1.Name = "MetroLabel1"
+        Me.MetroLabel1.Size = New System.Drawing.Size(74, 35)
+        Me.MetroLabel1.TabIndex = 0
+        Me.MetroLabel1.Text = "小記:"
+        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLabel1.UseCustomBackColor = True
+        '
+        'MetroLabel2
+        '
+        Me.MetroLabel2.AutoSize = True
+        Me.MetroLabel2.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel2.Location = New System.Drawing.Point(269, 490)
+        Me.MetroLabel2.Name = "MetroLabel2"
+        Me.MetroLabel2.Size = New System.Drawing.Size(74, 35)
+        Me.MetroLabel2.TabIndex = 0
+        Me.MetroLabel2.Text = "小記:"
+        Me.MetroLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLabel2.UseCustomBackColor = True
+        '
+        'medFee
+        '
+        Me.medFee.AllowUserToAddRows = False
+        Me.medFee.AllowUserToDeleteRows = False
+        Me.medFee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.medFee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.medFee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.TableLayoutPanel1.SetColumnSpan(Me.medFee, 2)
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.medFee.DefaultCellStyle = DataGridViewCellStyle2
+        Me.medFee.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medFee.Location = New System.Drawing.Point(3, 73)
+        Me.medFee.Name = "medFee"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.medFee.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.medFee.RowTemplate.Height = 24
+        Me.medFee.Size = New System.Drawing.Size(260, 414)
+        Me.medFee.TabIndex = 2
+        '
+        'bioFee
+        '
+        Me.bioFee.AllowUserToAddRows = False
+        Me.bioFee.AllowUserToDeleteRows = False
+        Me.bioFee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.bioFee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.bioFee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.TableLayoutPanel1.SetColumnSpan(Me.bioFee, 2)
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.bioFee.DefaultCellStyle = DataGridViewCellStyle5
+        Me.bioFee.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.bioFee.Location = New System.Drawing.Point(269, 73)
+        Me.bioFee.Name = "bioFee"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.bioFee.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.bioFee.RowTemplate.Height = 24
+        Me.bioFee.Size = New System.Drawing.Size(261, 414)
+        Me.bioFee.TabIndex = 3
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel1.SetColumnSpan(Me.TableLayoutPanel2, 2)
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.printButton, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.resetButton, 0, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(269, 528)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(261, 29)
+        Me.TableLayoutPanel2.TabIndex = 4
+        '
+        'printButton
+        '
+        Me.printButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.printButton.Location = New System.Drawing.Point(133, 3)
+        Me.printButton.Name = "printButton"
+        Me.printButton.Size = New System.Drawing.Size(125, 23)
+        Me.printButton.TabIndex = 0
+        Me.printButton.Text = "列印"
+        Me.printButton.UseSelectable = True
+        '
+        'resetButton
+        '
+        Me.resetButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.resetButton.Location = New System.Drawing.Point(3, 3)
+        Me.resetButton.Name = "resetButton"
+        Me.resetButton.Size = New System.Drawing.Size(124, 23)
+        Me.resetButton.TabIndex = 1
+        Me.resetButton.Text = "重製"
+        Me.resetButton.UseSelectable = True
+        '
+        'MetroLabel3
+        '
+        Me.MetroLabel3.AutoSize = True
+        Me.MetroLabel3.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLabel3, 2)
+        Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel3.Location = New System.Drawing.Point(3, 35)
+        Me.MetroLabel3.Name = "MetroLabel3"
+        Me.MetroLabel3.Size = New System.Drawing.Size(260, 35)
+        Me.MetroLabel3.TabIndex = 5
+        Me.MetroLabel3.Text = "診所"
+        Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.MetroLabel3.UseCustomBackColor = True
+        '
+        'MetroLabel4
+        '
+        Me.MetroLabel4.AutoSize = True
+        Me.MetroLabel4.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel1.SetColumnSpan(Me.MetroLabel4, 2)
+        Me.MetroLabel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel4.Location = New System.Drawing.Point(269, 35)
+        Me.MetroLabel4.Name = "MetroLabel4"
+        Me.MetroLabel4.Size = New System.Drawing.Size(261, 35)
+        Me.MetroLabel4.TabIndex = 5
+        Me.MetroLabel4.Text = "生醫"
+        Me.MetroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.MetroLabel4.UseCustomBackColor = True
+        '
+        'MetroLabel5
+        '
+        Me.MetroLabel5.AutoSize = True
+        Me.MetroLabel5.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel5.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel5.Name = "MetroLabel5"
+        Me.MetroLabel5.Size = New System.Drawing.Size(74, 35)
+        Me.MetroLabel5.TabIndex = 5
+        Me.MetroLabel5.Text = "折扣:"
+        Me.MetroLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLabel5.UseCustomBackColor = True
+        '
+        'MetroLabel6
+        '
+        Me.MetroLabel6.AutoSize = True
+        Me.MetroLabel6.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel6.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel6.Location = New System.Drawing.Point(269, 0)
+        Me.MetroLabel6.Name = "MetroLabel6"
+        Me.MetroLabel6.Size = New System.Drawing.Size(74, 35)
+        Me.MetroLabel6.TabIndex = 5
+        Me.MetroLabel6.Text = "診費:"
+        Me.MetroLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLabel6.UseCustomBackColor = True
+        '
+        'MetroLabel7
+        '
+        Me.MetroLabel7.AutoSize = True
+        Me.MetroLabel7.BackColor = System.Drawing.Color.Transparent
+        Me.MetroLabel7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel7.Location = New System.Drawing.Point(3, 525)
+        Me.MetroLabel7.Name = "MetroLabel7"
+        Me.MetroLabel7.Size = New System.Drawing.Size(74, 35)
+        Me.MetroLabel7.TabIndex = 5
+        Me.MetroLabel7.Text = "總額:"
+        Me.MetroLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLabel7.UseCustomBackColor = True
+        '
+        'discountBox
+        '
+        Me.discountBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.discountBox.FormattingEnabled = True
+        Me.discountBox.ItemHeight = 23
+        Me.discountBox.Location = New System.Drawing.Point(83, 3)
+        Me.discountBox.Name = "discountBox"
+        Me.discountBox.Size = New System.Drawing.Size(180, 29)
+        Me.discountBox.TabIndex = 6
+        Me.discountBox.UseSelectable = True
+        '
+        'diagFee
+        '
+        Me.diagFee.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.diagFee.FormattingEnabled = True
+        Me.diagFee.ItemHeight = 23
+        Me.diagFee.Location = New System.Drawing.Point(349, 3)
+        Me.diagFee.Name = "diagFee"
+        Me.diagFee.Size = New System.Drawing.Size(181, 29)
+        Me.diagFee.TabIndex = 7
+        Me.diagFee.UseSelectable = True
+        '
+        'totalSum
+        '
+        '
+        '
+        '
+        Me.totalSum.CustomButton.Image = Nothing
+        Me.totalSum.CustomButton.Location = New System.Drawing.Point(152, 1)
+        Me.totalSum.CustomButton.Name = ""
+        Me.totalSum.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.totalSum.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.totalSum.CustomButton.TabIndex = 1
+        Me.totalSum.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.totalSum.CustomButton.UseSelectable = True
+        Me.totalSum.CustomButton.Visible = False
+        Me.totalSum.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.totalSum.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.totalSum.Lines = New String() {"0"}
+        Me.totalSum.Location = New System.Drawing.Point(83, 528)
+        Me.totalSum.MaxLength = 32767
+        Me.totalSum.Name = "totalSum"
+        Me.totalSum.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.totalSum.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.totalSum.SelectedText = ""
+        Me.totalSum.SelectionLength = 0
+        Me.totalSum.SelectionStart = 0
+        Me.totalSum.ShortcutsEnabled = True
+        Me.totalSum.Size = New System.Drawing.Size(180, 29)
+        Me.totalSum.TabIndex = 8
+        Me.totalSum.Text = "0"
+        Me.totalSum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.totalSum.UseSelectable = True
+        Me.totalSum.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.totalSum.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'medTotal
+        '
+        '
+        '
+        '
+        Me.medTotal.CustomButton.Image = Nothing
+        Me.medTotal.CustomButton.Location = New System.Drawing.Point(152, 1)
+        Me.medTotal.CustomButton.Name = ""
+        Me.medTotal.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.medTotal.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.medTotal.CustomButton.TabIndex = 1
+        Me.medTotal.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.medTotal.CustomButton.UseSelectable = True
+        Me.medTotal.CustomButton.Visible = False
+        Me.medTotal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.medTotal.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.medTotal.Lines = New String() {"0"}
+        Me.medTotal.Location = New System.Drawing.Point(83, 493)
+        Me.medTotal.MaxLength = 32767
+        Me.medTotal.Name = "medTotal"
+        Me.medTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.medTotal.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.medTotal.SelectedText = ""
+        Me.medTotal.SelectionLength = 0
+        Me.medTotal.SelectionStart = 0
+        Me.medTotal.ShortcutsEnabled = True
+        Me.medTotal.Size = New System.Drawing.Size(180, 29)
+        Me.medTotal.TabIndex = 8
+        Me.medTotal.Text = "0"
+        Me.medTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.medTotal.UseSelectable = True
+        Me.medTotal.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.medTotal.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'bioTotal
+        '
+        '
+        '
+        '
+        Me.bioTotal.CustomButton.Image = Nothing
+        Me.bioTotal.CustomButton.Location = New System.Drawing.Point(153, 1)
+        Me.bioTotal.CustomButton.Name = ""
+        Me.bioTotal.CustomButton.Size = New System.Drawing.Size(27, 27)
+        Me.bioTotal.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.bioTotal.CustomButton.TabIndex = 1
+        Me.bioTotal.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.bioTotal.CustomButton.UseSelectable = True
+        Me.bioTotal.CustomButton.Visible = False
+        Me.bioTotal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.bioTotal.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.bioTotal.Lines = New String() {"0"}
+        Me.bioTotal.Location = New System.Drawing.Point(349, 493)
+        Me.bioTotal.MaxLength = 32767
+        Me.bioTotal.Name = "bioTotal"
+        Me.bioTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.bioTotal.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.bioTotal.SelectedText = ""
+        Me.bioTotal.SelectionLength = 0
+        Me.bioTotal.SelectionStart = 0
+        Me.bioTotal.ShortcutsEnabled = True
+        Me.bioTotal.Size = New System.Drawing.Size(181, 29)
+        Me.bioTotal.TabIndex = 8
+        Me.bioTotal.Text = "0"
+        Me.bioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.bioTotal.UseSelectable = True
+        Me.bioTotal.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.bioTotal.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'pnlPayment
         '
@@ -789,17 +809,17 @@ Partial Class pnlPayment
         Me.Name = "pnlPayment"
         Me.Padding = New System.Windows.Forms.Padding(280, 0, 0, 0)
         Me.Size = New System.Drawing.Size(853, 600)
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.medFee, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.bioFee, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.MetroPanel1.ResumeLayout(False)
         Me.pInfoPanel.ResumeLayout(False)
         Me.patientTab.ResumeLayout(False)
         Me.tabPatientInfo.ResumeLayout(False)
         Me.pInfoTable.ResumeLayout(False)
         Me.tabBooking.ResumeLayout(False)
+        Me.MetroPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.medFee, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.bioFee, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -810,7 +830,7 @@ Partial Class pnlPayment
     Friend WithEvents bioFee As DataGridView
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents printButton As MetroFramework.Controls.MetroButton
-    Friend WithEvents MetroButton2 As MetroFramework.Controls.MetroButton
+    Friend WithEvents resetButton As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroPanel1 As MetroFramework.Controls.MetroPanel
     Friend WithEvents printDoc As Printing.PrintDocument
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
@@ -819,7 +839,7 @@ Partial Class pnlPayment
     Friend WithEvents MetroLabel6 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel7 As MetroFramework.Controls.MetroLabel
     Friend WithEvents discountBox As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents firstTimer As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents diagFee As MetroFramework.Controls.MetroComboBox
     Friend WithEvents totalSum As MetroFramework.Controls.MetroTextBox
     Friend WithEvents medTotal As MetroFramework.Controls.MetroTextBox
     Friend WithEvents bioTotal As MetroFramework.Controls.MetroTextBox
@@ -839,4 +859,6 @@ Partial Class pnlPayment
     Friend WithEvents refreshWaitingListButton As MetroFramework.Controls.MetroButton
     Friend WithEvents checkDate As MetroFramework.Controls.MetroDateTime
     Friend WithEvents waitingList As ListBox
+    Friend WithEvents printPreviewDlg As PrintPreviewDialog
+    Friend WithEvents printDlg As PrintDialog
 End Class
