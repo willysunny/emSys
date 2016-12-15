@@ -222,11 +222,11 @@ Partial Class pnlEms
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pInfoPanel.BackColor = System.Drawing.Color.SeaGreen
         Me.pInfoPanel.Controls.Add(Me.patientTab)
-        Me.pInfoPanel.Location = New System.Drawing.Point(931, 0)
+        Me.pInfoPanel.Location = New System.Drawing.Point(1520, 0)
         Me.pInfoPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.pInfoPanel.Name = "pInfoPanel"
         Me.pInfoPanel.Padding = New System.Windows.Forms.Padding(20)
-        Me.pInfoPanel.Size = New System.Drawing.Size(280, 713)
+        Me.pInfoPanel.Size = New System.Drawing.Size(280, 900)
         Me.pInfoPanel.TabIndex = 4
         '
         'patientTab
@@ -238,7 +238,7 @@ Partial Class pnlEms
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
         Me.patientTab.SelectedIndex = 1
-        Me.patientTab.Size = New System.Drawing.Size(240, 673)
+        Me.patientTab.Size = New System.Drawing.Size(240, 860)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
         '
@@ -578,7 +578,7 @@ Partial Class pnlEms
         Me.tabBooking.Controls.Add(Me.waitingList)
         Me.tabBooking.Location = New System.Drawing.Point(4, 44)
         Me.tabBooking.Name = "tabBooking"
-        Me.tabBooking.Size = New System.Drawing.Size(232, 625)
+        Me.tabBooking.Size = New System.Drawing.Size(232, 812)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
@@ -590,7 +590,7 @@ Partial Class pnlEms
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 0)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(232, 625)
+        Me.waitingList.Size = New System.Drawing.Size(232, 812)
         Me.waitingList.TabIndex = 0
         '
         'diagTab
@@ -602,7 +602,7 @@ Partial Class pnlEms
         Me.diagTab.Location = New System.Drawing.Point(0, 0)
         Me.diagTab.Name = "diagTab"
         Me.diagTab.SelectedIndex = 0
-        Me.diagTab.Size = New System.Drawing.Size(931, 713)
+        Me.diagTab.Size = New System.Drawing.Size(1520, 900)
         Me.diagTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.diagTab.TabIndex = 5
         Me.diagTab.UseSelectable = True
@@ -612,7 +612,7 @@ Partial Class pnlEms
         Me.tabGraph.Controls.Add(Me.TableLayoutPanel1)
         Me.tabGraph.Location = New System.Drawing.Point(4, 44)
         Me.tabGraph.Name = "tabGraph"
-        Me.tabGraph.Size = New System.Drawing.Size(923, 665)
+        Me.tabGraph.Size = New System.Drawing.Size(1512, 852)
         Me.tabGraph.TabIndex = 0
         Me.tabGraph.Text = "頻譜檢查"
         '
@@ -628,7 +628,7 @@ Partial Class pnlEms
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(923, 665)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1512, 852)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'diagPanel
@@ -642,7 +642,7 @@ Partial Class pnlEms
         Me.diagPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.diagPanel.Name = "diagPanel"
         Me.diagPanel.Padding = New System.Windows.Forms.Padding(20, 120, 20, 60)
-        Me.diagPanel.Size = New System.Drawing.Size(623, 665)
+        Me.diagPanel.Size = New System.Drawing.Size(1212, 852)
         Me.diagPanel.TabIndex = 1
         '
         'measurePoint
@@ -653,7 +653,7 @@ Partial Class pnlEms
         Me.measurePoint.Font = New System.Drawing.Font("DFKai-SB", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.measurePoint.Location = New System.Drawing.Point(20, 19)
         Me.measurePoint.Name = "measurePoint"
-        Me.measurePoint.Size = New System.Drawing.Size(583, 77)
+        Me.measurePoint.Size = New System.Drawing.Size(1172, 77)
         Me.measurePoint.TabIndex = 3
         Me.measurePoint.Text = "量測點"
         Me.measurePoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -668,10 +668,10 @@ Partial Class pnlEms
         Me.buttonPanel.HorizontalScrollbarBarColor = True
         Me.buttonPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.buttonPanel.HorizontalScrollbarSize = 10
-        Me.buttonPanel.Location = New System.Drawing.Point(0, 306)
+        Me.buttonPanel.Location = New System.Drawing.Point(0, 493)
         Me.buttonPanel.Name = "buttonPanel"
         Me.buttonPanel.Padding = New System.Windows.Forms.Padding(20, 60, 20, 20)
-        Me.buttonPanel.Size = New System.Drawing.Size(623, 359)
+        Me.buttonPanel.Size = New System.Drawing.Size(1212, 359)
         Me.buttonPanel.TabIndex = 1
         Me.buttonPanel.VerticalScrollbarBarColor = True
         Me.buttonPanel.VerticalScrollbarHighlightOnWheel = False
@@ -695,7 +695,7 @@ Partial Class pnlEms
         Me.okLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.okLink.Image = Global.fujunEmsys.My.Resources.Resources.okHover
         Me.okLink.ImageSize = 35
-        Me.okLink.Location = New System.Drawing.Point(557, 9)
+        Me.okLink.Location = New System.Drawing.Point(1146, 9)
         Me.okLink.Name = "okLink"
         Me.okLink.NoFocusImage = Global.fujunEmsys.My.Resources.Resources.okUp
         Me.okLink.Size = New System.Drawing.Size(40, 40)
@@ -744,7 +744,7 @@ Partial Class pnlEms
         Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.buttonTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.buttonTable.Size = New System.Drawing.Size(583, 279)
+        Me.buttonTable.Size = New System.Drawing.Size(1172, 279)
         Me.buttonTable.TabIndex = 2
         '
         'Panel5
@@ -752,10 +752,10 @@ Partial Class pnlEms
         Me.Panel5.BackColor = System.Drawing.Color.SeaGreen
         Me.Panel5.Controls.Add(Me.rdoEnergy)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(388, 0)
+        Me.Panel5.Location = New System.Drawing.Point(780, 0)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(97, 69)
+        Me.Panel5.Size = New System.Drawing.Size(195, 69)
         Me.Panel5.TabIndex = 4
         '
         'rdoEnergy
@@ -769,7 +769,7 @@ Partial Class pnlEms
         Me.rdoEnergy.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoEnergy.Location = New System.Drawing.Point(0, 0)
         Me.rdoEnergy.Name = "rdoEnergy"
-        Me.rdoEnergy.Size = New System.Drawing.Size(97, 69)
+        Me.rdoEnergy.Size = New System.Drawing.Size(195, 69)
         Me.rdoEnergy.TabIndex = 3
         Me.rdoEnergy.Text = "元氣"
         Me.rdoEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -783,7 +783,7 @@ Partial Class pnlEms
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(97, 69)
+        Me.Panel4.Size = New System.Drawing.Size(195, 69)
         Me.Panel4.TabIndex = 3
         '
         'rdoUpLeft
@@ -797,7 +797,7 @@ Partial Class pnlEms
         Me.rdoUpLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoUpLeft.Location = New System.Drawing.Point(0, 0)
         Me.rdoUpLeft.Name = "rdoUpLeft"
-        Me.rdoUpLeft.Size = New System.Drawing.Size(97, 69)
+        Me.rdoUpLeft.Size = New System.Drawing.Size(195, 69)
         Me.rdoUpLeft.TabIndex = 2
         Me.rdoUpLeft.Text = "左上"
         Me.rdoUpLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -808,10 +808,10 @@ Partial Class pnlEms
         Me.Panel6.BackColor = System.Drawing.Color.DarkSeaGreen
         Me.Panel6.Controls.Add(Me.rdoUpRight)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel6.Location = New System.Drawing.Point(97, 0)
+        Me.Panel6.Location = New System.Drawing.Point(195, 0)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(97, 69)
+        Me.Panel6.Size = New System.Drawing.Size(195, 69)
         Me.Panel6.TabIndex = 3
         '
         'rdoUpRight
@@ -825,7 +825,7 @@ Partial Class pnlEms
         Me.rdoUpRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoUpRight.Location = New System.Drawing.Point(0, 0)
         Me.rdoUpRight.Name = "rdoUpRight"
-        Me.rdoUpRight.Size = New System.Drawing.Size(97, 69)
+        Me.rdoUpRight.Size = New System.Drawing.Size(195, 69)
         Me.rdoUpRight.TabIndex = 2
         Me.rdoUpRight.Text = "右上"
         Me.rdoUpRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -836,10 +836,10 @@ Partial Class pnlEms
         Me.Panel7.BackColor = System.Drawing.Color.DarkSeaGreen
         Me.Panel7.Controls.Add(Me.rdoDownLeft)
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel7.Location = New System.Drawing.Point(194, 0)
+        Me.Panel7.Location = New System.Drawing.Point(390, 0)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(97, 69)
+        Me.Panel7.Size = New System.Drawing.Size(195, 69)
         Me.Panel7.TabIndex = 3
         '
         'rdoDownLeft
@@ -851,7 +851,7 @@ Partial Class pnlEms
         Me.rdoDownLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoDownLeft.Location = New System.Drawing.Point(0, 0)
         Me.rdoDownLeft.Name = "rdoDownLeft"
-        Me.rdoDownLeft.Size = New System.Drawing.Size(97, 69)
+        Me.rdoDownLeft.Size = New System.Drawing.Size(195, 69)
         Me.rdoDownLeft.TabIndex = 2
         Me.rdoDownLeft.Text = "左下"
         Me.rdoDownLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -862,10 +862,10 @@ Partial Class pnlEms
         Me.Panel8.BackColor = System.Drawing.Color.DarkSeaGreen
         Me.Panel8.Controls.Add(Me.rdoDownRight)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(291, 0)
+        Me.Panel8.Location = New System.Drawing.Point(585, 0)
         Me.Panel8.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(97, 69)
+        Me.Panel8.Size = New System.Drawing.Size(195, 69)
         Me.Panel8.TabIndex = 3
         '
         'rdoDownRight
@@ -877,7 +877,7 @@ Partial Class pnlEms
         Me.rdoDownRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoDownRight.Location = New System.Drawing.Point(0, 0)
         Me.rdoDownRight.Name = "rdoDownRight"
-        Me.rdoDownRight.Size = New System.Drawing.Size(97, 69)
+        Me.rdoDownRight.Size = New System.Drawing.Size(195, 69)
         Me.rdoDownRight.TabIndex = 2
         Me.rdoDownRight.Text = "右下"
         Me.rdoDownRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -888,10 +888,10 @@ Partial Class pnlEms
         Me.Panel9.BackColor = System.Drawing.Color.Peru
         Me.Panel9.Controls.Add(Me.rdoS2)
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel9.Location = New System.Drawing.Point(485, 69)
+        Me.Panel9.Location = New System.Drawing.Point(975, 69)
         Me.Panel9.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(98, 69)
+        Me.Panel9.Size = New System.Drawing.Size(197, 69)
         Me.Panel9.TabIndex = 3
         '
         'rdoS2
@@ -903,7 +903,7 @@ Partial Class pnlEms
         Me.rdoS2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoS2.Location = New System.Drawing.Point(0, 0)
         Me.rdoS2.Name = "rdoS2"
-        Me.rdoS2.Size = New System.Drawing.Size(98, 69)
+        Me.rdoS2.Size = New System.Drawing.Size(197, 69)
         Me.rdoS2.TabIndex = 2
         Me.rdoS2.Text = "外"
         Me.rdoS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -914,10 +914,10 @@ Partial Class pnlEms
         Me.Panel10.BackColor = System.Drawing.Color.Peru
         Me.Panel10.Controls.Add(Me.rdoS1)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel10.Location = New System.Drawing.Point(388, 69)
+        Me.Panel10.Location = New System.Drawing.Point(780, 69)
         Me.Panel10.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(97, 69)
+        Me.Panel10.Size = New System.Drawing.Size(195, 69)
         Me.Panel10.TabIndex = 3
         '
         'rdoS1
@@ -931,7 +931,7 @@ Partial Class pnlEms
         Me.rdoS1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoS1.Location = New System.Drawing.Point(0, 0)
         Me.rdoS1.Name = "rdoS1"
-        Me.rdoS1.Size = New System.Drawing.Size(97, 69)
+        Me.rdoS1.Size = New System.Drawing.Size(195, 69)
         Me.rdoS1.TabIndex = 2
         Me.rdoS1.Text = "內"
         Me.rdoS1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -942,10 +942,10 @@ Partial Class pnlEms
         Me.Panel11.BackColor = System.Drawing.Color.NavajoWhite
         Me.Panel11.Controls.Add(Me.rdoFoot)
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel11.Location = New System.Drawing.Point(291, 69)
+        Me.Panel11.Location = New System.Drawing.Point(585, 69)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(97, 69)
+        Me.Panel11.Size = New System.Drawing.Size(195, 69)
         Me.Panel11.TabIndex = 3
         '
         'rdoFoot
@@ -957,7 +957,7 @@ Partial Class pnlEms
         Me.rdoFoot.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoFoot.Location = New System.Drawing.Point(0, 0)
         Me.rdoFoot.Name = "rdoFoot"
-        Me.rdoFoot.Size = New System.Drawing.Size(97, 69)
+        Me.rdoFoot.Size = New System.Drawing.Size(195, 69)
         Me.rdoFoot.TabIndex = 2
         Me.rdoFoot.Text = "腳"
         Me.rdoFoot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -968,10 +968,10 @@ Partial Class pnlEms
         Me.Panel12.BackColor = System.Drawing.Color.NavajoWhite
         Me.Panel12.Controls.Add(Me.rdoHand)
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel12.Location = New System.Drawing.Point(194, 69)
+        Me.Panel12.Location = New System.Drawing.Point(390, 69)
         Me.Panel12.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(97, 69)
+        Me.Panel12.Size = New System.Drawing.Size(195, 69)
         Me.Panel12.TabIndex = 3
         '
         'rdoHand
@@ -985,7 +985,7 @@ Partial Class pnlEms
         Me.rdoHand.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoHand.Location = New System.Drawing.Point(0, 0)
         Me.rdoHand.Name = "rdoHand"
-        Me.rdoHand.Size = New System.Drawing.Size(97, 69)
+        Me.rdoHand.Size = New System.Drawing.Size(195, 69)
         Me.rdoHand.TabIndex = 2
         Me.rdoHand.Text = "手"
         Me.rdoHand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -996,10 +996,10 @@ Partial Class pnlEms
         Me.Panel13.BackColor = System.Drawing.Color.PapayaWhip
         Me.Panel13.Controls.Add(Me.rdoRight)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel13.Location = New System.Drawing.Point(97, 69)
+        Me.Panel13.Location = New System.Drawing.Point(195, 69)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(97, 69)
+        Me.Panel13.Size = New System.Drawing.Size(195, 69)
         Me.Panel13.TabIndex = 3
         '
         'rdoRight
@@ -1011,7 +1011,7 @@ Partial Class pnlEms
         Me.rdoRight.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoRight.Location = New System.Drawing.Point(0, 0)
         Me.rdoRight.Name = "rdoRight"
-        Me.rdoRight.Size = New System.Drawing.Size(97, 69)
+        Me.rdoRight.Size = New System.Drawing.Size(195, 69)
         Me.rdoRight.TabIndex = 2
         Me.rdoRight.Text = "右"
         Me.rdoRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1025,7 +1025,7 @@ Partial Class pnlEms
         Me.Panel14.Location = New System.Drawing.Point(0, 69)
         Me.Panel14.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(97, 69)
+        Me.Panel14.Size = New System.Drawing.Size(195, 69)
         Me.Panel14.TabIndex = 3
         '
         'rdoLeft
@@ -1039,7 +1039,7 @@ Partial Class pnlEms
         Me.rdoLeft.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoLeft.Location = New System.Drawing.Point(0, 0)
         Me.rdoLeft.Name = "rdoLeft"
-        Me.rdoLeft.Size = New System.Drawing.Size(97, 69)
+        Me.rdoLeft.Size = New System.Drawing.Size(195, 69)
         Me.rdoLeft.TabIndex = 2
         Me.rdoLeft.Text = "左"
         Me.rdoLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1053,7 +1053,7 @@ Partial Class pnlEms
         Me.Panel15.Location = New System.Drawing.Point(0, 138)
         Me.Panel15.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(97, 69)
+        Me.Panel15.Size = New System.Drawing.Size(195, 69)
         Me.Panel15.TabIndex = 3
         '
         'rdoF1
@@ -1067,7 +1067,7 @@ Partial Class pnlEms
         Me.rdoF1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoF1.Location = New System.Drawing.Point(0, 0)
         Me.rdoF1.Name = "rdoF1"
-        Me.rdoF1.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF1.Size = New System.Drawing.Size(195, 69)
         Me.rdoF1.TabIndex = 2
         Me.rdoF1.Text = "拇指"
         Me.rdoF1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1078,10 +1078,10 @@ Partial Class pnlEms
         Me.Panel16.BackColor = System.Drawing.Color.Wheat
         Me.Panel16.Controls.Add(Me.rdoF2)
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel16.Location = New System.Drawing.Point(97, 138)
+        Me.Panel16.Location = New System.Drawing.Point(195, 138)
         Me.Panel16.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(97, 69)
+        Me.Panel16.Size = New System.Drawing.Size(195, 69)
         Me.Panel16.TabIndex = 3
         '
         'rdoF2
@@ -1093,7 +1093,7 @@ Partial Class pnlEms
         Me.rdoF2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoF2.Location = New System.Drawing.Point(0, 0)
         Me.rdoF2.Name = "rdoF2"
-        Me.rdoF2.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF2.Size = New System.Drawing.Size(195, 69)
         Me.rdoF2.TabIndex = 2
         Me.rdoF2.Text = "食指"
         Me.rdoF2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1104,10 +1104,10 @@ Partial Class pnlEms
         Me.Panel17.BackColor = System.Drawing.Color.Wheat
         Me.Panel17.Controls.Add(Me.rdoF3)
         Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel17.Location = New System.Drawing.Point(194, 138)
+        Me.Panel17.Location = New System.Drawing.Point(390, 138)
         Me.Panel17.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(97, 69)
+        Me.Panel17.Size = New System.Drawing.Size(195, 69)
         Me.Panel17.TabIndex = 3
         '
         'rdoF3
@@ -1119,7 +1119,7 @@ Partial Class pnlEms
         Me.rdoF3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoF3.Location = New System.Drawing.Point(0, 0)
         Me.rdoF3.Name = "rdoF3"
-        Me.rdoF3.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF3.Size = New System.Drawing.Size(195, 69)
         Me.rdoF3.TabIndex = 2
         Me.rdoF3.Text = "中指"
         Me.rdoF3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1130,10 +1130,10 @@ Partial Class pnlEms
         Me.Panel18.BackColor = System.Drawing.Color.Wheat
         Me.Panel18.Controls.Add(Me.rdoF4)
         Me.Panel18.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel18.Location = New System.Drawing.Point(291, 138)
+        Me.Panel18.Location = New System.Drawing.Point(585, 138)
         Me.Panel18.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(97, 69)
+        Me.Panel18.Size = New System.Drawing.Size(195, 69)
         Me.Panel18.TabIndex = 3
         '
         'rdoF4
@@ -1145,7 +1145,7 @@ Partial Class pnlEms
         Me.rdoF4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoF4.Location = New System.Drawing.Point(0, 0)
         Me.rdoF4.Name = "rdoF4"
-        Me.rdoF4.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF4.Size = New System.Drawing.Size(195, 69)
         Me.rdoF4.TabIndex = 2
         Me.rdoF4.Text = "無名"
         Me.rdoF4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1156,10 +1156,10 @@ Partial Class pnlEms
         Me.Panel19.BackColor = System.Drawing.Color.Wheat
         Me.Panel19.Controls.Add(Me.rdoF5)
         Me.Panel19.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel19.Location = New System.Drawing.Point(388, 138)
+        Me.Panel19.Location = New System.Drawing.Point(780, 138)
         Me.Panel19.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel19.Name = "Panel19"
-        Me.Panel19.Size = New System.Drawing.Size(97, 69)
+        Me.Panel19.Size = New System.Drawing.Size(195, 69)
         Me.Panel19.TabIndex = 3
         '
         'rdoF5
@@ -1171,7 +1171,7 @@ Partial Class pnlEms
         Me.rdoF5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.rdoF5.Location = New System.Drawing.Point(0, 0)
         Me.rdoF5.Name = "rdoF5"
-        Me.rdoF5.Size = New System.Drawing.Size(97, 69)
+        Me.rdoF5.Size = New System.Drawing.Size(195, 69)
         Me.rdoF5.TabIndex = 2
         Me.rdoF5.Text = "小指"
         Me.rdoF5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1182,10 +1182,10 @@ Partial Class pnlEms
         Me.Panel20.BackColor = System.Drawing.Color.SaddleBrown
         Me.Panel20.Controls.Add(Me.rdoStone)
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel20.Location = New System.Drawing.Point(485, 138)
+        Me.Panel20.Location = New System.Drawing.Point(975, 138)
         Me.Panel20.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(98, 69)
+        Me.Panel20.Size = New System.Drawing.Size(197, 69)
         Me.Panel20.TabIndex = 3
         '
         'rdoStone
@@ -1197,7 +1197,7 @@ Partial Class pnlEms
         Me.rdoStone.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoStone.Location = New System.Drawing.Point(0, 0)
         Me.rdoStone.Name = "rdoStone"
-        Me.rdoStone.Size = New System.Drawing.Size(98, 69)
+        Me.rdoStone.Size = New System.Drawing.Size(197, 69)
         Me.rdoStone.TabIndex = 2
         Me.rdoStone.Text = "結石"
         Me.rdoStone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1208,10 +1208,10 @@ Partial Class pnlEms
         Me.Panel21.BackColor = System.Drawing.Color.Peru
         Me.Panel21.Controls.Add(Me.rdoC6)
         Me.Panel21.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel21.Location = New System.Drawing.Point(485, 207)
+        Me.Panel21.Location = New System.Drawing.Point(975, 207)
         Me.Panel21.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(98, 72)
+        Me.Panel21.Size = New System.Drawing.Size(197, 72)
         Me.Panel21.TabIndex = 3
         '
         'rdoC6
@@ -1223,7 +1223,7 @@ Partial Class pnlEms
         Me.rdoC6.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoC6.Location = New System.Drawing.Point(0, 0)
         Me.rdoC6.Name = "rdoC6"
-        Me.rdoC6.Size = New System.Drawing.Size(98, 72)
+        Me.rdoC6.Size = New System.Drawing.Size(197, 72)
         Me.rdoC6.TabIndex = 2
         Me.rdoC6.Text = "下"
         Me.rdoC6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1234,10 +1234,10 @@ Partial Class pnlEms
         Me.Panel22.BackColor = System.Drawing.Color.Peru
         Me.Panel22.Controls.Add(Me.rdoC5)
         Me.Panel22.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel22.Location = New System.Drawing.Point(388, 207)
+        Me.Panel22.Location = New System.Drawing.Point(780, 207)
         Me.Panel22.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel22.Name = "Panel22"
-        Me.Panel22.Size = New System.Drawing.Size(97, 72)
+        Me.Panel22.Size = New System.Drawing.Size(195, 72)
         Me.Panel22.TabIndex = 3
         '
         'rdoC5
@@ -1251,7 +1251,7 @@ Partial Class pnlEms
         Me.rdoC5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoC5.Location = New System.Drawing.Point(0, 0)
         Me.rdoC5.Name = "rdoC5"
-        Me.rdoC5.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC5.Size = New System.Drawing.Size(195, 72)
         Me.rdoC5.TabIndex = 2
         Me.rdoC5.Text = "總"
         Me.rdoC5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1262,10 +1262,10 @@ Partial Class pnlEms
         Me.Panel23.BackColor = System.Drawing.Color.Peru
         Me.Panel23.Controls.Add(Me.rdoC4)
         Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel23.Location = New System.Drawing.Point(291, 207)
+        Me.Panel23.Location = New System.Drawing.Point(585, 207)
         Me.Panel23.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(97, 72)
+        Me.Panel23.Size = New System.Drawing.Size(195, 72)
         Me.Panel23.TabIndex = 3
         '
         'rdoC4
@@ -1277,7 +1277,7 @@ Partial Class pnlEms
         Me.rdoC4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoC4.Location = New System.Drawing.Point(0, 0)
         Me.rdoC4.Name = "rdoC4"
-        Me.rdoC4.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC4.Size = New System.Drawing.Size(195, 72)
         Me.rdoC4.TabIndex = 2
         Me.rdoC4.Text = "中"
         Me.rdoC4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1288,10 +1288,10 @@ Partial Class pnlEms
         Me.Panel24.BackColor = System.Drawing.Color.Peru
         Me.Panel24.Controls.Add(Me.rdoC3)
         Me.Panel24.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel24.Location = New System.Drawing.Point(194, 207)
+        Me.Panel24.Location = New System.Drawing.Point(390, 207)
         Me.Panel24.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel24.Name = "Panel24"
-        Me.Panel24.Size = New System.Drawing.Size(97, 72)
+        Me.Panel24.Size = New System.Drawing.Size(195, 72)
         Me.Panel24.TabIndex = 3
         '
         'rdoC3
@@ -1303,7 +1303,7 @@ Partial Class pnlEms
         Me.rdoC3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoC3.Location = New System.Drawing.Point(0, 0)
         Me.rdoC3.Name = "rdoC3"
-        Me.rdoC3.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC3.Size = New System.Drawing.Size(195, 72)
         Me.rdoC3.TabIndex = 2
         Me.rdoC3.Text = "上"
         Me.rdoC3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1314,10 +1314,10 @@ Partial Class pnlEms
         Me.Panel25.BackColor = System.Drawing.Color.Peru
         Me.Panel25.Controls.Add(Me.rdoC2)
         Me.Panel25.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel25.Location = New System.Drawing.Point(97, 207)
+        Me.Panel25.Location = New System.Drawing.Point(195, 207)
         Me.Panel25.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel25.Name = "Panel25"
-        Me.Panel25.Size = New System.Drawing.Size(97, 72)
+        Me.Panel25.Size = New System.Drawing.Size(195, 72)
         Me.Panel25.TabIndex = 3
         '
         'rdoC2
@@ -1329,7 +1329,7 @@ Partial Class pnlEms
         Me.rdoC2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoC2.Location = New System.Drawing.Point(0, 0)
         Me.rdoC2.Name = "rdoC2"
-        Me.rdoC2.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC2.Size = New System.Drawing.Size(195, 72)
         Me.rdoC2.TabIndex = 2
         Me.rdoC2.Text = "頭"
         Me.rdoC2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1343,7 +1343,7 @@ Partial Class pnlEms
         Me.Panel26.Location = New System.Drawing.Point(0, 207)
         Me.Panel26.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(97, 72)
+        Me.Panel26.Size = New System.Drawing.Size(195, 72)
         Me.Panel26.TabIndex = 3
         '
         'rdoC1
@@ -1355,7 +1355,7 @@ Partial Class pnlEms
         Me.rdoC1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoC1.Location = New System.Drawing.Point(0, 0)
         Me.rdoC1.Name = "rdoC1"
-        Me.rdoC1.Size = New System.Drawing.Size(97, 72)
+        Me.rdoC1.Size = New System.Drawing.Size(195, 72)
         Me.rdoC1.TabIndex = 2
         Me.rdoC1.Text = "頂"
         Me.rdoC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1366,10 +1366,10 @@ Partial Class pnlEms
         Me.Panel27.BackColor = System.Drawing.Color.BlanchedAlmond
         Me.Panel27.Controls.Add(Me.rdoGraph)
         Me.Panel27.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel27.Location = New System.Drawing.Point(485, 0)
+        Me.Panel27.Location = New System.Drawing.Point(975, 0)
         Me.Panel27.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel27.Name = "Panel27"
-        Me.Panel27.Size = New System.Drawing.Size(98, 69)
+        Me.Panel27.Size = New System.Drawing.Size(197, 69)
         Me.Panel27.TabIndex = 5
         '
         'rdoGraph
@@ -1381,7 +1381,7 @@ Partial Class pnlEms
         Me.rdoGraph.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Bold)
         Me.rdoGraph.Location = New System.Drawing.Point(0, 0)
         Me.rdoGraph.Name = "rdoGraph"
-        Me.rdoGraph.Size = New System.Drawing.Size(98, 69)
+        Me.rdoGraph.Size = New System.Drawing.Size(197, 69)
         Me.rdoGraph.TabIndex = 3
         Me.rdoGraph.Text = "頻譜"
         Me.rdoGraph.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1391,9 +1391,9 @@ Partial Class pnlEms
         '
         Me.openPanelLink.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.openPanelLink.Location = New System.Drawing.Point(255, 623)
+        Me.openPanelLink.Location = New System.Drawing.Point(255, 810)
         Me.openPanelLink.Name = "openPanelLink"
-        Me.openPanelLink.Size = New System.Drawing.Size(112, 23)
+        Me.openPanelLink.Size = New System.Drawing.Size(701, 23)
         Me.openPanelLink.TabIndex = 2
         Me.openPanelLink.Text = "開啟手動測量點"
         Me.openPanelLink.UseSelectable = True
@@ -1403,7 +1403,7 @@ Partial Class pnlEms
         Me.pb.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pb.Location = New System.Drawing.Point(20, 120)
         Me.pb.Name = "pb"
-        Me.pb.Size = New System.Drawing.Size(583, 485)
+        Me.pb.Size = New System.Drawing.Size(1172, 672)
         Me.pb.TabIndex = 0
         Me.pb.TabStop = False
         '
@@ -1420,7 +1420,7 @@ Partial Class pnlEms
         Me.graphTab.Multiline = True
         Me.graphTab.Name = "graphTab"
         Me.graphTab.SelectedIndex = 0
-        Me.graphTab.Size = New System.Drawing.Size(300, 665)
+        Me.graphTab.Size = New System.Drawing.Size(300, 852)
         Me.graphTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.graphTab.TabIndex = 2
         Me.graphTab.UseSelectable = True
@@ -1430,7 +1430,7 @@ Partial Class pnlEms
         Me.tabEms.Controls.Add(Me.Panel1)
         Me.tabEms.Location = New System.Drawing.Point(4, 44)
         Me.tabEms.Name = "tabEms"
-        Me.tabEms.Size = New System.Drawing.Size(292, 617)
+        Me.tabEms.Size = New System.Drawing.Size(292, 804)
         Me.tabEms.TabIndex = 0
         Me.tabEms.Text = "能量"
         '
@@ -1443,7 +1443,7 @@ Partial Class pnlEms
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel1.Size = New System.Drawing.Size(292, 617)
+        Me.Panel1.Size = New System.Drawing.Size(292, 804)
         Me.Panel1.TabIndex = 1
         '
         'TableLayoutPanel2
@@ -1464,15 +1464,15 @@ Partial Class pnlEms
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 9
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(252, 577)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(252, 764)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'Label1
@@ -1492,7 +1492,7 @@ Partial Class pnlEms
         Me.Label2.AutoSize = True
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(3, 120)
+        Me.Label2.Location = New System.Drawing.Point(3, 140)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(246, 60)
         Me.Label2.TabIndex = 1
@@ -1504,7 +1504,7 @@ Partial Class pnlEms
         Me.Label3.AutoSize = True
         Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label3.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(3, 240)
+        Me.Label3.Location = New System.Drawing.Point(3, 330)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(246, 60)
         Me.Label3.TabIndex = 2
@@ -1516,7 +1516,7 @@ Partial Class pnlEms
         Me.Label5.AutoSize = True
         Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label5.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(3, 360)
+        Me.Label5.Location = New System.Drawing.Point(3, 520)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(246, 60)
         Me.Label5.TabIndex = 3
@@ -1526,21 +1526,21 @@ Partial Class pnlEms
         'ptBox
         '
         Me.ptBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ptBox.Font = New System.Drawing.Font("DFKai-SB", 30.0!)
+        Me.ptBox.Font = New System.Drawing.Font("DFKai-SB", 40.0!)
         Me.ptBox.FormattingEnabled = True
         Me.ptBox.Items.AddRange(New Object() {"一二三四五六七"})
         Me.ptBox.Location = New System.Drawing.Point(3, 63)
         Me.ptBox.Name = "ptBox"
-        Me.ptBox.Size = New System.Drawing.Size(246, 48)
+        Me.ptBox.Size = New System.Drawing.Size(246, 61)
         Me.ptBox.TabIndex = 4
         '
         'txtEvaValue
         '
         Me.txtEvaValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtEvaValue.Font = New System.Drawing.Font("DFKai-SB", 35.0!)
-        Me.txtEvaValue.Location = New System.Drawing.Point(3, 183)
+        Me.txtEvaValue.Font = New System.Drawing.Font("DFKai-SB", 100.0!)
+        Me.txtEvaValue.Location = New System.Drawing.Point(3, 203)
         Me.txtEvaValue.Name = "txtEvaValue"
-        Me.txtEvaValue.Size = New System.Drawing.Size(246, 63)
+        Me.txtEvaValue.Size = New System.Drawing.Size(246, 167)
         Me.txtEvaValue.TabIndex = 5
         Me.txtEvaValue.Text = "0"
         Me.txtEvaValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1548,10 +1548,10 @@ Partial Class pnlEms
         'txtMaxValue
         '
         Me.txtMaxValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtMaxValue.Font = New System.Drawing.Font("DFKai-SB", 35.0!)
-        Me.txtMaxValue.Location = New System.Drawing.Point(3, 303)
+        Me.txtMaxValue.Font = New System.Drawing.Font("DFKai-SB", 100.0!)
+        Me.txtMaxValue.Location = New System.Drawing.Point(3, 393)
         Me.txtMaxValue.Name = "txtMaxValue"
-        Me.txtMaxValue.Size = New System.Drawing.Size(246, 63)
+        Me.txtMaxValue.Size = New System.Drawing.Size(246, 167)
         Me.txtMaxValue.TabIndex = 5
         Me.txtMaxValue.Text = "0"
         Me.txtMaxValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1559,10 +1559,11 @@ Partial Class pnlEms
         'txtDevValue
         '
         Me.txtDevValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtDevValue.Font = New System.Drawing.Font("DFKai-SB", 35.0!)
-        Me.txtDevValue.Location = New System.Drawing.Point(3, 423)
+        Me.txtDevValue.Font = New System.Drawing.Font("DFKai-SB", 100.0!)
+        Me.txtDevValue.Location = New System.Drawing.Point(3, 583)
         Me.txtDevValue.Name = "txtDevValue"
-        Me.txtDevValue.Size = New System.Drawing.Size(246, 63)
+        Me.txtDevValue.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
+        Me.txtDevValue.Size = New System.Drawing.Size(246, 167)
         Me.txtDevValue.TabIndex = 5
         Me.txtDevValue.Text = "0"
         Me.txtDevValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2428,7 +2429,7 @@ Partial Class pnlEms
         Me.Controls.Add(Me.pInfoPanel)
         Me.Name = "pnlEms"
         Me.Padding = New System.Windows.Forms.Padding(0, 0, 280, 0)
-        Me.Size = New System.Drawing.Size(1211, 713)
+        Me.Size = New System.Drawing.Size(1800, 900)
         Me.pInfoPanel.ResumeLayout(False)
         Me.patientTab.ResumeLayout(False)
         Me.tabPatientInfo.ResumeLayout(False)
