@@ -157,8 +157,8 @@ Public Class pnlEms
         'picturebox
         myPen = New Pen(Color.Red, 2) 'creates a red pen with a thickness of 2
         paDrawBuffer = New Point(XMAX) {}
-        xPixDiv = (pb.Size.Width / XMAX)
-        yPixDiv = (pb.Size.Height / YMAX)
+        xPixDiv = (txtDevValue.Size.Width / XMAX)
+        yPixDiv = (txtDevValue.Size.Height / YMAX)
         pName.Text = mainForm.patientInfo.pName
 
         ' 各個點的代碼以及名稱
@@ -406,13 +406,13 @@ Public Class pnlEms
 #Region "繪圖"
     ' 切換分頁
     Private Sub graphTab_TabIndexChanged(sender As Object, e As EventArgs) Handles graphTab.TabIndexChanged
-        pb.Refresh()
+        txtDevValue.Refresh()
     End Sub
     Private Sub graphTab_SelectedIndexChanged(sender As Object, e As EventArgs) Handles graphTab.SelectedIndexChanged
-        pb.Refresh()
+        txtDevValue.Refresh()
     End Sub
     Private Sub tabEms_GotFocus(sender As Object, e As EventArgs) Handles tabEms.GotFocus
-        pb.Refresh()
+        txtDevValue.Refresh()
     End Sub
     ' 主畫面
     Private Sub pb_Paint(sender As Object, e As PaintEventArgs) Handles pb.Paint
@@ -474,7 +474,7 @@ Public Class pnlEms
             '    g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, i * pb.Size.Height / size), New Point(pb.Size.Width, i * pb.Size.Height / size))
             'Next
             ' 筆刷
-            Dim barPen As New Pen(Brushes.Green, CSng(pb.Width / 20))
+            Dim barPen As New Pen(Brushes.Green, CSng(txtDevValue.Width / 20))
             barPen.Alignment = Drawing2D.PenAlignment.Center
 
             If Not mainForm.offlineMode Then
@@ -491,21 +491,21 @@ Public Class pnlEms
             ElseIf top_pos.Text = "0" Or bot_pos.Text = "0" Or left_pos.Text = "0" Or right_pos.Text = "0" Or diagLeft.Text = "0" Or diagRight.Text = "0" Then
             Else
 
-                Dim center As New Point(pb.Width / 2, pb.Height / 2)
+                Dim center As New Point(txtDevValue.Width / 2, txtDevValue.Height / 2)
                 'drawLineColor(-9999, New Point(pb.Width / 2 - pb.Width / 2 * 0.8, pb.Height / 20), New Point(pb.Width / 2 + pb.Width / 2 * 0.8, pb.Height / 20), g, pb.Width / 20)
                 'drawLineColor(-9999, New Point(pb.Width / 2 - pb.Width / 2 * 0.8, pb.Height / 20 * 19), New Point(pb.Width / 2 + pb.Width / 2 * 0.8, pb.Height / 20 * 19), g, pb.Width / 20)
                 'drawLineColor(-9999, New Point(pb.Width / 20, pb.Height / 2 - pb.Height / 2 * 0.8), New Point(pb.Width / 20, pb.Height / 2 + pb.Height / 2 * 0.8), g, pb.Height / 20)
                 'drawLineColor(-9999, New Point(pb.Width / 20 * 19, pb.Height / 2 - pb.Height / 2 * 0.8), New Point(pb.Width / 20 * 19, pb.Height / 2 + pb.Height / 2 * 0.8), g, pb.Height / 20)
 
-                Dim upLeft As Double = pb.Width / 2 - pb.Width * 0.004 * top_pos.Text
-                Dim upRight As Double = pb.Width / 2 + pb.Width * 0.004 * top_pos.Text
-                Dim downLeft As Double = pb.Width / 2 - pb.Width * 0.004 * bot_pos.Text
-                Dim downRight As Double = pb.Width / 2 + pb.Width * 0.004 * bot_pos.Text
+                Dim upLeft As Double = txtDevValue.Width / 2 - txtDevValue.Width * 0.004 * top_pos.Text
+                Dim upRight As Double = txtDevValue.Width / 2 + txtDevValue.Width * 0.004 * top_pos.Text
+                Dim downLeft As Double = txtDevValue.Width / 2 - txtDevValue.Width * 0.004 * bot_pos.Text
+                Dim downRight As Double = txtDevValue.Width / 2 + txtDevValue.Width * 0.004 * bot_pos.Text
 
-                Dim leftUp As Double = pb.Height / 2 - pb.Height * 0.004 * left_pos.Text
-                Dim leftDown As Double = pb.Height / 2 + pb.Height * 0.004 * left_pos.Text
-                Dim rightUp As Double = pb.Height / 2 - pb.Height * 0.004 * right_pos.Text
-                Dim rightDown As Double = pb.Height / 2 + pb.Height * 0.004 * right_pos.Text
+                Dim leftUp As Double = txtDevValue.Height / 2 - txtDevValue.Height * 0.004 * left_pos.Text
+                Dim leftDown As Double = txtDevValue.Height / 2 + txtDevValue.Height * 0.004 * left_pos.Text
+                Dim rightUp As Double = txtDevValue.Height / 2 - txtDevValue.Height * 0.004 * right_pos.Text
+                Dim rightDown As Double = txtDevValue.Height / 2 + txtDevValue.Height * 0.004 * right_pos.Text
 
 
                 If (upLeft - downRight) = 0 Or (upRight - downLeft) = 0 Then
@@ -534,17 +534,17 @@ Public Class pnlEms
                     shiftY = (shiftY - center.Y)
                     Debug.WriteLine("New Intercept = (" & shiftX & ", " & shiftY & ")")
 
-                    drawLineColor(top_pos.Text, New Point(upLeft - shiftX, pb.Height / 20),
-                                            New Point(upRight - shiftX, pb.Height / 20), g, pb.Width / 20)
+                    drawLineColor(top_pos.Text, New Point(upLeft - shiftX, txtDevValue.Height / 20),
+                                            New Point(upRight - shiftX, txtDevValue.Height / 20), g, txtDevValue.Width / 20)
 
-                    drawLineColor(bot_pos.Text, New Point(downLeft - shiftX, pb.Height / 20 * 19),
-                                            New Point(downRight - shiftX, pb.Height / 20 * 19), g, pb.Width / 20)
+                    drawLineColor(bot_pos.Text, New Point(downLeft - shiftX, txtDevValue.Height / 20 * 19),
+                                            New Point(downRight - shiftX, txtDevValue.Height / 20 * 19), g, txtDevValue.Width / 20)
 
-                    drawLineColor(left_pos.Text, New Point(pb.Width / 20, leftUp - shiftY),
-                                             New Point(pb.Width / 20, leftDown - shiftY), g, pb.Height / 20)
+                    drawLineColor(left_pos.Text, New Point(txtDevValue.Width / 20, leftUp - shiftY),
+                                             New Point(txtDevValue.Width / 20, leftDown - shiftY), g, txtDevValue.Height / 20)
 
-                    drawLineColor(right_pos.Text, New Point(pb.Width / 20 * 19, rightUp - shiftY),
-                                              New Point(pb.Width / 20 * 19, rightDown - shiftY), g, pb.Height / 20)
+                    drawLineColor(right_pos.Text, New Point(txtDevValue.Width / 20 * 19, rightUp - shiftY),
+                                              New Point(txtDevValue.Width / 20 * 19, rightDown - shiftY), g, txtDevValue.Height / 20)
 
                     ' 四角
                     Dim topLeft As New Point(upLeft - shiftX, leftUp - shiftY)
@@ -559,10 +559,10 @@ Public Class pnlEms
 
                     ' 繪製文字
                     g.DrawString(CInt(getSide(topLeft, center) / getSide(topLeft, botRight) * diagLeft.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, 1, 1)
-                    g.DrawString(CInt(getSide(botRight, center) / getSide(topLeft, botRight) * diagLeft.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, pb.Width - 16, pb.Height - 16)
+                    g.DrawString(CInt(getSide(botRight, center) / getSide(topLeft, botRight) * diagLeft.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, txtDevValue.Width - 16, txtDevValue.Height - 16)
 
-                    g.DrawString(CInt(getSide(topRight, center) / getSide(topRight, botLeft) * diagRight.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, pb.Width - 16, 1)
-                    g.DrawString(CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * diagRight.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, 1, pb.Height - 16)
+                    g.DrawString(CInt(getSide(topRight, center) / getSide(topRight, botLeft) * diagRight.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, txtDevValue.Width - 16, 1)
+                    g.DrawString(CInt(getSide(botLeft, center) / getSide(topRight, botLeft) * diagRight.Text).ToString, New Font("標楷體", 10, FontStyle.Regular), Brushes.Black, 1, txtDevValue.Height - 16)
 
                     'If Not (top_pos.Text = "" Or left_pos.Text = "") Then
                     '    drawLineColor(getSide(New Point(-top_pos.Text / 2, left_pos.Text / 2), New Point(0, 0)), topLeft, center, g, pb.Width / 20, True)
@@ -582,17 +582,17 @@ Public Class pnlEms
 
 
                     ' 總面積
-                    Dim top As New Point(pb.Width / 2, pb.Height / 20)
-                    Dim bot As New Point(pb.Width / 2, pb.Height / 20 * 19)
-                    Dim left As New Point(pb.Width / 20, pb.Height / 2)
-                    Dim right As New Point(pb.Width / 20 * 19, pb.Height / 2)
+                    Dim top As New Point(txtDevValue.Width / 2, txtDevValue.Height / 20)
+                    Dim bot As New Point(txtDevValue.Width / 2, txtDevValue.Height / 20 * 19)
+                    Dim left As New Point(txtDevValue.Width / 20, txtDevValue.Height / 2)
+                    Dim right As New Point(txtDevValue.Width / 20 * 19, txtDevValue.Height / 2)
 
-                    Dim maxWidth As Double = pb.Width * 0.004 * 45
-                    Dim maxHeight As Double = pb.Height * 0.004 * 45
-                    Dim maxArea As Double = getArea(getSide(New Point(pb.Width / 2 - maxWidth, pb.Height / 20),
-                                                        New Point(pb.Width / 2 + maxWidth, pb.Height / 20)),
-                                                getSide(New Point(pb.Width / 2 - maxWidth, pb.Height / 20), center),
-                                                getSide(New Point(pb.Width / 2 + maxWidth, pb.Height / 20), center)) * 8
+                    Dim maxWidth As Double = txtDevValue.Width * 0.004 * 45
+                    Dim maxHeight As Double = txtDevValue.Height * 0.004 * 45
+                    Dim maxArea As Double = getArea(getSide(New Point(txtDevValue.Width / 2 - maxWidth, txtDevValue.Height / 20),
+                                                        New Point(txtDevValue.Width / 2 + maxWidth, txtDevValue.Height / 20)),
+                                                getSide(New Point(txtDevValue.Width / 2 - maxWidth, txtDevValue.Height / 20), center),
+                                                getSide(New Point(txtDevValue.Width / 2 + maxWidth, txtDevValue.Height / 20), center)) * 8
 
 
                     Dim totalArea As Double = getArea(getSide(topLeft, topRight), getSide(topLeft, center), getSide(topRight, center)) +
@@ -619,10 +619,10 @@ Public Class pnlEms
             e.Graphics.DrawImage(bmp, New Point(0, 0))
 
             ' 格線
-            bmp = New Bitmap(pb.Size.Width, pb.Size.Height)
+            bmp = New Bitmap(txtDevValue.Size.Width, txtDevValue.Size.Height)
             g = Graphics.FromImage(bmp)
-            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(pb.Size.Width / 2, 0), New Point(pb.Size.Width / 2, pb.Size.Height))
-            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, pb.Size.Height / 2), New Point(pb.Width, pb.Size.Height / 2))
+            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(txtDevValue.Size.Width / 2, 0), New Point(txtDevValue.Size.Width / 2, txtDevValue.Size.Height))
+            g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(0, txtDevValue.Size.Height / 2), New Point(txtDevValue.Width, txtDevValue.Size.Height / 2))
             e.Graphics.DrawImage(bmp, New Point(0, 0))
 
         End If
@@ -1005,7 +1005,7 @@ Public Class pnlEms
                         curMax = 0
                         iPlotCount = 0
                         ptCounter = 0
-                        pb.Refresh()
+                        txtDevValue.Refresh()
                         iState = 2
                     End If
                 End If
@@ -1061,7 +1061,7 @@ Public Class pnlEms
         ptCounter = iPlotCount
         idx1 = (idx1 + 1) Mod (XMAX + 1)
         sqlStr = sqlStr & "(' " & waitingList.SelectedValue & "','" & iCode & "','" & ptCounter & "','" & dValue & "'),"
-        pb.Invalidate()
+        txtDevValue.Invalidate()
         Refresh()
         If iPlotCount > XMAX Then
             iPlotCount = iPlotCount Mod (XMAX + 1)
@@ -1070,23 +1070,27 @@ Public Class pnlEms
     End Sub
     ' 儲存至SQL
     Private Sub SaveRecord()
-        ' 檢查重複資訊
-        Try
-            Dim reader As IDataReader = runQuery("SELECT count(`icode`) FROM ems WHERE `bID`='" & waitingList.SelectedValue & "' AND `iCode`='" & iCode & "'")
-            reader.Read()
-            If Not reader.GetInt64(0) = 0 Then
-                reader.Close()
-                runQuery("DELETE FROM `ems` WHERE `bID`='" & waitingList.SelectedValue & "' and `iCode`='" & iCode & "'")
-                runQuery("INSERT INTO ems(bID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
-            Else
-                reader.Close()
-                runQuery("INSERT INTO ems(bID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
-            End If
-            runQuery("UPDATE patient_booking SET arrived=1 WHERE bID=" & waitingList.SelectedValue)
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
-        End Try
-        Refresh()
+        If waitingList.SelectedIndex = -1 Then
+            MetroFramework.MetroMessageBox.Show(Me, "錯誤: 尚未選擇病患!", "儲存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Else
+            ' 檢查重複資訊
+            Try
+                Dim reader As IDataReader = runQuery("SELECT count(`icode`) FROM ems WHERE `bID`=" & waitingList.SelectedValue & " AND `iCode`='" & iCode & "'")
+                reader.Read()
+                If Not reader.GetInt64(0) = 0 Then
+                    reader.Close()
+                    runQuery("DELETE FROM `ems` WHERE `bID`=" & waitingList.SelectedValue & " and `iCode`='" & iCode & "'")
+                    runQuery("INSERT INTO ems(bID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
+                Else
+                    reader.Close()
+                    runQuery("INSERT INTO ems(bID, iCode, iPlotCount, iValue) VALUES " & Mid(lastSqlStr, 1, Len(lastSqlStr) - 1))
+                End If
+                runQuery("UPDATE patient_booking SET arrived=1 WHERE bID=" & waitingList.SelectedValue)
+            Catch ex As Exception
+                Console.WriteLine("Error: " & ex.ToString())
+            End Try
+            Refresh()
+        End If
     End Sub
 #End Region
 #Region "測量點鍵盤"
@@ -1636,7 +1640,7 @@ Public Class pnlEms
         End If
     End Sub
     ' 關閉小鍵盤
-    Private Sub okLink_Click(sender As Object, e As EventArgs) Handles okLink.Click
+    Private Sub okLink_Click(sender As Object, e As EventArgs)
         buttonPanel.Visible = False
     End Sub
     ' 開啟小鍵盤
