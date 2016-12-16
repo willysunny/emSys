@@ -426,17 +426,27 @@ Public Class pnlPerscription
     Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
         Dim keepPrinting As Boolean = True
         printIndex = 0
-        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單',
-                                                    count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes'
+        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單', mg.medDays, mg.medAmount as 'gAmount',
+                                                    count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', mg.medUnit as 'gUnit', md.medUnit as 'dUnit', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes'
                                                     FROM medGroup2medDetail as mg LEFT JOIN medDetail as md ON mg.mgID = md.mgID LEFT JOIN med_item as mi on md.medID = mi.medID 
                                                     WHERE bID=" & historyBox.SelectedValue & " GROUP BY mg.mgID")
         For Each row As DataRow In dt.Rows
             If row.Item("totalMeds") > 1 Then
-                If Not row.Item("totalGram") / 6 = row.Item("totalTimes") Then
-                    If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥包 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
-                        keepPrinting = False
+                If groupUnit(row.Item("gUnit")).Contains("包") Then
+                    If Not row.Item("totalGram") / 6 = row.Item("totalTimes") Then
+                        If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥包 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
+                            keepPrinting = False
+                        End If
+                        If Not keepPrinting Then Exit Sub
                     End If
-                    If Not keepPrinting Then Exit Sub
+                ElseIf groupUnit(row.Item("gUnit")).Contains("顆") And unit(row.Item("dUnit")).Contains("克") Then
+                    If Not row.Item("totalTimes") * row.Item("gAmount") * 0.5 = row.Item("totalGram") Then
+                        If MetroFramework.MetroMessageBox.Show(Me, "警告: 藥丸 (" & row.Item("藥物清單") & ") 內總重量 (" & row.Item("totalGram") & "克) 不正確!" & vbNewLine & "請問是否繼續?", "藥包錯誤", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = vbNo Then
+                            keepPrinting = False
+                        End If
+                        If Not keepPrinting Then Exit Sub
+                    End If
+
                 End If
             End If
         Next
@@ -477,11 +487,20 @@ Public Class pnlPerscription
         stringFormat.Alignment = StringAlignment.Near
         e.Graphics.DrawString("姓名: " & pName.Text, headerFont, Brushes.Black, New Point(20, 415), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(60, 435), New Point(180, 435))
-        e.Graphics.DrawString("病歷號: " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
+        e.Graphics.DrawString("病歷號:  " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(280, 435), New Point(380, 435))
 
-        e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
-        e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
+        e.Graphics.DrawString("天數:  " & fullListView.Rows(printIndex).Cells("天數").Value & " 天", headerFont, Brushes.Black, New Point(230, 440), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(280, 460), New Point(380, 460))
+
+        If fullListView.Rows(printIndex).Cells("打錠").Value Then
+            e.Graphics.DrawString("藥物內容 (打錠):", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+            e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(120, 460))
+
+        Else
+            e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+            e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
+        End If
 
         Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
         For i = 0 To medList.Count -1
