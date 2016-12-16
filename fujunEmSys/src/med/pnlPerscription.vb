@@ -397,7 +397,7 @@ Public Class pnlPerscription
     Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
         If medTab.SelectedTab Is tabFull Then
             If Not historyBox.SelectedIndex = -1 Then
-                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', 
+                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
                                                                mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
@@ -415,7 +415,10 @@ Public Class pnlPerscription
                         row.Cells("單位").Value = groupUnit(1)
                     End Try
                 Next
-                fullListView.Columns("medUnit").Visible = False
+                If Not mainForm.debugMode.Checked Then
+                    fullListView.Columns("medUnit").Visible = False
+                    fullListView.Columns("medList").Visible = False
+                End If
             End If
         End If
     End Sub
@@ -423,7 +426,8 @@ Public Class pnlPerscription
     Private Sub printMedButton_Click(sender As Object, e As EventArgs) Handles printMedButton.Click
         Dim keepPrinting As Boolean = True
         printIndex = 0
-        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單', count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes'
+        Dim dt As DataTable = returnData(mainForm, "SELECT mg.mgID, group_concat(mi.medName) as '藥物清單',
+                                                    count(md.medID) as 'totalMeds', sum(md.medAmount) AS 'totalGram', (mg.morning + mg.noon + mg.night + mg.beforeSleep) as 'totalTimes'
                                                     FROM medGroup2medDetail as mg LEFT JOIN medDetail as md ON mg.mgID = md.mgID LEFT JOIN med_item as mi on md.medID = mi.medID 
                                                     WHERE bID=" & historyBox.SelectedValue & " GROUP BY mg.mgID")
         For Each row As DataRow In dt.Rows
@@ -438,16 +442,19 @@ Public Class pnlPerscription
         Next
 
         If keepPrinting Then
-            'printPreview.ShowDialog()
-            Try
-                With printDoc
-                    .PrinterSettings.PrinterName = "Ring 412PE+"
-                    .DefaultPageSettings.Landscape = False
-                    .Print()
-                End With
-            Catch ex As Exception
-                MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
+            If mainForm.debugMode.Checked Then
+                printPreview.ShowDialog()
+            Else
+                Try
+                    With printDoc
+                        .PrinterSettings.PrinterName = "Ring 412PE+"
+                        .DefaultPageSettings.Landscape = False
+                        .Print()
+                    End With
+                Catch ex As Exception
+                    MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
         End If
     End Sub
     ' 列印標籤
@@ -476,8 +483,14 @@ Public Class pnlPerscription
         e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
 
+        Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
+        For i = 0 To medList.Count -1
+            Dim unitList As String() = medList(i).Split("|")
+            unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+            medList(i) = String.Join("", unitList)
+        Next
 
-        Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes(fullListView.Rows(printIndex).Cells("藥品清單").Value)
+        Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes(String.Join(", ", medList))
         'Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes("這是一個非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常長的字串")
         Dim strmMem As New System.IO.MemoryStream(aBytes)
         Dim streamToPrint As New IO.StreamReader(strmMem)
@@ -521,10 +534,10 @@ Public Class pnlPerscription
         If fullListView.Rows(printIndex).Cells("睡前").Value Then
             usage += "以及睡前"
         End If
-        usage += fullListView.Rows(printIndex).Cells("份量").Value & fullListView.Rows(printIndex).Cells("單位").Value
         If fullListView.Rows(printIndex).Cells("不適時").Value Then
-            usage += ", 有症狀服用"
+            usage += "和有症狀時"
         End If
+        usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & fullListView.Rows(printIndex).Cells("單位").Value
         e.Graphics.DrawString("服用方法: " & usage, headerFont, Brushes.Black, New Point(20, 525), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(20, 545), New Point(95, 545))
 
@@ -555,7 +568,7 @@ Public Class pnlPerscription
 
     Private Sub dayCalc_Click(sender As Object, e As EventArgs) Handles dayCalc.Click
         Try
-            If Not CInt(timeBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+            If CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
                 dayBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text)
             End If
         Catch
@@ -563,19 +576,9 @@ Public Class pnlPerscription
         End Try
     End Sub
 
-    Private Sub timeCalc_Click(sender As Object, e As EventArgs) Handles timeCalc.Click
-        Try
-            If Not CInt(dayBox.Text) = 0 Or CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
-                timeBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text) / CInt(timeBox.Text)
-            End If
-        Catch
-            timeBox.Text = "-ERR-"
-        End Try
-    End Sub
-
     Private Sub singleCalc_Click(sender As Object, e As EventArgs) Handles singleCalc.Click
         Try
-            If Not CInt(dayBox.Text) = 0 Or CInt(timeBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
+            If Not CInt(dayBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
                 singleBox.Text = CInt(totalBox.Text) / CInt(dayBox.Text)
             End If
         Catch
@@ -592,8 +595,7 @@ Public Class pnlPerscription
 
     Private Sub clearCalc_Click(sender As Object, e As EventArgs) Handles clearCalc.Click
         dayBox.Text = "14"
-        timeBox.Text = "4"
-        singleBox.Text = "6"
+        singleBox.Text = "24"
         totalBox.Text = "336"
     End Sub
 

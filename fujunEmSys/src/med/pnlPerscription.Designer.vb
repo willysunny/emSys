@@ -91,16 +91,13 @@ Partial Class pnlPerscription
         Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.dayBox = New MetroFramework.Controls.MetroTextBox()
-        Me.timeBox = New MetroFramework.Controls.MetroTextBox()
         Me.singleBox = New MetroFramework.Controls.MetroTextBox()
         Me.totalBox = New MetroFramework.Controls.MetroTextBox()
         Me.clearCalc = New MetroFramework.Controls.MetroButton()
         Me.dayCalc = New MetroFramework.Controls.MetroButton()
-        Me.timeCalc = New MetroFramework.Controls.MetroButton()
         Me.singleCalc = New MetroFramework.Controls.MetroButton()
         Me.totalCalc = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel8 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel9 = New MetroFramework.Controls.MetroLabel()
         Me.tabFull = New System.Windows.Forms.TabPage()
@@ -1348,25 +1345,22 @@ Partial Class pnlPerscription
         '
         'TableLayoutPanel5
         '
-        Me.TableLayoutPanel5.ColumnCount = 5
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel5.ColumnCount = 4
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.Controls.Add(Me.dayBox, 0, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.timeBox, 1, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.singleBox, 2, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.totalBox, 3, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.clearCalc, 4, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.singleBox, 1, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.totalBox, 2, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.clearCalc, 3, 1)
         Me.TableLayoutPanel5.Controls.Add(Me.dayCalc, 0, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.timeCalc, 1, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.singleCalc, 2, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.totalCalc, 3, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.singleCalc, 1, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.totalCalc, 2, 2)
         Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel5, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel7, 1, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel8, 2, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel9, 3, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel8, 1, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.MetroLabel9, 2, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel5.Location = New System.Drawing.Point(10, 50)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
@@ -1383,7 +1377,7 @@ Partial Class pnlPerscription
         '
         '
         Me.dayBox.CustomButton.Image = Nothing
-        Me.dayBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.dayBox.CustomButton.Location = New System.Drawing.Point(38, 2)
         Me.dayBox.CustomButton.Name = ""
         Me.dayBox.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.dayBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -1404,7 +1398,7 @@ Partial Class pnlPerscription
         Me.dayBox.SelectionLength = 0
         Me.dayBox.SelectionStart = 0
         Me.dayBox.ShortcutsEnabled = True
-        Me.dayBox.Size = New System.Drawing.Size(54, 34)
+        Me.dayBox.Size = New System.Drawing.Size(70, 34)
         Me.dayBox.TabIndex = 0
         Me.dayBox.Text = "14"
         Me.dayBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1413,49 +1407,13 @@ Partial Class pnlPerscription
         Me.dayBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.dayBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
-        'timeBox
-        '
-        '
-        '
-        '
-        Me.timeBox.CustomButton.Image = Nothing
-        Me.timeBox.CustomButton.Location = New System.Drawing.Point(22, 2)
-        Me.timeBox.CustomButton.Name = ""
-        Me.timeBox.CustomButton.Size = New System.Drawing.Size(29, 29)
-        Me.timeBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.timeBox.CustomButton.TabIndex = 1
-        Me.timeBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.timeBox.CustomButton.UseSelectable = True
-        Me.timeBox.CustomButton.Visible = False
-        Me.timeBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.timeBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.timeBox.Lines = New String() {"4"}
-        Me.timeBox.Location = New System.Drawing.Point(63, 43)
-        Me.timeBox.MaxLength = 32767
-        Me.timeBox.Name = "timeBox"
-        Me.timeBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.timeBox.PromptText = "次數"
-        Me.timeBox.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.timeBox.SelectedText = ""
-        Me.timeBox.SelectionLength = 0
-        Me.timeBox.SelectionStart = 0
-        Me.timeBox.ShortcutsEnabled = True
-        Me.timeBox.Size = New System.Drawing.Size(54, 34)
-        Me.timeBox.TabIndex = 0
-        Me.timeBox.Text = "4"
-        Me.timeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.timeBox.UseSelectable = True
-        Me.timeBox.WaterMark = "次數"
-        Me.timeBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.timeBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
         'singleBox
         '
         '
         '
         '
         Me.singleBox.CustomButton.Image = Nothing
-        Me.singleBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.singleBox.CustomButton.Location = New System.Drawing.Point(38, 2)
         Me.singleBox.CustomButton.Name = ""
         Me.singleBox.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.singleBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -1465,8 +1423,8 @@ Partial Class pnlPerscription
         Me.singleBox.CustomButton.Visible = False
         Me.singleBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.singleBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.singleBox.Lines = New String() {"0"}
-        Me.singleBox.Location = New System.Drawing.Point(123, 43)
+        Me.singleBox.Lines = New String() {"24"}
+        Me.singleBox.Location = New System.Drawing.Point(79, 43)
         Me.singleBox.MaxLength = 32767
         Me.singleBox.Name = "singleBox"
         Me.singleBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -1476,9 +1434,9 @@ Partial Class pnlPerscription
         Me.singleBox.SelectionLength = 0
         Me.singleBox.SelectionStart = 0
         Me.singleBox.ShortcutsEnabled = True
-        Me.singleBox.Size = New System.Drawing.Size(54, 34)
+        Me.singleBox.Size = New System.Drawing.Size(70, 34)
         Me.singleBox.TabIndex = 0
-        Me.singleBox.Text = "0"
+        Me.singleBox.Text = "24"
         Me.singleBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.singleBox.UseSelectable = True
         Me.singleBox.WaterMark = "總量"
@@ -1491,7 +1449,7 @@ Partial Class pnlPerscription
         '
         '
         Me.totalBox.CustomButton.Image = Nothing
-        Me.totalBox.CustomButton.Location = New System.Drawing.Point(22, 2)
+        Me.totalBox.CustomButton.Location = New System.Drawing.Point(38, 2)
         Me.totalBox.CustomButton.Name = ""
         Me.totalBox.CustomButton.Size = New System.Drawing.Size(29, 29)
         Me.totalBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -1501,8 +1459,8 @@ Partial Class pnlPerscription
         Me.totalBox.CustomButton.Visible = False
         Me.totalBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.totalBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.totalBox.Lines = New String() {"0"}
-        Me.totalBox.Location = New System.Drawing.Point(183, 43)
+        Me.totalBox.Lines = New String() {"336"}
+        Me.totalBox.Location = New System.Drawing.Point(155, 43)
         Me.totalBox.MaxLength = 32767
         Me.totalBox.Name = "totalBox"
         Me.totalBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -1512,9 +1470,9 @@ Partial Class pnlPerscription
         Me.totalBox.SelectionLength = 0
         Me.totalBox.SelectionStart = 0
         Me.totalBox.ShortcutsEnabled = True
-        Me.totalBox.Size = New System.Drawing.Size(54, 34)
+        Me.totalBox.Size = New System.Drawing.Size(70, 34)
         Me.totalBox.TabIndex = 0
-        Me.totalBox.Text = "0"
+        Me.totalBox.Text = "336"
         Me.totalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.totalBox.UseSelectable = True
         Me.totalBox.WaterMark = "單量"
@@ -1524,9 +1482,9 @@ Partial Class pnlPerscription
         'clearCalc
         '
         Me.clearCalc.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clearCalc.Location = New System.Drawing.Point(243, 43)
+        Me.clearCalc.Location = New System.Drawing.Point(231, 43)
         Me.clearCalc.Name = "clearCalc"
-        Me.clearCalc.Size = New System.Drawing.Size(58, 34)
+        Me.clearCalc.Size = New System.Drawing.Size(70, 34)
         Me.clearCalc.TabIndex = 1
         Me.clearCalc.Text = "清除"
         Me.clearCalc.UseSelectable = True
@@ -1536,27 +1494,17 @@ Partial Class pnlPerscription
         Me.dayCalc.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dayCalc.Location = New System.Drawing.Point(3, 83)
         Me.dayCalc.Name = "dayCalc"
-        Me.dayCalc.Size = New System.Drawing.Size(54, 34)
+        Me.dayCalc.Size = New System.Drawing.Size(70, 34)
         Me.dayCalc.TabIndex = 2
         Me.dayCalc.Text = "計算"
         Me.dayCalc.UseSelectable = True
         '
-        'timeCalc
-        '
-        Me.timeCalc.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.timeCalc.Location = New System.Drawing.Point(63, 83)
-        Me.timeCalc.Name = "timeCalc"
-        Me.timeCalc.Size = New System.Drawing.Size(54, 34)
-        Me.timeCalc.TabIndex = 2
-        Me.timeCalc.Text = "計算"
-        Me.timeCalc.UseSelectable = True
-        '
         'singleCalc
         '
         Me.singleCalc.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.singleCalc.Location = New System.Drawing.Point(123, 83)
+        Me.singleCalc.Location = New System.Drawing.Point(79, 83)
         Me.singleCalc.Name = "singleCalc"
-        Me.singleCalc.Size = New System.Drawing.Size(54, 34)
+        Me.singleCalc.Size = New System.Drawing.Size(70, 34)
         Me.singleCalc.TabIndex = 2
         Me.singleCalc.Text = "計算"
         Me.singleCalc.UseSelectable = True
@@ -1564,9 +1512,9 @@ Partial Class pnlPerscription
         'totalCalc
         '
         Me.totalCalc.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.totalCalc.Location = New System.Drawing.Point(183, 83)
+        Me.totalCalc.Location = New System.Drawing.Point(155, 83)
         Me.totalCalc.Name = "totalCalc"
-        Me.totalCalc.Size = New System.Drawing.Size(54, 34)
+        Me.totalCalc.Size = New System.Drawing.Size(70, 34)
         Me.totalCalc.TabIndex = 2
         Me.totalCalc.Text = "計算"
         Me.totalCalc.UseSelectable = True
@@ -1578,33 +1526,20 @@ Partial Class pnlPerscription
         Me.MetroLabel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel5.Location = New System.Drawing.Point(3, 0)
         Me.MetroLabel5.Name = "MetroLabel5"
-        Me.MetroLabel5.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel5.Size = New System.Drawing.Size(70, 40)
         Me.MetroLabel5.TabIndex = 3
         Me.MetroLabel5.Text = "天數"
         Me.MetroLabel5.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.MetroLabel5.UseCustomBackColor = True
-        '
-        'MetroLabel7
-        '
-        Me.MetroLabel7.AutoSize = True
-        Me.MetroLabel7.BackColor = System.Drawing.Color.Transparent
-        Me.MetroLabel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel7.Location = New System.Drawing.Point(63, 0)
-        Me.MetroLabel7.Name = "MetroLabel7"
-        Me.MetroLabel7.Size = New System.Drawing.Size(54, 40)
-        Me.MetroLabel7.TabIndex = 3
-        Me.MetroLabel7.Text = "次數"
-        Me.MetroLabel7.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.MetroLabel7.UseCustomBackColor = True
         '
         'MetroLabel8
         '
         Me.MetroLabel8.AutoSize = True
         Me.MetroLabel8.BackColor = System.Drawing.Color.Transparent
         Me.MetroLabel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel8.Location = New System.Drawing.Point(123, 0)
+        Me.MetroLabel8.Location = New System.Drawing.Point(79, 0)
         Me.MetroLabel8.Name = "MetroLabel8"
-        Me.MetroLabel8.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel8.Size = New System.Drawing.Size(70, 40)
         Me.MetroLabel8.TabIndex = 3
         Me.MetroLabel8.Text = "單天"
         Me.MetroLabel8.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -1615,9 +1550,9 @@ Partial Class pnlPerscription
         Me.MetroLabel9.AutoSize = True
         Me.MetroLabel9.BackColor = System.Drawing.Color.Transparent
         Me.MetroLabel9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel9.Location = New System.Drawing.Point(183, 0)
+        Me.MetroLabel9.Location = New System.Drawing.Point(155, 0)
         Me.MetroLabel9.Name = "MetroLabel9"
-        Me.MetroLabel9.Size = New System.Drawing.Size(54, 40)
+        Me.MetroLabel9.Size = New System.Drawing.Size(70, 40)
         Me.MetroLabel9.TabIndex = 3
         Me.MetroLabel9.Text = "總量"
         Me.MetroLabel9.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -1818,16 +1753,13 @@ Partial Class pnlPerscription
     Friend WithEvents MetroPanel4 As MetroFramework.Controls.MetroPanel
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents dayBox As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents timeBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents singleBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents totalBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents clearCalc As MetroFramework.Controls.MetroButton
     Friend WithEvents dayCalc As MetroFramework.Controls.MetroButton
-    Friend WithEvents timeCalc As MetroFramework.Controls.MetroButton
     Friend WithEvents singleCalc As MetroFramework.Controls.MetroButton
     Friend WithEvents totalCalc As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroLabel5 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents MetroLabel7 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel8 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
