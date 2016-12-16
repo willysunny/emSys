@@ -32,9 +32,11 @@ Partial Class frmUserReport
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.pName = New MetroFramework.Controls.MetroTextBox()
+        Me.loadingBar = New MetroFramework.Controls.MetroProgressBar()
         Me.printGraphButton = New MetroFramework.Controls.MetroButton()
         Me.printEnergyButton = New MetroFramework.Controls.MetroButton()
         Me.printFeeButton = New MetroFramework.Controls.MetroButton()
+        Me.statusLabel = New MetroFramework.Controls.MetroLabel()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -51,6 +53,7 @@ Partial Class frmUserReport
         Me.printPreviewDlg.AutoScrollMargin = New System.Drawing.Size(0, 0)
         Me.printPreviewDlg.AutoScrollMinSize = New System.Drawing.Size(0, 0)
         Me.printPreviewDlg.ClientSize = New System.Drawing.Size(400, 300)
+        Me.printPreviewDlg.Document = Me.printDoc
         Me.printPreviewDlg.Enabled = True
         Me.printPreviewDlg.Icon = CType(resources.GetObject("printPreviewDlg.Icon"), System.Drawing.Icon)
         Me.printPreviewDlg.Name = "printPreviewDlg"
@@ -64,7 +67,7 @@ Partial Class frmUserReport
         Me.historyBox.ItemHeight = 12
         Me.historyBox.Location = New System.Drawing.Point(103, 38)
         Me.historyBox.Name = "historyBox"
-        Me.historyBox.Size = New System.Drawing.Size(199, 330)
+        Me.historyBox.Size = New System.Drawing.Size(199, 300)
         Me.historyBox.TabIndex = 2
         '
         'TableLayoutPanel1
@@ -78,11 +81,14 @@ Partial Class frmUserReport
         Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel2, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.pName, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.loadingBar, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.statusLabel, 0, 2)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(23, 63)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowCount = 3
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(305, 371)
         Me.TableLayoutPanel1.TabIndex = 2
         '
@@ -118,7 +124,7 @@ Partial Class frmUserReport
         Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
         Me.MetroLabel2.Location = New System.Drawing.Point(3, 35)
         Me.MetroLabel2.Name = "MetroLabel2"
-        Me.MetroLabel2.Size = New System.Drawing.Size(94, 336)
+        Me.MetroLabel2.Size = New System.Drawing.Size(94, 306)
         Me.MetroLabel2.TabIndex = 5
         Me.MetroLabel2.Text = "病患紀錄"
         '
@@ -157,6 +163,17 @@ Partial Class frmUserReport
         Me.pName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.pName.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
+        'loadingBar
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.loadingBar, 2)
+        Me.loadingBar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.loadingBar.Location = New System.Drawing.Point(103, 344)
+        Me.loadingBar.Maximum = 10000
+        Me.loadingBar.Name = "loadingBar"
+        Me.loadingBar.Size = New System.Drawing.Size(199, 24)
+        Me.loadingBar.Step = 1
+        Me.loadingBar.TabIndex = 7
+        '
         'printGraphButton
         '
         Me.printGraphButton.Location = New System.Drawing.Point(334, 63)
@@ -183,6 +200,17 @@ Partial Class frmUserReport
         Me.printFeeButton.TabIndex = 3
         Me.printFeeButton.Text = "列印金額"
         Me.printFeeButton.UseSelectable = True
+        '
+        'statusLabel
+        '
+        Me.statusLabel.AutoSize = True
+        Me.statusLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.statusLabel.Location = New System.Drawing.Point(3, 341)
+        Me.statusLabel.Name = "statusLabel"
+        Me.statusLabel.Size = New System.Drawing.Size(94, 30)
+        Me.statusLabel.TabIndex = 8
+        Me.statusLabel.Text = "就緒"
+        Me.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frmUserReport
         '
@@ -212,4 +240,6 @@ Partial Class frmUserReport
     Friend WithEvents printGraphButton As MetroFramework.Controls.MetroButton
     Friend WithEvents printEnergyButton As MetroFramework.Controls.MetroButton
     Friend WithEvents printFeeButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents loadingBar As MetroFramework.Controls.MetroProgressBar
+    Friend WithEvents statusLabel As MetroFramework.Controls.MetroLabel
 End Class

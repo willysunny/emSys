@@ -155,7 +155,7 @@ Public Class pnlEms
         iFixDevPoint = txtFixDevPoint.Text
 
         'picturebox
-        myPen = New Pen(Color.Red, 2) 'creates a red pen with a thickness of 2
+        myPen = New Pen(Color.Red, 5) 'creates a red pen with a thickness of 2
         paDrawBuffer = New Point(XMAX) {}
         xPixDiv = (pb.Size.Width / XMAX)
         yPixDiv = (pb.Size.Height / YMAX)

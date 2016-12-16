@@ -91,7 +91,6 @@ Partial Class pnlEms
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ptBox = New System.Windows.Forms.ComboBox()
         Me.txtDevValue = New System.Windows.Forms.Label()
@@ -154,6 +153,7 @@ Partial Class pnlEms
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
         Me.tabBooking = New System.Windows.Forms.TabPage()
         Me.waitingList = New System.Windows.Forms.ListBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.diagTab.SuspendLayout()
         Me.tabGraph.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -1062,14 +1062,14 @@ Partial Class pnlEms
         '
         Me.TableLayoutPanel2.ColumnCount = 1
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 0, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label2, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 0, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.Label5, 0, 6)
         Me.TableLayoutPanel2.Controls.Add(Me.ptBox, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.txtDevValue, 0, 7)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtMaxValue, 0, 5)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtEvaValue, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtEvaValue, 0, 5)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtMaxValue, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label2, 0, 4)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(20, 20)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
@@ -1104,24 +1104,12 @@ Partial Class pnlEms
         Me.Label2.AutoSize = True
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(3, 140)
+        Me.Label2.Location = New System.Drawing.Point(3, 360)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(446, 60)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "量測值"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(3, 360)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(446, 60)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "最大值"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label5
         '
@@ -1168,7 +1156,7 @@ Partial Class pnlEms
         Me.txtMaxValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtMaxValue.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtMaxValue.Font = New System.Drawing.Font("Swis721 Blk BT", 100.0!)
-        Me.txtMaxValue.Location = New System.Drawing.Point(3, 420)
+        Me.txtMaxValue.Location = New System.Drawing.Point(3, 200)
         Me.txtMaxValue.Name = "txtMaxValue"
         Me.txtMaxValue.Size = New System.Drawing.Size(446, 160)
         Me.txtMaxValue.TabIndex = 7
@@ -1182,7 +1170,7 @@ Partial Class pnlEms
         Me.txtEvaValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtEvaValue.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtEvaValue.Font = New System.Drawing.Font("Swis721 Blk BT", 100.0!)
-        Me.txtEvaValue.Location = New System.Drawing.Point(3, 200)
+        Me.txtEvaValue.Location = New System.Drawing.Point(3, 420)
         Me.txtEvaValue.Name = "txtEvaValue"
         Me.txtEvaValue.Size = New System.Drawing.Size(446, 160)
         Me.txtEvaValue.TabIndex = 7
@@ -2415,6 +2403,18 @@ Partial Class pnlEms
         Me.waitingList.Size = New System.Drawing.Size(352, 812)
         Me.waitingList.TabIndex = 0
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Font = New System.Drawing.Font("DFKai-SB", 30.0!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Location = New System.Drawing.Point(3, 140)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(446, 60)
+        Me.Label3.TabIndex = 8
+        Me.Label3.Text = "最大值"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'pnlEms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -2517,7 +2517,6 @@ Partial Class pnlEms
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents ptBox As ComboBox
     Friend WithEvents tabEnergy As TabPage
@@ -2631,4 +2630,5 @@ Partial Class pnlEms
     Friend WithEvents txtDevValue As Label
     Friend WithEvents txtMaxValue As Label
     Friend WithEvents txtEvaValue As Label
+    Friend WithEvents Label3 As Label
 End Class

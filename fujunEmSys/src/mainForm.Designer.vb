@@ -47,6 +47,7 @@ Partial Class mainForm
         Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
+        Me.debugMode = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
@@ -82,32 +83,32 @@ Partial Class mainForm
         '
         'loginMenu
         '
-        Me.loginMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuOfflineMode, Me.aboutMenu, Me.ToolStripMenuItem1, Me.exitMenu})
+        Me.loginMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuOfflineMode, Me.debugMode, Me.aboutMenu, Me.ToolStripMenuItem1, Me.exitMenu})
         Me.loginMenu.Name = "MetroContextMenu1"
-        Me.loginMenu.Size = New System.Drawing.Size(144, 76)
+        Me.loginMenu.Size = New System.Drawing.Size(153, 120)
         '
         'menuOfflineMode
         '
         Me.menuOfflineMode.CheckOnClick = True
         Me.menuOfflineMode.Name = "menuOfflineMode"
-        Me.menuOfflineMode.Size = New System.Drawing.Size(143, 22)
+        Me.menuOfflineMode.Size = New System.Drawing.Size(152, 22)
         Me.menuOfflineMode.Text = "離線模式 (&O)"
         '
         'aboutMenu
         '
         Me.aboutMenu.Name = "aboutMenu"
-        Me.aboutMenu.Size = New System.Drawing.Size(143, 22)
+        Me.aboutMenu.Size = New System.Drawing.Size(152, 22)
         Me.aboutMenu.Text = "關於 (&A)"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(140, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
         '
         'exitMenu
         '
         Me.exitMenu.Name = "exitMenu"
-        Me.exitMenu.Size = New System.Drawing.Size(143, 22)
+        Me.exitMenu.Size = New System.Drawing.Size(152, 22)
         Me.exitMenu.Text = "離開 (&X)"
         '
         'loginButton
@@ -273,6 +274,13 @@ Partial Class mainForm
         Me.settingsLink.TabIndex = 0
         Me.settingsLink.UseSelectable = True
         '
+        'debugMode
+        '
+        Me.debugMode.CheckOnClick = True
+        Me.debugMode.Name = "debugMode"
+        Me.debugMode.Size = New System.Drawing.Size(152, 22)
+        Me.debugMode.Text = "偵錯模式(&D)"
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -330,4 +338,5 @@ Partial Class mainForm
     Friend WithEvents medManageTile As MetroFramework.Controls.MetroTile
     Friend WithEvents medInfoTile As MetroFramework.Controls.MetroTile
     Friend WithEvents paymentTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents debugMode As ToolStripMenuItem
 End Class

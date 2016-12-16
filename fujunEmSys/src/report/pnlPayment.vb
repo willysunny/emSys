@@ -127,17 +127,19 @@
                                                   INNER JOIN med_item as mi on md.medID = mi.medID
                                                   WHERE bID=" & bID & " AND bioMed=" & bioMed &
                                                   " ORDER BY mg.mgid")
-        For Each col As DataGridViewColumn In grid.Columns
-            col.Visible = False
-            col.ReadOnly = True
-        Next
-        grid.Columns.Item("藥品名稱").Visible = True
-        grid.Columns.Item("總量").Visible = True
-        grid.Columns.Item("單位").Visible = True
-        grid.Columns.Item("打錠費").Visible = True
-        grid.Columns.Item("打錠費").ReadOnly = False
-        grid.Columns.Item("金額").Visible = True
-        grid.Columns.Item("金額").ReadOnly = False
+        If Not mainForm.debugMode.Checked Then
+            For Each col As DataGridViewColumn In grid.Columns
+                col.Visible = False
+                col.ReadOnly = True
+            Next
+            grid.Columns.Item("藥品名稱").Visible = True
+            grid.Columns.Item("總量").Visible = True
+            grid.Columns.Item("單位").Visible = True
+            grid.Columns.Item("打錠費").Visible = True
+            grid.Columns.Item("打錠費").ReadOnly = False
+            grid.Columns.Item("金額").Visible = True
+            grid.Columns.Item("金額").ReadOnly = False
+        End If
 
         For Each row As DataGridViewRow In grid.Rows
             If row.Cells("groupCount").Value = 1 Then
@@ -225,12 +227,15 @@
 #Region "列印"
     Private Sub printButton_Click(sender As Object, e As EventArgs) Handles printButton.Click
         printDoc.DocumentName = "報表"
-        Try
+        If mainForm.debugMode.Checked Then
             printPreviewDlg.ShowDialog()
-            If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-        End Try
+        Else
+            Try
+                If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
+            Catch ex As Exception
+                Console.WriteLine(ex.Message)
+            End Try
+        End If
     End Sub
     Private Sub printDoc_EndPrint(sender As Object, e As Printing.PrintEventArgs) Handles printDoc.EndPrint
         printPage = 0

@@ -234,7 +234,11 @@ Public Class frmUserReport
 #Region "頻譜列印"
     Private Sub printGraph_Click(sender As Object, e As EventArgs) Handles printGraphButton.Click
         If Not historyBox.SelectedIndex = -1 Then
-
+            loadingBar.Value = 0
+            loadingBar.Maximum = 132
+            statusLabel.Text = "準備中"
+            printGraphButton.Enabled = False
+            printEnergyButton.Enabled = False
             Try
                 ' 定義Word文件
                 Dim oWord As New Word.Application
@@ -243,6 +247,8 @@ Public Class frmUserReport
                 ' 開啟表單
                 Dim oDoc As Word.Document
                 oDoc = oWord.Documents.Add(Application.StartupPath & "\reportForm\reportForm.docx")
+                loadingBar.PerformStep()
+                Application.DoEvents()
 
                 ' 基本資訊
                 oDoc.Bookmarks.Item("pID").Range.Text = userInfo.resultInfo.pID
@@ -257,11 +263,15 @@ Public Class frmUserReport
                 If reader.Read() Then
                     oDoc.Bookmarks.Item("pDocName").Range.Text = reader.GetString(0)
                 End If
+                loadingBar.PerformStep()
+                Application.DoEvents()
 
                 Dim colorIndex As Integer = 0
                 ' 本次測量點
                 For Each point As KeyValuePair(Of Integer, String) In pt
                     Debug.WriteLine(point.Key & " - " & point.Value)
+                    loadingBar.PerformStep()
+                    Application.DoEvents()
                     If point.Key > 1000 Then
                         Dim bookmark As String = ""
                         Select Case Mid(point.Key, 1, 2)
@@ -323,6 +333,9 @@ Public Class frmUserReport
                                                         INNER Join med_item as mi on md.medID = mi.medID
                                                         WHERE Bid =" & historyBox.SelectedValue)
                 For Each row As DataRow In fullMedList.Rows
+                    loadingBar.PerformStep()
+                    Application.DoEvents()
+
                     With row
                         Dim amount As String = .Item("medAmount")
                         Dim times As Integer = 0
@@ -500,11 +513,21 @@ Public Class frmUserReport
                 '    End While
                 'End With
 
+
                 ' 顯示報表
                 oWord.Visible = True
 
+                loadingBar.Value = 0
+                statusLabel.Text = "完成"
+                printGraphButton.Enabled = True
+                printEnergyButton.Enabled = True
+
             Catch ex As Exception
                 Debug.WriteLine(ex.Message)
+                loadingBar.Value = 0
+                statusLabel.Text = "完成"
+                printGraphButton.Enabled = True
+                printEnergyButton.Enabled = True
             End Try
         End If
     End Sub
@@ -514,22 +537,39 @@ Public Class frmUserReport
     Private Sub printEnergy_Click(sender As Object, e As EventArgs) Handles printEnergyButton.Click
         printDoc.OriginAtMargins = False
         printDoc.DocumentName = "報表"
+        loadingBar.Value = 0
+        loadingBar.Maximum = 4
+        statusLabel.Text = "準備中"
+        printGraphButton.Enabled = False
+        printEnergyButton.Enabled = False
 
-        Try
-            printPreviewDlg.Document = printDoc
-            printDlg.Document = printDoc
+        If mainForm.debugMode.Checked Then
             printPreviewDlg.ShowDialog()
-            If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-        End Try
+        Else
+            Try
+                If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
+            Catch ex As Exception
+                Console.WriteLine(ex.Message)
+                loadingBar.Value = 0
+                statusLabel.Text = "就緒"
+                printGraphButton.Enabled = True
+                printEnergyButton.Enabled = True
+            End Try
+        End If
     End Sub
     '結束列印重製頁數
     Private Sub PrintDoc_EndPrint(sender As Object, e As Printing.PrintEventArgs) Handles printDoc.EndPrint
         printPage = 0
+        loadingBar.Value = 0
+        statusLabel.Text = "完成"
+        printGraphButton.Enabled = True
+        printEnergyButton.Enabled = True
     End Sub
     ' 列印報表
     Private Sub PrintDoc_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles printDoc.PrintPage
+        loadingBar.PerformStep()
+        Application.DoEvents()
+
         If printPage = 3 Then printPage = 0
 
         ' 文字設定
@@ -602,7 +642,6 @@ Public Class frmUserReport
                 drawOutline(e, outlinePath, "頻譜檢驗數據圖 - 手部")
 
             Case 1 ' 第二頁
-
                 For i = 1 To size
                     If Not foot(i) = 0 Then
                         printBar(e, outlinePath, 50, i - 1, CInt("12" & foot(i)), True)
@@ -613,7 +652,6 @@ Public Class frmUserReport
                 drawOutline(e, outlinePath, "頻譜檢驗數據圖 - 足部")
 
             Case 2 ' 第三頁
-
                 ' 繪製元氣值
                 printBar(e, outlinePath, 50, size / 2 + 1, 12, True)
                 printBar(e, outlinePath, 50, size / 2 + 2, 3, True)
@@ -837,6 +875,7 @@ Public Class frmUserReport
     ' 列印元氣
     Private Sub printEnergy(ByRef e As Printing.PrintPageEventArgs, ByRef outlinePath As Drawing2D.GraphicsPath)
 
+
         Dim rectWidth As Integer = printDoc.DefaultPageSettings.Bounds.Width - 100
         Dim rectHeight As Integer = (printDoc.DefaultPageSettings.Bounds.Height - 150) / 2 - 20
         Dim xPos As Integer = 50
@@ -1028,6 +1067,7 @@ Public Class frmUserReport
     Private Function getSide(ByVal pt1 As Point, ByVal pt2 As Point) As Double
         Return Math.Sqrt(Math.Abs(pt2.X - pt1.X) ^ 2 + Math.Abs(pt2.Y - pt1.Y) ^ 2)
     End Function
+
 #End Region
 
 End Class
