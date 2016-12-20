@@ -22,7 +22,7 @@
     Public Sub reloadSubGroup(ByVal mainID As Integer)
         RemoveHandler subGroupList.SelectedIndexChanged, AddressOf subGroupList_SelectedIndexChanged
         reloadList(subGroupList, "sID", "sName", "SELECT * FROM med_sub WHERE mID=", mainID)
-        RemoveHandler subGroupList.SelectedIndexChanged, AddressOf subGroupList_SelectedIndexChanged
+        AddHandler subGroupList.SelectedIndexChanged, AddressOf subGroupList_SelectedIndexChanged
         reloadUnusedSubGroup()
         reloadMedItem(subGroupList.SelectedValue)
     End Sub
