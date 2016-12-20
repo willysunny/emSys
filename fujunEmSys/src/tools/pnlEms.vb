@@ -1004,7 +1004,7 @@ Public Class pnlEms
                         curMax = 0
                         iPlotCount = 0
                         ptCounter = 0
-                        pb.Refresh()
+                        'pb.Refresh()
                         iState = 2
                     End If
                 End If
