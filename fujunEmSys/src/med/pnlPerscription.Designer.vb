@@ -551,7 +551,7 @@ Partial Class pnlPerscription
         'checkDate
         '
         Me.checkDate.Location = New System.Drawing.Point(0, 0)
-        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(4, 29)
         Me.checkDate.Name = "checkDate"
         Me.checkDate.Size = New System.Drawing.Size(252, 29)
         Me.checkDate.TabIndex = 1
