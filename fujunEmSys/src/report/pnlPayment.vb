@@ -192,6 +192,7 @@
                 row.Cells("打錠費").Value = 0
             End If
         Next
+        getTotal()
     End Sub
     Private Sub discountBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles discountBox.SelectedIndexChanged
         For Each row As DataGridViewRow In medFee.Rows
