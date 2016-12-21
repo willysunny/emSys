@@ -47,8 +47,8 @@
     Private Sub updateButton_Click(sender As Object, e As EventArgs) Handles updateButton.Click
         Dim sql As String = ""
         If updateButton.Text = "新增病患" Then
-            sql = "INSERT INTO patient(pPID,pName,pSex,pDOB,pPhone,pMobile,pEmail,pAddress,pRemarks) VALUES(" & patientID.Text & "', '" & patientName.Text & "', '" &
-                patientSex.SelectedValue & "', '" & patientDOB.Value & "', '" & patientPhone.Text & "', '" & patientCell.Text & "', '" & patientEmail.Text & "', '" &
+            sql = "INSERT INTO patient(pPID,pName,pSex,pDOB,pPhone,pMobile,pEmail,pAddress,pRemarks) VALUES('" & patientID.Text & "', '" & patientName.Text & "', " &
+                patientSex.SelectedValue & ", '" & patientDOB.Value.Date & "', '" & patientPhone.Text & "', '" & patientCell.Text & "', '" & patientEmail.Text & "', '" &
                 patientAddress.Text & "', '" & patientRemarks.Text & "')"
             runQuery(sql)
             loadData()

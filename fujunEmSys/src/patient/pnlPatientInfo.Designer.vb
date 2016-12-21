@@ -63,7 +63,9 @@ Partial Class pnlPatientInfo
         '
         'owner
         '
-        Me.owner.Location = New System.Drawing.Point(234, 234)
+        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
+        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
+        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'searchContextMenu
         '
@@ -440,7 +442,7 @@ Partial Class pnlPatientInfo
         Me.patientName.MaxLength = 32767
         Me.patientName.Name = "patientName"
         Me.patientName.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.patientName.PromptText = "請輸入身份證字號"
+        Me.patientName.PromptText = "請輸入姓名"
         Me.patientName.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.patientName.SelectedText = ""
         Me.patientName.SelectionLength = 0
@@ -449,7 +451,7 @@ Partial Class pnlPatientInfo
         Me.patientName.Size = New System.Drawing.Size(293, 34)
         Me.patientName.TabIndex = 2
         Me.patientName.UseSelectable = True
-        Me.patientName.WaterMark = "請輸入身份證字號"
+        Me.patientName.WaterMark = "請輸入姓名"
         Me.patientName.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.patientName.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.0!, System.Drawing.FontStyle.Italic)
         '
