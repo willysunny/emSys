@@ -276,7 +276,7 @@ Partial Class pnlEms
         Me.measurePoint.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.measurePoint.BackColor = System.Drawing.Color.White
-        Me.measurePoint.Font = New System.Drawing.Font("DFKai-SB", 60.0!)
+        Me.measurePoint.Font = New System.Drawing.Font("DFKai-SB", 55.0!)
         Me.measurePoint.Location = New System.Drawing.Point(20, 20)
         Me.measurePoint.Name = "measurePoint"
         Me.measurePoint.Size = New System.Drawing.Size(852, 156)
@@ -517,7 +517,7 @@ Partial Class pnlEms
         Me.rdoS2.Name = "rdoS2"
         Me.rdoS2.Size = New System.Drawing.Size(147, 67)
         Me.rdoS2.TabIndex = 2
-        Me.rdoS2.Text = "外"
+        Me.rdoS2.Text = "內"
         Me.rdoS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdoS2.UseVisualStyleBackColor = True
         '
@@ -545,7 +545,7 @@ Partial Class pnlEms
         Me.rdoS1.Name = "rdoS1"
         Me.rdoS1.Size = New System.Drawing.Size(141, 67)
         Me.rdoS1.TabIndex = 2
-        Me.rdoS1.Text = "內"
+        Me.rdoS1.Text = "外"
         Me.rdoS1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdoS1.UseVisualStyleBackColor = True
         '
@@ -1108,7 +1108,7 @@ Partial Class pnlEms
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(446, 60)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "量測點"
+        Me.Label1.Text = "快速選擇"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label5
@@ -2032,9 +2032,9 @@ Partial Class pnlEms
         '
         'tabMed
         '
-        Me.tabMed.Location = New System.Drawing.Point(4, 44)
+        Me.tabMed.Location = New System.Drawing.Point(4, 36)
         Me.tabMed.Name = "tabMed"
-        Me.tabMed.Size = New System.Drawing.Size(1392, 852)
+        Me.tabMed.Size = New System.Drawing.Size(1392, 860)
         Me.tabMed.TabIndex = 1
         Me.tabMed.Text = "藥物檢查"
         '
@@ -2067,9 +2067,9 @@ Partial Class pnlEms
         'tabPatientInfo
         '
         Me.tabPatientInfo.Controls.Add(Me.pInfoTable)
-        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 44)
+        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 36)
         Me.tabPatientInfo.Name = "tabPatientInfo"
-        Me.tabPatientInfo.Size = New System.Drawing.Size(352, 812)
+        Me.tabPatientInfo.Size = New System.Drawing.Size(352, 820)
         Me.tabPatientInfo.TabIndex = 0
         Me.tabPatientInfo.Text = "病患資料"
         '
@@ -2105,7 +2105,7 @@ Partial Class pnlEms
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pInfoTable.Size = New System.Drawing.Size(352, 812)
+        Me.pInfoTable.Size = New System.Drawing.Size(352, 820)
         Me.pInfoTable.TabIndex = 2
         '
         'MetroLink1

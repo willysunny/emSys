@@ -1341,7 +1341,7 @@ Public Class pnlEms
             Try
                 iCode = CInt(CStr(LR) + CStr(HF) + CStr(Finger) + CStr(TB) + CStr(P) + CStr(S))
                 sMsg = pt.Item(iCode)
-                measurePoint.Text = "量度點 [" & sMsg & "]"
+                measurePoint.Text = "量度點" & vbNewLine & "[" & sMsg & "]"
             Catch ex As KeyNotFoundException
                 Dim fullPoint As String = ""
                 Select Case LR
@@ -1462,16 +1462,10 @@ Public Class pnlEms
         getMeasurePoint()
     End Sub
 
-    Private Sub MetroButton1_Click(sender As Object, e As EventArgs)
-        tickCounter = 0
-        'If tempTrigger Then
-        '    tickCounter = 0
-        '    emsTimer.Interval = 10
-        '    emsTimer.Start()
-        'Else
-        '    emsTimer.Stop()
-        'End If
-        'tempTrigger = Not tempTrigger
+    Private Sub MetroLabel5_Click(sender As Object, e As EventArgs) Handles MetroLabel5.Click
+        If mainForm.debugMode.Checked = True Then
+            ClickNextMeasurePoint()
+        End If
     End Sub
 
     Private Sub point_CheckedChanged(sender As Object, e As EventArgs) Handles rdoC1.CheckedChanged, rdoC2.CheckedChanged, rdoC3.CheckedChanged, rdoC4.CheckedChanged, rdoC5.CheckedChanged, rdoC6.CheckedChanged
@@ -1609,6 +1603,21 @@ Public Class pnlEms
         '    sender.backcolor = BackColor
         'End If
         getMeasurePoint()
+    End Sub
+#End Region
+
+#Region "標示顏色"
+    Private Sub checkStateChanged(sender As Object, e As EventArgs) Handles rdoUpLeft.CheckedChanged, rdoUpRight.CheckedChanged, rdoDownLeft.CheckedChanged, rdoDownRight.CheckedChanged,
+                                                                            rdoC1.CheckedChanged, rdoC2.CheckedChanged, rdoC3.CheckedChanged, rdoC4.CheckedChanged, rdoC5.CheckedChanged, rdoC6.CheckedChanged,
+                                                                            rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged, rdoF5.CheckedChanged,
+                                                                            rdoLeft.CheckedChanged, rdoRight.CheckedChanged, rdoHand.CheckedChanged, rdoFoot.CheckedChanged,
+                                                                            rdoEnergy.CheckedChanged, rdoGraph.CheckedChanged, rdoS1.CheckedChanged, rdoS2.CheckedChanged
+        If CType(sender, CheckBox).BackColor = Color.Yellow Then
+            CType(sender, CheckBox).BackColor = CType(sender, CheckBox).Tag
+        Else
+            CType(sender, CheckBox).Tag = CType(sender, CheckBox).BackColor
+            CType(sender, CheckBox).BackColor = Color.Yellow
+        End If
     End Sub
 #End Region
 #End Region
