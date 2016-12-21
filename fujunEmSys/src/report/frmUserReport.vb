@@ -376,42 +376,42 @@ Public Class frmUserReport
                         If .Item("morning") = True Then
                             str = "早"
                             trigger = True
-                            times += True
+                            times += 1
                         End If
 
                         If .Item("noon") = True And trigger Then
                             str += "/中"
-                            times += True
+                            times += 1
                         ElseIf .Item("noon") = True Then
                             str = "中"
-                            times += True
+                            times += 1
                             trigger = True
                         End If
 
                         If .Item("night") = True And trigger Then
                             str += "/晚"
-                            times += True
+                            times += 1
                         ElseIf .Item("night") = True Then
                             str = "晚"
-                            times += True
+                            times += 1
                             trigger = True
                         End If
 
                         If .Item("beforeSleep") = True And trigger Then
                             str += "/睡前"
-                            times += True
+                            times += 1
                         ElseIf .Item("beforeSleep") = True Then
                             str = "睡前"
-                            times += True
+                            times += 1
                             trigger = True
                         End If
 
                         If .Item("notWell") = True And trigger Then
                             str += "/不適時"
-                            times += True
+                            times += 1
                         ElseIf .Item("notWell") = True Then
                             str = "不適時"
-                            times += True
+                            times += 1
                             trigger = True
                         End If
                         oDoc.Bookmarks.Item("medTotalAmount" & medCounter).Range.Text = (CInt(amount) * times * CInt(days)).ToString & unitName
