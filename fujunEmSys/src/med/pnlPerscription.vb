@@ -8,6 +8,7 @@ Public Class pnlPerscription
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 單位
     Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
     Dim printIndex As Integer = 0
+    Dim singlePrint As Boolean = False
 
 #Region "初始"
     Public Sub New(ByVal owner As Form)
@@ -156,7 +157,7 @@ Public Class pnlPerscription
             End While
         End If
         With historyBox
-            .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE pID=" & patientInfo.pID)
+            .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE pID=" & patientInfo.pID & " ORDER BY bookTime DESC")
             .ValueMember = "bID"
             .DisplayMember = "bookTime"
         End With
@@ -391,7 +392,6 @@ Public Class pnlPerscription
     Private Sub medDetailLabel_Click(sender As Object, e As EventArgs) Handles medDetailLabel.Click
         reloadMedDetail(medGroupGrid.SelectedRows(0).Cells("mgID").Value)
     End Sub
-
 #End Region
     ' 總覽
     Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
@@ -419,6 +419,32 @@ Public Class pnlPerscription
                     fullListView.Columns("medUnit").Visible = False
                     fullListView.Columns("medList").Visible = False
                 End If
+            End If
+        End If
+    End Sub
+    Private Sub historyBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles historyBox.SelectedIndexChanged
+        If Not historyBox.SelectedIndex = -1 Then
+            fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
+                                                               mg.medDays as '天數', 
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
+                                                               mg.makePill as '打錠'
+                                                        FROM medGroup2medDetail as mg
+                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        INNER JOIN med_item as mi on md.medID = mi.medID
+                                                        WHERE bID=" & historyBox.SelectedValue & "
+                                                        GROUP BY mg.mgid")
+            For Each row As DataGridViewRow In fullListView.Rows
+                Try
+                    row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
+                Catch ex As Exception
+                    row.Cells("單位").Value = groupUnit(1)
+                End Try
+            Next
+            If Not mainForm.debugMode.Checked Then
+                fullListView.Columns("medUnit").Visible = False
+                fullListView.Columns("medList").Visible = False
             End If
         End If
     End Sub
@@ -465,6 +491,26 @@ Public Class pnlPerscription
                     MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
             End If
+        End If
+    End Sub
+    ' 單一列印
+    Private Sub printSingle_Click(sender As Object, e As EventArgs) Handles printSingle.Click
+        If mainForm.debugMode.Checked Then
+            printPreview.ShowDialog()
+        Else
+            Try
+                printIndex = fullListView.SelectedRows.Item(0).Index
+                singlePrint = True
+                With printDoc
+                    .PrinterSettings.PrinterName = "Ring 412PE+"
+                    .DefaultPageSettings.Landscape = False
+                    .Print()
+                End With
+                printIndex = 0
+                singlePrint = False
+            Catch ex As Exception
+                MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End If
     End Sub
     ' 列印標籤
@@ -569,14 +615,16 @@ Public Class pnlPerscription
         e.Graphics.DrawString("製造日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(300, 580))
 
-        If printIndex < fullListView.Rows.Count - 1 Then
+        If singlePrint Then
+            singlePrint = False
+            e.HasMorePages = False
+        ElseIf printIndex < fullListView.Rows.Count - 1 Then
             printIndex += 1
             e.HasMorePages = True
         Else
             e.HasMorePages = False
         End If
     End Sub
-
     Private Sub medDetailAmount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles medDetailAmount.KeyPress
         If e.KeyChar = Chr(Keys.Enter) Then
             medDetailChange_Click(Me, New EventArgs)
@@ -584,7 +632,6 @@ Public Class pnlPerscription
         End If
     End Sub
 #Region "計算機"
-
     Private Sub dayCalc_Click(sender As Object, e As EventArgs) Handles dayCalc.Click
         Try
             If CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
@@ -594,7 +641,6 @@ Public Class pnlPerscription
             dayBox.Text = "-ERR-"
         End Try
     End Sub
-
     Private Sub singleCalc_Click(sender As Object, e As EventArgs) Handles singleCalc.Click
         Try
             If Not CInt(dayBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
@@ -611,7 +657,6 @@ Public Class pnlPerscription
             totalBox.Text = "-ERR-"
         End Try
     End Sub
-
     Private Sub clearCalc_Click(sender As Object, e As EventArgs) Handles clearCalc.Click
         dayBox.Text = "14"
         singleBox.Text = "24"

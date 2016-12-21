@@ -106,6 +106,7 @@ Partial Class pnlPerscription
         Me.historyBox = New System.Windows.Forms.ListBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.printMedButton = New MetroFramework.Controls.MetroButton()
+        Me.printSingle = New MetroFramework.Controls.MetroButton()
         Me.printDlg = New System.Windows.Forms.PrintDialog()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
@@ -551,7 +552,7 @@ Partial Class pnlPerscription
         'checkDate
         '
         Me.checkDate.Location = New System.Drawing.Point(0, 0)
-        Me.checkDate.MinimumSize = New System.Drawing.Size(4, 29)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
         Me.checkDate.Name = "checkDate"
         Me.checkDate.Size = New System.Drawing.Size(252, 29)
         Me.checkDate.TabIndex = 1
@@ -683,7 +684,7 @@ Partial Class pnlPerscription
         Me.medTab.Enabled = False
         Me.medTab.Location = New System.Drawing.Point(603, 3)
         Me.medTab.Name = "medTab"
-        Me.medTab.SelectedIndex = 0
+        Me.medTab.SelectedIndex = 1
         Me.medTab.Size = New System.Drawing.Size(667, 719)
         Me.medTab.TabIndex = 13
         Me.medTab.UseSelectable = True
@@ -1575,14 +1576,17 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel2.Controls.Add(Me.fullListView, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.historyBox, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.MetroLabel2, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.printMedButton, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.printMedButton, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.printSingle, 0, 2)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 3
+        Me.TableLayoutPanel2.RowCount = 4
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(659, 677)
         Me.TableLayoutPanel2.TabIndex = 1
         '
@@ -1595,7 +1599,7 @@ Partial Class pnlPerscription
         Me.fullListView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.fullListView.Location = New System.Drawing.Point(153, 3)
         Me.fullListView.Name = "fullListView"
-        Me.TableLayoutPanel2.SetRowSpan(Me.fullListView, 3)
+        Me.TableLayoutPanel2.SetRowSpan(Me.fullListView, 4)
         Me.fullListView.RowTemplate.Height = 24
         Me.fullListView.Size = New System.Drawing.Size(503, 671)
         Me.fullListView.TabIndex = 0
@@ -1607,7 +1611,7 @@ Partial Class pnlPerscription
         Me.historyBox.ItemHeight = 12
         Me.historyBox.Location = New System.Drawing.Point(3, 43)
         Me.historyBox.Name = "historyBox"
-        Me.historyBox.Size = New System.Drawing.Size(144, 571)
+        Me.historyBox.Size = New System.Drawing.Size(144, 511)
         Me.historyBox.TabIndex = 1
         '
         'MetroLabel2
@@ -1631,6 +1635,16 @@ Partial Class pnlPerscription
         Me.printMedButton.TabIndex = 3
         Me.printMedButton.Text = "列印藥單"
         Me.printMedButton.UseSelectable = True
+        '
+        'printSingle
+        '
+        Me.printSingle.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.printSingle.Location = New System.Drawing.Point(3, 560)
+        Me.printSingle.Name = "printSingle"
+        Me.printSingle.Size = New System.Drawing.Size(144, 54)
+        Me.printSingle.TabIndex = 3
+        Me.printSingle.Text = "單一藥單列印"
+        Me.printSingle.UseSelectable = True
         '
         'printDlg
         '
@@ -1764,4 +1778,5 @@ Partial Class pnlPerscription
     Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
     Friend WithEvents printDlg As PrintDialog
+    Friend WithEvents printSingle As MetroFramework.Controls.MetroButton
 End Class
