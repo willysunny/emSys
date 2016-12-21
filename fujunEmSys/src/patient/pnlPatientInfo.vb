@@ -115,7 +115,6 @@
         Else
             patientInfo.initiate(sqlGrid.Rows(sqlGrid.SelectedRows.Item(0).Index).Cells("pID").Value)
             RaiseEvent patientSelected(Me, New EventArgs)
-                        MySqlCon.Close()
         End If
     End Sub
     ' 右鍵 - 編輯病患
