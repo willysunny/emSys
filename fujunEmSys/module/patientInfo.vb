@@ -40,7 +40,7 @@
                     If Not reader.IsDBNull(2) Then p_pName = .GetString(2) Else p_pName = ""
                     If Not reader.IsDBNull(3) Then p_pSex = .GetValue(3) Else p_pSex = 0
                     If Not reader.IsDBNull(4) Then p_pcDOB = .GetString(4) Else p_pcDOB = ""
-                    If Not reader.IsDBNull(5) Then p_pDOB = .GetDateTime(5) Else p_pDOB = ""
+                    If Not reader.IsDBNull(5) Then p_pDOB = .GetDateTime(5) Else p_pDOB = #1911/1/1#
                     If Not reader.IsDBNull(6) Then p_pPhone = .GetString(6) Else p_pPhone = ""
                     If Not reader.IsDBNull(7) Then p_pMobile = .GetString(7) Else p_pMobile = ""
                     If Not reader.IsDBNull(8) Then p_pAddress = .GetString(8) Else p_pAddress = ""
@@ -179,7 +179,11 @@
         End Property
         ReadOnly Property pAge As Integer
             Get
-                Return Now.Date.Year - pDOB.Year
+                If p_pDOB.Year = 1911 Then
+                    Return 9999
+                Else
+                    Return Now.Date.Year - pDOB.Year
+                End If
             End Get
         End Property
         ReadOnly Property pLastVisit As Date
