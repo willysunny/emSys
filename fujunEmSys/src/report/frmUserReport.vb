@@ -6,6 +6,11 @@ Public Class frmUserReport
     Private pt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
     Private printPage As Integer = 0
 
+    Private dangerColor As Color = Color.FromArgb(255, 255, 255)
+    Private dangerBGColor As Color = Color.FromArgb(230, 0, 18)
+    Private warningColor As Color = Color.FromArgb(235, 97, 0)
+    Private normalColor As Color = Color.FromArgb(0, 153, 68)
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -219,13 +224,15 @@ Public Class frmUserReport
     ' 設定文字及顏色
     Private Sub setResult(ByRef oDoc As Word.Document, ByVal maxValue As String, ByVal point As KeyValuePair(Of Integer, String), ByVal fieldName As String,
                           ByVal upperDanger As Integer, ByVal upperWarning As Integer, ByVal lowerWarning As Integer, ByVal lowerDanger As Integer)
+
         If maxValue = "-" Then
         ElseIf CInt(maxValue) > upperDanger Or CInt(maxValue) < lowerDanger Then
-            oDoc.Bookmarks.Item(fieldName).Range.Font.ColorIndex = Word.WdColorIndex.wdRed
+            oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
+            oDoc.Bookmarks.Item(fieldName).Range.Cells.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
         ElseIf CInt(maxValue) > upperWarning Or CInt(maxValue) < lowerWarning Then
-            oDoc.Bookmarks.Item(fieldName).Range.Font.ColorIndex = Word.WdColorIndex.wdViolet
+            oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(warningColor.R + &H100 * warningColor.G + &H10000 * warningColor.B, Word.WdColor)
         Else
-            oDoc.Bookmarks.Item(fieldName).Range.Font.ColorIndex = Word.WdColorIndex.wdGreen
+            oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(normalColor.R + &H100 * normalColor.G + &H10000 * normalColor.B, Word.WdColor)
         End If
         oDoc.Bookmarks.Item(fieldName).Range.Text = maxValue
     End Sub
@@ -235,7 +242,7 @@ Public Class frmUserReport
     Private Sub printGraph_Click(sender As Object, e As EventArgs) Handles printGraphButton.Click
         If Not historyBox.SelectedIndex = -1 Then
             loadingBar.Value = 0
-            loadingBar.Maximum = 132
+            loadingBar.Maximum = 150
             statusLabel.Text = "準備中"
             printGraphButton.Enabled = False
             printEnergyButton.Enabled = False
@@ -249,6 +256,19 @@ Public Class frmUserReport
                 oDoc = oWord.Documents.Add(Application.StartupPath & "\reportForm\reportForm.docx")
                 loadingBar.PerformStep()
                 Application.DoEvents()
+
+                ' 顏色數值設定
+                oDoc.Bookmarks.Item("danger").Range.Font.Color = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
+                oDoc.Bookmarks.Item("danger").Range.Cells.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
+                oDoc.Bookmarks.Item("danger").Range.Text = "紅色"
+                oDoc.Bookmarks.Item("warning").Range.Font.Color = DirectCast(warningColor.R + &H100 * warningColor.G + &H10000 * warningColor.B, Word.WdColor)
+                oDoc.Bookmarks.Item("warning").Range.Text = "橙色"
+                oDoc.Bookmarks.Item("normal").Range.Font.Color = DirectCast(normalColor.R + &H100 * normalColor.G + &H10000 * normalColor.B, Word.WdColor)
+                oDoc.Bookmarks.Item("normal").Range.Text = "綠色"
+                oDoc.Bookmarks.Item("energyNormLowerBound").Range.Text = My.Settings.engLowerWarning + 1
+                oDoc.Bookmarks.Item("energyNormUpperBound").Range.Text = My.Settings.engUpperWarning - 1
+                oDoc.Bookmarks.Item("emsNormLowerBound").Range.Text = My.Settings.emsLowerWarning + 1
+                oDoc.Bookmarks.Item("emsNormUpperBound").Range.Text = My.Settings.emsUpperWarning - 1
 
                 ' 基本資訊
                 oDoc.Bookmarks.Item("pID").Range.Text = userInfo.resultInfo.pID
@@ -331,7 +351,7 @@ Public Class frmUserReport
                                                         From medGroup2medDetail As mg
                                                         INNER Join medDetail AS md ON mg.mgID = md.mgID
                                                         INNER Join med_item as mi on md.medID = mi.medID
-                                                        WHERE Bid =" & historyBox.SelectedValue)
+                                                        WHERE mi.bioMed=0 AND bId =" & historyBox.SelectedValue)
                 For Each row As DataRow In fullMedList.Rows
                     loadingBar.PerformStep()
                     Application.DoEvents()
@@ -423,95 +443,106 @@ Public Class frmUserReport
                     End With
                 Next
 
-                '' 建議用藥
-                'medCounter = 1
+                ' 建議用藥
+                medCounter = 1
 
-                'queryStr = "SELECT MI.medName, EM.medAmount, EM.medUnit, EM.medDays, EM.beforeMeal, EM.afterMeal, EM.morning, EM.noon, EM.night, EM.beforeSleep, EM.notWell, MI.medDesc FROM ems_med as EM LEFT JOIN med_item as MI ON EM.medID = MI.medID WHERE hID='" & historyBox.SelectedValue & "' AND medRecommend='1'"
-                'reader = runQuery(queryStr)
-                'With reader
-                '    While .Read()
-                '        Dim amount As String = .GetString(1)
-                '        Dim times As Integer = 0
-                '        Dim days As String = .GetString(3)
-                '        Dim unitName As String = ""
-                '        Select Case .GetDecimal(2)
-                '            Case 1
-                '                unitName = "克"
-                '            Case 0.5
-                '                unitName = "顆"
-                '            Case 2
-                '                unitName = "匙"
-                '        End Select
-                '        oDoc.Bookmarks.Item("medRecommendNameSlot" & medCounter).Range.Text = .GetString(0)
-                '        oDoc.Bookmarks.Item("medRecommendNameDescSlot" & medCounter).Range.Text = .GetString(0)
-                '        oDoc.Bookmarks.Item("medRecommendNameDesc" & medCounter).Range.Text = .GetString(11)
-                '        oDoc.Bookmarks.Item("medRecommendAmount" & medCounter).Range.Text = amount & unitName
-                '        oDoc.Bookmarks.Item("medRecommendDays" & medCounter).Range.Text = days & "天"
+                fullMedList = returnData(Me, "Select mg.mgid, mi.medName, 
+                                                     mg.morning, mg.noon , mg.night, mg.beforeSleep, mg.notWell, 
+                                                     mg.beforeMeal, mg.afterMeal,  mg.medDays, mg.medAmount , mg.medUnit, mi.medDesc
+                                              From medGroup2medDetail As mg
+                                              INNER Join medDetail AS md ON mg.mgID = md.mgID
+                                              INNER Join med_item as mi on md.medID = mi.medID
+                                              WHERE mi.bioMed=1 AND bID =" & historyBox.SelectedValue)
+                For Each row As DataRow In fullMedList.Rows
+                    loadingBar.PerformStep()
+                    Application.DoEvents()
 
-                '        Dim trigger As Boolean = False
-                '        Dim str As String = ""
-                '        If .GetBoolean(4) = True Then
-                '            str = "飯前"
-                '            trigger = True
-                '        End If
-                '        If .GetBoolean(5) And trigger Then
-                '            str += "/飯後"
-                '        ElseIf .GetBoolean(5) = True Then
-                '            str = "飯後"
-                '        End If
-                '        oDoc.Bookmarks.Item("medRecommendMeal" & medCounter).Range.Text = str
+                    With row
+                        Dim amount As String = .Item("medAmount")
+                        Dim times As Integer = 0
+                        Dim days As String = .Item("medDays")
+                        oDoc.Bookmarks.Item("medRecommendNameSlot" & medCounter).Range.Text = .Item("medName")
+                        oDoc.Bookmarks.Item("medRecommendNameDescSlot" & medCounter).Range.Text = .Item("medName")
+                        oDoc.Bookmarks.Item("medRecommendNameDesc" & medCounter).Range.Text = .Item("medDesc")
 
-                '        trigger = False
-                '        str = ""
-                '        If .GetInt32(6) = 1 Then
-                '            str = "早"
-                '            trigger = True
-                '            times += True
-                '        End If
+                        Dim unitName As String = ""
+                        Select Case .Item("medUnit")
+                            Case 1
+                                unitName = "克"
+                            Case 2
+                                unitName = "顆"
+                            Case 3
+                                unitName = "包"
+                            Case 4
+                                unitName = "瓶"
+                        End Select
+                        oDoc.Bookmarks.Item("medRecommendAmount" & medCounter).Range.Text = amount & unitName
+                        oDoc.Bookmarks.Item("medRecommendDays" & medCounter).Range.Text = days & "天"
 
-                '        If .GetInt32(7) = 1 And trigger Then
-                '            str += "/中"
-                '            times += True
-                '        ElseIf .GetInt32(7) = 1 Then
-                '            str = "中"
-                '            times += True
-                '            trigger = True
-                '        End If
+                        Dim trigger As Boolean = False
+                        Dim str As String = ""
+                        If .Item("beforeMeal") = True Then
+                            str = "飯前"
+                            trigger = True
+                        End If
+                        If .Item("afterMeal") And trigger Then
+                            str += "/飯後"
+                        ElseIf .Item("AfterMeal") = True Then
+                            str = "飯後"
+                        End If
+                        oDoc.Bookmarks.Item("medRecommendMeal" & medCounter).Range.Text = str
 
-                '        If .GetInt32(8) = 1 And trigger Then
-                '            str += "/晚"
-                '            times += True
-                '        ElseIf .GetInt32(8) = 1 Then
-                '            str = "晚"
-                '            times += True
-                '            trigger = True
-                '        End If
+                        trigger = False
+                        str = ""
+                        If .Item("morning") = True Then
+                            str = "早"
+                            trigger = True
+                            times += 1
+                        End If
 
-                '        If .GetInt32(9) = 1 And trigger Then
-                '            str += "/睡前"
-                '            times += True
-                '        ElseIf .GetInt32(9) = 1 Then
-                '            str = "睡前"
-                '            times += True
-                '            trigger = True
-                '        End If
+                        If .Item("noon") = True And trigger Then
+                            str += "/中"
+                            times += 1
+                        ElseIf .Item("noon") = True Then
+                            str = "中"
+                            times += 1
+                            trigger = True
+                        End If
 
-                '        If .GetBoolean(10) And trigger Then
-                '            str += "/不適時"
-                '            times += True
-                '        ElseIf .GetBoolean(10) Then
-                '            str = "不適時"
-                '            times += True
-                '            trigger = True
-                '        End If
-                '        oDoc.Bookmarks.Item("medRecommendTotalAmount" & medCounter).Range.Text = (CInt(amount) * times * CInt(days)).ToString & unitName
-                '        oDoc.Bookmarks.Item("medRecommendTime" & medCounter).Range.Text = str
+                        If .Item("night") = True And trigger Then
+                            str += "/晚"
+                            times += 1
+                        ElseIf .Item("night") = True Then
+                            str = "晚"
+                            times += 1
+                            trigger = True
+                        End If
 
-                '        medCounter = medCounter + 1
+                        If .Item("beforeSleep") = True And trigger Then
+                            str += "/睡前"
+                            times += 1
+                        ElseIf .Item("beforeSleep") = True Then
+                            str = "睡前"
+                            times += 1
+                            trigger = True
+                        End If
 
-                '        If medCounter > 15 Then Exit While
-                '    End While
-                'End With
+                        If .Item("notWell") = True And trigger Then
+                            str += "/不適時"
+                            times += 1
+                        ElseIf .Item("notWell") = True Then
+                            str = "不適時"
+                            times += 1
+                            trigger = True
+                        End If
+                        oDoc.Bookmarks.Item("medRecommendTotalAmount" & medCounter).Range.Text = (CInt(amount) * times * CInt(days)).ToString & unitName
+                        oDoc.Bookmarks.Item("medRecommendTime" & medCounter).Range.Text = str
+
+                        medCounter = medCounter + 1
+
+                        If medCounter > 15 Then Exit For
+                    End With
+                Next
 
 
                 ' 顯示報表
