@@ -6,6 +6,7 @@ Public Class frmUserReport
     Private pt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
     Private printPage As Integer = 0
 
+    'Private dangerColor As Color = Color.FromArgb(230, 0, 18)
     Private dangerColor As Color = Color.FromArgb(255, 255, 255)
     Private dangerBGColor As Color = Color.FromArgb(230, 0, 18)
     Private warningColor As Color = Color.FromArgb(235, 97, 0)
@@ -131,8 +132,6 @@ Public Class frmUserReport
         RemoveHandler userInfo.cancelled, AddressOf userInfo_cancelled
         Me.Close()
     End Sub
-
-
     Public Sub userInfo_patientSelected(ByVal sender As Object, ByVal e As EventArgs)
         Try
             RemoveHandler userInfo.patientSelected, AddressOf userInfo_patientSelected
@@ -142,13 +141,11 @@ Public Class frmUserReport
         pName.Text = userInfo.resultInfo.pName
         loadHistory()
     End Sub
-
     Private Sub changePatient_Click(sender As Object, e As EventArgs) Handles changePatient.Click
         userInfo = New frmUserQuery
         AddHandler userInfo.patientSelected, AddressOf userInfo_patientSelected
         userInfo.ShowDialog()
     End Sub
-
     Private Sub loadHistory()
         With historyBox
             .DataSource = returnData(Me, "SELECT bID, bookTime FROM patient_booking WHERE pID=" & userInfo.resultInfo.pID & " ORDER BY bookTime DESC")
@@ -228,6 +225,9 @@ Public Class frmUserReport
         If maxValue = "-" Then
         ElseIf CInt(maxValue) > upperDanger Or CInt(maxValue) < lowerDanger Then
             oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
+            'oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle
+            'oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideLineWidth = Word.WdLineWidth.wdLineWidth100pt
+            'oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideColor = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
             oDoc.Bookmarks.Item(fieldName).Range.Cells.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
         ElseIf CInt(maxValue) > upperWarning Or CInt(maxValue) < lowerWarning Then
             oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(warningColor.R + &H100 * warningColor.G + &H10000 * warningColor.B, Word.WdColor)
@@ -259,7 +259,7 @@ Public Class frmUserReport
 
                 ' 顏色數值設定
                 oDoc.Bookmarks.Item("danger").Range.Font.Color = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
-                oDoc.Bookmarks.Item("danger").Range.Cells.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
+                oDoc.Bookmarks.Item("danger").Range.Font.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
                 oDoc.Bookmarks.Item("danger").Range.Text = "紅色"
                 oDoc.Bookmarks.Item("warning").Range.Font.Color = DirectCast(warningColor.R + &H100 * warningColor.G + &H10000 * warningColor.B, Word.WdColor)
                 oDoc.Bookmarks.Item("warning").Range.Text = "橙色"
