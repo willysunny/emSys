@@ -156,11 +156,13 @@ Public Class pnlPerscription
                 pVisitTimes.Text = reader.Item(1)
             End While
         End If
+        RemoveHandler historyBox.SelectedIndexChanged, AddressOf historyBox_SelectedIndexChanged
         With historyBox
             .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE pID=" & patientInfo.pID & " ORDER BY bookTime DESC")
             .ValueMember = "bID"
             .DisplayMember = "bookTime"
         End With
+        AddHandler historyBox.SelectedIndexChanged, AddressOf historyBox_SelectedIndexChanged
         reloadMedGroup()
     End Sub
 #End Region
@@ -495,23 +497,23 @@ Public Class pnlPerscription
     End Sub
     ' 單一列印
     Private Sub printSingle_Click(sender As Object, e As EventArgs) Handles printSingle.Click
+        printIndex = fullListView.SelectedRows.Item(0).Index
         If mainForm.debugMode.Checked Then
             printPreview.ShowDialog()
         Else
             Try
-                printIndex = fullListView.SelectedRows.Item(0).Index
                 singlePrint = True
                 With printDoc
                     .PrinterSettings.PrinterName = "Ring 412PE+"
                     .DefaultPageSettings.Landscape = False
                     .Print()
                 End With
-                printIndex = 0
-                singlePrint = False
             Catch ex As Exception
                 MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息: 找不到標籤機, 請檢查連線後在重試!", "無法連線至標籤機", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End If
+        printIndex = 0
+        singlePrint = False
     End Sub
     ' 列印標籤
     Private Sub printDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles printDoc.PrintPage

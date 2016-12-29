@@ -133,12 +133,6 @@ Partial Class pnlPerscription
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'owner
-        '
-        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
-        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
-        '
         'printDoc
         '
         '
@@ -684,7 +678,7 @@ Partial Class pnlPerscription
         Me.medTab.Enabled = False
         Me.medTab.Location = New System.Drawing.Point(603, 3)
         Me.medTab.Name = "medTab"
-        Me.medTab.SelectedIndex = 1
+        Me.medTab.SelectedIndex = 0
         Me.medTab.Size = New System.Drawing.Size(667, 719)
         Me.medTab.TabIndex = 13
         Me.medTab.UseSelectable = True
@@ -1601,6 +1595,7 @@ Partial Class pnlPerscription
         Me.fullListView.Name = "fullListView"
         Me.TableLayoutPanel2.SetRowSpan(Me.fullListView, 4)
         Me.fullListView.RowTemplate.Height = 24
+        Me.fullListView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.fullListView.Size = New System.Drawing.Size(503, 671)
         Me.fullListView.TabIndex = 0
         '
