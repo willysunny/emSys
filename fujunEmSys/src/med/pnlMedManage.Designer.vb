@@ -32,6 +32,12 @@ Partial Class pnlMedManage
         Me.mainGroupDel = New MetroFramework.Controls.MetroButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.subTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
+        Me.ListBox2 = New System.Windows.Forms.ListBox()
+        Me.TableLayoutPanel8 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.unusedSubGroupAdd = New MetroFramework.Controls.MetroButton()
+        Me.unusedSubGroupDel = New MetroFramework.Controls.MetroButton()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
@@ -56,31 +62,21 @@ Partial Class pnlMedManage
         Me.addMed = New MetroFramework.Controls.MetroButton()
         Me.delMed = New MetroFramework.Controls.MetroButton()
         Me.delMedAll = New MetroFramework.Controls.MetroButton()
-        Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ListBox2 = New System.Windows.Forms.ListBox()
-        Me.TableLayoutPanel8 = New System.Windows.Forms.TableLayoutPanel()
-        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.unusedSubGroupAdd = New MetroFramework.Controls.MetroButton()
-        Me.unusedSubGroupDel = New MetroFramework.Controls.MetroButton()
         Me.mainLayout.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.subTable.SuspendLayout()
+        Me.TableLayoutPanel7.SuspendLayout()
+        Me.TableLayoutPanel8.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel6.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.medTable.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
-        Me.TableLayoutPanel7.SuspendLayout()
-        Me.TableLayoutPanel8.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'owner
-        '
-        Me.owner.Location = New System.Drawing.Point(104, 104)
         '
         'mainLayout
         '
@@ -220,6 +216,81 @@ Partial Class pnlMedManage
         Me.subTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.subTable.Size = New System.Drawing.Size(693, 315)
         Me.subTable.TabIndex = 1
+        '
+        'TableLayoutPanel7
+        '
+        Me.TableLayoutPanel7.ColumnCount = 1
+        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel7.Controls.Add(Me.ListBox2, 0, 1)
+        Me.TableLayoutPanel7.Controls.Add(Me.TableLayoutPanel8, 0, 0)
+        Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel7.Location = New System.Drawing.Point(369, 3)
+        Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
+        Me.TableLayoutPanel7.RowCount = 2
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(321, 34)
+        Me.TableLayoutPanel7.TabIndex = 7
+        '
+        'ListBox2
+        '
+        Me.ListBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListBox2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.ListBox2.FormattingEnabled = True
+        Me.ListBox2.ItemHeight = 20
+        Me.ListBox2.Items.AddRange(New Object() {"[全部]"})
+        Me.ListBox2.Location = New System.Drawing.Point(3, 43)
+        Me.ListBox2.Name = "ListBox2"
+        Me.ListBox2.Size = New System.Drawing.Size(315, 1)
+        Me.ListBox2.TabIndex = 2
+        '
+        'TableLayoutPanel8
+        '
+        Me.TableLayoutPanel8.ColumnCount = 3
+        Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel8.Controls.Add(Me.MetroLabel3, 0, 0)
+        Me.TableLayoutPanel8.Controls.Add(Me.unusedSubGroupAdd, 1, 0)
+        Me.TableLayoutPanel8.Controls.Add(Me.unusedSubGroupDel, 2, 0)
+        Me.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel8.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel8.Name = "TableLayoutPanel8"
+        Me.TableLayoutPanel8.RowCount = 1
+        Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(315, 34)
+        Me.TableLayoutPanel8.TabIndex = 3
+        '
+        'MetroLabel3
+        '
+        Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel3.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel3.Name = "MetroLabel3"
+        Me.MetroLabel3.Size = New System.Drawing.Size(249, 34)
+        Me.MetroLabel3.TabIndex = 4
+        Me.MetroLabel3.Text = "未使用子分類"
+        Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'unusedSubGroupAdd
+        '
+        Me.unusedSubGroupAdd.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.unusedSubGroupAdd.Location = New System.Drawing.Point(258, 3)
+        Me.unusedSubGroupAdd.Name = "unusedSubGroupAdd"
+        Me.unusedSubGroupAdd.Size = New System.Drawing.Size(24, 28)
+        Me.unusedSubGroupAdd.TabIndex = 5
+        Me.unusedSubGroupAdd.Text = "+"
+        Me.unusedSubGroupAdd.UseSelectable = True
+        '
+        'unusedSubGroupDel
+        '
+        Me.unusedSubGroupDel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.unusedSubGroupDel.Location = New System.Drawing.Point(288, 3)
+        Me.unusedSubGroupDel.Name = "unusedSubGroupDel"
+        Me.unusedSubGroupDel.Size = New System.Drawing.Size(24, 28)
+        Me.unusedSubGroupDel.TabIndex = 6
+        Me.unusedSubGroupDel.Text = "-"
+        Me.unusedSubGroupDel.UseSelectable = True
         '
         'TableLayoutPanel4
         '
@@ -506,81 +577,6 @@ Partial Class pnlMedManage
         Me.delMedAll.Text = ">|"
         Me.delMedAll.UseSelectable = True
         '
-        'TableLayoutPanel7
-        '
-        Me.TableLayoutPanel7.ColumnCount = 1
-        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel7.Controls.Add(Me.ListBox2, 0, 1)
-        Me.TableLayoutPanel7.Controls.Add(Me.TableLayoutPanel8, 0, 0)
-        Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel7.Location = New System.Drawing.Point(369, 3)
-        Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
-        Me.TableLayoutPanel7.RowCount = 2
-        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(321, 34)
-        Me.TableLayoutPanel7.TabIndex = 7
-        '
-        'ListBox2
-        '
-        Me.ListBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListBox2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.ListBox2.FormattingEnabled = True
-        Me.ListBox2.ItemHeight = 20
-        Me.ListBox2.Items.AddRange(New Object() {"[全部]"})
-        Me.ListBox2.Location = New System.Drawing.Point(3, 43)
-        Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(315, 1)
-        Me.ListBox2.TabIndex = 2
-        '
-        'TableLayoutPanel8
-        '
-        Me.TableLayoutPanel8.ColumnCount = 3
-        Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel8.Controls.Add(Me.MetroLabel3, 0, 0)
-        Me.TableLayoutPanel8.Controls.Add(Me.unusedSubGroupAdd, 1, 0)
-        Me.TableLayoutPanel8.Controls.Add(Me.unusedSubGroupDel, 2, 0)
-        Me.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel8.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel8.Name = "TableLayoutPanel8"
-        Me.TableLayoutPanel8.RowCount = 1
-        Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(315, 34)
-        Me.TableLayoutPanel8.TabIndex = 3
-        '
-        'MetroLabel3
-        '
-        Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel3.Location = New System.Drawing.Point(3, 0)
-        Me.MetroLabel3.Name = "MetroLabel3"
-        Me.MetroLabel3.Size = New System.Drawing.Size(249, 34)
-        Me.MetroLabel3.TabIndex = 4
-        Me.MetroLabel3.Text = "未使用子分類"
-        Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'unusedSubGroupAdd
-        '
-        Me.unusedSubGroupAdd.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.unusedSubGroupAdd.Location = New System.Drawing.Point(258, 3)
-        Me.unusedSubGroupAdd.Name = "unusedSubGroupAdd"
-        Me.unusedSubGroupAdd.Size = New System.Drawing.Size(24, 28)
-        Me.unusedSubGroupAdd.TabIndex = 5
-        Me.unusedSubGroupAdd.Text = "+"
-        Me.unusedSubGroupAdd.UseSelectable = True
-        '
-        'unusedSubGroupDel
-        '
-        Me.unusedSubGroupDel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.unusedSubGroupDel.Location = New System.Drawing.Point(288, 3)
-        Me.unusedSubGroupDel.Name = "unusedSubGroupDel"
-        Me.unusedSubGroupDel.Size = New System.Drawing.Size(24, 28)
-        Me.unusedSubGroupDel.TabIndex = 6
-        Me.unusedSubGroupDel.Text = "-"
-        Me.unusedSubGroupDel.UseSelectable = True
-        '
         'pnlMedManage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -594,14 +590,14 @@ Partial Class pnlMedManage
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.subTable.ResumeLayout(False)
+        Me.TableLayoutPanel7.ResumeLayout(False)
+        Me.TableLayoutPanel8.ResumeLayout(False)
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel6.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.medTable.ResumeLayout(False)
         Me.TableLayoutPanel5.ResumeLayout(False)
-        Me.TableLayoutPanel7.ResumeLayout(False)
-        Me.TableLayoutPanel8.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

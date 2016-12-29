@@ -201,12 +201,6 @@ Partial Class pnlEms
         Me.tabBooking.SuspendLayout()
         Me.SuspendLayout()
         '
-        'owner
-        '
-        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
-        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
-        '
         'InstantDoCtrl1
         '
         Me.InstantDoCtrl1._StateStream = CType(resources.GetObject("InstantDoCtrl1._StateStream"), Automation.BDaq.DeviceStateStreamer)

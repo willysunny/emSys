@@ -388,7 +388,12 @@ Public Class pnlEms
             patientTab.SelectedTab = tabPatientInfo
             pName.Text = patientInfo.pName
             If patientInfo.pSex = 0 Then pSex.Text = "女" Else pSex.Text = "男"
-            pAge.Text = patientInfo.pAge
+            If patientInfo.pAge = 9999 Then
+                pAge.Text = ""
+            Else
+                pAge.Text = patientInfo.pAge
+            End If
+
         End If
     End Sub
     Private Sub loadPatientData(ByVal bID As Integer)

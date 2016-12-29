@@ -79,12 +79,6 @@ Partial Class pnlPayment
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
-        'owner
-        '
-        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
-        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
-        '
         'printDoc
         '
         '
@@ -378,7 +372,7 @@ Partial Class pnlPayment
         '
         Me.refreshWaitingListButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 473)
+        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 481)
         Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
         Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
         Me.refreshWaitingListButton.TabIndex = 2
