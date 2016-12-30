@@ -152,9 +152,9 @@ Partial Class pnlEms
         Me.pAge = New MetroFramework.Controls.MetroTextBox()
         Me.pVisitTimes = New MetroFramework.Controls.MetroTextBox()
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
+        Me.geneButton = New MetroFramework.Controls.MetroButton()
         Me.tabBooking = New System.Windows.Forms.TabPage()
         Me.waitingList = New System.Windows.Forms.ListBox()
-        Me.geneButton = New MetroFramework.Controls.MetroButton()
         Me.diagTab.SuspendLayout()
         Me.tabGraph.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -2058,7 +2058,7 @@ Partial Class pnlEms
         Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
-        Me.patientTab.SelectedIndex = 0
+        Me.patientTab.SelectedIndex = 1
         Me.patientTab.Size = New System.Drawing.Size(360, 860)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
@@ -2396,6 +2396,17 @@ Partial Class pnlEms
         Me.pPrevVisit.WaterMarkColor = System.Drawing.Color.Silver
         Me.pPrevVisit.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         '
+        'geneButton
+        '
+        Me.geneButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.geneButton.FontSize = MetroFramework.MetroButtonSize.Medium
+        Me.geneButton.Location = New System.Drawing.Point(3, 765)
+        Me.geneButton.Name = "geneButton"
+        Me.geneButton.Size = New System.Drawing.Size(346, 44)
+        Me.geneButton.TabIndex = 5
+        Me.geneButton.Text = "基因缺陷"
+        Me.geneButton.UseSelectable = True
+        '
         'tabBooking
         '
         Me.tabBooking.Controls.Add(Me.waitingList)
@@ -2415,17 +2426,6 @@ Partial Class pnlEms
         Me.waitingList.Name = "waitingList"
         Me.waitingList.Size = New System.Drawing.Size(352, 812)
         Me.waitingList.TabIndex = 0
-        '
-        'geneButton
-        '
-        Me.geneButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.geneButton.FontSize = MetroFramework.MetroButtonSize.Medium
-        Me.geneButton.Location = New System.Drawing.Point(3, 765)
-        Me.geneButton.Name = "geneButton"
-        Me.geneButton.Size = New System.Drawing.Size(346, 44)
-        Me.geneButton.TabIndex = 5
-        Me.geneButton.Text = "基因缺陷"
-        Me.geneButton.UseSelectable = True
         '
         'pnlEms
         '
