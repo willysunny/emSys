@@ -283,7 +283,8 @@ Public Class frmUserReport
                 End If
 
                 ' 基因缺陷
-                reader = runQuery("Select group_concat(g.geneName) as 'geneNames', group_concat(g.geneDesc) as 'geneDescs'
+                reader = runQuery("SET SESSION group_concat_max_len = 1000000;
+                                   Select group_concat(g.geneName) as 'geneNames', group_concat(g.geneDesc SEPARATOR '\n\n') as 'geneDescs'
                                    FROM patient_gene as pg
                                    LEFT JOIN gene AS g ON pg.geneID = g.geneID
                                    WHERE pID=" & userInfo.resultInfo.pID &
