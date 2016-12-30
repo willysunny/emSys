@@ -154,6 +154,7 @@ Partial Class pnlEms
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
         Me.tabBooking = New System.Windows.Forms.TabPage()
         Me.waitingList = New System.Windows.Forms.ListBox()
+        Me.geneButton = New MetroFramework.Controls.MetroButton()
         Me.diagTab.SuspendLayout()
         Me.tabGraph.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -200,6 +201,10 @@ Partial Class pnlEms
         Me.pInfoTable.SuspendLayout()
         Me.tabBooking.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'owner
+        '
+        Me.owner.Location = New System.Drawing.Point(156, 156)
         '
         'InstantDoCtrl1
         '
@@ -2026,9 +2031,9 @@ Partial Class pnlEms
         '
         'tabMed
         '
-        Me.tabMed.Location = New System.Drawing.Point(4, 36)
+        Me.tabMed.Location = New System.Drawing.Point(4, 44)
         Me.tabMed.Name = "tabMed"
-        Me.tabMed.Size = New System.Drawing.Size(1392, 860)
+        Me.tabMed.Size = New System.Drawing.Size(1392, 852)
         Me.tabMed.TabIndex = 1
         Me.tabMed.Text = "藥物檢查"
         '
@@ -2053,7 +2058,7 @@ Partial Class pnlEms
         Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
-        Me.patientTab.SelectedIndex = 1
+        Me.patientTab.SelectedIndex = 0
         Me.patientTab.Size = New System.Drawing.Size(360, 860)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
@@ -2061,9 +2066,9 @@ Partial Class pnlEms
         'tabPatientInfo
         '
         Me.tabPatientInfo.Controls.Add(Me.pInfoTable)
-        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 36)
+        Me.tabPatientInfo.Location = New System.Drawing.Point(4, 44)
         Me.tabPatientInfo.Name = "tabPatientInfo"
-        Me.tabPatientInfo.Size = New System.Drawing.Size(352, 820)
+        Me.tabPatientInfo.Size = New System.Drawing.Size(352, 812)
         Me.tabPatientInfo.TabIndex = 0
         Me.tabPatientInfo.Text = "病患資料"
         '
@@ -2083,10 +2088,11 @@ Partial Class pnlEms
         Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
         Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
         Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 9)
+        Me.pInfoTable.Controls.Add(Me.geneButton, 0, 12)
         Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
-        Me.pInfoTable.RowCount = 12
+        Me.pInfoTable.RowCount = 13
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -2098,8 +2104,9 @@ Partial Class pnlEms
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pInfoTable.Size = New System.Drawing.Size(352, 820)
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.pInfoTable.Size = New System.Drawing.Size(352, 812)
         Me.pInfoTable.TabIndex = 2
         '
         'MetroLink1
@@ -2180,9 +2187,9 @@ Partial Class pnlEms
         '
         '
         Me.MetroTextBox1.CustomButton.Image = Nothing
-        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(-26, 2)
+        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(32, 2)
         Me.MetroTextBox1.CustomButton.Name = ""
-        Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(369, 369)
+        Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(311, 311)
         Me.MetroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.MetroTextBox1.CustomButton.TabIndex = 1
         Me.MetroTextBox1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -2202,7 +2209,7 @@ Partial Class pnlEms
         Me.MetroTextBox1.SelectionLength = 0
         Me.MetroTextBox1.SelectionStart = 0
         Me.MetroTextBox1.ShortcutsEnabled = True
-        Me.MetroTextBox1.Size = New System.Drawing.Size(346, 374)
+        Me.MetroTextBox1.Size = New System.Drawing.Size(346, 316)
         Me.MetroTextBox1.TabIndex = 3
         Me.MetroTextBox1.UseSelectable = True
         Me.MetroTextBox1.WaterMark = "不顯示"
@@ -2408,6 +2415,17 @@ Partial Class pnlEms
         Me.waitingList.Name = "waitingList"
         Me.waitingList.Size = New System.Drawing.Size(352, 812)
         Me.waitingList.TabIndex = 0
+        '
+        'geneButton
+        '
+        Me.geneButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.geneButton.FontSize = MetroFramework.MetroButtonSize.Medium
+        Me.geneButton.Location = New System.Drawing.Point(3, 765)
+        Me.geneButton.Name = "geneButton"
+        Me.geneButton.Size = New System.Drawing.Size(346, 44)
+        Me.geneButton.TabIndex = 5
+        Me.geneButton.Text = "基因缺陷"
+        Me.geneButton.UseSelectable = True
         '
         'pnlEms
         '
@@ -2625,4 +2643,5 @@ Partial Class pnlEms
     Friend WithEvents txtMaxValue As Label
     Friend WithEvents txtEvaValue As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents geneButton As MetroFramework.Controls.MetroButton
 End Class

@@ -401,12 +401,31 @@ Public Class pnlEms
         patientInfo.initiate(bID2pID(bID))
         pPrevVisit.Text = patientInfo.pLastVisit
         pVisitTimes.Text = patientInfo.pVisitCount
+        geneSet(Me, New EventArgs)
     End Sub
     Private Function bID2pID(ByVal bID As Integer) As Integer
         Dim reader As IDataReader = runQuery("SELECT pID FROM patient_booking where bID=" & bID & " LIMIT 1")
         reader.Read()
         Return reader.GetInt32(0)
     End Function
+    ' 基因缺陷
+    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click
+        Dim frm As New frmGene(patientInfo.pID)
+        AddHandler frm.geneSet, AddressOf geneSet
+        frm.ShowDialog()
+    End Sub
+    Private Sub geneSet(sender As Object, e As EventArgs)
+        Dim reader As IDataReader = runQuery("Select group_concat(g.geneName) as 'geneNames'
+                                              FROM patient_gene as pg
+                                              LEFT JOIN gene AS g ON pg.geneID = g.geneID
+                                              WHERE pID=" & patientInfo.pID &
+                                              " GROUP BY pg.pID")
+        If reader.Read Then
+            geneButton.Text = "基缺:" & reader.Item("geneNames")
+        Else
+            geneButton.Text = "基因"
+        End If
+    End Sub
 #End Region
 #Region "繪圖"
     ' 切換分頁
@@ -1503,6 +1522,7 @@ Public Class pnlEms
         End With
         getMeasurePoint()
     End Sub
+
     Private Sub finger_CheckedChanged(sender As Object, e As EventArgs) Handles rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged,
                                                                                  rdoF5.CheckedChanged
         Static fingerCbxStack As New List(Of CheckBox)
