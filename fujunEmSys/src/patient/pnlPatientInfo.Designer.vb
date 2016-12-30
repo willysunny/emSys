@@ -61,6 +61,10 @@ Partial Class pnlPatientInfo
         Me.editTable.SuspendLayout()
         Me.SuspendLayout()
         '
+        'owner
+        '
+        Me.owner.Location = New System.Drawing.Point(26, 26)
+        '
         'searchContextMenu
         '
         Me.searchContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.addButton, Me.editPatientMenu, Me.selectPatientMenu})
