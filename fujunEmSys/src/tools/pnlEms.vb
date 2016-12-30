@@ -409,7 +409,7 @@ Public Class pnlEms
         Return reader.GetInt32(0)
     End Function
     ' 基因缺陷
-    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click
+    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click, fluButton.Click
         Dim frm As New frmGene(patientInfo.pID)
         AddHandler frm.geneSet, AddressOf geneSet
         frm.ShowDialog()
@@ -425,6 +425,11 @@ Public Class pnlEms
         Else
             geneButton.Text = "基因"
         End If
+    End Sub
+    Private Sub fluButton_Click(sender As Object, e As EventArgs) Handles fluButton.Click
+        Dim frm As New frmGene(patientInfo.pID)
+        AddHandler frm.geneSet, AddressOf geneSet
+        frm.ShowDialog()
     End Sub
 #End Region
 #Region "繪圖"
