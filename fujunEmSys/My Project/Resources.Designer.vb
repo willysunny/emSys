@@ -93,9 +93,39 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property commonFluSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("commonFluSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property docSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("docSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property emSys() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("emSys", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property geneSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("geneSys", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -236,6 +266,16 @@ Namespace My.Resources
         Friend ReadOnly Property user() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("user", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property userSys() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("userSys", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
