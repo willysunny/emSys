@@ -98,7 +98,7 @@
             login.swipe()
         End If
     End Sub
-    Private Sub loginButton_Click(sender As Object, e As EventArgs) Handles loginButton.Click
+    Private Sub loginButton_Click(sender As Object, e As EventArgs)
         If menuOfflineMode.Checked Then
             menuOfflineMode.Checked = False
         End If
@@ -106,11 +106,11 @@
         AddHandler login.loginSucceed, AddressOf login_success
         login.swipe()
     End Sub
-    Private Sub userManageLink_Click(sender As Object, e As EventArgs) Handles userManageLink.Click
+    Private Sub userManageLink_Click(sender As Object, e As EventArgs) Handles userTile.Click
         Dim frm As New frmUserManage
         frm.ShowDialog()
     End Sub
-    Private Sub docManageLink_Click(sender As Object, e As EventArgs) Handles docManageLink.Click
+    Private Sub docManageLink_Click(sender As Object, e As EventArgs) Handles docTile.Click
         Dim frm As New frmDocManage
         frm.ShowDialog()
     End Sub
@@ -190,6 +190,20 @@
     Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportTile.Click
         If Not offlineMode Then
             Dim frm As New frmUserReport
+            frm.ShowDialog()
+        End If
+    End Sub
+
+    Private Sub geneSetupTile_Click(sender As Object, e As EventArgs) Handles geneSetupTile.Click
+        If Not offlineMode Then
+            Dim frm As New frmSetupFields("基因缺陷", "gene", "geneID", "geneName", "geneDesc")
+            frm.ShowDialog()
+        End If
+    End Sub
+
+    Private Sub commonFluTile_Click(sender As Object, e As EventArgs) Handles commonFluTile.Click
+        If Not offlineMode Then
+            Dim frm As New frmSetupFields("時疫", "commonFlu", "fluID", "fluName", "fluDesc")
             frm.ShowDialog()
         End If
     End Sub

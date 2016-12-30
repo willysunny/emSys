@@ -6,10 +6,8 @@ Public Class frmUserReport
     Private pt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
     Private printPage As Integer = 0
 
-    'Private dangerColor As Color = Color.FromArgb(230, 0, 18)
-    Private dangerColor As Color = Color.FromArgb(255, 255, 255)
-    Private dangerBGColor As Color = Color.FromArgb(230, 0, 18)
-    Private warningColor As Color = Color.FromArgb(235, 97, 0)
+    Private dangerColor As Color = Color.FromArgb(230, 0, 18)
+    Private warningColor As Color = Color.FromArgb(172, 106, 0)
     Private normalColor As Color = Color.FromArgb(0, 153, 68)
 
     Public Sub New()
@@ -225,10 +223,11 @@ Public Class frmUserReport
         If maxValue = "-" Then
         ElseIf CInt(maxValue) > upperDanger Or CInt(maxValue) < lowerDanger Then
             oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
-            'oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle
-            'oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideLineWidth = Word.WdLineWidth.wdLineWidth100pt
-            'oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideColor = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
-            oDoc.Bookmarks.Item(fieldName).Range.Cells.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
+            If CInt(maxValue) > upperDanger Then
+                oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle
+                oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideLineWidth = Word.WdLineWidth.wdLineWidth100pt
+                oDoc.Bookmarks.Item(fieldName).Range.Font.Borders.OutsideColor = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
+            End If
         ElseIf CInt(maxValue) > upperWarning Or CInt(maxValue) < lowerWarning Then
             oDoc.Bookmarks.Item(fieldName).Range.Font.Color = DirectCast(warningColor.R + &H100 * warningColor.G + &H10000 * warningColor.B, Word.WdColor)
         Else
@@ -259,7 +258,6 @@ Public Class frmUserReport
 
                 ' 顏色數值設定
                 oDoc.Bookmarks.Item("danger").Range.Font.Color = DirectCast(dangerColor.R + &H100 * dangerColor.G + &H10000 * dangerColor.B, Word.WdColor)
-                oDoc.Bookmarks.Item("danger").Range.Font.Shading.BackgroundPatternColor = DirectCast(dangerBGColor.R + &H100 * dangerBGColor.G + &H10000 * dangerBGColor.B, Word.WdColor)
                 oDoc.Bookmarks.Item("danger").Range.Text = "紅色"
                 oDoc.Bookmarks.Item("warning").Range.Font.Color = DirectCast(warningColor.R + &H100 * warningColor.G + &H10000 * warningColor.B, Word.WdColor)
                 oDoc.Bookmarks.Item("warning").Range.Text = "橙色"
@@ -283,6 +281,21 @@ Public Class frmUserReport
                 If reader.Read() Then
                     oDoc.Bookmarks.Item("pDocName").Range.Text = reader.GetString(0)
                 End If
+
+                ' 基因缺陷
+                reader = runQuery("Select group_concat(g.geneName) as 'geneNames', group_concat(g.geneDesc) as 'geneDescs'
+                                   FROM patient_gene as pg
+                                   LEFT JOIN gene AS g ON pg.geneID = g.geneID
+                                   WHERE pID=" & userInfo.resultInfo.pID &
+                                   " GROUP BY pg.pID")
+                If reader.Read Then
+                    oDoc.Bookmarks.Item("geneNames").Range.Text = reader.Item("geneNames")
+                    oDoc.Bookmarks.Item("geneDescs").Range.Text = reader.Item("geneDescs")
+                Else
+                    oDoc.Bookmarks.Item("geneNames").Range.Text = ""
+                    oDoc.Bookmarks.Item("geneDescs").Range.Text = ""
+                End If
+
                 loadingBar.PerformStep()
                 Application.DoEvents()
 

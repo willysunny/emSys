@@ -30,7 +30,7 @@
     <SuiteName>福濬生物醫學</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -168,6 +168,12 @@
     <Compile Include="src\med\pnlPerscription.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\patient\frmGene.Designer.vb">
+      <DependentUpon>frmGene.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\patient\frmGene.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\report\frmUserReport.Designer.vb">
       <DependentUpon>frmUserReport.vb</DependentUpon>
     </Compile>
@@ -213,6 +219,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="src\tools\frmSetupFields.Designer.vb">
+      <DependentUpon>frmSetupFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\tools\frmSetupFields.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\tools\frmUserQuery.Designer.vb">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
@@ -285,6 +297,9 @@
     <EmbeddedResource Include="src\med\pnlPerscription.resx">
       <DependentUpon>pnlPerscription.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\patient\frmGene.resx">
+      <DependentUpon>frmGene.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\report\frmUserReport.resx">
       <DependentUpon>frmUserReport.vb</DependentUpon>
     </EmbeddedResource>
@@ -299,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\mainForm.resx">
       <DependentUpon>mainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\tools\frmSetupFields.resx">
+      <DependentUpon>frmSetupFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\tools\frmUserQuery.resx">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
@@ -333,6 +351,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cert\Fujun_CMS_PFX.pfx" />
+    <None Include="Icon\geneSys.png" />
+    <None Include="Icon\commonFluSys.png" />
+    <None Include="Icon\docSys.png" />
+    <None Include="Icon\userSys.png" />
     <Content Include="reportForm\reportForm.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
