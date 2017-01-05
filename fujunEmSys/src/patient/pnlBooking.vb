@@ -47,9 +47,11 @@
                             WHERE pb.bookTime >= '" & checkDate & "' AND pb.bookTime < '" & checkDate.AddDays(1) & "' 
                             ORDER BY pb.bookTime"
         sqlDataGrid.DataSource = returnData(mainForm, sql)
-        sqlDataGrid.Columns("bID").Visible = False
-        sqlDataGrid.Columns("docID").Visible = False
-        sqlDataGrid.Columns("pID").Visible = False
+        If Not mainForm.debugMode.Checked Then
+            sqlDataGrid.Columns("bID").Visible = False
+            sqlDataGrid.Columns("docID").Visible = False
+            sqlDataGrid.Columns("pID").Visible = False
+        End If
         changedPatient = False
         Try
             RemoveHandler queryForm.patientSelected, AddressOf patientChange

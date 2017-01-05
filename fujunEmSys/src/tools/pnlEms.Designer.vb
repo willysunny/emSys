@@ -135,7 +135,6 @@ Partial Class pnlEms
         Me.leftArea = New MetroFramework.Controls.MetroTextBox()
         Me.rightArea = New MetroFramework.Controls.MetroTextBox()
         Me.totalPercentage = New MetroFramework.Controls.MetroTextBox()
-        Me.tabMed = New System.Windows.Forms.TabPage()
         Me.pInfoPanel = New System.Windows.Forms.Panel()
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabPatientInfo = New System.Windows.Forms.TabPage()
@@ -150,10 +149,8 @@ Partial Class pnlEms
         Me.pAge = New MetroFramework.Controls.MetroTextBox()
         Me.pVisitTimes = New MetroFramework.Controls.MetroTextBox()
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
-        Me.geneButton = New MetroFramework.Controls.MetroButton()
         Me.tabBooking = New System.Windows.Forms.TabPage()
         Me.waitingList = New System.Windows.Forms.ListBox()
-        Me.fluButton = New MetroFramework.Controls.MetroButton()
         Me.diagTab.SuspendLayout()
         Me.tabGraph.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -220,7 +217,6 @@ Partial Class pnlEms
         'diagTab
         '
         Me.diagTab.Controls.Add(Me.tabGraph)
-        Me.diagTab.Controls.Add(Me.tabMed)
         Me.diagTab.Dock = System.Windows.Forms.DockStyle.Fill
         Me.diagTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.diagTab.Location = New System.Drawing.Point(0, 0)
@@ -2028,14 +2024,6 @@ Partial Class pnlEms
         Me.totalPercentage.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.totalPercentage.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'tabMed
-        '
-        Me.tabMed.Location = New System.Drawing.Point(4, 44)
-        Me.tabMed.Name = "tabMed"
-        Me.tabMed.Size = New System.Drawing.Size(1392, 852)
-        Me.tabMed.TabIndex = 1
-        Me.tabMed.Text = "藥物檢查"
-        '
         'pInfoPanel
         '
         Me.pInfoPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -2085,12 +2073,10 @@ Partial Class pnlEms
         Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
         Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
         Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 9)
-        Me.pInfoTable.Controls.Add(Me.geneButton, 0, 10)
-        Me.pInfoTable.Controls.Add(Me.fluButton, 0, 11)
         Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
-        Me.pInfoTable.RowCount = 13
+        Me.pInfoTable.RowCount = 11
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -2101,9 +2087,9 @@ Partial Class pnlEms
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.Size = New System.Drawing.Size(352, 812)
         Me.pInfoTable.TabIndex = 2
         '
@@ -2347,17 +2333,6 @@ Partial Class pnlEms
         Me.pPrevVisit.WaterMarkColor = System.Drawing.Color.Silver
         Me.pPrevVisit.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         '
-        'geneButton
-        '
-        Me.geneButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.geneButton.FontSize = MetroFramework.MetroButtonSize.Medium
-        Me.geneButton.Location = New System.Drawing.Point(3, 403)
-        Me.geneButton.Name = "geneButton"
-        Me.geneButton.Size = New System.Drawing.Size(346, 44)
-        Me.geneButton.TabIndex = 5
-        Me.geneButton.Text = "基因缺陷"
-        Me.geneButton.UseSelectable = True
-        '
         'tabBooking
         '
         Me.tabBooking.Controls.Add(Me.waitingList)
@@ -2377,17 +2352,6 @@ Partial Class pnlEms
         Me.waitingList.Name = "waitingList"
         Me.waitingList.Size = New System.Drawing.Size(352, 812)
         Me.waitingList.TabIndex = 0
-        '
-        'fluButton
-        '
-        Me.fluButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.fluButton.FontSize = MetroFramework.MetroButtonSize.Medium
-        Me.fluButton.Location = New System.Drawing.Point(3, 453)
-        Me.fluButton.Name = "fluButton"
-        Me.fluButton.Size = New System.Drawing.Size(346, 44)
-        Me.fluButton.TabIndex = 5
-        Me.fluButton.Text = "時疫"
-        Me.fluButton.UseSelectable = True
         '
         'pnlEms
         '
@@ -2481,7 +2445,6 @@ Partial Class pnlEms
     Friend WithEvents diagTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents tabGraph As TabPage
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents tabMed As TabPage
     Friend WithEvents InstantAiCtrl1 As Automation.BDaq.InstantAiCtrl
     Friend WithEvents diagPanel As Panel
     Friend WithEvents pb As PictureBox
@@ -2603,6 +2566,4 @@ Partial Class pnlEms
     Friend WithEvents txtMaxValue As Label
     Friend WithEvents txtEvaValue As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents geneButton As MetroFramework.Controls.MetroButton
-    Friend WithEvents fluButton As MetroFramework.Controls.MetroButton
 End Class

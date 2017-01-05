@@ -129,7 +129,7 @@ Public Class pnlEms
             init()
 
             If mainForm.offlineMode Then
-                diagTab.TabPages.Remove(tabMed)
+                'diagTab.TabPages.Remove(tabMed)
                 patientTab.TabPages.Remove(tabBooking)
             Else
                 Dim sql As String = "SELECT pb.bID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
@@ -401,36 +401,12 @@ Public Class pnlEms
         patientInfo.initiate(bID2pID(bID))
         pPrevVisit.Text = patientInfo.pLastVisit
         pVisitTimes.Text = patientInfo.pVisitCount
-        geneSet(Me, New EventArgs)
     End Sub
     Private Function bID2pID(ByVal bID As Integer) As Integer
         Dim reader As IDataReader = runQuery("SELECT pID FROM patient_booking where bID=" & bID & " LIMIT 1")
         reader.Read()
         Return reader.GetInt32(0)
     End Function
-    ' 基因缺陷
-    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click, fluButton.Click
-        Dim frm As New frmGene(patientInfo.pID)
-        AddHandler frm.geneSet, AddressOf geneSet
-        frm.ShowDialog()
-    End Sub
-    Private Sub geneSet(sender As Object, e As EventArgs)
-        Dim reader As IDataReader = runQuery("Select group_concat(g.geneName) as 'geneNames'
-                                              FROM patient_gene as pg
-                                              LEFT JOIN gene AS g ON pg.geneID = g.geneID
-                                              WHERE pID=" & patientInfo.pID &
-                                              " GROUP BY pg.pID")
-        If reader.Read Then
-            geneButton.Text = "基缺:" & reader.Item("geneNames")
-        Else
-            geneButton.Text = "基因"
-        End If
-    End Sub
-    Private Sub fluButton_Click(sender As Object, e As EventArgs) Handles fluButton.Click
-        Dim frm As New frmGene(patientInfo.pID)
-        AddHandler frm.geneSet, AddressOf geneSet
-        frm.ShowDialog()
-    End Sub
 #End Region
 #Region "繪圖"
     ' 切換分頁
@@ -1016,9 +992,7 @@ Public Class pnlEms
                                 If Not lastSqlStr = "" And Not mainForm.offlineMode Then
                                     SaveRecord()
                                 End If
-                                If graphTab.SelectedTab.Name = "tabEms" Then
-                                    ClickNextMeasurePoint()
-                                End If
+                                ClickNextMeasurePoint()
                                 emsTimer.Enabled = True
                             Else
                                 Array.Copy(curPt, lastPt, curPt.Length)
@@ -1199,7 +1173,7 @@ Public Class pnlEms
         End If
     End Sub
     Public Function btn2iCode() As Integer
-        Dim iCode As Integer = ""
+        Dim iCode As Integer = 0
 
         ' 判定哪個選項被選取
         If rdoGraph.Checked Then
@@ -1276,38 +1250,56 @@ Public Class pnlEms
     End Function
     ' 點選下一個
     Private Sub ClickNextMeasurePoint()
-        If LR = 1 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
-            iCode2Btn(125240)
-        ElseIf LR = 2 And HF = 2 And Finger = 1 And TB = 1 And rdoC5.Checked Then
-            iCode2Btn(221130)
-        ElseIf LR = 2 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
-            iCode2Btn(225240)
-        Else
-            If TB = 2 Then
-                If Finger = 5 Then
-                    If LR = 2 Then
-                        If HF = 2 Then
-                            LR = 1
-                            HF = 1
-                            Finger = 1
-                            TB = 1
-                        Else
-                            LR = 1
-                            HF = 2
-                        End If
-                    Else
-                        LR = 2
-                    End If
-                    Finger = 1
-                Else
-                    Finger += 1
-                End If
-                TB = 1
+        If rdoEnergy.Checked Then
+            Select Case btn2iCode()
+                Case 12
+                    iCode2Btn(3)
+                Case 3
+                    iCode2Btn(10)
+                Case 10
+                    iCode2Btn(5)
+                Case 5
+                    iCode2Btn(9)
+                Case 9
+                    iCode2Btn(6)
+                Case 6
+                    iCode2Btn(111150)
+            End Select
+        ElseIf rdoGraph.Checked Then
+            If LR = 1 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
+                iCode2Btn(125240)
+            ElseIf LR = 2 And HF = 2 And Finger = 1 And TB = 1 And rdoC5.Checked Then
+                iCode2Btn(221130)
+            ElseIf LR = 2 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
+                iCode2Btn(225240)
             Else
-                TB = 2
+                If TB = 2 Then
+                    If Finger = 5 Then
+                        If LR = 2 Then
+                            If HF = 2 Then
+                                LR = 1
+                                HF = 1
+                                Finger = 1
+                                TB = 1
+                            Else
+                                LR = 1
+                                HF = 2
+                            End If
+                        Else
+                            LR = 2
+                        End If
+                        Finger = 1
+                    Else
+                        Finger += 1
+                    End If
+                    TB = 1
+                Else
+                    TB = 2
+                End If
+                iCode2Btn(CInt(CStr(LR) & CStr(HF) & CStr(Finger) & CStr(TB) & "50"))
             End If
-            iCode2Btn(CInt(CStr(LR) & CStr(HF) & CStr(Finger) & CStr(TB) & "50"))
         End If
+
     End Sub
     Private Sub getMeasurePoint()
         Dim sMsg As String = ""

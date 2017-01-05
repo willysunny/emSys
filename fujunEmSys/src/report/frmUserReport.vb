@@ -277,9 +277,10 @@ Public Class frmUserReport
                 oDoc.Bookmarks.Item("pCreatedDate").Range.Text = userInfo.resultInfo.pCreatedDate
                 oDoc.Bookmarks.Item("pLastVisit").Range.Text = userInfo.resultInfo.pLastVisit
                 oDoc.Bookmarks.Item("pTimes").Range.Text = userInfo.resultInfo.pVisitCount
-                Dim reader As IDataReader = runQuery("SELECT doctor.docName FROM patient_booking INNER JOIN doctor ON patient_booking.docID = doctor.docID WHERE bID=" & historyBox.SelectedValue)
+                Dim reader As IDataReader = runQuery("SELECT doctor.docName, patient_booking.concern FROM patient_booking INNER JOIN doctor ON patient_booking.docID = doctor.docID WHERE bID=" & historyBox.SelectedValue)
                 If reader.Read() Then
-                    oDoc.Bookmarks.Item("pDocName").Range.Text = reader.GetString(0)
+                    oDoc.Bookmarks.Item("pDocName").Range.Text = reader.Item("docName")
+                    oDoc.Bookmarks.Item("concern").Range.Text = reader.Item("concern")
                 End If
 
                 ' 基因缺陷
@@ -295,6 +296,34 @@ Public Class frmUserReport
                 Else
                     oDoc.Bookmarks.Item("geneNames").Range.Text = ""
                     oDoc.Bookmarks.Item("geneDescs").Range.Text = ""
+                End If
+
+                oDoc.Bookmarks.Item("pastRecord").Range.Text = userInfo.resultInfo.pPastRecord
+                oDoc.Bookmarks.Item("otherExam").Range.Text = userInfo.resultInfo.pOtherExam
+
+                loadingBar.PerformStep()
+                Application.DoEvents()
+
+                ' 基因缺陷
+                reader = runQuery("SET SESSION group_concat_max_len = 1000000;
+                                   Select group_concat(f.fluName) as 'fluNames', group_concat(f.fluDesc SEPARATOR '\n\n') as 'fluDescs'
+                                   FROM booking_flu as bf
+                                   LEFT JOIN commonFlu AS f ON f.fluID = bf.fluID
+                                   WHERE bID=" & historyBox.SelectedValue)
+                If reader.Read Then
+                    If reader.IsDBNull(0) Then
+                        oDoc.Bookmarks.Item("commonFlu").Range.Text = ""
+                    Else
+                        oDoc.Bookmarks.Item("commonFlu").Range.Text = reader.Item("fluNames")
+                    End If
+                    If reader.IsDBNull(1) Then
+                        oDoc.Bookmarks.Item("fluNotice").Range.Text = ""
+                    Else
+                        oDoc.Bookmarks.Item("fluNotice").Range.Text = reader.Item("fluDescs")
+                    End If
+                Else
+                    oDoc.Bookmarks.Item("commonFlu").Range.Text = ""
+                    oDoc.Bookmarks.Item("fluNotice").Range.Text = ""
                 End If
 
                 loadingBar.PerformStep()
@@ -652,7 +681,10 @@ Public Class frmUserReport
                             ' 手
                             If Not hand.Contains(CInt(Mid(row.Item("icode").ToString(), 3))) And hCounter <= size Then
                                 hand(hCounter) = CInt(Mid(row.Item("icode").ToString(), 3))
-                                handName(hCounter) = pt(row.Item("icode"))
+                                Try
+                                    handName(hCounter) = pt(row.Item("icode"))
+                                Catch ex As Exception
+                                End Try
                                 '' 繪製文字
                                 'outlinePath.AddString(pt(row.item("icode")), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(170, 335 + (hCounter - 1) * 55), stringFormat)
                                 'e.Graphics.FillPath(Brushes.Black, outlinePath)
@@ -670,7 +702,10 @@ Public Class frmUserReport
                             ' 腳
                             If Not foot.Contains(CInt(Mid(row.Item("icode").ToString(), 3))) And fCounter <= size Then
                                 foot(fCounter) = CInt(Mid(row.Item("icode").ToString(), 3))
-                                footName(fCounter) = pt(row.Item("icode"))
+                                Try
+                                    footName(fCounter) = pt(row.Item("icode"))
+                                Catch ex As Exception
+                                End Try
                                 fCounter += 1
                             End If
                         End If
@@ -900,7 +935,11 @@ Public Class frmUserReport
             e.Graphics.FillPath(Brushes.Black, outlinePath)
             e.Graphics.DrawPath(Pens.Black, outlinePath)
             outlinePath.Reset()
-            outlinePath.AddString(verText(pt(iCode)), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + (index Mod barCount) * barWidth + barWidth / 3, 100 + height * Math.Floor(index / barCount) + barHeight), stringFormat)
+            Try
+                outlinePath.AddString(verText(pt(iCode)), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + (index Mod barCount) * barWidth + barWidth / 3, 100 + height * Math.Floor(index / barCount) + barHeight), stringFormat)
+            Catch ex As Exception
+                outlinePath.AddString(verText("特殊量測點"), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(xPos + (index Mod barCount) * barWidth + barWidth / 3, 100 + height * Math.Floor(index / barCount) + barHeight), stringFormat)
+            End Try
             e.Graphics.FillPath(Brushes.Black, outlinePath)
             e.Graphics.DrawPath(Pens.Black, outlinePath)
             outlinePath.Reset()

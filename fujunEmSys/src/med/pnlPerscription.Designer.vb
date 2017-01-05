@@ -30,18 +30,18 @@ Partial Class pnlPerscription
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabPatientInfo = New System.Windows.Forms.TabPage()
         Me.pInfoTable = New System.Windows.Forms.TableLayoutPanel()
-        Me.MetroLink1 = New MetroFramework.Controls.MetroLink()
         Me.sexLabel = New MetroFramework.Controls.MetroLink()
         Me.nameLabel = New MetroFramework.Controls.MetroLink()
         Me.ageLabel = New MetroFramework.Controls.MetroLink()
         Me.countLabel = New MetroFramework.Controls.MetroLink()
         Me.lastVisitLabel = New MetroFramework.Controls.MetroLink()
-        Me.MetroTextBox1 = New MetroFramework.Controls.MetroTextBox()
         Me.pName = New MetroFramework.Controls.MetroTextBox()
         Me.pSex = New MetroFramework.Controls.MetroTextBox()
         Me.pAge = New MetroFramework.Controls.MetroTextBox()
         Me.pVisitTimes = New MetroFramework.Controls.MetroTextBox()
         Me.pPrevVisit = New MetroFramework.Controls.MetroTextBox()
+        Me.geneButton = New MetroFramework.Controls.MetroButton()
+        Me.fluButton = New MetroFramework.Controls.MetroButton()
         Me.tabBooking = New System.Windows.Forms.TabPage()
         Me.refreshWaitingListButton = New MetroFramework.Controls.MetroButton()
         Me.checkDate = New MetroFramework.Controls.MetroDateTime()
@@ -107,6 +107,12 @@ Partial Class pnlPerscription
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.printMedButton = New MetroFramework.Controls.MetroButton()
         Me.printSingle = New MetroFramework.Controls.MetroButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.concernText = New MetroFramework.Controls.MetroTextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.otherExamBox = New MetroFramework.Controls.MetroTextBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.pastRecordBox = New MetroFramework.Controls.MetroTextBox()
         Me.printDlg = New System.Windows.Forms.PrintDialog()
         Me.medTable.SuspendLayout()
         Me.pInfoPanel.SuspendLayout()
@@ -131,7 +137,14 @@ Partial Class pnlPerscription
         Me.tabFull.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'owner
+        '
+        Me.owner.Location = New System.Drawing.Point(182, 182)
         '
         'printDoc
         '
@@ -156,12 +169,20 @@ Partial Class pnlPerscription
         Me.medTable.Controls.Add(Me.pInfoPanel, 0, 0)
         Me.medTable.Controls.Add(Me.MetroPanel2, 1, 0)
         Me.medTable.Controls.Add(Me.medTab, 2, 0)
+        Me.medTable.Controls.Add(Me.GroupBox1, 2, 1)
+        Me.medTable.Controls.Add(Me.GroupBox2, 1, 1)
+        Me.medTable.Controls.Add(Me.GroupBox3, 0, 1)
         Me.medTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.medTable.Location = New System.Drawing.Point(0, 0)
         Me.medTable.Name = "medTable"
-        Me.medTable.RowCount = 1
-        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.medTable.Size = New System.Drawing.Size(1273, 725)
+        Me.medTable.RowCount = 2
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75.0!))
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.medTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.medTable.Size = New System.Drawing.Size(1273, 835)
         Me.medTable.TabIndex = 7
         '
         'pInfoPanel
@@ -173,7 +194,7 @@ Partial Class pnlPerscription
         Me.pInfoPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.pInfoPanel.Name = "pInfoPanel"
         Me.pInfoPanel.Padding = New System.Windows.Forms.Padding(20)
-        Me.pInfoPanel.Size = New System.Drawing.Size(300, 725)
+        Me.pInfoPanel.Size = New System.Drawing.Size(300, 626)
         Me.pInfoPanel.TabIndex = 5
         '
         'patientTab
@@ -185,7 +206,7 @@ Partial Class pnlPerscription
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
         Me.patientTab.SelectedIndex = 1
-        Me.patientTab.Size = New System.Drawing.Size(260, 685)
+        Me.patientTab.Size = New System.Drawing.Size(260, 586)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
         '
@@ -194,7 +215,7 @@ Partial Class pnlPerscription
         Me.tabPatientInfo.Controls.Add(Me.pInfoTable)
         Me.tabPatientInfo.Location = New System.Drawing.Point(4, 44)
         Me.tabPatientInfo.Name = "tabPatientInfo"
-        Me.tabPatientInfo.Size = New System.Drawing.Size(252, 637)
+        Me.tabPatientInfo.Size = New System.Drawing.Size(252, 538)
         Me.tabPatientInfo.TabIndex = 0
         Me.tabPatientInfo.Text = "病患資料"
         '
@@ -202,22 +223,22 @@ Partial Class pnlPerscription
         '
         Me.pInfoTable.ColumnCount = 1
         Me.pInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.Controls.Add(Me.MetroLink1, 0, 10)
         Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 2)
         Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 0)
         Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 4)
         Me.pInfoTable.Controls.Add(Me.countLabel, 0, 6)
         Me.pInfoTable.Controls.Add(Me.lastVisitLabel, 0, 8)
-        Me.pInfoTable.Controls.Add(Me.MetroTextBox1, 0, 11)
         Me.pInfoTable.Controls.Add(Me.pName, 0, 1)
         Me.pInfoTable.Controls.Add(Me.pSex, 0, 3)
         Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
         Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
         Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 9)
+        Me.pInfoTable.Controls.Add(Me.geneButton, 0, 10)
+        Me.pInfoTable.Controls.Add(Me.fluButton, 0, 11)
         Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
-        Me.pInfoTable.RowCount = 12
+        Me.pInfoTable.RowCount = 13
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -228,22 +249,11 @@ Partial Class pnlPerscription
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pInfoTable.Size = New System.Drawing.Size(252, 637)
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.pInfoTable.Size = New System.Drawing.Size(252, 538)
         Me.pInfoTable.TabIndex = 2
-        '
-        'MetroLink1
-        '
-        Me.MetroLink1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroLink1.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.MetroLink1.Location = New System.Drawing.Point(3, 403)
-        Me.MetroLink1.Name = "MetroLink1"
-        Me.MetroLink1.Size = New System.Drawing.Size(246, 34)
-        Me.MetroLink1.TabIndex = 2
-        Me.MetroLink1.Text = "主訴項目:"
-        Me.MetroLink1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLink1.UseSelectable = True
         '
         'sexLabel
         '
@@ -304,41 +314,6 @@ Partial Class pnlPerscription
         Me.lastVisitLabel.Text = "前次就診日期:"
         Me.lastVisitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lastVisitLabel.UseSelectable = True
-        '
-        'MetroTextBox1
-        '
-        '
-        '
-        '
-        Me.MetroTextBox1.CustomButton.Image = Nothing
-        Me.MetroTextBox1.CustomButton.Location = New System.Drawing.Point(48, 1)
-        Me.MetroTextBox1.CustomButton.Name = ""
-        Me.MetroTextBox1.CustomButton.Size = New System.Drawing.Size(197, 197)
-        Me.MetroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.MetroTextBox1.CustomButton.TabIndex = 1
-        Me.MetroTextBox1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.MetroTextBox1.CustomButton.UseSelectable = True
-        Me.MetroTextBox1.CustomButton.Visible = False
-        Me.MetroTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MetroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Tall
-        Me.MetroTextBox1.Lines = New String(-1) {}
-        Me.MetroTextBox1.Location = New System.Drawing.Point(3, 443)
-        Me.MetroTextBox1.MaxLength = 32767
-        Me.MetroTextBox1.Multiline = True
-        Me.MetroTextBox1.Name = "MetroTextBox1"
-        Me.MetroTextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.MetroTextBox1.PromptText = "不顯示"
-        Me.MetroTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.MetroTextBox1.SelectedText = ""
-        Me.MetroTextBox1.SelectionLength = 0
-        Me.MetroTextBox1.SelectionStart = 0
-        Me.MetroTextBox1.ShortcutsEnabled = True
-        Me.MetroTextBox1.Size = New System.Drawing.Size(246, 199)
-        Me.MetroTextBox1.TabIndex = 3
-        Me.MetroTextBox1.UseSelectable = True
-        Me.MetroTextBox1.WaterMark = "不顯示"
-        Me.MetroTextBox1.WaterMarkColor = System.Drawing.Color.Silver
-        Me.MetroTextBox1.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         '
         'pName
         '
@@ -520,6 +495,26 @@ Partial Class pnlPerscription
         Me.pPrevVisit.WaterMarkColor = System.Drawing.Color.Silver
         Me.pPrevVisit.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         '
+        'geneButton
+        '
+        Me.geneButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.geneButton.Location = New System.Drawing.Point(3, 403)
+        Me.geneButton.Name = "geneButton"
+        Me.geneButton.Size = New System.Drawing.Size(246, 44)
+        Me.geneButton.TabIndex = 5
+        Me.geneButton.Text = "基因"
+        Me.geneButton.UseSelectable = True
+        '
+        'fluButton
+        '
+        Me.fluButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.fluButton.Location = New System.Drawing.Point(3, 453)
+        Me.fluButton.Name = "fluButton"
+        Me.fluButton.Size = New System.Drawing.Size(246, 94)
+        Me.fluButton.TabIndex = 5
+        Me.fluButton.Text = "時疫"
+        Me.fluButton.UseSelectable = True
+        '
         'tabBooking
         '
         Me.tabBooking.Controls.Add(Me.refreshWaitingListButton)
@@ -528,7 +523,7 @@ Partial Class pnlPerscription
         Me.tabBooking.Location = New System.Drawing.Point(4, 44)
         Me.tabBooking.Name = "tabBooking"
         Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 50)
-        Me.tabBooking.Size = New System.Drawing.Size(252, 637)
+        Me.tabBooking.Size = New System.Drawing.Size(252, 538)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
@@ -536,7 +531,7 @@ Partial Class pnlPerscription
         '
         Me.refreshWaitingListButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 590)
+        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 474)
         Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
         Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
         Me.refreshWaitingListButton.TabIndex = 2
@@ -559,7 +554,7 @@ Partial Class pnlPerscription
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 30)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(252, 557)
+        Me.waitingList.Size = New System.Drawing.Size(252, 458)
         Me.waitingList.TabIndex = 0
         '
         'MetroPanel2
@@ -575,7 +570,7 @@ Partial Class pnlPerscription
         Me.MetroPanel2.Location = New System.Drawing.Point(303, 3)
         Me.MetroPanel2.Name = "MetroPanel2"
         Me.MetroPanel2.Padding = New System.Windows.Forms.Padding(10, 50, 10, 10)
-        Me.MetroPanel2.Size = New System.Drawing.Size(294, 719)
+        Me.MetroPanel2.Size = New System.Drawing.Size(294, 620)
         Me.MetroPanel2.TabIndex = 8
         Me.MetroPanel2.UseCustomBackColor = True
         Me.MetroPanel2.VerticalScrollbarBarColor = True
@@ -596,7 +591,7 @@ Partial Class pnlPerscription
         Me.searchTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.searchTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.searchTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.searchTable.Size = New System.Drawing.Size(274, 659)
+        Me.searchTable.Size = New System.Drawing.Size(274, 560)
         Me.searchTable.TabIndex = 7
         '
         'searchBox
@@ -616,7 +611,7 @@ Partial Class pnlPerscription
         Me.searchBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.searchBox.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.searchBox.Lines = New String(-1) {}
-        Me.searchBox.Location = New System.Drawing.Point(3, 582)
+        Me.searchBox.Location = New System.Drawing.Point(3, 483)
         Me.searchBox.MaxLength = 32767
         Me.searchBox.Name = "searchBox"
         Me.searchBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -638,7 +633,7 @@ Partial Class pnlPerscription
         Me.unusedMedList.AutoSize = True
         Me.unusedMedList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.unusedMedList.FontSize = MetroFramework.MetroCheckBoxSize.Tall
-        Me.unusedMedList.Location = New System.Drawing.Point(3, 622)
+        Me.unusedMedList.Location = New System.Drawing.Point(3, 523)
         Me.unusedMedList.Name = "unusedMedList"
         Me.unusedMedList.Size = New System.Drawing.Size(268, 34)
         Me.unusedMedList.TabIndex = 3
@@ -653,7 +648,7 @@ Partial Class pnlPerscription
         Me.medTree.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.medTree.Location = New System.Drawing.Point(3, 3)
         Me.medTree.Name = "medTree"
-        Me.medTree.Size = New System.Drawing.Size(268, 573)
+        Me.medTree.Size = New System.Drawing.Size(268, 474)
         Me.medTree.TabIndex = 12
         '
         'MetroLabel6
@@ -679,7 +674,7 @@ Partial Class pnlPerscription
         Me.medTab.Location = New System.Drawing.Point(603, 3)
         Me.medTab.Name = "medTab"
         Me.medTab.SelectedIndex = 0
-        Me.medTab.Size = New System.Drawing.Size(667, 719)
+        Me.medTab.Size = New System.Drawing.Size(667, 620)
         Me.medTab.TabIndex = 13
         Me.medTab.UseSelectable = True
         '
@@ -688,7 +683,7 @@ Partial Class pnlPerscription
         Me.tabMedSetup.Controls.Add(Me.TableLayoutPanel3)
         Me.tabMedSetup.Location = New System.Drawing.Point(4, 38)
         Me.tabMedSetup.Name = "tabMedSetup"
-        Me.tabMedSetup.Size = New System.Drawing.Size(659, 677)
+        Me.tabMedSetup.Size = New System.Drawing.Size(659, 578)
         Me.tabMedSetup.TabIndex = 0
         Me.tabMedSetup.Text = "藥包設定"
         '
@@ -707,7 +702,7 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel3.RowCount = 2
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(659, 677)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(659, 578)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'MetroPanel1
@@ -725,7 +720,7 @@ Partial Class pnlPerscription
         Me.MetroPanel1.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.MetroPanel1.Name = "MetroPanel1"
         Me.MetroPanel1.Padding = New System.Windows.Forms.Padding(10, 50, 10, 5)
-        Me.MetroPanel1.Size = New System.Drawing.Size(323, 494)
+        Me.MetroPanel1.Size = New System.Drawing.Size(323, 395)
         Me.MetroPanel1.TabIndex = 12
         Me.MetroPanel1.UseCustomBackColor = True
         Me.MetroPanel1.VerticalScrollbarBarColor = True
@@ -735,7 +730,7 @@ Partial Class pnlPerscription
         'delMedGroup
         '
         Me.delMedGroup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.delMedGroup.Location = New System.Drawing.Point(292, 20)
+        Me.delMedGroup.Location = New System.Drawing.Point(287, 20)
         Me.delMedGroup.Name = "delMedGroup"
         Me.delMedGroup.Size = New System.Drawing.Size(21, 24)
         Me.delMedGroup.TabIndex = 15
@@ -745,7 +740,7 @@ Partial Class pnlPerscription
         'addMedGroup
         '
         Me.addMedGroup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.addMedGroup.Location = New System.Drawing.Point(265, 20)
+        Me.addMedGroup.Location = New System.Drawing.Point(260, 20)
         Me.addMedGroup.Name = "addMedGroup"
         Me.addMedGroup.Size = New System.Drawing.Size(21, 24)
         Me.addMedGroup.TabIndex = 15
@@ -765,7 +760,7 @@ Partial Class pnlPerscription
         Me.medGroupGrid.ReadOnly = True
         Me.medGroupGrid.RowTemplate.Height = 24
         Me.medGroupGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.medGroupGrid.Size = New System.Drawing.Size(303, 439)
+        Me.medGroupGrid.Size = New System.Drawing.Size(303, 340)
         Me.medGroupGrid.TabIndex = 14
         '
         'medGroupLabel
@@ -797,7 +792,7 @@ Partial Class pnlPerscription
         Me.medDetailPanel.Location = New System.Drawing.Point(332, 3)
         Me.medDetailPanel.Name = "medDetailPanel"
         Me.medDetailPanel.Padding = New System.Windows.Forms.Padding(10, 50, 10, 50)
-        Me.medDetailPanel.Size = New System.Drawing.Size(324, 491)
+        Me.medDetailPanel.Size = New System.Drawing.Size(324, 392)
         Me.medDetailPanel.TabIndex = 12
         Me.medDetailPanel.UseCustomBackColor = True
         Me.medDetailPanel.VerticalScrollbarBarColor = True
@@ -807,7 +802,7 @@ Partial Class pnlPerscription
         'delMedDetail
         '
         Me.delMedDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.delMedDetail.Location = New System.Drawing.Point(293, 20)
+        Me.delMedDetail.Location = New System.Drawing.Point(289, 20)
         Me.delMedDetail.Name = "delMedDetail"
         Me.delMedDetail.Size = New System.Drawing.Size(21, 24)
         Me.delMedDetail.TabIndex = 15
@@ -817,7 +812,7 @@ Partial Class pnlPerscription
         'addMedDetail
         '
         Me.addMedDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.addMedDetail.Location = New System.Drawing.Point(266, 20)
+        Me.addMedDetail.Location = New System.Drawing.Point(262, 20)
         Me.addMedDetail.Name = "addMedDetail"
         Me.addMedDetail.Size = New System.Drawing.Size(21, 24)
         Me.addMedDetail.TabIndex = 15
@@ -838,13 +833,13 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel4.Controls.Add(Me.medDetailAmount, 1, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.medDetailChange, 3, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.medDetailUnit, 2, 0)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(10, 447)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(10, 279)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(304, 37)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(300, 37)
         Me.TableLayoutPanel4.TabIndex = 13
         '
         'MetroLabel3
@@ -871,7 +866,7 @@ Partial Class pnlPerscription
         '
         '
         Me.medDetailAmount.CustomButton.Image = Nothing
-        Me.medDetailAmount.CustomButton.Location = New System.Drawing.Point(55, 2)
+        Me.medDetailAmount.CustomButton.Location = New System.Drawing.Point(54, 2)
         Me.medDetailAmount.CustomButton.Name = ""
         Me.medDetailAmount.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.medDetailAmount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -891,7 +886,7 @@ Partial Class pnlPerscription
         Me.medDetailAmount.SelectionLength = 0
         Me.medDetailAmount.SelectionStart = 0
         Me.medDetailAmount.ShortcutsEnabled = True
-        Me.medDetailAmount.Size = New System.Drawing.Size(83, 30)
+        Me.medDetailAmount.Size = New System.Drawing.Size(82, 30)
         Me.medDetailAmount.TabIndex = 5
         Me.medDetailAmount.Text = "6"
         Me.medDetailAmount.UseSelectable = True
@@ -902,9 +897,9 @@ Partial Class pnlPerscription
         'medDetailChange
         '
         Me.medDetailChange.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.medDetailChange.Location = New System.Drawing.Point(261, 3)
+        Me.medDetailChange.Location = New System.Drawing.Point(259, 3)
         Me.medDetailChange.Name = "medDetailChange"
-        Me.medDetailChange.Size = New System.Drawing.Size(40, 34)
+        Me.medDetailChange.Size = New System.Drawing.Size(38, 34)
         Me.medDetailChange.TabIndex = 6
         Me.medDetailChange.Text = "變更"
         Me.medDetailChange.UseSelectable = True
@@ -915,9 +910,9 @@ Partial Class pnlPerscription
         Me.medDetailUnit.FontSize = MetroFramework.MetroComboBoxSize.Tall
         Me.medDetailUnit.FormattingEnabled = True
         Me.medDetailUnit.ItemHeight = 29
-        Me.medDetailUnit.Location = New System.Drawing.Point(172, 3)
+        Me.medDetailUnit.Location = New System.Drawing.Point(171, 3)
         Me.medDetailUnit.Name = "medDetailUnit"
-        Me.medDetailUnit.Size = New System.Drawing.Size(83, 35)
+        Me.medDetailUnit.Size = New System.Drawing.Size(82, 35)
         Me.medDetailUnit.TabIndex = 9
         Me.medDetailUnit.UseSelectable = True
         '
@@ -948,7 +943,7 @@ Partial Class pnlPerscription
         Me.medDetailGrid.ReadOnly = True
         Me.medDetailGrid.RowTemplate.Height = 24
         Me.medDetailGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.medDetailGrid.Size = New System.Drawing.Size(304, 391)
+        Me.medDetailGrid.Size = New System.Drawing.Size(304, 292)
         Me.medDetailGrid.TabIndex = 2
         '
         'MetroPanel3
@@ -959,7 +954,7 @@ Partial Class pnlPerscription
         Me.MetroPanel3.HorizontalScrollbarBarColor = True
         Me.MetroPanel3.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel3.HorizontalScrollbarSize = 10
-        Me.MetroPanel3.Location = New System.Drawing.Point(3, 497)
+        Me.MetroPanel3.Location = New System.Drawing.Point(3, 398)
         Me.MetroPanel3.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.MetroPanel3.Name = "MetroPanel3"
         Me.MetroPanel3.Padding = New System.Windows.Forms.Padding(10, 5, 10, 10)
@@ -1314,7 +1309,7 @@ Partial Class pnlPerscription
         Me.MetroPanel4.HorizontalScrollbarBarColor = True
         Me.MetroPanel4.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel4.HorizontalScrollbarSize = 10
-        Me.MetroPanel4.Location = New System.Drawing.Point(332, 500)
+        Me.MetroPanel4.Location = New System.Drawing.Point(332, 401)
         Me.MetroPanel4.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.MetroPanel4.Name = "MetroPanel4"
         Me.MetroPanel4.Padding = New System.Windows.Forms.Padding(10, 50, 10, 10)
@@ -1558,7 +1553,7 @@ Partial Class pnlPerscription
         Me.tabFull.Controls.Add(Me.TableLayoutPanel2)
         Me.tabFull.Location = New System.Drawing.Point(4, 38)
         Me.tabFull.Name = "tabFull"
-        Me.tabFull.Size = New System.Drawing.Size(659, 677)
+        Me.tabFull.Size = New System.Drawing.Size(659, 578)
         Me.tabFull.TabIndex = 1
         Me.tabFull.Text = "總覽"
         '
@@ -1581,7 +1576,7 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(659, 677)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(659, 578)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'fullListView
@@ -1596,7 +1591,7 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel2.SetRowSpan(Me.fullListView, 4)
         Me.fullListView.RowTemplate.Height = 24
         Me.fullListView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.fullListView.Size = New System.Drawing.Size(503, 671)
+        Me.fullListView.Size = New System.Drawing.Size(503, 572)
         Me.fullListView.TabIndex = 0
         '
         'historyBox
@@ -1606,7 +1601,7 @@ Partial Class pnlPerscription
         Me.historyBox.ItemHeight = 12
         Me.historyBox.Location = New System.Drawing.Point(3, 43)
         Me.historyBox.Name = "historyBox"
-        Me.historyBox.Size = New System.Drawing.Size(144, 511)
+        Me.historyBox.Size = New System.Drawing.Size(144, 412)
         Me.historyBox.TabIndex = 1
         '
         'MetroLabel2
@@ -1624,7 +1619,7 @@ Partial Class pnlPerscription
         'printMedButton
         '
         Me.printMedButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.printMedButton.Location = New System.Drawing.Point(3, 620)
+        Me.printMedButton.Location = New System.Drawing.Point(3, 521)
         Me.printMedButton.Name = "printMedButton"
         Me.printMedButton.Size = New System.Drawing.Size(144, 54)
         Me.printMedButton.TabIndex = 3
@@ -1634,12 +1629,153 @@ Partial Class pnlPerscription
         'printSingle
         '
         Me.printSingle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.printSingle.Location = New System.Drawing.Point(3, 560)
+        Me.printSingle.Location = New System.Drawing.Point(3, 461)
         Me.printSingle.Name = "printSingle"
         Me.printSingle.Size = New System.Drawing.Size(144, 54)
         Me.printSingle.TabIndex = 3
         Me.printSingle.Text = "單一藥單列印"
         Me.printSingle.UseSelectable = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.Wheat
+        Me.GroupBox1.Controls.Add(Me.concernText)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(603, 629)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(10)
+        Me.GroupBox1.Size = New System.Drawing.Size(667, 203)
+        Me.GroupBox1.TabIndex = 14
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "主訴"
+        '
+        'concernText
+        '
+        '
+        '
+        '
+        Me.concernText.CustomButton.Image = Nothing
+        Me.concernText.CustomButton.Location = New System.Drawing.Point(491, 1)
+        Me.concernText.CustomButton.Name = ""
+        Me.concernText.CustomButton.Size = New System.Drawing.Size(155, 155)
+        Me.concernText.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.concernText.CustomButton.TabIndex = 1
+        Me.concernText.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.concernText.CustomButton.UseSelectable = True
+        Me.concernText.CustomButton.Visible = False
+        Me.concernText.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.concernText.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.concernText.Lines = New String(-1) {}
+        Me.concernText.Location = New System.Drawing.Point(10, 36)
+        Me.concernText.MaxLength = 32767
+        Me.concernText.Multiline = True
+        Me.concernText.Name = "concernText"
+        Me.concernText.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.concernText.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.concernText.SelectedText = ""
+        Me.concernText.SelectionLength = 0
+        Me.concernText.SelectionStart = 0
+        Me.concernText.ShortcutsEnabled = True
+        Me.concernText.Size = New System.Drawing.Size(647, 157)
+        Me.concernText.TabIndex = 0
+        Me.concernText.UseSelectable = True
+        Me.concernText.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.concernText.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.BackColor = System.Drawing.Color.Wheat
+        Me.GroupBox2.Controls.Add(Me.otherExamBox)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(303, 629)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(10)
+        Me.GroupBox2.Size = New System.Drawing.Size(294, 203)
+        Me.GroupBox2.TabIndex = 14
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "他院檢查紀錄"
+        '
+        'otherExamBox
+        '
+        '
+        '
+        '
+        Me.otherExamBox.CustomButton.Image = Nothing
+        Me.otherExamBox.CustomButton.Location = New System.Drawing.Point(118, 1)
+        Me.otherExamBox.CustomButton.Name = ""
+        Me.otherExamBox.CustomButton.Size = New System.Drawing.Size(155, 155)
+        Me.otherExamBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.otherExamBox.CustomButton.TabIndex = 1
+        Me.otherExamBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.otherExamBox.CustomButton.UseSelectable = True
+        Me.otherExamBox.CustomButton.Visible = False
+        Me.otherExamBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.otherExamBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.otherExamBox.Lines = New String(-1) {}
+        Me.otherExamBox.Location = New System.Drawing.Point(10, 36)
+        Me.otherExamBox.MaxLength = 32767
+        Me.otherExamBox.Multiline = True
+        Me.otherExamBox.Name = "otherExamBox"
+        Me.otherExamBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.otherExamBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.otherExamBox.SelectedText = ""
+        Me.otherExamBox.SelectionLength = 0
+        Me.otherExamBox.SelectionStart = 0
+        Me.otherExamBox.ShortcutsEnabled = True
+        Me.otherExamBox.Size = New System.Drawing.Size(274, 157)
+        Me.otherExamBox.TabIndex = 0
+        Me.otherExamBox.UseSelectable = True
+        Me.otherExamBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.otherExamBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.BackColor = System.Drawing.Color.Wheat
+        Me.GroupBox3.Controls.Add(Me.pastRecordBox)
+        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.GroupBox3.Location = New System.Drawing.Point(3, 629)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(10)
+        Me.GroupBox3.Size = New System.Drawing.Size(294, 203)
+        Me.GroupBox3.TabIndex = 14
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "過去病史"
+        '
+        'pastRecordBox
+        '
+        '
+        '
+        '
+        Me.pastRecordBox.CustomButton.Image = Nothing
+        Me.pastRecordBox.CustomButton.Location = New System.Drawing.Point(118, 1)
+        Me.pastRecordBox.CustomButton.Name = ""
+        Me.pastRecordBox.CustomButton.Size = New System.Drawing.Size(155, 155)
+        Me.pastRecordBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.pastRecordBox.CustomButton.TabIndex = 1
+        Me.pastRecordBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.pastRecordBox.CustomButton.UseSelectable = True
+        Me.pastRecordBox.CustomButton.Visible = False
+        Me.pastRecordBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pastRecordBox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.pastRecordBox.Lines = New String(-1) {}
+        Me.pastRecordBox.Location = New System.Drawing.Point(10, 36)
+        Me.pastRecordBox.MaxLength = 32767
+        Me.pastRecordBox.Multiline = True
+        Me.pastRecordBox.Name = "pastRecordBox"
+        Me.pastRecordBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.pastRecordBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.pastRecordBox.SelectedText = ""
+        Me.pastRecordBox.SelectionLength = 0
+        Me.pastRecordBox.SelectionStart = 0
+        Me.pastRecordBox.ShortcutsEnabled = True
+        Me.pastRecordBox.Size = New System.Drawing.Size(274, 157)
+        Me.pastRecordBox.TabIndex = 0
+        Me.pastRecordBox.UseSelectable = True
+        Me.pastRecordBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.pastRecordBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'printDlg
         '
@@ -1652,7 +1788,7 @@ Partial Class pnlPerscription
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.medTable)
         Me.Name = "pnlPerscription"
-        Me.Size = New System.Drawing.Size(1273, 725)
+        Me.Size = New System.Drawing.Size(1273, 835)
         Me.medTable.ResumeLayout(False)
         Me.pInfoPanel.ResumeLayout(False)
         Me.patientTab.ResumeLayout(False)
@@ -1685,6 +1821,9 @@ Partial Class pnlPerscription
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         CType(Me.fullListView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1693,18 +1832,15 @@ Partial Class pnlPerscription
     Friend WithEvents patientTab As MetroFramework.Controls.MetroTabControl
     Friend WithEvents tabPatientInfo As TabPage
     Friend WithEvents pInfoTable As TableLayoutPanel
-    Friend WithEvents MetroLink1 As MetroFramework.Controls.MetroLink
     Friend WithEvents sexLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents nameLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents ageLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents countLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents lastVisitLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents MetroTextBox1 As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pName As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pSex As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pAge As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pVisitTimes As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents tabBooking As TabPage
     Friend WithEvents waitingList As ListBox
     Friend WithEvents checkDate As MetroFramework.Controls.MetroDateTime
@@ -1774,4 +1910,13 @@ Partial Class pnlPerscription
     Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
     Friend WithEvents printDlg As PrintDialog
     Friend WithEvents printSingle As MetroFramework.Controls.MetroButton
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents concernText As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents otherExamBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pastRecordBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents geneButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents fluButton As MetroFramework.Controls.MetroButton
 End Class

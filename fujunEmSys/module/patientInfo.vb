@@ -11,7 +11,8 @@
     Private p_pAddress As String = ""
     Private p_pEmail As String = ""
     Private p_pCreatedDate As String = ""
-    Private p_pRemarks As String = ""
+    Private p_pPastRecord As String = ""
+    Private p_pOtherExam As String = ""
     Private p_initiated As Boolean = False
     Private p_isNull As Boolean = True
     Private p_doc As String = ""
@@ -29,10 +30,12 @@
             p_pAddress = ""
             p_pEmail = ""
             p_pCreatedDate = ""
+            p_pPastRecord = ""
+            p_pOtherExam = ""
             p_initiated = False
         End Sub
         Public Sub initiate(ByVal pID As Integer)
-            Dim reader As IDataReader = runQuery("SELECT pID, pPID, pName, pSex, jul2chi(pdob) as pcdob, pdob, pPhone, pMobile, pAddress, pEmail, jul2chi(pCreatedDate) as pCreatedDate FROM patient WHERE pID='" & pID & "'")
+            Dim reader As IDataReader = runQuery("SELECT pID, pPID, pName, pSex, jul2chi(pdob) as pcdob, pdob, pPhone, pMobile, pAddress, pEmail, jul2chi(pCreatedDate) as pCreatedDate, pastRecord, otherExam FROM patient WHERE pID='" & pID & "'")
             With reader
                 If .Read Then
                     p_pID = .GetInt32(0)
@@ -46,6 +49,8 @@
                     If Not reader.IsDBNull(8) Then p_pAddress = .GetString(8) Else p_pAddress = ""
                     If Not reader.IsDBNull(9) Then p_pEmail = .GetString(9) Else p_pEmail = ""
                     If Not reader.IsDBNull(10) Then p_pCreatedDate = .GetString(10) Else p_pCreatedDate = Now
+                    If Not reader.IsDBNull(11) Then p_pPastRecord = .GetString(11) Else p_pCreatedDate = Now
+                    If Not reader.IsDBNull(12) Then p_pOtherExam = .GetString(12) Else p_pCreatedDate = Now
                     p_initiated = True
                 Else
                     p_pID = ""
@@ -171,12 +176,6 @@
                 p_pDOB = value
             End Set
         End Property
-        ReadOnly Property getInsertSQL As String
-            Get
-                Return "INSERT INTO `patient` (pPID, pName, pSex, pDOB, pPhone, pMobile, pAddress, pEmail, pRemarks) " &
-                    "VALUES ('" & p_pPID & "', '" & p_pName & "', '" & p_pSex & "', '" & p_pDOB.ToString("yyyy-MM-dd") & "', '" & p_pPhone & "', '" & p_pMobile & "', '" & p_pAddress & "', '" & p_pEmail & "', '" & p_pRemarks & "')"
-            End Get
-        End Property
         ReadOnly Property pAge As Integer
             Get
                 If p_pDOB.Year = 1911 Then
@@ -202,6 +201,26 @@
                 reader.Read()
                 Return reader.GetInt64(0)
             End Get
+        End Property
+
+        Property pPastRecord As String
+            Get
+                Return p_pPastRecord
+            End Get
+            Set(value As String)
+                runQuery("UPDATE patient SET pastRecord='" & value & "' WHERE pID=" & p_pID)
+                p_pPastRecord = value
+            End Set
+        End Property
+
+        Property pOtherExam As String
+            Get
+                Return p_pOtherExam
+            End Get
+            Set(value As String)
+                runQuery("UPDATE patient SET otherExam='" & value & "' WHERE pID=" & p_pID)
+                p_pOtherExam = value
+            End Set
         End Property
     End Structure
 End Module

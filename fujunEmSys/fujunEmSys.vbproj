@@ -30,7 +30,7 @@
     <SuiteName>福濬生物醫學</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>41</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -168,6 +168,12 @@
     <Compile Include="src\med\pnlPerscription.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\patient\frmFlu.Designer.vb">
+      <DependentUpon>frmFlu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\patient\frmFlu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\patient\frmGene.Designer.vb">
       <DependentUpon>frmGene.vb</DependentUpon>
     </Compile>
@@ -296,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\med\pnlPerscription.resx">
       <DependentUpon>pnlPerscription.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\patient\frmFlu.resx">
+      <DependentUpon>frmFlu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\patient\frmGene.resx">
       <DependentUpon>frmGene.vb</DependentUpon>

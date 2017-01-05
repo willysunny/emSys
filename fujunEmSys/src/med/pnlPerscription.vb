@@ -145,11 +145,12 @@ Public Class pnlPerscription
         End If
     End Sub
     Private Sub loadPatientData(ByVal bID As Integer)
-        Dim reader As IDataReader = runQuery("Select pID FROM patient_booking WHERE bID=" & bID)
+        Dim reader As IDataReader = runQuery("Select pID, concern FROM patient_booking WHERE bID=" & bID)
         If reader.Read Then
             Dim pID As Integer = reader.Item("pID")
             patientInfo = New pInfo
             patientInfo.initiate(pID)
+            concernText.Text = reader.Item("concern")
             reader = runQuery("SELECT bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
             While reader.Read
                 If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime(0) Else pPrevVisit.Text = ""
@@ -163,6 +164,10 @@ Public Class pnlPerscription
             .DisplayMember = "bookTime"
         End With
         AddHandler historyBox.SelectedIndexChanged, AddressOf historyBox_SelectedIndexChanged
+        pastRecordBox.Text = patientInfo.pPastRecord
+        otherExamBox.Text = patientInfo.pOtherExam
+        geneSet(Me, New EventArgs)
+        fluSet(Me, New EventArgs)
         reloadMedGroup()
     End Sub
 #End Region
@@ -665,5 +670,51 @@ Public Class pnlPerscription
         totalBox.Text = "336"
     End Sub
 
+    Private Sub pastRecordBox_Validated(sender As Object, e As EventArgs) Handles pastRecordBox.Validated
+        patientInfo.pPastRecord = pastRecordBox.Text
+    End Sub
+
+    Private Sub otherExamBox_Validated(sender As Object, e As EventArgs) Handles otherExamBox.Validated
+        patientInfo.pOtherExam = otherExamBox.Text
+    End Sub
+
+    Private Sub concernText_Validated(sender As Object, e As EventArgs) Handles concernText.Validated
+        runQuery("UPDATE patient_booking SET concern='" & concernText.Text & "' WHERE bID=" & waitingList.SelectedValue)
+    End Sub
+
+    ' 基因缺陷
+    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click
+        Dim frm As New frmGene(patientInfo.pID)
+        AddHandler frm.geneSet, AddressOf geneSet
+        frm.ShowDialog()
+    End Sub
+    Private Sub geneSet(sender As Object, e As EventArgs)
+        Dim reader As IDataReader = runQuery("Select group_concat(g.geneName) as 'geneNames'
+                                              FROM patient_gene as pg
+                                              LEFT JOIN gene AS g ON pg.geneID = g.geneID
+                                              WHERE pID=" & patientInfo.pID &
+                                              " GROUP BY pg.pID")
+        If reader.Read Then
+            geneButton.Text = "基缺:" & reader.Item("geneNames")
+        Else
+            geneButton.Text = "基因"
+        End If
+    End Sub
+    Private Sub fluButton_Click(sender As Object, e As EventArgs) Handles fluButton.Click
+        Dim frm As New frmFlu(waitingList.SelectedValue)
+        AddHandler frm.fluSet, AddressOf fluSet
+        frm.ShowDialog()
+    End Sub
+    Private Sub fluSet(sender As Object, e As EventArgs)
+        Dim reader As IDataReader = runQuery("Select group_concat(f.fluName) as 'fluNames'
+                                              FROM booking_flu as bf
+                                              LEFT JOIN commonFlu AS f ON f.fluID = bf.fluID
+                                              WHERE bID=" & waitingList.SelectedValue)
+        If reader.Read Then
+            fluButton.Text = "時疫:" & reader.Item("fluNames")
+        Else
+            fluButton.Text = "時疫"
+        End If
+    End Sub
 #End Region
 End Class
