@@ -139,7 +139,14 @@ Public Class pnlPerscription
             loadPatientData(waitingList.SelectedValue)
             patientTab.SelectedTab = tabPatientInfo
             pName.Text = patientInfo.pName
-            If patientInfo.pSex = 0 Then pSex.Text = "女" Else pSex.Text = "男"
+            Select Case patientInfo.pSex
+                Case 0
+                    pSex.Text = "女"
+                Case 1
+                    pSex.Text = "男"
+                Case 2
+                    pSex.Text = "未設定"
+            End Select
             pAge.Text = patientInfo.pAge
             medTab.Enabled = True
         End If
@@ -199,9 +206,9 @@ Public Class pnlPerscription
     ' 新增群組
     Private Sub addMedGroup_Click(sender As Object, e As EventArgs) Handles addMedGroup.Click
         Try
-            runQuery("INSERT INTO medGroup2medDetail (bID, medDays, medAmount, medUnit, morning, noon, night, beforeSleep, beforemeal, aftermeal, notwell, makePill, f0) VALUES ('" &
+            runQuery("INSERT INTO medGroup2medDetail (bID, medDays, medAmount, medUnit, morning, noon, night, beforeSleep, beforemeal, aftermeal, notwell, multiple, makePill, f0) VALUES ('" &
                      waitingList.SelectedValue & "', '" & medGroupDays.Text & "', '" & medGroupAmount.Text & "', '" & medGroupUnit.SelectedValue & "', " &
-                     morning.Checked & ", " & noon.Checked & ", " & night.Checked & ", " & beforeSleep.Checked & ", " & beforeMeal.Checked & ", " & afterMeal.Checked & ", " & notWell.Checked & ", " &
+                     morning.Checked & ", " & noon.Checked & ", " & night.Checked & ", " & beforeSleep.Checked & ", " & beforeMeal.Checked & ", " & afterMeal.Checked & ", " & notWell.Checked & ", " & multiple.Checked & ", " &
                      makePill.Checked & ", " & F0.Checked & ");")
             reloadMedGroup()
         Catch ex As Exception
@@ -231,6 +238,7 @@ Public Class pnlPerscription
                     "night=" & night.Checked & "," &
                     "beforeSleep=" & beforeSleep.Checked & "," &
                     "notWell=" & notWell.Checked & "," &
+                    "multiple=" & multiple.Checked & "," &
                     "beforeMeal=" & beforeMeal.Checked & "," &
                     "afterMeal=" & afterMeal.Checked & "," &
                     "makePill=" & makePill.Checked & "," &
@@ -334,6 +342,7 @@ Public Class pnlPerscription
             Catch ex As Exception
                 MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息:" & vbNewLine & ex.Message, "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
+            searchBox.Text = ""
         Else
             MetroFramework.MetroMessageBox.Show(Me, "請先點選藥物再搜尋", "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
@@ -405,7 +414,7 @@ Public Class pnlPerscription
         If medTab.SelectedTab Is tabFull Then
             If Not historyBox.SelectedIndex = -1 Then
                 fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
-                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '有症狀時', mg.multiple as '多次', 
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位',
@@ -595,21 +604,21 @@ Public Class pnlPerscription
         End If
         trigger = False
         If fullListView.Rows(printIndex).Cells("飯前").Value Then
-            usage += "飯前"
+            usage += " 飯前"
             trigger = True
         End If
         If fullListView.Rows(printIndex).Cells("飯後").Value And trigger Then
-            usage += "或飯後"
+            usage += "或 飯後"
         ElseIf fullListView.Rows(printIndex).Cells("飯後").Value Then
-            usage += "飯後"
+            usage += " 飯後"
         End If
         If fullListView.Rows(printIndex).Cells("睡前").Value Then
-            usage += "以及睡前"
+            usage += " 以及 睡前"
         End If
         If fullListView.Rows(printIndex).Cells("不適時").Value Then
-            usage += "和有症狀時"
+            usage += " 和 有症狀時"
         End If
-        usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & fullListView.Rows(printIndex).Cells("單位").Value
+        usage += " 服用 " & fullListView.Rows(printIndex).Cells("份量").Value & " " & fullListView.Rows(printIndex).Cells("單位").Value
         e.Graphics.DrawString("服用方法: " & usage, headerFont, Brushes.Black, New Point(20, 525), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(20, 545), New Point(95, 545))
 
@@ -619,8 +628,8 @@ Public Class pnlPerscription
 
         Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
         stringFormat.Alignment = StringAlignment.Far
-        e.Graphics.DrawString("製造日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
-        e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(300, 580))
+        e.Graphics.DrawString("調劑日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日 HH:MM"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(270, 580))
 
         If singlePrint Then
             singlePrint = False
@@ -716,5 +725,6 @@ Public Class pnlPerscription
             fluButton.Text = "時疫"
         End If
     End Sub
+
 #End Region
 End Class
