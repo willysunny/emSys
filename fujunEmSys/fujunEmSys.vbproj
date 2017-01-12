@@ -30,7 +30,7 @@
     <SuiteName>福濬生物醫學</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>41</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -168,6 +168,12 @@
     <Compile Include="src\med\pnlPerscription.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\patient\frmCare.Designer.vb">
+      <DependentUpon>frmCare.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\patient\frmCare.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\patient\frmFlu.Designer.vb">
       <DependentUpon>frmFlu.vb</DependentUpon>
     </Compile>
@@ -303,6 +309,9 @@
     <EmbeddedResource Include="src\med\pnlPerscription.resx">
       <DependentUpon>pnlPerscription.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\patient\frmCare.resx">
+      <DependentUpon>frmCare.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\patient\frmFlu.resx">
       <DependentUpon>frmFlu.vb</DependentUpon>
     </EmbeddedResource>
@@ -364,6 +373,7 @@
     <None Include="Icon\commonFluSys.png" />
     <None Include="Icon\docSys.png" />
     <None Include="Icon\userSys.png" />
+    <None Include="Icon\careSys.png" />
     <Content Include="reportForm\reportForm.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

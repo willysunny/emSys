@@ -49,8 +49,8 @@
                     If Not reader.IsDBNull(8) Then p_pAddress = .GetString(8) Else p_pAddress = ""
                     If Not reader.IsDBNull(9) Then p_pEmail = .GetString(9) Else p_pEmail = ""
                     If Not reader.IsDBNull(10) Then p_pCreatedDate = .GetString(10) Else p_pCreatedDate = Now
-                    If Not reader.IsDBNull(11) Then p_pPastRecord = .GetString(11) Else p_pCreatedDate = Now
-                    If Not reader.IsDBNull(12) Then p_pOtherExam = .GetString(12) Else p_pCreatedDate = Now
+                    If Not reader.IsDBNull(11) Then p_pPastRecord = .GetString(11) Else p_pPastRecord = ""
+                    If Not reader.IsDBNull(12) Then p_pOtherExam = .GetString(12) Else p_pOtherExam = ""
                     p_initiated = True
                 Else
                     p_pID = ""

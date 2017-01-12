@@ -23,6 +23,7 @@
         Dim pt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
         pt.Add(0, "女")
         pt.Add(1, "男")
+        pt.Add(2, "未知")
         Dim ptTable As DataTable = New DataTable()
         ptTable.Columns.Add("sexCode", GetType(Integer))
         ptTable.Columns.Add("性別", GetType(String))

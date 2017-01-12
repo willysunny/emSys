@@ -387,7 +387,14 @@ Public Class pnlEms
             loadPatientData(waitingList.SelectedValue)
             patientTab.SelectedTab = tabPatientInfo
             pName.Text = patientInfo.pName
-            If patientInfo.pSex = 0 Then pSex.Text = "女" Else pSex.Text = "男"
+            Select Case patientInfo.pSex
+                Case 0
+                    pSex.Text = "女"
+                Case 1
+                    pSex.Text = "男"
+                Case 2
+                    pSex.Text = "未設定"
+            End Select
             If patientInfo.pAge = 9999 Then
                 pAge.Text = ""
             Else
