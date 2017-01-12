@@ -36,19 +36,20 @@ Partial Class mainForm
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.medInfoTile = New MetroFramework.Controls.MetroTile()
-        Me.medManageTile = New MetroFramework.Controls.MetroTile()
-        Me.commonFluTile = New MetroFramework.Controls.MetroTile()
-        Me.userTile = New MetroFramework.Controls.MetroTile()
-        Me.docTile = New MetroFramework.Controls.MetroTile()
-        Me.geneSetupTile = New MetroFramework.Controls.MetroTile()
         Me.bookingTile = New MetroFramework.Controls.MetroTile()
         Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.reportTile = New MetroFramework.Controls.MetroTile()
         Me.paymentTile = New MetroFramework.Controls.MetroTile()
         Me.paitientInfoTile = New MetroFramework.Controls.MetroTile()
         Me.perscriptionTile = New MetroFramework.Controls.MetroTile()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.medInfoTile = New MetroFramework.Controls.MetroTile()
+        Me.medManageTile = New MetroFramework.Controls.MetroTile()
+        Me.careTile = New MetroFramework.Controls.MetroTile()
+        Me.commonFluTile = New MetroFramework.Controls.MetroTile()
+        Me.userTile = New MetroFramework.Controls.MetroTile()
+        Me.docTile = New MetroFramework.Controls.MetroTile()
+        Me.geneSetupTile = New MetroFramework.Controls.MetroTile()
         Me.exitLink = New MetroFramework.Controls.MetroLink()
         Me.settingsLink = New MetroFramework.Controls.MetroLink()
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -141,11 +142,90 @@ Partial Class mainForm
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "診所系統"
         '
+        'bookingTile
+        '
+        Me.bookingTile.ActiveControl = Nothing
+        Me.bookingTile.Location = New System.Drawing.Point(13, 28)
+        Me.bookingTile.Name = "bookingTile"
+        Me.bookingTile.Size = New System.Drawing.Size(120, 120)
+        Me.bookingTile.TabIndex = 4
+        Me.bookingTile.Text = "掛號預約系統"
+        Me.bookingTile.TileImage = Global.fujunEmsys.My.Resources.Resources.bookingSys
+        Me.bookingTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.bookingTile.UseSelectable = True
+        Me.bookingTile.UseTileImage = True
+        '
+        'emsTile
+        '
+        Me.emsTile.ActiveControl = Nothing
+        Me.emsTile.Location = New System.Drawing.Point(13, 154)
+        Me.emsTile.Name = "emsTile"
+        Me.emsTile.Size = New System.Drawing.Size(120, 120)
+        Me.emsTile.TabIndex = 4
+        Me.emsTile.Text = "能量頻譜"
+        Me.emsTile.TileImage = Global.fujunEmsys.My.Resources.Resources.emSys
+        Me.emsTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.emsTile.UseSelectable = True
+        Me.emsTile.UseTileImage = True
+        '
+        'reportTile
+        '
+        Me.reportTile.ActiveControl = Nothing
+        Me.reportTile.Location = New System.Drawing.Point(139, 280)
+        Me.reportTile.Name = "reportTile"
+        Me.reportTile.Size = New System.Drawing.Size(120, 120)
+        Me.reportTile.TabIndex = 4
+        Me.reportTile.Text = "檢驗報告"
+        Me.reportTile.TileImage = Global.fujunEmsys.My.Resources.Resources.reportSys
+        Me.reportTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.reportTile.UseSelectable = True
+        Me.reportTile.UseTileImage = True
+        '
+        'paymentTile
+        '
+        Me.paymentTile.ActiveControl = Nothing
+        Me.paymentTile.Location = New System.Drawing.Point(13, 280)
+        Me.paymentTile.Name = "paymentTile"
+        Me.paymentTile.Size = New System.Drawing.Size(120, 120)
+        Me.paymentTile.TabIndex = 4
+        Me.paymentTile.Text = "批價系統"
+        Me.paymentTile.TileImage = Global.fujunEmsys.My.Resources.Resources.paymentSys
+        Me.paymentTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.paymentTile.UseSelectable = True
+        Me.paymentTile.UseTileImage = True
+        '
+        'paitientInfoTile
+        '
+        Me.paitientInfoTile.ActiveControl = Nothing
+        Me.paitientInfoTile.Location = New System.Drawing.Point(139, 28)
+        Me.paitientInfoTile.Name = "paitientInfoTile"
+        Me.paitientInfoTile.Size = New System.Drawing.Size(120, 120)
+        Me.paitientInfoTile.TabIndex = 4
+        Me.paitientInfoTile.Text = "病人資料維護"
+        Me.paitientInfoTile.TileImage = Global.fujunEmsys.My.Resources.Resources.patientSys
+        Me.paitientInfoTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.paitientInfoTile.UseSelectable = True
+        Me.paitientInfoTile.UseTileImage = True
+        '
+        'perscriptionTile
+        '
+        Me.perscriptionTile.ActiveControl = Nothing
+        Me.perscriptionTile.Location = New System.Drawing.Point(139, 154)
+        Me.perscriptionTile.Name = "perscriptionTile"
+        Me.perscriptionTile.Size = New System.Drawing.Size(120, 120)
+        Me.perscriptionTile.TabIndex = 4
+        Me.perscriptionTile.Text = "處方籤"
+        Me.perscriptionTile.TileImage = Global.fujunEmsys.My.Resources.Resources.perscriptionSys
+        Me.perscriptionTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.perscriptionTile.UseSelectable = True
+        Me.perscriptionTile.UseTileImage = True
+        '
         'GroupBox2
         '
         Me.GroupBox2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox2.Controls.Add(Me.medInfoTile)
         Me.GroupBox2.Controls.Add(Me.medManageTile)
+        Me.GroupBox2.Controls.Add(Me.careTile)
         Me.GroupBox2.Controls.Add(Me.commonFluTile)
         Me.GroupBox2.Controls.Add(Me.userTile)
         Me.GroupBox2.Controls.Add(Me.docTile)
@@ -154,7 +234,7 @@ Partial Class mainForm
         Me.GroupBox2.Location = New System.Drawing.Point(590, 193)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(10)
-        Me.GroupBox2.Size = New System.Drawing.Size(272, 414)
+        Me.GroupBox2.Size = New System.Drawing.Size(393, 414)
         Me.GroupBox2.TabIndex = 6
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "資料維護"
@@ -184,6 +264,19 @@ Partial Class mainForm
         Me.medManageTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.medManageTile.UseSelectable = True
         Me.medManageTile.UseTileImage = True
+        '
+        'careTile
+        '
+        Me.careTile.ActiveControl = Nothing
+        Me.careTile.Location = New System.Drawing.Point(265, 154)
+        Me.careTile.Name = "careTile"
+        Me.careTile.Size = New System.Drawing.Size(120, 120)
+        Me.careTile.TabIndex = 4
+        Me.careTile.Text = "保養管理"
+        Me.careTile.TileImage = Global.fujunEmsys.My.Resources.Resources.careSys
+        Me.careTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.careTile.UseSelectable = True
+        Me.careTile.UseTileImage = True
         '
         'commonFluTile
         '
@@ -236,84 +329,6 @@ Partial Class mainForm
         Me.geneSetupTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.geneSetupTile.UseSelectable = True
         Me.geneSetupTile.UseTileImage = True
-        '
-        'bookingTile
-        '
-        Me.bookingTile.ActiveControl = Nothing
-        Me.bookingTile.Location = New System.Drawing.Point(13, 28)
-        Me.bookingTile.Name = "bookingTile"
-        Me.bookingTile.Size = New System.Drawing.Size(120, 120)
-        Me.bookingTile.TabIndex = 4
-        Me.bookingTile.Text = "掛號預約系統"
-        Me.bookingTile.TileImage = Global.fujunEmsys.My.Resources.Resources.bookingSys
-        Me.bookingTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.bookingTile.UseSelectable = True
-        Me.bookingTile.UseTileImage = True
-        '
-        'emsTile
-        '
-        Me.emsTile.ActiveControl = Nothing
-        Me.emsTile.Location = New System.Drawing.Point(13, 154)
-        Me.emsTile.Name = "emsTile"
-        Me.emsTile.Size = New System.Drawing.Size(120, 120)
-        Me.emsTile.TabIndex = 4
-        Me.emsTile.Text = "能量頻譜"
-        Me.emsTile.TileImage = Global.fujunEmsys.My.Resources.Resources.emSys
-        Me.emsTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.emsTile.UseSelectable = True
-        Me.emsTile.UseTileImage = True
-        '
-        'reportTile
-        '
-        Me.reportTile.ActiveControl = Nothing
-        Me.reportTile.Location = New System.Drawing.Point(13, 280)
-        Me.reportTile.Name = "reportTile"
-        Me.reportTile.Size = New System.Drawing.Size(120, 120)
-        Me.reportTile.TabIndex = 4
-        Me.reportTile.Text = "檢驗報告"
-        Me.reportTile.TileImage = Global.fujunEmsys.My.Resources.Resources.reportSys
-        Me.reportTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.reportTile.UseSelectable = True
-        Me.reportTile.UseTileImage = True
-        '
-        'paymentTile
-        '
-        Me.paymentTile.ActiveControl = Nothing
-        Me.paymentTile.Location = New System.Drawing.Point(139, 280)
-        Me.paymentTile.Name = "paymentTile"
-        Me.paymentTile.Size = New System.Drawing.Size(120, 120)
-        Me.paymentTile.TabIndex = 4
-        Me.paymentTile.Text = "批價系統"
-        Me.paymentTile.TileImage = Global.fujunEmsys.My.Resources.Resources.paymentSys
-        Me.paymentTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.paymentTile.UseSelectable = True
-        Me.paymentTile.UseTileImage = True
-        '
-        'paitientInfoTile
-        '
-        Me.paitientInfoTile.ActiveControl = Nothing
-        Me.paitientInfoTile.Location = New System.Drawing.Point(139, 28)
-        Me.paitientInfoTile.Name = "paitientInfoTile"
-        Me.paitientInfoTile.Size = New System.Drawing.Size(120, 120)
-        Me.paitientInfoTile.TabIndex = 4
-        Me.paitientInfoTile.Text = "病人資料維護"
-        Me.paitientInfoTile.TileImage = Global.fujunEmsys.My.Resources.Resources.patientSys
-        Me.paitientInfoTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.paitientInfoTile.UseSelectable = True
-        Me.paitientInfoTile.UseTileImage = True
-        '
-        'perscriptionTile
-        '
-        Me.perscriptionTile.ActiveControl = Nothing
-        Me.perscriptionTile.Location = New System.Drawing.Point(139, 154)
-        Me.perscriptionTile.Name = "perscriptionTile"
-        Me.perscriptionTile.Size = New System.Drawing.Size(120, 120)
-        Me.perscriptionTile.TabIndex = 4
-        Me.perscriptionTile.Text = "處方籤"
-        Me.perscriptionTile.TileImage = Global.fujunEmsys.My.Resources.Resources.perscriptionSys
-        Me.perscriptionTile.TileImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.perscriptionTile.UseSelectable = True
-        Me.perscriptionTile.UseTileImage = True
         '
         'exitLink
         '
@@ -393,4 +408,5 @@ Partial Class mainForm
     Friend WithEvents commonFluTile As MetroFramework.Controls.MetroTile
     Friend WithEvents docTile As MetroFramework.Controls.MetroTile
     Friend WithEvents userTile As MetroFramework.Controls.MetroTile
+    Friend WithEvents careTile As MetroFramework.Controls.MetroTile
 End Class
