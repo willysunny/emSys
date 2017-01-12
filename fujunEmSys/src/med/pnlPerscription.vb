@@ -148,16 +148,17 @@ Public Class pnlPerscription
                     pSex.Text = "未設定"
             End Select
             pAge.Text = patientInfo.pAge
-            medTab.Enabled = True
+            medTabs.Enabled = True
         End If
     End Sub
     Private Sub loadPatientData(ByVal bID As Integer)
-        Dim reader As IDataReader = runQuery("Select pID, concern FROM patient_booking WHERE bID=" & bID)
+        Dim reader As IDataReader = runQuery("Select pID, concern, response FROM patient_booking WHERE bID=" & bID)
         If reader.Read Then
             Dim pID As Integer = reader.Item("pID")
             patientInfo = New pInfo
             patientInfo.initiate(pID)
             concernText.Text = reader.Item("concern")
+            responseText.Text = reader.Item("response")
             reader = runQuery("SELECT bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
             While reader.Read
                 If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime(0) Else pPrevVisit.Text = ""
@@ -211,6 +212,7 @@ Public Class pnlPerscription
                      morning.Checked & ", " & noon.Checked & ", " & night.Checked & ", " & beforeSleep.Checked & ", " & beforeMeal.Checked & ", " & afterMeal.Checked & ", " & notWell.Checked & ", " & multiple.Checked & ", " &
                      makePill.Checked & ", " & F0.Checked & ");")
             reloadMedGroup()
+            medGroupGrid.Rows.Item(medGroupGrid.Rows.Count - 1).Selected = True
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息:" & vbNewLine & ex.Message, "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -271,6 +273,8 @@ Public Class pnlPerscription
                 medGroupUnit.SelectedValue = .Cells("medUnit").Value
                 reloadMedDetail(.Cells("mgID").Value)
             End With
+            medGroupAmount.Focus()
+            medGroupAmount.SelectAll()
         End If
     End Sub
     ' 載入藥物群組
@@ -327,7 +331,7 @@ Public Class pnlPerscription
                 Dim reader As IDataReader = runQuery("SELECT bioMed, groupExclude FROM med_item WHERE medID=" & medTree.SelectedNode.Name)
                 reader.Read()
                 If reader.Item("bioMed") And Not reader.Item("groupExclude") Then
-                    MetroFramework.MetroMessageBox.Show(Me, "錯誤: 無法將藥品 (" & medTree.SelectedNode.text & ") 轉變成藥粉, 請檢查!", "藥包錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MetroFramework.MetroMessageBox.Show(Me, "錯誤: 無法將藥品 (" & medTree.SelectedNode.Text & ") 轉變成藥粉, 請檢查!", "藥包錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
             End If
@@ -383,6 +387,8 @@ Public Class pnlPerscription
                 medDetailAmount.Text = .Cells("份量").Value
                 medDetailUnit.SelectedValue = .Cells("medUnit").Value
             End With
+            medDetailAmount.Focus()
+            medDetailAmount.SelectAll()
         End If
     End Sub
     ' 載入藥物群組
@@ -410,8 +416,8 @@ Public Class pnlPerscription
     End Sub
 #End Region
     ' 總覽
-    Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTab.Click
-        If medTab.SelectedTab Is tabFull Then
+    Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTabs.Click
+        If medTabs.SelectedTab Is tabFull Then
             If Not historyBox.SelectedIndex = -1 Then
                 fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
                                                                mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '有症狀時', mg.multiple as '多次', 
@@ -565,7 +571,7 @@ Public Class pnlPerscription
         End If
 
         Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
-        For i = 0 To medList.Count -1
+        For i = 0 To medList.Count - 1
             Dim unitList As String() = medList(i).Split("|")
             unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
             medList(i) = String.Join("", unitList)
@@ -615,7 +621,9 @@ Public Class pnlPerscription
         If fullListView.Rows(printIndex).Cells("睡前").Value Then
             usage += " 以及 睡前"
         End If
-        If fullListView.Rows(printIndex).Cells("不適時").Value Then
+        If usage = "" And fullListView.Rows(printIndex).Cells("有症狀時").Value Then
+            usage += " 有症狀時"
+        ElseIf fullListView.Rows(printIndex).Cells("有症狀時").Value Then
             usage += " 和 有症狀時"
         End If
         usage += " 服用 " & fullListView.Rows(printIndex).Cells("份量").Value & " " & fullListView.Rows(printIndex).Cells("單位").Value
@@ -628,7 +636,7 @@ Public Class pnlPerscription
 
         Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
         stringFormat.Alignment = StringAlignment.Far
-        e.Graphics.DrawString("調劑日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日 HH:MM"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        e.Graphics.DrawString("調劑日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日 HH:mm"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(270, 580))
 
         If singlePrint Then
@@ -690,9 +698,12 @@ Public Class pnlPerscription
     Private Sub concernText_Validated(sender As Object, e As EventArgs) Handles concernText.Validated
         runQuery("UPDATE patient_booking SET concern='" & concernText.Text & "' WHERE bID=" & waitingList.SelectedValue)
     End Sub
+    Private Sub responseText_Validated(sender As Object, e As EventArgs) Handles responseText.Validated
+        runQuery("UPDATE patient_booking SET response='" & responseText.Text & "' WHERE bID=" & waitingList.SelectedValue)
+    End Sub
 
     ' 基因缺陷
-    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click
+    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click, altGeneButton.Click
         Dim frm As New frmGene(patientInfo.pID)
         AddHandler frm.geneSet, AddressOf geneSet
         frm.ShowDialog()
@@ -704,14 +715,21 @@ Public Class pnlPerscription
                                               WHERE pID=" & patientInfo.pID &
                                               " GROUP BY pg.pID")
         If reader.Read Then
-            geneButton.Text = "基缺:" & reader.Item("geneNames")
+            geneButton.Text = "基缺: " & reader.Item("geneNames")
+            altGeneButton.Text = "基缺: " & reader.Item("geneNames")
         Else
-            geneButton.Text = "基因"
+            geneButton.Text = "基因設定"
+            altGeneButton.Text = "基因設定"
         End If
     End Sub
     Private Sub fluButton_Click(sender As Object, e As EventArgs) Handles fluButton.Click
         Dim frm As New frmFlu(waitingList.SelectedValue)
         AddHandler frm.fluSet, AddressOf fluSet
+        frm.ShowDialog()
+    End Sub
+    Private Sub careButton_Click(sender As Object, e As EventArgs) Handles careButton.Click
+        Dim frm As New frmCare(waitingList.SelectedValue)
+        AddHandler frm.careSet, AddressOf careSet
         frm.ShowDialog()
     End Sub
     Private Sub fluSet(sender As Object, e As EventArgs)
@@ -720,9 +738,21 @@ Public Class pnlPerscription
                                               LEFT JOIN commonFlu AS f ON f.fluID = bf.fluID
                                               WHERE bID=" & waitingList.SelectedValue)
         If reader.Read Then
-            fluButton.Text = "時疫:" & reader.Item("fluNames")
+            fluButton.Text = "時疫: " & reader.Item("fluNames")
         Else
-            fluButton.Text = "時疫"
+            fluButton.Text = "時疫設定"
+        End If
+    End Sub
+
+    Private Sub careSet(sender As Object, e As EventArgs)
+        Dim reader As IDataReader = runQuery("Select group_concat(c.careName) as 'careNames'
+                                              FROM booking_care as bc
+                                              LEFT JOIN care AS c ON c.careID = bc.careID
+                                              WHERE bID=" & waitingList.SelectedValue)
+        If reader.Read Then
+            careButton.Text = "保養: " & reader.Item("careNames")
+        Else
+            careButton.Text = "保養設定"
         End If
     End Sub
 
