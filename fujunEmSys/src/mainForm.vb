@@ -207,5 +207,12 @@
             frm.ShowDialog()
         End If
     End Sub
+
+    Private Sub careTile_Click(sender As Object, e As EventArgs) Handles careTile.Click
+        If Not offlineMode Then
+            Dim frm As New frmSetupFields("保養", "care", "careID", "careName", "careDesc")
+            frm.ShowDialog()
+        End If
+    End Sub
 #End Region
 End Class
