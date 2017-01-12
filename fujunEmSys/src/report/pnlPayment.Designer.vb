@@ -36,6 +36,7 @@ Partial Class pnlPayment
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabPatientInfo = New System.Windows.Forms.TabPage()
         Me.pInfoTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.fullListView = New System.Windows.Forms.DataGridView()
         Me.sexLabel = New MetroFramework.Controls.MetroLink()
         Me.nameLabel = New MetroFramework.Controls.MetroLink()
         Me.ageLabel = New MetroFramework.Controls.MetroLink()
@@ -71,6 +72,7 @@ Partial Class pnlPayment
         Me.patientTab.SuspendLayout()
         Me.tabPatientInfo.SuspendLayout()
         Me.pInfoTable.SuspendLayout()
+        CType(Me.fullListView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBooking.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -78,6 +80,10 @@ Partial Class pnlPayment
         CType(Me.bioFee, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'owner
+        '
+        Me.owner.Location = New System.Drawing.Point(130, 130)
         '
         'printDoc
         '
@@ -119,7 +125,7 @@ Partial Class pnlPayment
         Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
-        Me.patientTab.SelectedIndex = 0
+        Me.patientTab.SelectedIndex = 1
         Me.patientTab.Size = New System.Drawing.Size(260, 560)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
@@ -137,6 +143,7 @@ Partial Class pnlPayment
         '
         Me.pInfoTable.ColumnCount = 1
         Me.pInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.pInfoTable.Controls.Add(Me.fullListView, 0, 8)
         Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 2)
         Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 0)
         Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 4)
@@ -163,6 +170,21 @@ Partial Class pnlPayment
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.Size = New System.Drawing.Size(252, 512)
         Me.pInfoTable.TabIndex = 2
+        '
+        'fullListView
+        '
+        Me.fullListView.AllowUserToAddRows = False
+        Me.fullListView.AllowUserToDeleteRows = False
+        Me.fullListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.fullListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.pInfoTable.SetColumnSpan(Me.fullListView, 2)
+        Me.fullListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.fullListView.Location = New System.Drawing.Point(3, 323)
+        Me.fullListView.Name = "fullListView"
+        Me.fullListView.RowTemplate.Height = 24
+        Me.fullListView.Size = New System.Drawing.Size(246, 186)
+        Me.fullListView.TabIndex = 5
+        Me.fullListView.Visible = False
         '
         'sexLabel
         '
@@ -361,10 +383,10 @@ Partial Class pnlPayment
         Me.tabBooking.Controls.Add(Me.refreshWaitingListButton)
         Me.tabBooking.Controls.Add(Me.checkDate)
         Me.tabBooking.Controls.Add(Me.waitingList)
-        Me.tabBooking.Location = New System.Drawing.Point(4, 36)
+        Me.tabBooking.Location = New System.Drawing.Point(4, 44)
         Me.tabBooking.Name = "tabBooking"
         Me.tabBooking.Padding = New System.Windows.Forms.Padding(0, 30, 0, 50)
-        Me.tabBooking.Size = New System.Drawing.Size(252, 520)
+        Me.tabBooking.Size = New System.Drawing.Size(252, 512)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
@@ -372,7 +394,7 @@ Partial Class pnlPayment
         '
         Me.refreshWaitingListButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 481)
+        Me.refreshWaitingListButton.Location = New System.Drawing.Point(0, 460)
         Me.refreshWaitingListButton.Name = "refreshWaitingListButton"
         Me.refreshWaitingListButton.Size = New System.Drawing.Size(252, 47)
         Me.refreshWaitingListButton.TabIndex = 2
@@ -382,7 +404,7 @@ Partial Class pnlPayment
         'checkDate
         '
         Me.checkDate.Location = New System.Drawing.Point(0, 0)
-        Me.checkDate.MinimumSize = New System.Drawing.Size(4, 29)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
         Me.checkDate.Name = "checkDate"
         Me.checkDate.Size = New System.Drawing.Size(252, 29)
         Me.checkDate.TabIndex = 1
@@ -395,7 +417,7 @@ Partial Class pnlPayment
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 30)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(252, 440)
+        Me.waitingList.Size = New System.Drawing.Size(252, 432)
         Me.waitingList.TabIndex = 0
         '
         'MetroPanel1
@@ -807,6 +829,7 @@ Partial Class pnlPayment
         Me.patientTab.ResumeLayout(False)
         Me.tabPatientInfo.ResumeLayout(False)
         Me.pInfoTable.ResumeLayout(False)
+        CType(Me.fullListView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabBooking.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -855,4 +878,5 @@ Partial Class pnlPayment
     Friend WithEvents waitingList As ListBox
     Friend WithEvents printPreviewDlg As PrintPreviewDialog
     Friend WithEvents printDlg As PrintDialog
+    Friend WithEvents fullListView As DataGridView
 End Class

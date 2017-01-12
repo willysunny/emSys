@@ -8,6 +8,8 @@
     Dim medDiscount As Dictionary(Of Integer, Double) = New Dictionary(Of Integer, Double) ' 藥費折扣
     Dim diagFeeType As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 診費
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
+    Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
+
     Dim printPage As Integer = 0
 
 #Region "初始"
@@ -26,6 +28,10 @@
 
         unit.Add(1, "克")
         unit.Add(2, "顆")
+        groupUnit.Add(1, "包")
+        groupUnit.Add(2, "顆")
+        groupUnit.Add(3, "匙")
+        groupUnit.Add(4, "盒")
 
         refreshBooking(Now)
         Dim discountTable As DataTable = returnData(mainForm, "SELECT * FROM discount_type")
@@ -60,6 +66,10 @@
         AddHandler discountBox.SelectedIndexChanged, AddressOf discountBox_SelectedIndexChanged
         AddHandler medFee.CellValidated, AddressOf medFee_bioFee_CellValidated
         AddHandler bioFee.CellValidated, AddressOf medFee_bioFee_CellValidated
+
+        If mainForm.debugMode.Checked Then
+            fullListView.Visible = True
+        End If
 
     End Sub
 #End Region
@@ -218,7 +228,7 @@
         For Each row As DataGridViewRow In bioFee.Rows
             bioSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
         Next
-        medTotal.Text = medSum
+        medTotal.Text = medSum + (500 + diagFee.SelectedValue) * diagDiscount.Item(discountBox.SelectedValue)
         bioTotal.Text = bioSum
         totalSum.Text = medSum + bioSum + (500 + diagFee.SelectedValue) * diagDiscount.Item(discountBox.SelectedValue)
     End Sub
@@ -249,7 +259,13 @@
         Dim bioSum As Integer = 0
         Dim medOrigSum As Integer = 0
         Dim bioOrigSum As Integer = 0
-
+        Dim diagSum As Integer = 500 * diagDiscount.Item(discountBox.SelectedValue) + diagFee.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
+        Dim diagOrigSum As Integer = 500 + diagFee.SelectedValue
+        Dim docName As String = ""
+        Dim reader As IDataReader = runQuery("SELECT d.docName FROM patient_booking AS pb 
+                                              INNER JOIN doctor AS d ON d.docID = pb.docID 
+                                              WHERE bID=" & waitingList.SelectedValue)
+        If reader.Read Then docName = reader.GetString(0) Else docName = ""
         For Each row As DataGridViewRow In medFee.Rows
             medOrigSum += CInt(row.Cells("origPrice").Value)
             If row.Cells("makePill").Value Then
@@ -271,8 +287,9 @@
         Dim useFont As Font = New Font("標楷體", 14, FontStyle.Regular)
         Dim smallFont As Font = New Font("標楷體", 12, FontStyle.Regular)
         Dim stringFormat As New StringFormat()
+        Dim twC As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar()
 
-        If Not printPage = 2 Then
+        If printPage < 2 Then
 
 #Region "頁首"
             '上半標題
@@ -281,11 +298,10 @@
 
             ' 抬頭
             stringFormat.Alignment = StringAlignment.Near
-            Dim twC As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar()
             e.Graphics.DrawString("就診日期: " & twC.GetYear(checkDate.Value) & checkDate.Value.ToString("-MM-dd"), smallFont, Brushes.Black, New Point(50, 100), stringFormat)
-            e.Graphics.DrawString("病例號碼: " & patientInfo.pID, smallFont, Brushes.Black, New Point(232, 100), stringFormat)
+            e.Graphics.DrawString("病歷號碼: " & patientInfo.pID, smallFont, Brushes.Black, New Point(232, 100), stringFormat)
             e.Graphics.DrawString("姓　　名: " & patientInfo.pName, smallFont, Brushes.Black, New Point(414, 100), stringFormat)
-            e.Graphics.DrawString("醫生姓名: ", smallFont, Brushes.Black, New Point(595, 100), stringFormat)
+            e.Graphics.DrawString("醫生姓名: " & docName, smallFont, Brushes.Black, New Point(595, 100), stringFormat)
             e.Graphics.DrawString("出生日期: " & twC.GetYear(patientInfo.pDOB) & patientInfo.pDOB.ToString("-MM-dd"), smallFont, Brushes.Black, New Point(50, 120), stringFormat)
             e.Graphics.DrawString("性　　別: " & pSex.Text, smallFont, Brushes.Black, New Point(232, 120), stringFormat)
             e.Graphics.DrawString("身分證號: " & patientInfo.pPID, smallFont, Brushes.Black, New Point(414, 120), stringFormat)
@@ -354,7 +370,7 @@
             e.Graphics.DrawString("診所名稱: 福濬中醫診所", useFont, Brushes.Black, New Point(50, 465), stringFormat)
             e.Graphics.DrawString("電話: 03-3277900", useFont, Brushes.Black, New Point(414, 465), stringFormat)
             e.Graphics.DrawString("傳真: 03-3273989", useFont, Brushes.Black, New Point(595, 465), stringFormat)
-            e.Graphics.DrawString("診所地址: 桃園縣龜山區文化二路30之11號", useFont, Brushes.Black, New Point(50, 485), stringFormat)
+            e.Graphics.DrawString("診所地址: 桃園市龜山區文化二路30之11號", useFont, Brushes.Black, New Point(50, 485), stringFormat)
             e.Graphics.DrawString("備註: 本收據僅供繳費證明用，遺失恕不補發，請妥善保存。", useFont, Brushes.Black, New Point(50, 505), stringFormat)
 
             '外框
@@ -367,20 +383,17 @@
 
             '切割線
             For x = 0 To 80 Step 2
-                e.Graphics.DrawLine(Pens.Black, New Point(50 + x * 9, 585), New Point(59 + x * 9, 585))
+                e.Graphics.DrawLine(Pens.Black, New Point(50 + x * 9, 570), New Point(59 + x * 9, 570))
             Next
 
 #End Region
-
-#Region "基金會補助"
-
             Select Case printPage
                 Case 0
+#Region "基金會補助"
                     ' ==================================================================================================================================================
                     ' =                                                  printPage 1 - Sponsored Fees
                     ' ==================================================================================================================================================
                     If Not discountBox.SelectedIndex = 0 Or Not sponsoredSum = 0 Then
-
                         '下半標題
                         stringFormat.Alignment = StringAlignment.Center
                         e.Graphics.DrawString("財團法人福濬傳統研究基金會醫療補助費用明細", titleFont, Brushes.Black, New Point(414, 635), stringFormat)
@@ -426,112 +439,446 @@
                         stringFormat.Alignment = StringAlignment.Near
                         e.Graphics.DrawString("補助金額: ", useFont, Brushes.Black, New Point(50, 1000), stringFormat)
                         e.Graphics.DrawString("簽名:", useFont, Brushes.Black, New Point(414, 1000), stringFormat)
-                        e.Graphics.DrawLine(Pens.Black, New Point(131, 1020), New Point(323, 1020))
+                        e.Graphics.DrawLine(Pens.Black, New Point(150, 1020), New Point(323, 1020))
                         e.Graphics.DrawLine(Pens.Black, New Point(465, 1020), New Point(717, 1020))
                     End If
-                    printPage = 1
 #End Region
-
-#Region "詳細資訊"
+                    printPage = 1
                 Case 1
+#Region "病人處方籤"
                     ' ==================================================================================================================================================
-                    ' =                                                  printPage 2 - Detailed Info
+                    ' =                                                  printPage 2 - Med List
                     ' ==================================================================================================================================================
-
-                    '下半標題
+                    '標題
                     stringFormat.Alignment = StringAlignment.Center
-                    e.Graphics.DrawString("藥品費用明細", titleFont, Brushes.Black, New Point(414, 635), stringFormat)
-
-                    ''外框
-                    'For x = 0 To 4
-                    '    e.graphics.drawline(Pens.Black,New Point(50 + 182 * x, 690), New Point(50 + 182 * x, 1110))
-                    '    e.Graphics.DrawPath(Pens.Black, outlinePath)
-                    '    outlinePath.Reset()
-                    'Next
-                    'For y = 0 To 14
-                    '    e.graphics.drawline(Pens.Black,New Point(50, 690 + 30 * y), New Point(778, 690 + 30 * y))
-                    '    e.Graphics.DrawPath(Pens.Black, outlinePath)
-                    '    outlinePath.Reset()
-                    'Next
-
-                    For i = 0 To 1
-
-                        '底線
-                        e.Graphics.DrawLine(Pens.Black, New Point((354 * i) + 101, 715), New Point((354 * i) + 181, 715))
-                        e.Graphics.DrawLine(Pens.Black, New Point((354 * i) + 260, 715), New Point((354 * i) + 300, 715))
-                        e.Graphics.DrawLine(Pens.Black, New Point((354 * i) + 310, 715), New Point((354 * i) + 350, 715))
-                        e.Graphics.DrawLine(Pens.Black, New Point((354 * i) + 360, 715), New Point((354 * i) + 400, 715))
-
-                        '抬頭
-                        stringFormat.Alignment = StringAlignment.Center
-                        e.Graphics.DrawString("藥品名稱", useFont, Brushes.Black, New Point((354 * i) + 141, 695), stringFormat)
-                        e.Graphics.DrawString("天數", useFont, Brushes.Black, New Point((354 * i) + 280, 695), stringFormat)
-                        e.Graphics.DrawString("數量", useFont, Brushes.Black, New Point((354 * i) + 330, 695), stringFormat)
-                        e.Graphics.DrawString("金額", useFont, Brushes.Black, New Point((354 * i) + 380, 695), stringFormat)
-                    Next
-
-                    For i = 0 To medFee.Rows.Count - 1
-                        e.Graphics.DrawString(medFee.Rows(i).Cells("藥品名稱").Value, useFont, Brushes.Black, New Point((354 * Math.Floor(i / 19)) + 141, 725 + (i Mod 19) * 20), stringFormat)
-                        e.Graphics.DrawString(medFee.Rows(i).Cells("medDays").Value, useFont, Brushes.Black, New Point((354 * Math.Floor(i / 19)) + 280, 725 + (i Mod 19) * 20), stringFormat)
-                        e.Graphics.DrawString(medFee.Rows(i).Cells("總量").Value & medFee.Rows(i).Cells("單位").Value, useFont, Brushes.Black, New Point((354 * Math.Floor(i / 19)) + 330, 725 + (i Mod 19) * 20), stringFormat)
-                        e.Graphics.DrawString(medFee.Rows(i).Cells("金額").Value, useFont, Brushes.Black, New Point((354 * Math.Floor(i / 19)) + 380, 725 + (i Mod 19) * 20), stringFormat)
-                    Next
+                    e.Graphics.DrawString("福濬中醫診所處方籤", titleFont, Brushes.Black, New Point(414, 600), stringFormat)
 
                     stringFormat.Alignment = StringAlignment.Near
-                    e.Graphics.DrawString("警語: 服藥期間請勿喝咖啡。", useFont, Brushes.Black, New Point(50, 1115), stringFormat)
+                    e.Graphics.DrawString("病歷號: " & patientInfo.pID, useFont, Brushes.Black, New Point(50, 640), stringFormat)
+                    e.Graphics.DrawString("姓名: " & pName.Text, useFont, Brushes.Black, New Point(232, 640), stringFormat)
+                    e.Graphics.DrawString("性別: " & pSex.Text, useFont, Brushes.Black, New Point(414, 640), stringFormat)
+                    e.Graphics.DrawString("出生日期: " & twC.GetYear(patientInfo.pDOB) & patientInfo.pDOB.ToString("-MM-dd"), useFont, Brushes.Black, New Point(595, 640), stringFormat)
+                    e.Graphics.DrawString("醫師: " & docName, useFont, Brushes.Black, New Point(50, 660), stringFormat)
+                    e.Graphics.DrawString("調劑者: " & docName, useFont, Brushes.Black, New Point(232, 660), stringFormat)
+                    e.Graphics.DrawString("調劑日期: " & twC.GetYear(checkDate.Value) & checkDate.Value.ToString("-MM-dd"), useFont, Brushes.Black, New Point(414, 660), stringFormat)
 
+                    Dim resultText As String = ""
+                    If mainForm.debugMode.Checked And Not patientInfo.initiated Then
+                        'If mainForm.debugMode.Checked Then
+                        resultText = "藥物清單: １２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０"
+                        warpText(resultText, 55, 700, 750, 380, useFont, e)
+                    Else
+#Region "藥物清單"
+                        e.Graphics.DrawLine(Pens.Black, New Point(50, 690), New Point(778, 690))
+
+                        fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
+                                                               mg.medDays as '天數', 
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
+                                                               mg.makePill as '打錠'
+                                                        FROM medGroup2medDetail as mg
+                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        INNER JOIN med_item as mi on md.medID = mi.medID
+                                                        WHERE bID=" & waitingList.SelectedValue & " AND mi.bioMed = 0
+                                                        GROUP BY mg.mgid")
+
+                        Dim perscription As String = ""
+                        For printIndex As Integer = 0 To fullListView.Rows.Count - 1
+
+                            perscription += "- "
+
+                            Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
+                            For i = 0 To medList.Count - 1
+                                Dim unitList As String() = medList(i).Split("|")
+                                unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+                                medList(i) = String.Join("", unitList)
+                            Next
+
+                            Dim usage As String = ""
+                            Dim trigger As Boolean = False
+                            If fullListView.Rows(printIndex).Cells("早").Value Then
+                                usage = "早"
+                                trigger = True
+                            End If
+                            If fullListView.Rows(printIndex).Cells("午").Value And trigger Then
+                                usage += "/午"
+                            ElseIf fullListView.Rows(printIndex).Cells("午").Value Then
+                                usage = "午"
+                                trigger = True
+                            End If
+                            If fullListView.Rows(printIndex).Cells("晚").Value And trigger Then
+                                usage += "/晚"
+                            ElseIf fullListView.Rows(printIndex).Cells("晚").Value Then
+                                usage = "晚"
+                                trigger = True
+                            End If
+                            trigger = False
+                            If fullListView.Rows(printIndex).Cells("飯前").Value Then
+                                usage += "飯前"
+                                trigger = True
+                            End If
+                            If fullListView.Rows(printIndex).Cells("飯後").Value And trigger Then
+                                usage += "或飯後"
+                            ElseIf fullListView.Rows(printIndex).Cells("飯後").Value Then
+                                usage += "飯後"
+                            End If
+                            If fullListView.Rows(printIndex).Cells("睡前").Value Then
+                                usage += "以及睡前"
+                            End If
+                            If usage = "" And fullListView.Rows(printIndex).Cells("不適時").Value Then
+                                usage += "有症狀時"
+                            Else
+                                usage += "和有症狀時"
+                            End If
+                            usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & groupUnit(fullListView.Rows(printIndex).Cells("medUnit").Value)
+
+                            perscription += String.Join(", ", medList) & ", " & fullListView.Rows(printIndex).Cells("天數").Value & "天, 每天" & usage & "。" & vbNewLine
+                        Next
+                        warpText(perscription, 50, 700, 750, 380, useFont, e)
+                    End If
+                    e.Graphics.DrawLine(Pens.Black, New Point(50, 1070), New Point(778, 1070))
+#End Region
+
+
+                    '頁尾
+                    stringFormat.Alignment = StringAlignment.Near
+                    e.Graphics.DrawString("調劑地點: 福濬中醫診所" & vbNewLine &
+                                          "地址: 桃園市龜山區文化二路30-11號", useFont, Brushes.Black, New Point(50, 1080), stringFormat)
+                    e.Graphics.DrawString("電話: 03-3277900" & vbNewLine &
+                                          "警語: 服藥期間請勿喝咖啡", useFont, Brushes.Black, New Point(414, 1080), stringFormat)
+#End Region
                     printPage = 2
             End Select
-#End Region
-        Else
+        ElseIf printPage = 2 Then
+#Region "費用明細"
 
+            '基本資料
+            stringFormat.Alignment = StringAlignment.Near
+            e.Graphics.DrawString("病歷號: " & patientInfo.pID, useFont, Brushes.Black, New Point(50, 50), stringFormat)
+            e.Graphics.DrawString("姓名: " & pName.Text, useFont, Brushes.Black, New Point(232, 50), stringFormat)
+            e.Graphics.DrawString("診費: " & diagSum, useFont, Brushes.Black, New Point(414, 50), stringFormat)
+            e.Graphics.DrawString("就醫日期: " & twC.GetYear(checkDate.Value) & checkDate.Value.ToString("-MM-dd"), useFont, Brushes.Black, New Point(565, 50), stringFormat)
+
+#Region "藥品費用明細"
             ' ==================================================================================================================================================
-            ' =                                                  printPage 3 - bioMed Info
+            ' =                                                  printPage 3 - Clinic Fee
             ' ==================================================================================================================================================
 
             '上半標題
             stringFormat.Alignment = StringAlignment.Center
-            e.Graphics.DrawString("建議用藥費用明細", titleFont, Brushes.Black, New Point(414, 50), stringFormat)
+            e.Graphics.DrawString("藥品費用明細", titleFont, Brushes.Black, New Point(414, 85), stringFormat)
 
             '底線
-            e.Graphics.DrawLine(Pens.Black, New Point(101, 120), New Point(181, 120))
-            e.Graphics.DrawLine(Pens.Black, New Point(260, 120), New Point(300, 120))
-            e.Graphics.DrawLine(Pens.Black, New Point(330, 120), New Point(370, 120))
-            e.Graphics.DrawLine(Pens.Black, New Point(400, 120), New Point(440, 120))
-            e.Graphics.DrawLine(Pens.Black, New Point(460, 120), New Point(540, 120))
+            e.Graphics.DrawLine(Pens.Black, New Point(110, 150), New Point(190, 150))
+            e.Graphics.DrawLine(Pens.Black, New Point(270, 150), New Point(330, 150))
+            e.Graphics.DrawLine(Pens.Black, New Point(375, 150), New Point(430, 150))
+            e.Graphics.DrawLine(Pens.Black, New Point(470, 150), New Point(530, 150))
+            e.Graphics.DrawLine(Pens.Black, New Point(570, 150), New Point(630, 150))
+            e.Graphics.DrawLine(Pens.Black, New Point(670, 150), New Point(730, 150))
 
             '抬頭
             stringFormat.Alignment = StringAlignment.Center
-            e.Graphics.DrawString("藥品名稱", useFont, Brushes.Black, New Point(141, 100), stringFormat)
-            e.Graphics.DrawString("天數", useFont, Brushes.Black, New Point(280, 100), stringFormat)
-            e.Graphics.DrawString("總量", useFont, Brushes.Black, New Point(350, 100), stringFormat)
-            e.Graphics.DrawString("金額", useFont, Brushes.Black, New Point(420, 100), stringFormat)
-            e.Graphics.DrawString("補助金額", useFont, Brushes.Black, New Point(500, 100), stringFormat)
+            e.Graphics.DrawString("藥品名稱", useFont, Brushes.Black, New Point(150, 130), stringFormat)
+            e.Graphics.DrawString("天數", useFont, Brushes.Black, New Point(300, 130), stringFormat)
+            e.Graphics.DrawString("數量", useFont, Brushes.Black, New Point(400, 130), stringFormat)
+            e.Graphics.DrawString("原價", useFont, Brushes.Black, New Point(500, 130), stringFormat)
+            e.Graphics.DrawString("折扣", useFont, Brushes.Black, New Point(600, 130), stringFormat)
+            e.Graphics.DrawString("實收", useFont, Brushes.Black, New Point(700, 130), stringFormat)
 
-            Dim i As Integer = 1
-            For Each row As DataGridViewRow In bioFee.Rows
-                e.Graphics.DrawString(row.Cells("藥品名稱").Value, useFont, Brushes.Black, New Point(141, 110 + i * 20), stringFormat)
-                e.Graphics.DrawString(row.Cells("medDays").Value, useFont, Brushes.Black, New Point(280, 110 + i * 20), stringFormat)
-                e.Graphics.DrawString(row.Cells("總量").Value, useFont, Brushes.Black, New Point(350, 110 + i * 20), stringFormat)
-                e.Graphics.DrawString(row.Cells("金額").Value, useFont, Brushes.Black, New Point(420, 110 + i * 20), stringFormat)
-                e.Graphics.DrawString(row.Cells("origPrice").Value - row.Cells("金額").Value, useFont, Brushes.Black, New Point(500, 110 + i * 20), stringFormat)
-                i += 1
-            Next
+            Dim displayRow As Integer = 24
+
+            If mainForm.debugMode.Checked And Not patientInfo.initiated Then
+                'If mainForm.debugMode.Checked Then
+                For i = 0 To displayRow
+                    e.Graphics.DrawString("無敵霹靂長的藥名", smallFont, Brushes.Black, New Point(150, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString("888", smallFont, Brushes.Black, New Point(300, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString("8888.88克", smallFont, Brushes.Black, New Point(400, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString("88888.88", smallFont, Brushes.Black, New Point(500, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString("88888.88", smallFont, Brushes.Black, New Point(600, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString("88888.88", smallFont, Brushes.Black, New Point(700, 160 + i * 20), stringFormat)
+                Next
+            Else
+                Dim i As Integer = 0
+                For Each row As DataGridViewRow In medFee.Rows
+                    e.Graphics.DrawString(row.Cells("藥品名稱").Value, smallFont, Brushes.Black, New Point(150, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("medDays").Value, smallFont, Brushes.Black, New Point(300, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("總量").Value & row.Cells("單位").Value, smallFont, Brushes.Black, New Point(400, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("origPrice").Value, smallFont, Brushes.Black, New Point(500, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("origPrice").Value - row.Cells("金額").Value, smallFont, Brushes.Black, New Point(600, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("金額").Value, smallFont, Brushes.Black, New Point(700, 160 + i * 20), stringFormat)
+                    i += 1
+                Next
+            End If
+#End Region
+#Region "建議用藥費用明細"
+            ' ==================================================================================================================================================
+            ' =                                                  printPage 3 - BioMed Fee
+            ' ==================================================================================================================================================
+
+            '下半標題
+            stringFormat.Alignment = StringAlignment.Center
+            e.Graphics.DrawString("建議用藥費用明細", titleFont, Brushes.Black, New Point(414, 680), stringFormat)
+
+
+            '底線
+            e.Graphics.DrawLine(Pens.Black, New Point(110, 745), New Point(190, 745))
+            e.Graphics.DrawLine(Pens.Black, New Point(270, 745), New Point(330, 745))
+            e.Graphics.DrawLine(Pens.Black, New Point(375, 745), New Point(430, 745))
+            e.Graphics.DrawLine(Pens.Black, New Point(470, 745), New Point(530, 745))
+            e.Graphics.DrawLine(Pens.Black, New Point(570, 745), New Point(630, 745))
+            e.Graphics.DrawLine(Pens.Black, New Point(670, 745), New Point(730, 745))
+
+            '抬頭
+            stringFormat.Alignment = StringAlignment.Center
+            e.Graphics.DrawString("藥品名稱", useFont, Brushes.Black, New Point(150, 725), stringFormat)
+            e.Graphics.DrawString("天數", useFont, Brushes.Black, New Point(300, 725), stringFormat)
+            e.Graphics.DrawString("數量", useFont, Brushes.Black, New Point(400, 725), stringFormat)
+            e.Graphics.DrawString("原價", useFont, Brushes.Black, New Point(500, 725), stringFormat)
+            e.Graphics.DrawString("折扣", useFont, Brushes.Black, New Point(600, 725), stringFormat)
+            e.Graphics.DrawString("實收", useFont, Brushes.Black, New Point(700, 725), stringFormat)
+
+            If mainForm.debugMode.Checked And Not patientInfo.initiated Then
+                'If mainForm.debugMode.Checked Then
+                For i = 0 To 10
+                    e.Graphics.DrawString("無敵霹靂長的藥名", smallFont, Brushes.Black, New Point(150, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString("888", smallFont, Brushes.Black, New Point(300, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString("8888.88克", smallFont, Brushes.Black, New Point(400, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString("88888.88", smallFont, Brushes.Black, New Point(500, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString("88888.88", smallFont, Brushes.Black, New Point(600, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString("88888.88", smallFont, Brushes.Black, New Point(700, 755 + i * 20), stringFormat)
+                Next
+            Else
+                Dim i As Integer = 0
+                For Each row As DataGridViewRow In bioFee.Rows
+                    e.Graphics.DrawString(row.Cells("藥品名稱").Value, smallFont, Brushes.Black, New Point(150, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("medDays").Value, smallFont, Brushes.Black, New Point(300, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("總量").Value & row.Cells("單位").Value, smallFont, Brushes.Black, New Point(400, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("origPrice").Value, smallFont, Brushes.Black, New Point(500, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("origPrice").Value - row.Cells("金額").Value, smallFont, Brushes.Black, New Point(600, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("金額").Value, smallFont, Brushes.Black, New Point(700, 755 + i * 20), stringFormat)
+                    i += 1
+                Next
+            End If
+#End Region
 
             stringFormat.Alignment = StringAlignment.Near
-            e.Graphics.DrawString("總計: " & bioSum, titleFont, Brushes.Black, New Point(50, 1040), stringFormat)
-            e.Graphics.DrawString("備註: 本收據僅供診所收費證明用，請勿給病患。", useFont, Brushes.Black, New Point(50, 1105), stringFormat)
+            e.Graphics.DrawString("診所小計: " & medSum + diagSum, useFont, Brushes.Black, New Point(50, 1100), stringFormat)
+            e.Graphics.DrawString("生醫小計: " & bioSum, useFont, Brushes.Black, New Point(232, 1100), stringFormat)
+            e.Graphics.DrawString("總計: " & medSum + bioSum + diagSum, useFont, Brushes.Black, New Point(414, 1100), stringFormat)
+            e.Graphics.DrawString("折扣總計: " & (medOrigSum + bioOrigSum + diagOrigSum) - (medSum + bioSum + diagSum), useFont, Brushes.Black, New Point(595, 1100), stringFormat)
 
             printPage = 3
-        End If
+        ElseIf printPage = 3 Then
+#Region "診所處方簽"
+            ' ==================================================================================================================================================
+            ' =                                                  printPage 4 - Med List
+            ' ==================================================================================================================================================
+            '標題
+            stringFormat.Alignment = StringAlignment.Center
+            e.Graphics.DrawString("福濬中醫診所處方籤", titleFont, Brushes.Black, New Point(414, 50), stringFormat)
 
-        If Not printPage = 3 Then
+            stringFormat.Alignment = StringAlignment.Near
+            e.Graphics.DrawString("病歷號: " & patientInfo.pID, useFont, Brushes.Black, New Point(50, 90), stringFormat)
+            e.Graphics.DrawString("姓名: " & pName.Text, useFont, Brushes.Black, New Point(232, 90), stringFormat)
+            e.Graphics.DrawString("性別: " & pSex.Text, useFont, Brushes.Black, New Point(414, 90), stringFormat)
+            e.Graphics.DrawString("出生日期: " & twC.GetYear(patientInfo.pDOB) & patientInfo.pDOB.ToString("-MM-dd"), useFont, Brushes.Black, New Point(595, 90), stringFormat)
+            e.Graphics.DrawString("醫師: " & docName, useFont, Brushes.Black, New Point(50, 110), stringFormat)
+            e.Graphics.DrawString("調劑者: " & docName, useFont, Brushes.Black, New Point(232, 110), stringFormat)
+            e.Graphics.DrawString("調劑日期: " & twC.GetYear(checkDate.Value) & checkDate.Value.ToString("-MM-dd"), useFont, Brushes.Black, New Point(414, 110), stringFormat)
+
+            Dim resultText As String = ""
+            If mainForm.debugMode.Checked And Not patientInfo.initiated Then
+                'If mainForm.debugMode.Checked Then
+                resultText = "病人主訴: １２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０"
+                warpText(resultText, 50, 130, 740, 120, useFont, e)
+                e.Graphics.DrawLine(Pens.Black, New Point(50, 250), New Point(778, 250))
+                resultText = "藥物清單: １２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０"
+                warpText(resultText, 50, 260, 740, 380, useFont, e)
+            Else
+#Region "藥物清單"
+                reader = runQuery("SELECT concern FROM patient_booking WHERE bID=" & waitingList.SelectedValue)
+                If reader.Read Then
+                    If reader.IsDBNull(0) Then resultText = "病人主訴:" Else resultText = "病人主訴: " & reader.GetString(0)
+                End If
+                warpText(resultText, 50, 130, 740, 120, useFont, e)
+
+                e.Graphics.DrawLine(Pens.Black, New Point(50, 250), New Point(778, 250))
+
+                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
+                                                               mg.medDays as '天數', 
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
+                                                               mg.makePill as '打錠'
+                                                        FROM medGroup2medDetail as mg
+                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        INNER JOIN med_item as mi on md.medID = mi.medID
+                                                        WHERE bID=" & waitingList.SelectedValue & " AND mi.bioMed = 0
+                                                        GROUP BY mg.mgid")
+
+                Dim perscription As String = ""
+                For printIndex As Integer = 0 To fullListView.Rows.Count - 1
+
+                    perscription += "- "
+
+                    Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
+                    For i = 0 To medList.Count - 1
+                        Dim unitList As String() = medList(i).Split("|")
+                        unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+                        medList(i) = String.Join("", unitList)
+                    Next
+
+                    Dim usage As String = ""
+                    Dim trigger As Boolean = False
+                    If fullListView.Rows(printIndex).Cells("早").Value Then
+                        usage = "早"
+                        trigger = True
+                    End If
+                    If fullListView.Rows(printIndex).Cells("午").Value And trigger Then
+                        usage += "/午"
+                    ElseIf fullListView.Rows(printIndex).Cells("午").Value Then
+                        usage = "午"
+                        trigger = True
+                    End If
+                    If fullListView.Rows(printIndex).Cells("晚").Value And trigger Then
+                        usage += "/晚"
+                    ElseIf fullListView.Rows(printIndex).Cells("晚").Value Then
+                        usage = "晚"
+                        trigger = True
+                    End If
+                    trigger = False
+                    If fullListView.Rows(printIndex).Cells("飯前").Value Then
+                        usage += "飯前"
+                        trigger = True
+                    End If
+                    If fullListView.Rows(printIndex).Cells("飯後").Value And trigger Then
+                        usage += "或飯後"
+                    ElseIf fullListView.Rows(printIndex).Cells("飯後").Value Then
+                        usage += "飯後"
+                    End If
+                    If fullListView.Rows(printIndex).Cells("睡前").Value Then
+                        usage += "以及睡前"
+                    End If
+                    If usage = "" And fullListView.Rows(printIndex).Cells("不適時").Value Then
+                        usage += "有症狀時"
+                    Else
+                        usage += "和有症狀時"
+                    End If
+                    usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & groupUnit(fullListView.Rows(printIndex).Cells("medUnit").Value)
+
+                    perscription += String.Join(", ", medList) & ", " & fullListView.Rows(printIndex).Cells("天數").Value & "天, 每天" & usage & "。" & vbNewLine
+                Next
+                warpText(perscription, 50, 260, 740, 380, useFont, e)
+            End If
+#End Region
+#End Region
+            e.Graphics.DrawLine(Pens.Black, New Point(50, 620), New Point(778, 620))
+#Region "建議用藥"
+            ' ==================================================================================================================================================
+            ' =                                                  printPage 4 - Recommend
+            ' ==================================================================================================================================================
+            '標題
+            stringFormat.Alignment = StringAlignment.Center
+            e.Graphics.DrawString("建議用藥處方籤", titleFont, Brushes.Black, New Point(414, 640), stringFormat)
+
+            resultText = ""
+            If mainForm.debugMode.Checked And Not patientInfo.initiated Then
+                'If mainForm.debugMode.Checked Then
+                resultText = "藥物清單: １２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０"
+                warpText(resultText, 55, 700, 750, 380, useFont, e)
+            Else
+#Region "藥物清單"
+                e.Graphics.DrawLine(Pens.Black, New Point(50, 690), New Point(778, 690))
+
+                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
+                                                               mg.medDays as '天數', 
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
+                                                               mg.makePill as '打錠'
+                                                        FROM medGroup2medDetail as mg
+                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        INNER JOIN med_item as mi on md.medID = mi.medID
+                                                        WHERE bID=" & waitingList.SelectedValue & " AND mi.bioMed = 1
+                                                        GROUP BY mg.mgid")
+
+                Dim perscription As String = ""
+                For printIndex As Integer = 0 To fullListView.Rows.Count - 1
+
+                    perscription += "- "
+
+                    Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
+                    For i = 0 To medList.Count - 1
+                        Dim unitList As String() = medList(i).Split("|")
+                        unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+                        medList(i) = String.Join("", unitList)
+                    Next
+
+                    Dim usage As String = ""
+                    Dim trigger As Boolean = False
+                    If fullListView.Rows(printIndex).Cells("早").Value Then
+                        usage = "早"
+                        trigger = True
+                    End If
+                    If fullListView.Rows(printIndex).Cells("午").Value And trigger Then
+                        usage += "/午"
+                    ElseIf fullListView.Rows(printIndex).Cells("午").Value Then
+                        usage = "午"
+                        trigger = True
+                    End If
+                    If fullListView.Rows(printIndex).Cells("晚").Value And trigger Then
+                        usage += "/晚"
+                    ElseIf fullListView.Rows(printIndex).Cells("晚").Value Then
+                        usage = "晚"
+                        trigger = True
+                    End If
+                    trigger = False
+                    If fullListView.Rows(printIndex).Cells("飯前").Value Then
+                        usage += "飯前"
+                        trigger = True
+                    End If
+                    If fullListView.Rows(printIndex).Cells("飯後").Value And trigger Then
+                        usage += "或飯後"
+                    ElseIf fullListView.Rows(printIndex).Cells("飯後").Value Then
+                        usage += "飯後"
+                    End If
+                    If fullListView.Rows(printIndex).Cells("睡前").Value Then
+                        usage += "以及睡前"
+                    End If
+                    If usage = "" And fullListView.Rows(printIndex).Cells("不適時").Value Then
+                        usage += "有症狀時"
+                    Else
+                        usage += "和有症狀時"
+                    End If
+                    usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & groupUnit(fullListView.Rows(printIndex).Cells("medUnit").Value)
+
+                    perscription += String.Join(", ", medList) & ", " & fullListView.Rows(printIndex).Cells("天數").Value & "天, 每天" & usage & "。" & vbNewLine
+                Next
+                warpText(perscription, 50, 700, 750, 380, useFont, e)
+            End If
+            e.Graphics.DrawLine(Pens.Black, New Point(50, 1070), New Point(778, 1070))
+#End Region
+
+            '頁尾
+            stringFormat.Alignment = StringAlignment.Near
+            e.Graphics.DrawString("調劑地點: 福濬中醫診所" & vbNewLine &
+                                          "地址: 桃園市龜山區文化二路30-11號", useFont, Brushes.Black, New Point(50, 1080), stringFormat)
+            e.Graphics.DrawString("電話: 03-3277900" & vbNewLine &
+                                          "警語: 服藥期間請勿喝咖啡", useFont, Brushes.Black, New Point(414, 1080), stringFormat)
+#End Region
+            printPage = 4
+        End If
+#End Region
+
+        If Not printPage = 4 Then
             e.HasMorePages = True
         Else
             e.HasMorePages = False
         End If
-        Debug.WriteLine(e.HasMorePages)
+        'Debug.WriteLine(e.HasMorePages)
     End Sub
+
     Private Function verText(ByVal input As String) As String
         verText = ""
         For i = 0 To Len(input)
@@ -541,5 +888,19 @@
         Next
         Return verText
     End Function
+
+    Private Sub warpText(ByVal input As String, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByRef usefont As Font, ByRef e As Printing.PrintPageEventArgs)
+        'Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes(input)
+        'Dim strmMem As New System.IO.MemoryStream(aBytes)
+        'Dim streamToPrint As New IO.StreamReader(strmMem)
+        'Dim line As String = streamToPrint.ReadLine()
+        Dim sf As StringFormat = StringFormat.GenericTypographic
+        sf.Alignment = StringAlignment.Near
+        sf.LineAlignment = StringAlignment.Near
+        sf.FormatFlags = StringFormatFlags.LineLimit
+        sf.Trimming = StringTrimming.Word
+        Dim actual = e.Graphics.MeasureString(input, usefont, New SizeF(width, height), sf)
+        e.Graphics.DrawString(input, usefont, Brushes.Black, New RectangleF(x, y, width, height), sf)
+    End Sub
 #End Region
 End Class
