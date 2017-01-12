@@ -31,6 +31,7 @@ Partial Class frmFlu
         '
         'fluFlow
         '
+        Me.fluFlow.AutoScroll = True
         Me.fluFlow.Dock = System.Windows.Forms.DockStyle.Fill
         Me.fluFlow.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.fluFlow.Location = New System.Drawing.Point(3, 18)

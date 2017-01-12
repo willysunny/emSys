@@ -31,6 +31,7 @@ Partial Class frmGene
         '
         'geneFlow
         '
+        Me.geneFlow.AutoScroll = True
         Me.geneFlow.Dock = System.Windows.Forms.DockStyle.Fill
         Me.geneFlow.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.geneFlow.Location = New System.Drawing.Point(3, 18)
