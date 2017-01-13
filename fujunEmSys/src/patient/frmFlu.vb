@@ -30,7 +30,7 @@
     Private Sub checkFlus()
         Dim dt As DataTable = returnData(Me, "SELECT bID, fluID FROM booking_flu WHERE bID=" & bID)
         For Each row As DataRow In dt.Rows
-            CType(fluFlow.Controls("flu_" & row.Item("fluID")), MetroFramework.Controls.MetroCheckBox).Checked = True
+            DirectCast(fluFlow.Controls("flu_" & row.Item("fluID")), MetroFramework.Controls.MetroCheckBox).Checked = True
         Next
     End Sub
 

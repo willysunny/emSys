@@ -30,7 +30,7 @@
     Private Sub checkGenes()
         Dim dt As DataTable = returnData(Me, "SELECT pID, geneID FROM patient_gene WHERE pID=" & pID)
         For Each row As DataRow In dt.Rows
-            CType(geneFlow.Controls("gene_" & row.Item("geneID")), MetroFramework.Controls.MetroCheckBox).Checked = True
+            directcast(geneFlow.Controls("gene_" & row.Item("geneID")), MetroFramework.Controls.MetroCheckBox).Checked = True
         Next
     End Sub
 

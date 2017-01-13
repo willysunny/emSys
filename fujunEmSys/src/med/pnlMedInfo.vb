@@ -162,7 +162,7 @@
                 reloadUnusedMedItem()
             End If
         Else
-            Dim response As DialogResult = MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & CType(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】?" & vbNewLine & "(若要新增置【未分類】請點 No)", "新增藥品", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+            Dim response As DialogResult = MetroFramework.MetroMessageBox.Show(Me, "確定要新增藥品【" & medName.Text & "】至【" & directcast(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & directcast(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】?" & vbNewLine & "(若要新增置【未分類】請點 No)", "新增藥品", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
             If Not response = DialogResult.Cancel Then
                 Dim sql As String = "INSERT INTO med_item(sID, medName, pinyin, zhuyin, medDesc, unitPrice, unitUnit, groupPrice, groupUnit, groupAmount, groupAmountUnit, groupExclude, bioMed) VALUES("
                 If response = DialogResult.Yes Then sql += subGroupList.SelectedValue.ToString Else sql += "-1"
@@ -201,7 +201,7 @@
         If unusedMedList.Checked Then
             question = "確定要從【未分類】刪除藥品【" & medName.Text & "】?"
         Else
-            question = "確定要從【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & CType(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】刪除藥品【" & medName.Text & "】?"
+            question = "確定要從【" & directcast(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & " - " & directcast(subGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】刪除藥品【" & medName.Text & "】?"
         End If
         If MetroFramework.MetroMessageBox.Show(Me, question, "刪除藥品", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             runQuery("DELETE FROM med_item WHERE medID=" & medList.SelectedValue)

@@ -51,7 +51,7 @@
     End Sub
 
     Private Sub editItemButton_Click(sender As Object, e As EventArgs) Handles editItemButton.Click
-        Dim inputName As String = InputBox("請輸入新項目名稱:", "編輯項目", CType(colList.SelectedItem, DataRowView).Item(1))
+        Dim inputName As String = InputBox("請輸入新項目名稱:", "編輯項目", directcast(colList.SelectedItem, DataRowView).Item(1))
         If inputName.Trim = "" Then
             MetroFramework.MetroMessageBox.Show(Me, "名稱不可為空!", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         ElseIf MetroFramework.MetroMessageBox.Show(Me, "確認修改項目名稱為【" & inputName & "】?", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -63,7 +63,7 @@
     End Sub
 
     Private Sub delButton_Click(sender As Object, e As EventArgs) Handles delButton.Click
-        If MetroFramework.MetroMessageBox.Show(Me, "確認刪除項目【" & CType(colList.SelectedItem, DataRowView).Item(1) & "】?", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If MetroFramework.MetroMessageBox.Show(Me, "確認刪除項目【" & directcast(colList.SelectedItem, DataRowView).Item(1) & "】?", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             runQuery("DELETE FROM " & tableName & " WHERE " & IDCol & "=" & colList.SelectedValue)
             reloadList()
         End If

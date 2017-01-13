@@ -68,7 +68,7 @@
     ' 刪除全部
     Private Sub delMedAll_Click(sender As Object, e As EventArgs) Handles delMedAll.Click
         For i = 0 To medList.Items.Count - 1
-            runQuery("UPDATE med_item SET sID=-1 WHERE medID=" & CType(medList.Items(i), DataRowView).Row.ItemArray(0))
+            runQuery("UPDATE med_item SET sID=-1 WHERE medID=" & DirectCast(medList.Items(i), DataRowView).Row.ItemArray(0))
         Next
         reloadMedItem(subGroupList.SelectedValue)
     End Sub
@@ -82,7 +82,7 @@
     ' 新增全部
     Private Sub addMedAll_Click(sender As Object, e As EventArgs) Handles addMedAll.Click
         For i = 0 To unusedMedList.Items.Count - 1
-            runQuery("UPDATE med_item SET sID=" & subGroupList.SelectedValue & " WHERE medID=" & CType(unusedMedList.Items(i), DataRowView).Row.ItemArray(0))
+            runQuery("UPDATE med_item SET sID=" & subGroupList.SelectedValue & " WHERE medID=" & DirectCast(unusedMedList.Items(i), DataRowView).Row.ItemArray(0))
         Next
         reloadMedItem(subGroupList.SelectedValue)
     End Sub
@@ -98,7 +98,7 @@
     ' 新增全部
     Private Sub addSubGroupAll_Click(sender As Object, e As EventArgs) Handles addSubGroupAll.Click
         For i = 0 To unusedSubGroupList.Items.Count - 1
-            runQuery("UPDATE med_sub SET mID=" & mainGroupList.SelectedValue & " WHERE sID=" & CType(unusedSubGroupList.Items(i), DataRowView).Row.ItemArray(0))
+            runQuery("UPDATE med_sub SET mID=" & mainGroupList.SelectedValue & " WHERE sID=" & DirectCast(unusedSubGroupList.Items(i), DataRowView).Row.ItemArray(0))
         Next
         reloadSubGroup(mainGroupList.SelectedValue)
     End Sub
@@ -112,7 +112,7 @@
     ' 刪除全部
     Private Sub delSubGroupAll_Click(sender As Object, e As EventArgs) Handles delSubGroupAll.Click
         For i = 0 To subGroupList.Items.Count - 1
-            runQuery("UPDATE med_sub SET mID=-1 WHERE sID=" & CType(subGroupList.Items(i), DataRowView).Row.ItemArray(0))
+            runQuery("UPDATE med_sub SET mID=-1 WHERE sID=" & DirectCast(subGroupList.Items(i), DataRowView).Row.ItemArray(0))
         Next
         reloadSubGroup(mainGroupList.SelectedValue)
     End Sub
@@ -132,7 +132,7 @@
         If mainGroupList.SelectedIndex = -1 Then
             MetroFramework.MetroMessageBox.Show(Me, "沒有任何資料可刪除", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            If MetroFramework.MetroMessageBox.Show(Me, "請確定您要刪除主分類【" & CType(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】? 所有相關的子分類將會被歸類至未使用分類!", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            If MetroFramework.MetroMessageBox.Show(Me, "請確定您要刪除主分類【" & DirectCast(mainGroupList.SelectedItem, DataRowView).Row.ItemArray(1) & "】? 所有相關的子分類將會被歸類至未使用分類!", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                 runQuery("UPDATE med_sub SET mID=-1 WHERE mID=" & mainGroupList.SelectedValue)
                 runQuery("DELETE FROM med_main WHERE mID=" & mainGroupList.SelectedValue)
                 MetroFramework.MetroMessageBox.Show(Me, "刪除成功", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -166,7 +166,7 @@
         ElseIf lb.SelectedIndex = -1 Then
             MetroFramework.MetroMessageBox.Show(Me, "沒有任何資料可刪除", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            If MetroFramework.MetroMessageBox.Show(Me, "請確定您要刪除子分類【" & CType(lb.selecteditem, DataRowView).Row.ItemArray(1) & "】? 所有相關的藥品資訊將會被歸類至未使用分類!", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            If MetroFramework.MetroMessageBox.Show(Me, "請確定您要刪除子分類【" & DirectCast(lb.SelectedItem, DataRowView).Row.ItemArray(1) & "】? 所有相關的藥品資訊將會被歸類至未使用分類!", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                 runQuery("UPDATE med_item SET sID=-1 WHERE sID=" & lb.SelectedValue)
                 runQuery("DELETE FROM med_sub WHERE sID=" & lb.SelectedValue)
                 MetroFramework.MetroMessageBox.Show(Me, "刪除成功", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information)

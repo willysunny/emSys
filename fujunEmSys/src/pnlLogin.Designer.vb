@@ -41,7 +41,7 @@ Partial Class pnlLogin
         '
         Me.noConnectionLabel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.noConnectionLabel.BackColor = System.Drawing.Color.Transparent
-        Me.noConnectionLabel.Location = New System.Drawing.Point(369, 626)
+        Me.noConnectionLabel.Location = New System.Drawing.Point(369, 494)
         Me.noConnectionLabel.Name = "noConnectionLabel"
         Me.noConnectionLabel.Size = New System.Drawing.Size(462, 23)
         Me.noConnectionLabel.TabIndex = 1
@@ -50,9 +50,7 @@ Partial Class pnlLogin
         '
         'loginPanel
         '
-        Me.loginPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.loginPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.loginPanel.Controls.Add(Me.logoBox)
         Me.loginPanel.Controls.Add(Me.loginButton)
         Me.loginPanel.Controls.Add(Me.usernameTextbox)
@@ -60,7 +58,7 @@ Partial Class pnlLogin
         Me.loginPanel.HorizontalScrollbarBarColor = True
         Me.loginPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.loginPanel.HorizontalScrollbarSize = 10
-        Me.loginPanel.Location = New System.Drawing.Point(3, 180)
+        Me.loginPanel.Location = New System.Drawing.Point(3, 48)
         Me.loginPanel.Name = "loginPanel"
         Me.loginPanel.Padding = New System.Windows.Forms.Padding(20)
         Me.loginPanel.Size = New System.Drawing.Size(1194, 440)
@@ -176,7 +174,7 @@ Partial Class pnlLogin
         Me.Controls.Add(Me.noConnectionLabel)
         Me.Controls.Add(Me.loginPanel)
         Me.Name = "pnlLogin"
-        Me.Size = New System.Drawing.Size(1200, 800)
+        Me.Size = New System.Drawing.Size(1200, 537)
         Me.loginPanel.ResumeLayout(False)
         CType(Me.logoBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

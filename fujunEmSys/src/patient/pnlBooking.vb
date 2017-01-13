@@ -158,7 +158,7 @@
             Else
                 If MetroFramework.MetroMessageBox.Show(Me, "確認新增以下預約?" & vbNewLine & vbNewLine &
                                                    "病患名稱: " & pName.Text & vbNewLine &
-                                                   "看診醫師: " & CType(docList.SelectedItem, DataRowView).Row.ItemArray(1) & vbNewLine &
+                                                   "看診醫師: " & DirectCast(docList.SelectedItem, DataRowView).Row.ItemArray(1) & vbNewLine &
                                                    "預約時間: " & getTime.ToLongTimeString & vbNewLine, "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                     Try
                         runQuery("INSERT INTO patient_booking(pID,docID,booktime) VALUES('" & queryForm.resultInfo.pID & "', '" & docList.SelectedValue & "', '" & getTime.ToString("yyyy-MM-dd HH:mm:ss") & "');")
@@ -177,7 +177,7 @@
             Else
                 Dim question As String = "確認修改成以下預約?" & vbNewLine & vbNewLine &
                                                    "病患名稱: " & pName.Text & vbNewLine &
-                                                   "看診醫師: " & CType(docList.SelectedItem, DataRowView).Row.ItemArray(1) & vbNewLine &
+                                                   "看診醫師: " & DirectCast(docList.SelectedItem, DataRowView).Row.ItemArray(1) & vbNewLine &
                                                    "預約時間: " & getTime.ToLongTimeString & vbNewLine
                 If MetroFramework.MetroMessageBox.Show(Me, question, "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                     Dim sql As String = "UPDATE patient_booking SET pID='"

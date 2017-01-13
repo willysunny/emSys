@@ -354,14 +354,14 @@ Public Class frmUserReport
                         ElseIf point.Key = 225260 Then
                         Else
                             setResult(oDoc, parseResult(getMax(historyBox.SelectedValue, point.Key)), point, "C" & bookmark, My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
-                            If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, parseResult(getMax(CType(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key)), point, "P" & bookmark, My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
+                            If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then setResult(oDoc, parseResult(getMax(directcast(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key)), point, "P" & bookmark, My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)
                         End If
 
                     Else
                         Dim maxValue As String
                         maxValue = parseResult(getMax(historyBox.SelectedValue, point.Key))
                         Dim pMaxValue As String = ""
-                        If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then pMaxValue = parseResult(getMax(CType(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key))
+                        If historyBox.SelectedIndex < historyBox.Items.Count - 1 Then pMaxValue = parseResult(getMax(directcast(historyBox.Items(historyBox.SelectedIndex + 1), DataRowView).Row.ItemArray(0), point.Key))
                         Select Case point.Key
                             Case 12
                                 setResult(oDoc, maxValue, point, "CE1", My.Settings.emsUpperDanger, My.Settings.emsUpperWarning, My.Settings.emsLowerWarning, My.Settings.emsLowerDanger)

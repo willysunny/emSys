@@ -23,10 +23,6 @@ Partial Class pnlPerscription
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pnlPerscription))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.printDoc = New System.Drawing.Printing.PrintDocument()
         Me.printPreview = New System.Windows.Forms.PrintPreviewDialog()
         Me.printDlg = New System.Windows.Forms.PrintDialog()
@@ -237,21 +233,23 @@ Partial Class pnlPerscription
         '
         Me.pInfoTable.ColumnCount = 1
         Me.pInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.Controls.Add(Me.altGeneButton, 0, 10)
-        Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 2)
-        Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 0)
-        Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 4)
-        Me.pInfoTable.Controls.Add(Me.countLabel, 0, 6)
-        Me.pInfoTable.Controls.Add(Me.lastVisitLabel, 0, 8)
-        Me.pInfoTable.Controls.Add(Me.pName, 0, 1)
-        Me.pInfoTable.Controls.Add(Me.pSex, 0, 3)
-        Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
-        Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
-        Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 9)
+        Me.pInfoTable.Controls.Add(Me.altGeneButton, 0, 12)
+        Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 4)
+        Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 2)
+        Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 6)
+        Me.pInfoTable.Controls.Add(Me.countLabel, 0, 8)
+        Me.pInfoTable.Controls.Add(Me.lastVisitLabel, 0, 10)
+        Me.pInfoTable.Controls.Add(Me.pName, 0, 3)
+        Me.pInfoTable.Controls.Add(Me.pSex, 0, 5)
+        Me.pInfoTable.Controls.Add(Me.pAge, 0, 7)
+        Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 9)
+        Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 11)
         Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
-        Me.pInfoTable.RowCount = 11
+        Me.pInfoTable.RowCount = 13
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -263,8 +261,6 @@ Partial Class pnlPerscription
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.Size = New System.Drawing.Size(252, 598)
         Me.pInfoTable.TabIndex = 2
         '
@@ -272,9 +268,9 @@ Partial Class pnlPerscription
         '
         Me.altGeneButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.altGeneButton.FontSize = MetroFramework.MetroButtonSize.Tall
-        Me.altGeneButton.Location = New System.Drawing.Point(3, 403)
+        Me.altGeneButton.Location = New System.Drawing.Point(3, 483)
         Me.altGeneButton.Name = "altGeneButton"
-        Me.altGeneButton.Size = New System.Drawing.Size(246, 192)
+        Me.altGeneButton.Size = New System.Drawing.Size(246, 112)
         Me.altGeneButton.TabIndex = 6
         Me.altGeneButton.Text = "基因設定"
         Me.altGeneButton.UseSelectable = True
@@ -283,7 +279,7 @@ Partial Class pnlPerscription
         '
         Me.sexLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.sexLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.sexLabel.Location = New System.Drawing.Point(3, 83)
+        Me.sexLabel.Location = New System.Drawing.Point(3, 163)
         Me.sexLabel.Name = "sexLabel"
         Me.sexLabel.Size = New System.Drawing.Size(246, 34)
         Me.sexLabel.TabIndex = 1
@@ -295,7 +291,7 @@ Partial Class pnlPerscription
         '
         Me.nameLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nameLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.nameLabel.Location = New System.Drawing.Point(3, 3)
+        Me.nameLabel.Location = New System.Drawing.Point(3, 83)
         Me.nameLabel.Name = "nameLabel"
         Me.nameLabel.Size = New System.Drawing.Size(246, 34)
         Me.nameLabel.TabIndex = 1
@@ -307,7 +303,7 @@ Partial Class pnlPerscription
         '
         Me.ageLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ageLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.ageLabel.Location = New System.Drawing.Point(3, 163)
+        Me.ageLabel.Location = New System.Drawing.Point(3, 243)
         Me.ageLabel.Name = "ageLabel"
         Me.ageLabel.Size = New System.Drawing.Size(246, 34)
         Me.ageLabel.TabIndex = 1
@@ -319,7 +315,7 @@ Partial Class pnlPerscription
         '
         Me.countLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.countLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.countLabel.Location = New System.Drawing.Point(3, 243)
+        Me.countLabel.Location = New System.Drawing.Point(3, 323)
         Me.countLabel.Name = "countLabel"
         Me.countLabel.Size = New System.Drawing.Size(246, 34)
         Me.countLabel.TabIndex = 1
@@ -331,7 +327,7 @@ Partial Class pnlPerscription
         '
         Me.lastVisitLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lastVisitLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.lastVisitLabel.Location = New System.Drawing.Point(3, 323)
+        Me.lastVisitLabel.Location = New System.Drawing.Point(3, 403)
         Me.lastVisitLabel.Name = "lastVisitLabel"
         Me.lastVisitLabel.Size = New System.Drawing.Size(246, 34)
         Me.lastVisitLabel.TabIndex = 1
@@ -357,7 +353,7 @@ Partial Class pnlPerscription
         Me.pName.Enabled = False
         Me.pName.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pName.Lines = New String(-1) {}
-        Me.pName.Location = New System.Drawing.Point(3, 43)
+        Me.pName.Location = New System.Drawing.Point(3, 123)
         Me.pName.MaxLength = 32767
         Me.pName.Name = "pName"
         Me.pName.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -393,7 +389,7 @@ Partial Class pnlPerscription
         Me.pSex.Enabled = False
         Me.pSex.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pSex.Lines = New String(-1) {}
-        Me.pSex.Location = New System.Drawing.Point(3, 123)
+        Me.pSex.Location = New System.Drawing.Point(3, 203)
         Me.pSex.MaxLength = 32767
         Me.pSex.Name = "pSex"
         Me.pSex.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -429,7 +425,7 @@ Partial Class pnlPerscription
         Me.pAge.Enabled = False
         Me.pAge.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pAge.Lines = New String(-1) {}
-        Me.pAge.Location = New System.Drawing.Point(3, 203)
+        Me.pAge.Location = New System.Drawing.Point(3, 283)
         Me.pAge.MaxLength = 32767
         Me.pAge.Name = "pAge"
         Me.pAge.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -465,7 +461,7 @@ Partial Class pnlPerscription
         Me.pVisitTimes.Enabled = False
         Me.pVisitTimes.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pVisitTimes.Lines = New String(-1) {}
-        Me.pVisitTimes.Location = New System.Drawing.Point(3, 283)
+        Me.pVisitTimes.Location = New System.Drawing.Point(3, 363)
         Me.pVisitTimes.MaxLength = 32767
         Me.pVisitTimes.Name = "pVisitTimes"
         Me.pVisitTimes.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -501,7 +497,7 @@ Partial Class pnlPerscription
         Me.pPrevVisit.Enabled = False
         Me.pPrevVisit.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pPrevVisit.Lines = New String(-1) {}
-        Me.pPrevVisit.Location = New System.Drawing.Point(3, 363)
+        Me.pPrevVisit.Location = New System.Drawing.Point(3, 443)
         Me.pPrevVisit.MaxLength = 32767
         Me.pPrevVisit.Name = "pPrevVisit"
         Me.pPrevVisit.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -930,23 +926,7 @@ Partial Class pnlPerscription
         '
         Me.medGroupGrid.AllowUserToAddRows = False
         Me.medGroupGrid.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.medGroupGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.medGroupGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.medGroupGrid.DefaultCellStyle = DataGridViewCellStyle2
         Me.medGroupGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.medGroupGrid.Location = New System.Drawing.Point(10, 50)
         Me.medGroupGrid.MultiSelect = False
@@ -1239,23 +1219,7 @@ Partial Class pnlPerscription
         Me.medDetailGrid.AllowUserToAddRows = False
         Me.medDetailGrid.AllowUserToDeleteRows = False
         Me.medDetailGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!)
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.medDetailGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.medDetailGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.medDetailGrid.DefaultCellStyle = DataGridViewCellStyle4
         Me.medDetailGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.medDetailGrid.Location = New System.Drawing.Point(10, 50)
         Me.medDetailGrid.MultiSelect = False

@@ -64,10 +64,11 @@ Partial Class pnlPayment
         Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
         Me.discountBox = New MetroFramework.Controls.MetroComboBox()
-        Me.diagFee = New MetroFramework.Controls.MetroComboBox()
+        Me.printBox = New MetroFramework.Controls.MetroComboBox()
         Me.totalSum = New MetroFramework.Controls.MetroTextBox()
         Me.medTotal = New MetroFramework.Controls.MetroTextBox()
         Me.bioTotal = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroComboBox1 = New MetroFramework.Controls.MetroComboBox()
         Me.pInfoPanel.SuspendLayout()
         Me.patientTab.SuspendLayout()
         Me.tabPatientInfo.SuspendLayout()
@@ -456,7 +457,7 @@ Partial Class pnlPayment
         Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel6, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.MetroLabel7, 0, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.discountBox, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.diagFee, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.printBox, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.totalSum, 1, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.medTotal, 1, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.bioTotal, 3, 3)
@@ -580,27 +581,28 @@ Partial Class pnlPayment
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel1.SetColumnSpan(Me.TableLayoutPanel2, 2)
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.printButton, 1, 0)
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.printButton, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.resetButton, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.MetroComboBox1, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(269, 528)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(261, 29)
         Me.TableLayoutPanel2.TabIndex = 4
         '
         'printButton
         '
         Me.printButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.printButton.Location = New System.Drawing.Point(133, 3)
+        Me.printButton.Location = New System.Drawing.Point(198, 3)
         Me.printButton.Name = "printButton"
-        Me.printButton.Size = New System.Drawing.Size(125, 23)
+        Me.printButton.Size = New System.Drawing.Size(60, 23)
         Me.printButton.TabIndex = 0
         Me.printButton.Text = "列印"
         Me.printButton.UseSelectable = True
@@ -610,7 +612,7 @@ Partial Class pnlPayment
         Me.resetButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.resetButton.Location = New System.Drawing.Point(3, 3)
         Me.resetButton.Name = "resetButton"
-        Me.resetButton.Size = New System.Drawing.Size(124, 23)
+        Me.resetButton.Size = New System.Drawing.Size(59, 23)
         Me.resetButton.TabIndex = 1
         Me.resetButton.Text = "重製"
         Me.resetButton.UseSelectable = True
@@ -703,16 +705,16 @@ Partial Class pnlPayment
         Me.discountBox.TabIndex = 6
         Me.discountBox.UseSelectable = True
         '
-        'diagFee
+        'printBox
         '
-        Me.diagFee.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.diagFee.FormattingEnabled = True
-        Me.diagFee.ItemHeight = 23
-        Me.diagFee.Location = New System.Drawing.Point(349, 3)
-        Me.diagFee.Name = "diagFee"
-        Me.diagFee.Size = New System.Drawing.Size(181, 29)
-        Me.diagFee.TabIndex = 7
-        Me.diagFee.UseSelectable = True
+        Me.printBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.printBox.FormattingEnabled = True
+        Me.printBox.ItemHeight = 23
+        Me.printBox.Location = New System.Drawing.Point(349, 3)
+        Me.printBox.Name = "printBox"
+        Me.printBox.Size = New System.Drawing.Size(181, 29)
+        Me.printBox.TabIndex = 7
+        Me.printBox.UseSelectable = True
         '
         'totalSum
         '
@@ -816,6 +818,16 @@ Partial Class pnlPayment
         Me.bioTotal.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.bioTotal.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
+        'MetroComboBox1
+        '
+        Me.MetroComboBox1.FormattingEnabled = True
+        Me.MetroComboBox1.ItemHeight = 23
+        Me.MetroComboBox1.Location = New System.Drawing.Point(68, 3)
+        Me.MetroComboBox1.Name = "MetroComboBox1"
+        Me.MetroComboBox1.Size = New System.Drawing.Size(121, 29)
+        Me.MetroComboBox1.TabIndex = 2
+        Me.MetroComboBox1.UseSelectable = True
+        '
         'pnlPayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -856,7 +868,7 @@ Partial Class pnlPayment
     Friend WithEvents MetroLabel6 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel7 As MetroFramework.Controls.MetroLabel
     Friend WithEvents discountBox As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents diagFee As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents printBox As MetroFramework.Controls.MetroComboBox
     Friend WithEvents totalSum As MetroFramework.Controls.MetroTextBox
     Friend WithEvents medTotal As MetroFramework.Controls.MetroTextBox
     Friend WithEvents bioTotal As MetroFramework.Controls.MetroTextBox
@@ -879,4 +891,5 @@ Partial Class pnlPayment
     Friend WithEvents printPreviewDlg As PrintPreviewDialog
     Friend WithEvents printDlg As PrintDialog
     Friend WithEvents fullListView As DataGridView
+    Friend WithEvents MetroComboBox1 As MetroFramework.Controls.MetroComboBox
 End Class

@@ -30,7 +30,7 @@
     Private Sub checkCares()
         Dim dt As DataTable = returnData(Me, "SELECT bID, careID FROM booking_care WHERE bID=" & bID)
         For Each row As DataRow In dt.Rows
-            CType(careFlow.Controls("care_" & row.Item("careID")), MetroFramework.Controls.MetroCheckBox).Checked = True
+            DirectCast(careFlow.Controls("care_" & row.Item("careID")), MetroFramework.Controls.MetroCheckBox).Checked = True
         Next
     End Sub
 

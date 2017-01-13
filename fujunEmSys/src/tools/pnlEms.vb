@@ -428,19 +428,19 @@ Public Class pnlEms
     End Sub
     ' 主畫面
     Private Sub pb_Paint(sender As Object, e As PaintEventArgs) Handles pb.Paint
-        Dim bmp As Bitmap = New Bitmap(CType(sender, PictureBox).Size.Width, CType(sender, PictureBox).Size.Height)
+        Dim bmp As Bitmap = New Bitmap(directcast(sender, PictureBox).Size.Width, directcast(sender, PictureBox).Size.Height)
         Dim g As Graphics = Graphics.FromImage(bmp)
         g.Clear(Color.White)
         If graphTab.SelectedTab.Name = "tabEms" Then
             Dim i As Integer
             For i = 1 To 9
-                'g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(CInt(1.0 * i * ctype(sender,picturebox).Size.Width / 10), 0), New Point(CInt(1.0 * i * ctype(sender,picturebox).Size.Width / 10), ctype(sender,picturebox).Size.Height))
-                g.DrawLine(System.Drawing.Pens.Black, New Point(0, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 10)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 10)))
+                'g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(CInt(1.0 * i * directcast(sender,picturebox).Size.Width / 10), 0), New Point(CInt(1.0 * i * directcast(sender,picturebox).Size.Width / 10), directcast(sender,picturebox).Size.Height))
+                g.DrawLine(System.Drawing.Pens.Black, New Point(0, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 10)), New Point(directcast(sender, PictureBox).Size.Width, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 10)))
             Next
             For i = 9 To 11
-                g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 20)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * i * CType(sender, PictureBox).Size.Height / 20)))
+                g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 20)), New Point(directcast(sender, PictureBox).Size.Width, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 20)))
             Next
-            g.DrawLine(System.Drawing.Pens.Green, New Point(0, CInt(1.0 * 8 * CType(sender, PictureBox).Size.Height / 10)), New Point(CType(sender, PictureBox).Size.Width, CInt(1.0 * 8 * CType(sender, PictureBox).Size.Height / 10)))
+            g.DrawLine(System.Drawing.Pens.Green, New Point(0, CInt(1.0 * 8 * directcast(sender, PictureBox).Size.Height / 10)), New Point(directcast(sender, PictureBox).Size.Width, CInt(1.0 * 8 * directcast(sender, PictureBox).Size.Height / 10)))
             If (iPlotCount > 0) Then
                 Dim drawData(iPlotCount - 1) As Point
 
@@ -454,7 +454,7 @@ Public Class pnlEms
                     g.DrawLine(myPen, drawData(0), drawData(0))
                 End If
             End If
-            g.DrawLine(System.Drawing.Pens.White, New Point(0, 0), New Point(0, CType(sender, PictureBox).Size.Height))
+            g.DrawLine(System.Drawing.Pens.White, New Point(0, 0), New Point(0, directcast(sender, PictureBox).Size.Height))
             e.Graphics.DrawImage(bmp, New Point(0, 0))
 
             ' 畫文字
@@ -470,7 +470,7 @@ Public Class pnlEms
 
             fontsize = 30
 
-            outlinePath.AddString(getTime(tickCounter), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(CType(sender, PictureBox).Width, 0), stringFormat)
+            outlinePath.AddString(getTime(tickCounter), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(directcast(sender, PictureBox).Width, 0), stringFormat)
             useFont.Dispose()
 
             e.Graphics.FillPath(Brushes.LightGray, outlinePath)
@@ -1460,7 +1460,7 @@ Public Class pnlEms
         ' 檢查確保元氣方向不會同時超過兩個以上點選之狀況
         Dim ckBox As New CheckBox
         If TypeOf sender Is CheckBox Then
-            ckBox = CType(sender, CheckBox)
+            ckBox = directcast(sender, CheckBox)
         End If
         RemoveHandler ckBox.CheckedChanged, AddressOf energy_CheckedChanged
         With ckBox
@@ -1502,7 +1502,7 @@ Public Class pnlEms
         ' 檢查確保量測點不會同時超過一個以上點選之狀況
         Dim ckBox As New CheckBox
         If TypeOf sender Is CheckBox Then
-            ckBox = CType(sender, CheckBox)
+            ckBox = directcast(sender, CheckBox)
         End If
         RemoveHandler ckBox.CheckedChanged, AddressOf point_CheckedChanged
         With ckBox
@@ -1534,7 +1534,7 @@ Public Class pnlEms
         ' 檢查確保手指不會同時超過一個以上點選之狀況
         Dim ckBox As New CheckBox
         If TypeOf sender Is CheckBox Then
-            ckBox = CType(sender, CheckBox)
+            ckBox = directcast(sender, CheckBox)
         End If
         RemoveHandler ckBox.CheckedChanged, AddressOf finger_CheckedChanged
         With ckBox
@@ -1641,11 +1641,11 @@ Public Class pnlEms
                                                                             rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged, rdoF5.CheckedChanged,
                                                                             rdoLeft.CheckedChanged, rdoRight.CheckedChanged, rdoHand.CheckedChanged, rdoFoot.CheckedChanged,
                                                                             rdoEnergy.CheckedChanged, rdoGraph.CheckedChanged, rdoS1.CheckedChanged, rdoS2.CheckedChanged
-        If CType(sender, CheckBox).BackColor = Color.Yellow Then
-            CType(sender, CheckBox).BackColor = CType(sender, CheckBox).Tag
+        If directcast(sender, CheckBox).BackColor = Color.Yellow Then
+            directcast(sender, CheckBox).BackColor = directcast(sender, CheckBox).Tag
         Else
-            CType(sender, CheckBox).Tag = CType(sender, CheckBox).BackColor
-            CType(sender, CheckBox).BackColor = Color.Yellow
+            directcast(sender, CheckBox).Tag = directcast(sender, CheckBox).BackColor
+            directcast(sender, CheckBox).BackColor = Color.Yellow
         End If
     End Sub
 #End Region
