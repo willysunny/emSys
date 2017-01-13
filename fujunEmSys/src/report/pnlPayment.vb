@@ -5,7 +5,9 @@
     Private patientInfo As New pInfo
     Dim discountType As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 折扣
     Dim diagDiscount As Dictionary(Of Integer, Double) = New Dictionary(Of Integer, Double) ' 診費折扣
+    Dim regDiscount As Dictionary(Of Integer, Double) = New Dictionary(Of Integer, Double) ' 掛號折扣
     Dim medDiscount As Dictionary(Of Integer, Double) = New Dictionary(Of Integer, Double) ' 藥費折扣
+    Dim pillDiscount As Dictionary(Of Integer, Double) = New Dictionary(Of Integer, Double) ' 打定折扣
     Dim diagFeeType As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 診費
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
     Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
@@ -39,6 +41,8 @@
             discountType.Add(row.Item("discountType"), row.Item("discountName"))
             diagDiscount.Add(row.Item("discountType"), row.Item("diagFee"))
             medDiscount.Add(row.Item("discountType"), row.Item("medFee"))
+            regDiscount.Add(row.Item("discountType"), row.Item("regFee"))
+            pillDiscount.Add(row.Item("discountType"), row.Item("pillFee"))
         Next
         With discountBox
             .DataSource = discountTable
@@ -129,7 +133,7 @@
     End Sub
     Private Sub setupTables(ByRef grid As DataGridView, ByVal bID As Integer, ByVal bioMed As Boolean)
         RemoveHandler grid.CellValidated, AddressOf medFee_bioFee_CellValidated
-        grid.DataSource = returnData(mainForm, "Select mi.bioMed, mi.medName as '藥品名稱', mg.medDays, (mg.morning + mg.noon + mg.night + mg.beforeSleep) AS 'medTimes',
+        grid.DataSource = returnData(mainForm, "Select mi.bioMed, mi.medName as '藥品名稱', mg.medDays as '天數', (mg.morning + mg.noon + mg.night + mg.beforeSleep) AS 'medTimes',
                                                   (mg.medDays * md.medAmount) AS '總量', md.medUnit, null as '單位', mi.unitPrice, mi.groupPrice, mi.groupAmount,
                                                   (SELECT count(mgID) FROM medDetail WHERE mgID=mg.mgID) as 'groupCount', null AS 'origPrice', null AS '金額',mg.makePill, null as '打錠費', mi.groupExclude
                                                   FROM medGroup2medDetail as mg
@@ -143,6 +147,7 @@
                 col.ReadOnly = True
             Next
             grid.Columns.Item("藥品名稱").Visible = True
+            grid.Columns.Item("天數").Visible = True
             grid.Columns.Item("總量").Visible = True
             grid.Columns.Item("單位").Visible = True
             grid.Columns.Item("打錠費").Visible = True
@@ -172,7 +177,7 @@
                 row.Cells("金額").Value = row.Cells("origPrice").Value
             End If
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("medDays").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -189,7 +194,7 @@
         For Each row As DataGridViewRow In medFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("medDays").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -197,7 +202,7 @@
         For Each row As DataGridViewRow In bioFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("medDays").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -207,9 +212,11 @@
     Private Sub discountBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles discountBox.SelectedIndexChanged
         For Each row As DataGridViewRow In medFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value * medDiscount.Item(discountBox.SelectedValue)
+            row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value) * pillDiscount.Item(discountBox.SelectedValue)
         Next
         For Each row As DataGridViewRow In bioFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value * medDiscount.Item(discountBox.SelectedValue)
+            row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value) * pillDiscount.Item(discountBox.SelectedValue)
         Next
         getTotal()
     End Sub
@@ -228,9 +235,9 @@
         For Each row As DataGridViewRow In bioFee.Rows
             bioSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
         Next
-        medTotal.Text = medSum + (500 + diagFee.SelectedValue) * diagDiscount.Item(discountBox.SelectedValue)
+        medTotal.Text = medSum + 500 * regDiscount.Item(discountBox.SelectedValue) + diagFee.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
         bioTotal.Text = bioSum
-        totalSum.Text = medSum + bioSum + (500 + diagFee.SelectedValue) * diagDiscount.Item(discountBox.SelectedValue)
+        totalSum.Text = medSum + bioSum + 500 * regDiscount.Item(discountBox.SelectedValue) + diagFee.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
     End Sub
 #End Region
 
@@ -269,14 +276,14 @@
         For Each row As DataGridViewRow In medFee.Rows
             medOrigSum += CInt(row.Cells("origPrice").Value)
             If row.Cells("makePill").Value Then
-                medOrigSum += 100 * Math.Round(Math.Ceiling(row.Cells("medDays").Value / 7) / row.Cells("groupCount").Value)
+                medOrigSum += 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
             End If
             medSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
         Next
         For Each row As DataGridViewRow In bioFee.Rows
             bioOrigSum += CInt(row.Cells("origPrice").Value)
             If row.Cells("makePill").Value Then
-                bioOrigSum += 100 * Math.Round(Math.Ceiling(row.Cells("medDays").Value / 7) / row.Cells("groupCount").Value)
+                bioOrigSum += 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
             End If
             bioSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
         Next
@@ -528,7 +535,7 @@
                             End If
                             If usage = "" And fullListView.Rows(printIndex).Cells("不適時").Value Then
                                 usage += "有症狀時"
-                            Else
+                            ElseIf fullListView.Rows(printIndex).Cells("不適時").Value Then
                                 usage += "和有症狀時"
                             End If
                             usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & groupUnit(fullListView.Rows(printIndex).Cells("medUnit").Value)
@@ -602,7 +609,7 @@
                 Dim i As Integer = 0
                 For Each row As DataGridViewRow In medFee.Rows
                     e.Graphics.DrawString(row.Cells("藥品名稱").Value, smallFont, Brushes.Black, New Point(150, 160 + i * 20), stringFormat)
-                    e.Graphics.DrawString(row.Cells("medDays").Value, smallFont, Brushes.Black, New Point(300, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("天數").Value, smallFont, Brushes.Black, New Point(300, 160 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("總量").Value & row.Cells("單位").Value, smallFont, Brushes.Black, New Point(400, 160 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("origPrice").Value, smallFont, Brushes.Black, New Point(500, 160 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("origPrice").Value - row.Cells("金額").Value, smallFont, Brushes.Black, New Point(600, 160 + i * 20), stringFormat)
@@ -652,7 +659,7 @@
                 Dim i As Integer = 0
                 For Each row As DataGridViewRow In bioFee.Rows
                     e.Graphics.DrawString(row.Cells("藥品名稱").Value, smallFont, Brushes.Black, New Point(150, 755 + i * 20), stringFormat)
-                    e.Graphics.DrawString(row.Cells("medDays").Value, smallFont, Brushes.Black, New Point(300, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(row.Cells("天數").Value, smallFont, Brushes.Black, New Point(300, 755 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("總量").Value & row.Cells("單位").Value, smallFont, Brushes.Black, New Point(400, 755 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("origPrice").Value, smallFont, Brushes.Black, New Point(500, 755 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("origPrice").Value - row.Cells("金額").Value, smallFont, Brushes.Black, New Point(600, 755 + i * 20), stringFormat)
@@ -762,7 +769,7 @@
                     End If
                     If usage = "" And fullListView.Rows(printIndex).Cells("不適時").Value Then
                         usage += "有症狀時"
-                    Else
+                    ElseIf fullListView.Rows(printIndex).Cells("不適時").Value Then
                         usage += "和有症狀時"
                     End If
                     usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & groupUnit(fullListView.Rows(printIndex).Cells("medUnit").Value)
@@ -848,7 +855,7 @@
                     End If
                     If usage = "" And fullListView.Rows(printIndex).Cells("不適時").Value Then
                         usage += "有症狀時"
-                    Else
+                    ElseIf fullListView.Rows(printIndex).Cells("不適時").Value Then
                         usage += "和有症狀時"
                     End If
                     usage += "服用" & fullListView.Rows(printIndex).Cells("份量").Value & groupUnit(fullListView.Rows(printIndex).Cells("medUnit").Value)

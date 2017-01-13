@@ -172,6 +172,7 @@ Public Class pnlPerscription
             .DisplayMember = "bookTime"
         End With
         AddHandler historyBox.SelectedIndexChanged, AddressOf historyBox_SelectedIndexChanged
+        historyBox_SelectedIndexChanged(Me, New EventArgs)
         pastRecordBox.Text = patientInfo.pPastRecord
         otherExamBox.Text = patientInfo.pOtherExam
         geneSet(Me, New EventArgs)
@@ -419,35 +420,14 @@ Public Class pnlPerscription
     Private Sub medTab_Click(sender As Object, e As EventArgs) Handles medTabs.Click
         If medTabs.SelectedTab Is tabFull Then
             If Not historyBox.SelectedIndex = -1 Then
-                fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
-                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '有症狀時', mg.multiple as '多次', 
-                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
-                                                               mg.medDays as '天數', 
-                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
-                                                               mg.makePill as '打錠'
-                                                        FROM medGroup2medDetail as mg
-                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
-                                                        INNER JOIN med_item as mi on md.medID = mi.medID
-                                                        WHERE bID=" & historyBox.SelectedValue & "
-                                                        GROUP BY mg.mgid")
-                For Each row As DataGridViewRow In fullListView.Rows
-                    Try
-                        row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
-                    Catch ex As Exception
-                        row.Cells("單位").Value = groupUnit(1)
-                    End Try
-                Next
-                If Not mainForm.debugMode.Checked Then
-                    fullListView.Columns("medUnit").Visible = False
-                    fullListView.Columns("medList").Visible = False
-                End If
+                historyBox_SelectedIndexChanged(Me, New EventArgs)
             End If
         End If
     End Sub
     Private Sub historyBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles historyBox.SelectedIndexChanged
         If Not historyBox.SelectedIndex = -1 Then
-            fullListView.DataSource = returnData(mainForm, "Select group_concat(mi.medName) as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
-                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '不適時', 
+            fullListView.DataSource = returnData(mainForm, "Select null as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '有症狀時', mg.multiple as '多次', 
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位',
@@ -463,7 +443,15 @@ Public Class pnlPerscription
                 Catch ex As Exception
                     row.Cells("單位").Value = groupUnit(1)
                 End Try
+                Dim medList As String() = row.Cells("medlist").Value.ToString.Split(",")
+                For i = 0 To medList.Count - 1
+                    Dim unitList As String() = medList(i).Split("|")
+                    unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+                    medList(i) = String.Join("", unitList)
+                Next
+                row.Cells("藥品清單").Value = String.Join(", ", medList)
             Next
+
             If Not mainForm.debugMode.Checked Then
                 fullListView.Columns("medUnit").Visible = False
                 fullListView.Columns("medList").Visible = False
@@ -577,18 +565,13 @@ Public Class pnlPerscription
             medList(i) = String.Join("", unitList)
         Next
 
-        Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes(String.Join(", ", medList))
-        'Dim aBytes() As Byte = System.Text.Encoding.UTF8.GetBytes("這是一個非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常長的字串")
-        Dim strmMem As New System.IO.MemoryStream(aBytes)
-        Dim streamToPrint As New IO.StreamReader(strmMem)
-        Dim line As String = streamToPrint.ReadLine()
         Dim sf As StringFormat = StringFormat.GenericTypographic
         sf.Alignment = StringAlignment.Near
         sf.LineAlignment = StringAlignment.Near
         sf.FormatFlags = StringFormatFlags.LineLimit
         sf.Trimming = StringTrimming.Word
-        Dim actual = e.Graphics.MeasureString(line, textFont, New SizeF(350, 60), sf)
-        e.Graphics.DrawString(line, textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
+        Dim actual = e.Graphics.MeasureString(String.Join(", ", medList), textFont, New SizeF(350, 60), sf)
+        e.Graphics.DrawString(String.Join(", ", medList), textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
 
         Dim usage As String = ""
         Dim trigger As Boolean = False
@@ -686,7 +669,7 @@ Public Class pnlPerscription
         singleBox.Text = "24"
         totalBox.Text = "336"
     End Sub
-
+#End Region
     Private Sub pastRecordBox_Validated(sender As Object, e As EventArgs) Handles pastRecordBox.Validated
         patientInfo.pPastRecord = pastRecordBox.Text
     End Sub
@@ -756,5 +739,5 @@ Public Class pnlPerscription
         End If
     End Sub
 
-#End Region
+
 End Class
