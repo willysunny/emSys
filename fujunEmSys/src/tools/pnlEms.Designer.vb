@@ -198,10 +198,6 @@ Partial Class pnlEms
         Me.tabBooking.SuspendLayout()
         Me.SuspendLayout()
         '
-        'owner
-        '
-        Me.owner.Location = New System.Drawing.Point(156, 156)
-        '
         'InstantDoCtrl1
         '
         Me.InstantDoCtrl1._StateStream = CType(resources.GetObject("InstantDoCtrl1._StateStream"), Automation.BDaq.DeviceStateStreamer)
@@ -1090,7 +1086,7 @@ Partial Class pnlEms
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(446, 60)
         Me.Label3.TabIndex = 8
-        Me.Label3.Text = "最大值"
+        Me.Label3.Text = "最大值 Maximum"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label1
@@ -1114,7 +1110,7 @@ Partial Class pnlEms
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(446, 60)
         Me.Label5.TabIndex = 3
-        Me.Label5.Text = "偏差值"
+        Me.Label5.Text = "偏差值 Drop"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ptBox
@@ -1180,7 +1176,7 @@ Partial Class pnlEms
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(446, 60)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "量測值"
+        Me.Label2.Text = "量測值 Value"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'tabCheck
@@ -1188,7 +1184,7 @@ Partial Class pnlEms
         Me.tabCheck.Controls.Add(Me.caliTable)
         Me.tabCheck.Location = New System.Drawing.Point(4, 44)
         Me.tabCheck.Name = "tabCheck"
-        Me.tabCheck.Size = New System.Drawing.Size(492, 804)
+        Me.tabCheck.Size = New System.Drawing.Size(492, 812)
         Me.tabCheck.TabIndex = 2
         Me.tabCheck.Text = "儀器資訊"
         '
@@ -1441,7 +1437,7 @@ Partial Class pnlEms
         Me.tabEnergy.Controls.Add(Me.Panel3)
         Me.tabEnergy.Location = New System.Drawing.Point(4, 44)
         Me.tabEnergy.Name = "tabEnergy"
-        Me.tabEnergy.Size = New System.Drawing.Size(492, 804)
+        Me.tabEnergy.Size = New System.Drawing.Size(492, 812)
         Me.tabEnergy.TabIndex = 1
         Me.tabEnergy.Text = "元氣"
         '
@@ -1454,7 +1450,7 @@ Partial Class pnlEms
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel3.Size = New System.Drawing.Size(492, 804)
+        Me.Panel3.Size = New System.Drawing.Size(492, 812)
         Me.Panel3.TabIndex = 2
         '
         'TableLayoutPanel3
@@ -1502,7 +1498,7 @@ Partial Class pnlEms
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(452, 764)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(452, 772)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'Label6
@@ -2336,9 +2332,9 @@ Partial Class pnlEms
         'tabBooking
         '
         Me.tabBooking.Controls.Add(Me.waitingList)
-        Me.tabBooking.Location = New System.Drawing.Point(4, 44)
+        Me.tabBooking.Location = New System.Drawing.Point(4, 36)
         Me.tabBooking.Name = "tabBooking"
-        Me.tabBooking.Size = New System.Drawing.Size(352, 812)
+        Me.tabBooking.Size = New System.Drawing.Size(352, 820)
         Me.tabBooking.TabIndex = 1
         Me.tabBooking.Text = "等候清單"
         '
@@ -2350,7 +2346,7 @@ Partial Class pnlEms
         Me.waitingList.ItemHeight = 20
         Me.waitingList.Location = New System.Drawing.Point(0, 0)
         Me.waitingList.Name = "waitingList"
-        Me.waitingList.Size = New System.Drawing.Size(352, 812)
+        Me.waitingList.Size = New System.Drawing.Size(352, 820)
         Me.waitingList.TabIndex = 0
         '
         'pnlEms

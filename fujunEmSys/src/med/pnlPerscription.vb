@@ -18,6 +18,11 @@ Public Class pnlPerscription
         owner.WindowState = FormWindowState.Maximized
         owner.BringToFront()
 
+        ' 字體調整
+        medGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 14)
+        medDetailGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 14)
+
+
         ' Add any initialization after the InitializeComponent() call.
         loadTree()
         refreshBooking(Now)
@@ -60,11 +65,12 @@ Public Class pnlPerscription
 
 #Region "載入資料"
     Private Sub refreshBooking(ByVal checkDate As Date)
-        Dim sql As String = "SELECT pb.bID, pb.pID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
+        Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pname) as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
                             WHERE pb.bookTime >= '" & checkDate & "' AND pb.bookTime < '" & checkDate.AddDays(1) & "' 
-                            ORDER BY pb.bookTime"
+                            GROUP BY pb.bid
+                            ORDER BY pb.booktime"
         With waitingList
             .DataSource = returnData(mainForm, sql)
             .ValueMember = "bID"
@@ -79,7 +85,7 @@ Public Class pnlPerscription
     ' 載入樹狀圖
     Private Sub loadTree(Optional ByVal whereClause As String = "")
         medTree.Nodes.Clear()
-        Dim SQL As String = " SELECT mm.mID, mm.mName, ms.sID, ms.sName, mi.medName, mi.medID
+        Dim SQL As String = " Select mm.mID, mm.mName, ms.sID, ms.sName, mi.medName, mi.medID
                             FROM med_main AS mm INNER JOIN med_sub AS ms ON mm.mid=ms.mid
                             INNER JOIN med_item AS mi ON ms.sid = mi.sid"
         If Not whereClause = "" Then
@@ -138,6 +144,7 @@ Public Class pnlPerscription
         If Not waitingList.SelectedIndex = -1 Then
             loadPatientData(waitingList.SelectedValue)
             patientTab.SelectedTab = tabPatientInfo
+            pID.Text = patientInfo.pID
             pName.Text = patientInfo.pName
             Select Case patientInfo.pSex
                 Case 0
@@ -157,7 +164,15 @@ Public Class pnlPerscription
             Dim pID As Integer = reader.Item("pID")
             patientInfo = New pInfo
             patientInfo.initiate(pID)
-            concernText.Text = reader.Item("concern")
+            If reader.Item("concern") = "" Then
+                Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
+                concernText.Text = twnCal.GetYear(DateAndTime.Now) & Now.ToString("/MM/dd") & "壓力:,  元氣:上半身/下半身: / ,
+主訴:
+經絡頻譜 : 左右免疫 / ,左右肺 / ,左右大腸 / ,左右神經 / ,左右大血管 / ,左右微血管 / ,左右惡腫 / ,左右內分泌 / ,左右心 / ,左右小腸 / ,左脾 ,右胰 ,血糖頻譜 ,左右肝 / , 左右頭部 / , 左右頸椎 / , 左右腰椎 / , 左右髖關節 / , 左右大腿骨 / , 左右小腿骨 / ,左右胃 / ,左右良腫 / ,左右皮膚 / ,左右膽 / ,左右脂肪代謝 / ,膽結石 ,肝內結石 ,左右腎 / ,左右膀胱 / ,左右子宮攝護腺 / ,
+藥物頻譜 : 補中益氣湯,清暑益氣湯,炙甘草湯,桂枝湯,銀翹散,黃連解毒湯,肺虛感冒複方,熱性感冒複方,知母黃柏,茵陳龍膽草,三稜莪朮,四君子湯,四物湯,五苓散,五碳醣,八珍湯,八臻錠,八八一複方,三七,川七,冬蟲夏草,人參,粉光蔘,紫丹蔘,紅麻,紅麴,紅藻,紅景天,白藜蘆醇,白花蛇舌草,白芍,白芨,貝母,柴胡,桔梗,膽素,香菸,香附,益母草,MSM,GABA,鋅,鉀,維他命A,維他命B+C,維他命B12:,日本黎豆,女性荷爾蒙,抗女性賀爾蒙,"
+            Else
+                concernText.Text = reader.Item("concern")
+            End If
             responseText.Text = reader.Item("response")
             reader = runQuery("SELECT bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
             While reader.Read
@@ -206,7 +221,7 @@ Public Class pnlPerscription
 
 #Region "藥物群組"
     ' 新增群組
-    Private Sub addMedGroup_Click(sender As Object, e As EventArgs) Handles addMedGroup.Click
+    Private Sub addMedGroup_Click(sender As Object, e As EventArgs) Handles addMedGroup.Click, MetroButton1.Click, copyButton.Click
         Try
             runQuery("INSERT INTO medGroup2medDetail (bID, medDays, medAmount, medUnit, morning, noon, night, beforeSleep, beforemeal, aftermeal, notwell, multiple, makePill, f0) VALUES ('" &
                      waitingList.SelectedValue & "', '" & medGroupDays.Text & "', '" & medGroupAmount.Text & "', '" & medGroupUnit.SelectedValue & "', " &
@@ -214,6 +229,7 @@ Public Class pnlPerscription
                      makePill.Checked & ", " & F0.Checked & ");")
             reloadMedGroup()
             medGroupGrid.Rows.Item(medGroupGrid.Rows.Count - 1).Selected = True
+            medGroupGrid_CellClick(Me, New DataGridViewCellEventArgs(0, medGroupGrid.Rows.Count - 1))
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息:" & vbNewLine & ex.Message, "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -260,15 +276,16 @@ Public Class pnlPerscription
     Private Sub medGroupGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles medGroupGrid.CellClick
         If Not medGroupGrid.SelectedRows.Count = 0 Then
             With medGroupGrid.SelectedRows(0)
-                morning.Checked = .Cells("morning").Value
-                noon.Checked = .Cells("noon").Value
-                night.Checked = .Cells("night").Value
-                beforeSleep.Checked = .Cells("beforesleep").Value
-                notWell.Checked = .Cells("notWell").Value
-                beforeMeal.Checked = .Cells("beforemeal").Value
-                afterMeal.Checked = .Cells("aftermeal").Value
-                makePill.Checked = .Cells("makepill").Value
-                F0.Checked = .Cells("f0").Value
+                morning.Checked = .Cells("早").Value
+                noon.Checked = .Cells("中").Value
+                night.Checked = .Cells("晚").Value
+                beforeSleep.Checked = .Cells("睡前").Value
+                notWell.Checked = .Cells("症發").Value
+                beforeMeal.Checked = .Cells("飯前").Value
+                afterMeal.Checked = .Cells("飯後").Value
+                multiple.Checked = .Cells("多次").Value
+                makePill.Checked = .Cells("打錠").Value
+                F0.Checked = .Cells("F0").Value
                 medGroupDays.Text = .Cells("天數").Value
                 medGroupAmount.Text = .Cells("份量").Value
                 medGroupUnit.SelectedValue = .Cells("medUnit").Value
@@ -281,18 +298,17 @@ Public Class pnlPerscription
     ' 載入藥物群組
     Private Sub reloadMedGroup()
         medGroupGrid.DataSource = returnData(mainForm, "Select mg.bID, mg.mgID,
-                                                               mg.morning, mg.noon, mg.night, mg.beforeSleep, mg.notWell, 
-                                                               mg.beforeMeal, mg.afterMeal, mg.makePill, mg.f0, 
                                                                group_concat(mi.medName) as '藥物清單', mg.medDays as '天數', 
-                                                               mg.medAmount as '份量', mg.medUnit, null as '單位'
+                                                               mg.morning as '早', mg.noon as '中', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell  as '症發', mg.multiple as '多次',
+                                                               mg.beforeMeal as '飯前', mg.afterMeal as '飯後',
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位',
+                                                               mg.makePill as '打錠', mg.f0 as 'F0'
                                                         FROM medGroup2medDetail as mg
                                                         LEFT JOIN medDetail AS md ON mg.mgID = md.mgID
                                                         LEFT JOIN med_item as mi on md.medID = mi.medID
                                                         WHERE bID=" & waitingList.SelectedValue &
                                                         " GROUP BY mg.mgID")
-        For Each col As DataGridViewColumn In medGroupGrid.Columns
-            col.Visible = False
-        Next
+
         For Each row As DataGridViewRow In medGroupGrid.Rows
             If IsDBNull(row.Cells("藥物清單").Value) Then row.Cells("藥物清單").Value = "新群組"
             Try
@@ -303,16 +319,14 @@ Public Class pnlPerscription
         Next
         With medGroupGrid
             .Columns("bID").Visible = False
-            .Columns("藥物清單").Visible = True
-            .Columns("天數").Visible = True
-            .Columns("份量").Visible = True
-            .Columns("單位").Visible = True
+            .Columns("mgid").Visible = False
+            .Columns("medUnit").Visible = False
             If Not .SelectedRows.Count = 0 Then
                 reloadMedDetail(.SelectedRows(0).Cells("mgID").Value)
             End If
         End With
     End Sub
-    Private Sub medGroupLabel_Click(sender As Object, e As EventArgs) Handles medGroupLabel.Click
+    Private Sub medGroupLabel_Click(sender As Object, e As EventArgs) Handles medGroupLabel.Click, MetroLabel5.Click
         reloadMedGroup()
     End Sub
 #End Region
@@ -320,7 +334,9 @@ Public Class pnlPerscription
 #Region "藥物清單"
     ' 新增藥物
     Private Sub addMedDetail_Click(sender As Object, e As EventArgs) Handles addMedDetail.Click
-        If medTree.SelectedNode.GetNodeCount(True) = 0 And medTree.SelectedNode.FullPath.Split("\").Length = 3 Then
+        If medTree.SelectedNode Is Nothing Then
+            MetroFramework.MetroMessageBox.Show(Me, "請先點選藥物再搜尋", "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        ElseIf medTree.SelectedNode.GetNodeCount(True) = 0 And medTree.SelectedNode.FullPath.Split("\").Length = 3 Then
             ' 檢查特殊狀況
             If medDetailGrid.Rows.Count >= 1 Then
                 For Each row As DataGridViewRow In medDetailGrid.Rows
@@ -638,38 +654,6 @@ Public Class pnlPerscription
             medDetailAmount.Focus()
         End If
     End Sub
-#Region "計算機"
-    Private Sub dayCalc_Click(sender As Object, e As EventArgs) Handles dayCalc.Click
-        Try
-            If CInt(singleBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
-                dayBox.Text = CInt(totalBox.Text) / CInt(singleBox.Text)
-            End If
-        Catch
-            dayBox.Text = "-ERR-"
-        End Try
-    End Sub
-    Private Sub singleCalc_Click(sender As Object, e As EventArgs) Handles singleCalc.Click
-        Try
-            If Not CInt(dayBox.Text) = 0 Or CInt(totalBox.Text) = 0 Then
-                singleBox.Text = CInt(totalBox.Text) / CInt(dayBox.Text)
-            End If
-        Catch
-            singleBox.Text = "-ERR-"
-        End Try
-    End Sub
-    Private Sub totalCalc_Click(sender As Object, e As EventArgs) Handles totalCalc.Click
-        Try
-            totalBox.Text = CInt(singleBox.Text) * CInt(dayBox.Text)
-        Catch
-            totalBox.Text = "-ERR-"
-        End Try
-    End Sub
-    Private Sub clearCalc_Click(sender As Object, e As EventArgs) Handles clearCalc.Click
-        dayBox.Text = "14"
-        singleBox.Text = "24"
-        totalBox.Text = "336"
-    End Sub
-#End Region
     Private Sub pastRecordBox_Validated(sender As Object, e As EventArgs) Handles pastRecordBox.Validated
         patientInfo.pPastRecord = pastRecordBox.Text
     End Sub
@@ -739,5 +723,13 @@ Public Class pnlPerscription
         End If
     End Sub
 
-
+    Private Sub showHideCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles showHideCheckBox.CheckedChanged
+        If showHideCheckBox.Checked Then
+            showHideCheckBox.Text = ">>>>"
+            medGroupTable.ColumnStyles.Item(2).Width = 25%
+        Else
+            showHideCheckBox.Text = "<<<<"
+            medGroupTable.ColumnStyles.Item(2).Width = 0
+        End If
+    End Sub
 End Class

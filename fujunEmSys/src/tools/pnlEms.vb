@@ -11,7 +11,7 @@ Public Class pnlEms
 
 #Region "變數"
 
-    Dim tempTrigger As Boolean = True
+    Dim silenceTrigger As Boolean = True
 
     ' Database
     Const AryLength As Integer = 20
@@ -57,7 +57,6 @@ Public Class pnlEms
     Dim bOffsetState As Boolean '量 Offset 旗標
     Dim bDelayState As Boolean  ' Delay 旗標
     Dim bPaint As Boolean '繪圖旗標
-
 #Region "PictureBox 繪圖變數"
     Const XMAX As Integer = 300  'X 軸最大刻度為 300 （每一刻度為 30 msec)
     Const YMAX As Integer = 100  'Y 軸最大度為 100
@@ -132,11 +131,12 @@ Public Class pnlEms
                 'diagTab.TabPages.Remove(tabMed)
                 patientTab.TabPages.Remove(tabBooking)
             Else
-                Dim sql As String = "SELECT pb.bID, INSERT(pi.pname, 2, 1, '○') as 'patientName'
+                Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pname) as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
                             WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
-                            ORDER BY pb.bookTime"
+                            GROUP BY pb.bid
+                            ORDER BY pb.booktime"
                 With waitingList
                     .DataSource = returnData(mainForm, sql)
                     .ValueMember = "bID"
@@ -146,6 +146,8 @@ Public Class pnlEms
             End If
 
             initiated = True
+            silenceTrigger = False
+            getMeasurePoint()
         End If
 
     End Sub
@@ -183,7 +185,7 @@ Public Class pnlEms
         pt.Add(112250, "神經傳導")
         pt.Add(113150, "大血管")
         pt.Add(113250, "微血管")
-        pt.Add(114150, "器官退化-總")
+        pt.Add(114150, "器官退化")
         pt.Add(114110, "器官退化-頂")
         pt.Add(114120, "器官退化-頭")
         pt.Add(114130, "器官退化-上焦")
@@ -204,7 +206,7 @@ Public Class pnlEms
         pt.Add(212250, "神經傳導")
         pt.Add(213150, "大血管")
         pt.Add(213250, "微血管")
-        pt.Add(214150, "器官退化-總")
+        pt.Add(214150, "器官退化")
         pt.Add(214110, "器官退化-頂")
         pt.Add(214120, "器官退化-頭")
         pt.Add(214130, "器官退化-上焦")
@@ -227,7 +229,7 @@ Public Class pnlEms
         pt.Add(122140, "大腿骨")
         pt.Add(122160, "小腿骨")
         pt.Add(122250, "胃")
-        pt.Add(123150, "纖維化-總")
+        pt.Add(123150, "纖維化")
         pt.Add(123120, "纖維化-頭")
         pt.Add(123130, "纖維化-上焦")
         pt.Add(123140, "纖維化-中焦")
@@ -250,7 +252,7 @@ Public Class pnlEms
         pt.Add(222140, "大腿骨")
         pt.Add(222160, "小腿骨")
         pt.Add(222250, "胃")
-        pt.Add(223150, "纖維化-總")
+        pt.Add(223150, "纖維化")
         pt.Add(223120, "纖維化-頭")
         pt.Add(223130, "纖維化-上焦")
         pt.Add(223140, "纖維化-中焦")
@@ -428,19 +430,19 @@ Public Class pnlEms
     End Sub
     ' 主畫面
     Private Sub pb_Paint(sender As Object, e As PaintEventArgs) Handles pb.Paint
-        Dim bmp As Bitmap = New Bitmap(directcast(sender, PictureBox).Size.Width, directcast(sender, PictureBox).Size.Height)
+        Dim bmp As Bitmap = New Bitmap(DirectCast(sender, PictureBox).Size.Width, DirectCast(sender, PictureBox).Size.Height)
         Dim g As Graphics = Graphics.FromImage(bmp)
         g.Clear(Color.White)
         If graphTab.SelectedTab.Name = "tabEms" Then
             Dim i As Integer
             For i = 1 To 9
                 'g.DrawLine(System.Drawing.Pens.DarkGreen, New Point(CInt(1.0 * i * directcast(sender,picturebox).Size.Width / 10), 0), New Point(CInt(1.0 * i * directcast(sender,picturebox).Size.Width / 10), directcast(sender,picturebox).Size.Height))
-                g.DrawLine(System.Drawing.Pens.Black, New Point(0, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 10)), New Point(directcast(sender, PictureBox).Size.Width, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 10)))
+                g.DrawLine(System.Drawing.Pens.Black, New Point(0, CInt(1.0 * i * DirectCast(sender, PictureBox).Size.Height / 10)), New Point(DirectCast(sender, PictureBox).Size.Width, CInt(1.0 * i * DirectCast(sender, PictureBox).Size.Height / 10)))
             Next
             For i = 9 To 11
-                g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 20)), New Point(directcast(sender, PictureBox).Size.Width, CInt(1.0 * i * directcast(sender, PictureBox).Size.Height / 20)))
+                g.DrawLine(System.Drawing.Pens.Orange, New Point(0, CInt(1.0 * i * DirectCast(sender, PictureBox).Size.Height / 20)), New Point(DirectCast(sender, PictureBox).Size.Width, CInt(1.0 * i * DirectCast(sender, PictureBox).Size.Height / 20)))
             Next
-            g.DrawLine(System.Drawing.Pens.Green, New Point(0, CInt(1.0 * 8 * directcast(sender, PictureBox).Size.Height / 10)), New Point(directcast(sender, PictureBox).Size.Width, CInt(1.0 * 8 * directcast(sender, PictureBox).Size.Height / 10)))
+            g.DrawLine(System.Drawing.Pens.Green, New Point(0, CInt(1.0 * 8 * DirectCast(sender, PictureBox).Size.Height / 10)), New Point(DirectCast(sender, PictureBox).Size.Width, CInt(1.0 * 8 * DirectCast(sender, PictureBox).Size.Height / 10)))
             If (iPlotCount > 0) Then
                 Dim drawData(iPlotCount - 1) As Point
 
@@ -454,7 +456,7 @@ Public Class pnlEms
                     g.DrawLine(myPen, drawData(0), drawData(0))
                 End If
             End If
-            g.DrawLine(System.Drawing.Pens.White, New Point(0, 0), New Point(0, directcast(sender, PictureBox).Size.Height))
+            g.DrawLine(System.Drawing.Pens.White, New Point(0, 0), New Point(0, DirectCast(sender, PictureBox).Size.Height))
             e.Graphics.DrawImage(bmp, New Point(0, 0))
 
             ' 畫文字
@@ -470,7 +472,7 @@ Public Class pnlEms
 
             fontsize = 30
 
-            outlinePath.AddString(getTime(tickCounter), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(directcast(sender, PictureBox).Width, 0), stringFormat)
+            outlinePath.AddString(getTime(tickCounter), useFont.FontFamily, FontStyle.Regular, fontsize, New Point(DirectCast(sender, PictureBox).Width, 0), stringFormat)
             useFont.Dispose()
 
             e.Graphics.FillPath(Brushes.LightGray, outlinePath)
@@ -1104,6 +1106,7 @@ Public Class pnlEms
 #End Region
 #Region "測量點鍵盤"
     Private Sub iCode2Btn(ByVal iCode As Integer)
+        silenceTrigger = True
         If iCode < 1000 Then
             ' 元氣
             rdoEnergy.Checked = True
@@ -1178,6 +1181,8 @@ Public Class pnlEms
                     rdoStone.Checked = True
             End Select
         End If
+        silenceTrigger = False
+        getMeasurePoint()
     End Sub
     Public Function btn2iCode() As Integer
         Dim iCode As Integer = 0
@@ -1309,143 +1314,164 @@ Public Class pnlEms
 
     End Sub
     Private Sub getMeasurePoint()
-        Dim sMsg As String = ""
+        If Not silenceTrigger Then
 
-        If rdoGraph.Checked Then
-            ' 判定哪個選項被選取
-            If rdoLeft.Checked Then
-                LR = 1
-            ElseIf rdoRight.Checked Then
-                LR = 2
-            End If
+            Dim sMsg As String = ""
 
-            If rdoHand.Checked Then
-                HF = 1
-            ElseIf rdoFoot.Checked Then
-                HF = 2
-            End If
+            If rdoGraph.Checked Then
+                ' 判定哪個選項被選取
+                If rdoLeft.Checked Then
+                    LR = 1
+                ElseIf rdoRight.Checked Then
+                    LR = 2
+                End If
 
-            If rdoF1.Checked Then
-                Finger = 1
-            ElseIf rdoF2.Checked Then
-                Finger = 2
-            ElseIf rdoF3.Checked Then
-                Finger = 3
-            ElseIf rdoF4.Checked Then
-                Finger = 4
-            ElseIf rdoF5.Checked Then
-                Finger = 5
+                If rdoHand.Checked Then
+                    HF = 1
+                ElseIf rdoFoot.Checked Then
+                    HF = 2
+                End If
 
-            End If
+                If rdoF1.Checked Then
+                    Finger = 1
+                ElseIf rdoF2.Checked Then
+                    Finger = 2
+                ElseIf rdoF3.Checked Then
+                    Finger = 3
+                ElseIf rdoF4.Checked Then
+                    Finger = 4
+                ElseIf rdoF5.Checked Then
+                    Finger = 5
 
-            If rdoS1.Checked Then
-                TB = 1
-            ElseIf rdoS2.Checked Then
-                TB = 2
-            End If
+                End If
 
-            If rdoC1.Checked Then
-                P = 1
-            ElseIf rdoC2.Checked Then
-                P = 2
-            ElseIf rdoC3.Checked Then
-                P = 3
-            ElseIf rdoC4.Checked Then
-                P = 4
-            ElseIf rdoC5.Checked Then
-                P = 5
-            ElseIf rdoC6.Checked Then
-                P = 6
-            End If
+                If rdoS1.Checked Then
+                    TB = 1
+                ElseIf rdoS2.Checked Then
+                    TB = 2
+                End If
 
-            If rdoStone.Checked Then
-                S = 1
+                If rdoC1.Checked Then
+                    P = 1
+                ElseIf rdoC2.Checked Then
+                    P = 2
+                ElseIf rdoC3.Checked Then
+                    P = 3
+                ElseIf rdoC4.Checked Then
+                    P = 4
+                ElseIf rdoC5.Checked Then
+                    P = 5
+                ElseIf rdoC6.Checked Then
+                    P = 6
+                End If
+
+                If rdoStone.Checked Then
+                    S = 1
+                Else
+                    S = 0
+                End If
+
+                ' 轉換成代碼並檢查是否有在初始定義的清單內
+                ' 若無 (KeyNotFoundException), 則依照實際點選的點來告知
+                Try
+                    iCode = CInt(CStr(LR) + CStr(HF) + CStr(Finger) + CStr(TB) + CStr(P) + CStr(S))
+                    sMsg = pt.Item(iCode)
+                    measurePoint.Text = "量度點" & vbNewLine & "[" & sMsg & "]"
+                    Application.DoEvents()
+                    Try
+                        Dim SAPI = CreateObject("SAPI.spvoice")
+                        SAPI.Speak(sMsg.Replace("/", "-"))
+                    Catch ex As Exception
+                        If mainForm.debugMode.Checked Then
+                            MsgBox(ex.Message, MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "Error")
+                        End If
+                    End Try
+                Catch ex As KeyNotFoundException
+                    Dim fullPoint As String = ""
+                    Select Case LR
+                        Case 1
+                            fullPoint = "左"
+                        Case 2
+                            fullPoint = "右"
+                        Case Else
+                            fullPoint = "未知方向"
+                    End Select
+                    Select Case HF
+                        Case 1
+                            fullPoint += "手"
+                        Case 2
+                            fullPoint += "腳"
+                        Case Else
+                            fullPoint += "-未知部位"
+                    End Select
+                    Select Case Finger
+                        Case 1
+                            fullPoint += "拇指"
+                        Case 2
+                            fullPoint += "食指"
+                        Case 3
+                            fullPoint += "中指"
+                        Case 4
+                            fullPoint += "無名指"
+                        Case 5
+                            fullPoint += "小指"
+                        Case Else
+                            fullPoint += "-未知指頭"
+                    End Select
+                    Select Case TB
+                        Case 1
+                            fullPoint += "外側"
+                        Case 2
+                            fullPoint += "內側"
+                        Case Else
+                            fullPoint += "-未知邊"
+                    End Select
+                    Select Case P
+                        Case 1
+                            fullPoint += "頭"
+                        Case 2
+                            fullPoint += "頂"
+                        Case 3
+                            fullPoint += "上焦"
+                        Case 4
+                            fullPoint += "中焦"
+                        Case 5
+                            fullPoint += "總量度點"
+                        Case 6
+                            fullPoint += "下焦"
+                        Case Else
+                            fullPoint += "-未知量度點"
+                    End Select
+                    If rdoStone.Checked Then fullPoint = "[結石]" & fullPoint
+                    sMsg = fullPoint
+                    measurePoint.Text = "量度點 [" & fullPoint & "]"
+                End Try
             Else
-                S = 0
+                ' 元氣值得量測方式
+                Dim a, b, c, d As String
+                If rdoUpLeft.Checked Then a = "1" Else a = "0"
+                If rdoUpRight.Checked Then b = "1" Else b = "0"
+                If rdoDownLeft.Checked Then c = "1" Else c = "0"
+                If rdoDownRight.Checked Then d = "1" Else d = "0"
+
+                ' 將四個點用Bit方式然後轉換成Int
+                iCode = Convert.ToInt32(a & b & c & d, 2)
+                Try
+                    sMsg = pt.Item(iCode)
+                Catch ex As KeyNotFoundException
+                    sMsg = "未知位置"
+                End Try
+                measurePoint.Text = "量度點 [" & sMsg & "]"
+                Application.DoEvents()
+                Try
+                    Dim SAPI = CreateObject("SAPI.spvoice")
+                    SAPI.Speak(sMsg)
+                Catch ex As Exception
+                    If mainForm.debugMode.Checked Then
+                        MsgBox(ex.Message, MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "Error")
+                    End If
+                End Try
             End If
-
-            ' 轉換成代碼並檢查是否有在初始定義的清單內
-            ' 若無 (KeyNotFoundException), 則依照實際點選的點來告知
-            Try
-                iCode = CInt(CStr(LR) + CStr(HF) + CStr(Finger) + CStr(TB) + CStr(P) + CStr(S))
-                sMsg = pt.Item(iCode)
-                measurePoint.Text = "量度點" & vbNewLine & "[" & sMsg & "]"
-            Catch ex As KeyNotFoundException
-                Dim fullPoint As String = ""
-                Select Case LR
-                    Case 1
-                        fullPoint = "左"
-                    Case 2
-                        fullPoint = "右"
-                    Case Else
-                        fullPoint = "未知方向"
-                End Select
-                Select Case HF
-                    Case 1
-                        fullPoint += "手"
-                    Case 2
-                        fullPoint += "腳"
-                    Case Else
-                        fullPoint += "-未知部位"
-                End Select
-                Select Case Finger
-                    Case 1
-                        fullPoint += "拇指"
-                    Case 2
-                        fullPoint += "食指"
-                    Case 3
-                        fullPoint += "中指"
-                    Case 4
-                        fullPoint += "無名指"
-                    Case 5
-                        fullPoint += "小指"
-                    Case Else
-                        fullPoint += "-未知指頭"
-                End Select
-                Select Case TB
-                    Case 1
-                        fullPoint += "外側"
-                    Case 2
-                        fullPoint += "內側"
-                    Case Else
-                        fullPoint += "-未知邊"
-                End Select
-                Select Case P
-                    Case 1
-                        fullPoint += "頭"
-                    Case 2
-                        fullPoint += "頂"
-                    Case 3
-                        fullPoint += "上焦"
-                    Case 4
-                        fullPoint += "中焦"
-                    Case 5
-                        fullPoint += "總量度點"
-                    Case 6
-                        fullPoint += "下焦"
-                    Case Else
-                        fullPoint += "-未知量度點"
-                End Select
-                If rdoStone.Checked Then fullPoint = "[結石]" & fullPoint
-                sMsg = fullPoint
-                measurePoint.Text = "量度點 [" & fullPoint & "]"
-            End Try
-        Else
-            ' 元氣值得量測方式
-            Dim a, b, c, d As String
-            If rdoUpLeft.Checked Then a = "1" Else a = "0"
-            If rdoUpRight.Checked Then b = "1" Else b = "0"
-            If rdoDownLeft.Checked Then c = "1" Else c = "0"
-            If rdoDownRight.Checked Then d = "1" Else d = "0"
-
-            ' 將四個點用Bit方式然後轉換成Int
-            iCode = Convert.ToInt32(a & b & c & d, 2)
-            Try
-                sMsg = pt.Item(iCode)
-            Catch ex As KeyNotFoundException
-                sMsg = "未知位置"
-            End Try
-            measurePoint.Text = "量度點 [" & sMsg & "]"
         End If
     End Sub
     ' 測量點選單
@@ -1527,6 +1553,10 @@ Public Class pnlEms
         getMeasurePoint()
     End Sub
 
+    Private Sub measurePoint_Click(sender As Object, e As EventArgs) Handles measurePoint.Click
+        getMeasurePoint()
+    End Sub
+
     Private Sub finger_CheckedChanged(sender As Object, e As EventArgs) Handles rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged,
                                                                                  rdoF5.CheckedChanged
         Static fingerCbxStack As New List(Of CheckBox)
@@ -1534,7 +1564,7 @@ Public Class pnlEms
         ' 檢查確保手指不會同時超過一個以上點選之狀況
         Dim ckBox As New CheckBox
         If TypeOf sender Is CheckBox Then
-            ckBox = directcast(sender, CheckBox)
+            ckBox = DirectCast(sender, CheckBox)
         End If
         RemoveHandler ckBox.CheckedChanged, AddressOf finger_CheckedChanged
         With ckBox
@@ -1565,67 +1595,78 @@ Public Class pnlEms
     End Sub
     Private Sub reverse_CheckedChanged(sender As Object, e As EventArgs) Handles rdoLeft.CheckedChanged, rdoRight.CheckedChanged, rdoHand.CheckedChanged, rdoFoot.CheckedChanged,
                                                                                  rdoEnergy.CheckedChanged, rdoGraph.CheckedChanged, rdoS1.CheckedChanged, rdoS2.CheckedChanged
-        Static firstTime As Boolean = True
-
         ' 反轉兩者互相牽制的按鈕
-        If firstTime Then
-            firstTime = False
-            Select Case sender.name
-                Case "rdoLeft"
-                    rdoRight.Checked = Not rdoLeft.Checked
-                Case "rdoRight"
-                    rdoLeft.Checked = Not rdoRight.Checked
-                Case "rdoHand"
-                    rdoFoot.Checked = Not rdoHand.Checked
-                Case "rdoFoot"
-                    rdoHand.Checked = Not rdoFoot.Checked
-                Case "rdoS1"
-                    rdoS2.Checked = Not rdoS1.Checked
-                Case "rdoS2"
-                    rdoS1.Checked = Not rdoS2.Checked
-                Case "rdoEnergy"
-                    rdoGraph.Checked = Not rdoEnergy.Checked
-                    If rdoEnergy.Checked Then
-                        rdoUpLeft.Checked = True
-                        rdoUpRight.Checked = True
-                    End If
-                Case "rdoGraph"
-                    rdoEnergy.Checked = Not rdoGraph.Checked
-                    If rdoGraph.Checked Then
-                        rdoLeft.Checked = True
-                        rdoHand.Checked = True
-                        rdoF1.Checked = True
-                        rdoC5.Checked = True
-                        rdoS1.Checked = True
-                    End If
-            End Select
+        RemoveHandler rdoLeft.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoRight.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoHand.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoFoot.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoEnergy.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoGraph.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoS1.CheckedChanged, AddressOf reverse_CheckedChanged
+        RemoveHandler rdoS2.CheckedChanged, AddressOf reverse_CheckedChanged
+        Select Case sender.name
+            Case "rdoLeft"
+                rdoRight.Checked = Not rdoLeft.Checked
+            Case "rdoRight"
+                rdoLeft.Checked = Not rdoRight.Checked
+            Case "rdoHand"
+                rdoFoot.Checked = Not rdoHand.Checked
+            Case "rdoFoot"
+                rdoHand.Checked = Not rdoFoot.Checked
+            Case "rdoS1"
+                rdoS2.Checked = Not rdoS1.Checked
+            Case "rdoS2"
+                rdoS1.Checked = Not rdoS2.Checked
+            Case "rdoEnergy"
+                rdoGraph.Checked = Not rdoEnergy.Checked
+                If rdoEnergy.Checked Then
+                    rdoUpLeft.Checked = True
+                    rdoUpRight.Checked = True
+                End If
+            Case "rdoGraph"
+                rdoEnergy.Checked = Not rdoGraph.Checked
+                If rdoGraph.Checked Then
+                    rdoLeft.Checked = True
+                    rdoHand.Checked = True
+                    rdoF1.Checked = True
+                    rdoC5.Checked = True
+                    rdoS1.Checked = True
+                End If
+        End Select
 
-            ' 顯示/隱藏不相關按鈕
-            rdoUpLeft.Visible = rdoEnergy.Checked
-            rdoUpRight.Visible = rdoEnergy.Checked
-            rdoDownLeft.Visible = rdoEnergy.Checked
-            rdoDownRight.Visible = rdoEnergy.Checked
-            rdoF1.Visible = rdoGraph.Checked
-            rdoF2.Visible = rdoGraph.Checked
-            rdoF3.Visible = rdoGraph.Checked
-            rdoF4.Visible = rdoGraph.Checked
-            rdoF5.Visible = rdoGraph.Checked
-            rdoS1.Visible = rdoGraph.Checked
-            rdoS2.Visible = rdoGraph.Checked
-            rdoC6.Visible = rdoGraph.Checked
-            rdoC5.Visible = rdoGraph.Checked
-            rdoC4.Visible = rdoGraph.Checked
-            rdoC3.Visible = rdoGraph.Checked
-            rdoC2.Visible = rdoGraph.Checked
-            rdoC1.Visible = rdoGraph.Checked
-            rdoLeft.Visible = rdoGraph.Checked
-            rdoRight.Visible = rdoGraph.Checked
-            rdoHand.Visible = rdoGraph.Checked
-            rdoFoot.Visible = rdoGraph.Checked
-            rdoStone.Visible = rdoGraph.Checked
+        ' 顯示/隱藏不相關按鈕
+        rdoUpLeft.Visible = rdoEnergy.Checked
+        rdoUpRight.Visible = rdoEnergy.Checked
+        rdoDownLeft.Visible = rdoEnergy.Checked
+        rdoDownRight.Visible = rdoEnergy.Checked
+        rdoF1.Visible = rdoGraph.Checked
+        rdoF2.Visible = rdoGraph.Checked
+        rdoF3.Visible = rdoGraph.Checked
+        rdoF4.Visible = rdoGraph.Checked
+        rdoF5.Visible = rdoGraph.Checked
+        rdoS1.Visible = rdoGraph.Checked
+        rdoS2.Visible = rdoGraph.Checked
+        rdoC6.Visible = rdoGraph.Checked
+        rdoC5.Visible = rdoGraph.Checked
+        rdoC4.Visible = rdoGraph.Checked
+        rdoC3.Visible = rdoGraph.Checked
+        rdoC2.Visible = rdoGraph.Checked
+        rdoC1.Visible = rdoGraph.Checked
+        rdoLeft.Visible = rdoGraph.Checked
+        rdoRight.Visible = rdoGraph.Checked
+        rdoHand.Visible = rdoGraph.Checked
+        rdoFoot.Visible = rdoGraph.Checked
+        rdoStone.Visible = rdoGraph.Checked
 
-            firstTime = True
-        End If
+        AddHandler rdoLeft.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoRight.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoHand.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoFoot.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoEnergy.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoGraph.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoS1.CheckedChanged, AddressOf reverse_CheckedChanged
+        AddHandler rdoS2.CheckedChanged, AddressOf reverse_CheckedChanged
+
         'If sender.checked Then
         '    sender.backcolor = Color.Green
         'Else
