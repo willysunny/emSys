@@ -40,7 +40,7 @@
     End Sub
     ' 查詢
     Public Sub queryBooking(ByVal checkDate As Date)
-        Dim sql As String = "SELECT pb.bID, pb.pID, pi.pname as '病患姓名', doc.docID, doc.docName as '看診醫師', pb.bookTime as '預約時間'
+        Dim sql As String = "SELECT pb.bID, pb.pID as '病歷號碼', pi.pname as '病患姓名', doc.docID, doc.docName as '看診醫師', pb.bookTime as '預約時間'
                             FROM patient_booking AS pb 
                             INNER JOIN doctor AS doc ON pb.docID = doc.docID 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
@@ -50,7 +50,6 @@
         If Not mainForm.debugMode.Checked Then
             sqlDataGrid.Columns("bID").Visible = False
             sqlDataGrid.Columns("docID").Visible = False
-            sqlDataGrid.Columns("pID").Visible = False
         End If
         changedPatient = False
         Try
@@ -138,7 +137,7 @@
         ElseIf MetroFramework.MetroMessageBox.Show(Me, "確認刪除以下預約?" & vbNewLine & vbNewLine &
                                                    "病患名稱: " & sqlDataGrid.SelectedRows(0).Cells("病患姓名").Value & vbNewLine &
                                                    "看診醫師: " & sqlDataGrid.SelectedRows(0).Cells("看診醫師").Value & vbNewLine &
-                                                   "預約時間: " & sqlDataGrid.SelectedRows(0).Cells("預約時間").value & vbNewLine, "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                                                   "預約時間: " & sqlDataGrid.SelectedRows(0).Cells("預約時間").Value & vbNewLine, "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Try
                 runQuery("DELETE FROM patient_booking WHERE bID='" & sqlDataGrid.SelectedRows(0).Cells("bID").Value & "' LIMIT 1;")
                 MetroFramework.MetroMessageBox.Show(Me, "預約已刪除。", "成功!", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -198,4 +197,8 @@
         End If
     End Sub
 
+    Private Sub refreshButton_Click(sender As Object, e As EventArgs) Handles refreshButton.Click
+        queryBooking(checkTime.Value)
+        bookingLayout.ColumnStyles.Item(2).Width = 0
+    End Sub
 End Class
