@@ -123,11 +123,11 @@ Public Class frmUserReport
         AddHandler userInfo.patientSelected, AddressOf userInfo_patientSelected
         AddHandler userInfo.cancelled, AddressOf userInfo_cancelled
         userInfo.ShowDialog()
-
     End Sub
     Public Sub userInfo_cancelled(ByVal sender As Object, ByVal e As EventArgs)
         RemoveHandler userInfo.patientSelected, AddressOf userInfo_patientSelected
         RemoveHandler userInfo.cancelled, AddressOf userInfo_cancelled
+        userInfo.Dispose()
         Me.Close()
     End Sub
     Public Sub userInfo_patientSelected(ByVal sender As Object, ByVal e As EventArgs)

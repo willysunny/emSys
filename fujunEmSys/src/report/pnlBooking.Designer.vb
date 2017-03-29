@@ -56,11 +56,6 @@ Partial Class pnlBooking
         CType(Me.hourNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'owner
-        '
-        Me.owner.ClientSize = New System.Drawing.Size(120, 0)
-        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
-        '
         'MetroPanel1
         '
         Me.MetroPanel1.BackColor = System.Drawing.Color.MediumSeaGreen

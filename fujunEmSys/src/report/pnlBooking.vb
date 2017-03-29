@@ -161,8 +161,17 @@
                                                    "預約時間: " & getTime.ToLongTimeString & vbNewLine, "注意!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                     Try
                         runQuery("INSERT INTO patient_booking(pID,docID,booktime) VALUES('" & queryForm.resultInfo.pID & "', '" & docList.SelectedValue & "', '" & getTime.ToString("yyyy-MM-dd HH:mm:ss") & "');")
-                        MetroFramework.MetroMessageBox.Show(Me, "預約已新增。", "成功!", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         queryBooking(checkTime.Value)
+                        For Each row As DataGridViewRow In sqlDataGrid.Rows
+                            If row.Cells("病歷號碼").Value = queryForm.resultInfo.pID And row.Cells("預約時間").Value = getTime() Then
+                                Dim reader As IDataReader = runQuery("SELECT bID FROM patient_booking WHERE pID=" & queryForm.resultInfo.pID & " ORDER BY bID DESC LIMIT 2")
+                                reader.Read()
+                                If reader.Read() Then
+                                    runQuery("INSERT INTO booking_ICD10(bID,ICD10,isMain) SELECT '" & row.Cells("bID").Value & "', ICD10, isMain FROM booking_ICD10 WHERE bID=" & reader.GetInt32(0))
+                                End If
+                            End If
+                        Next
+                        MetroFramework.MetroMessageBox.Show(Me, "預約已新增。", "成功!", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         bookingLayout.ColumnStyles.Item(2).Width = 0
                     Catch ex As Exception
                         MetroFramework.MetroMessageBox.Show(Me, "錯誤訊息:" & vbNewLine & ex.Message, "新增失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)

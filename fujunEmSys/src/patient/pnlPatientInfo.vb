@@ -48,12 +48,18 @@
     Private Sub updateButton_Click(sender As Object, e As EventArgs) Handles updateButton.Click
         Dim sql As String = ""
         If updateButton.Text = "新增病患" Then
-            sql = "INSERT INTO patient(pPID,pName,pSex,pDOB,pPhone,pMobile,pEmail,pAddress,pRemarks) VALUES('" & patientID.Text & "', '" & patientName.Text & "', " &
-                patientSex.SelectedValue & ", '" & patientDOB.Value.Date & "', '" & patientPhone.Text & "', '" & patientCell.Text & "', '" & patientEmail.Text & "', '" &
-                patientAddress.Text & "', '" & patientRemarks.Text & "')"
+            Try
+                sql = "INSERT INTO patient(pID, pPID,pName,pSex,pDOB,pPhone,pMobile,pEmail,pAddress,pRemarks) VALUES('" & pID.Text & "','" & patientID.Text & "', '" & patientName.Text & "', " &
+                       patientSex.SelectedValue & ", '" & patientDOB.Value.Date & "', '" & patientPhone.Text & "', '" & patientCell.Text & "', '" & patientEmail.Text & "', '" &
+                       patientAddress.Text & "', '" & patientRemarks.Text & "')"
+            Catch ex As Exception
+                MetroFramework.MetroMessageBox.Show(Me, "資料輸入錯誤, 請檢查後再輸入", "轉換失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
             runQuery(sql)
             loadData()
             If MetroFramework.MetroMessageBox.Show(Me, "是否繼續新增病患資訊?", "新增成功", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                pID.Text = ""
                 patientID.Text = ""
                 patientName.Text = ""
                 patientSex.SelectedIndex = 1
@@ -72,11 +78,17 @@
             End If
         Else
             With sqlGrid.Rows(sqlGrid.SelectedRows.Item(0).Index)
-                sql = "UPDATE patient SET " & "pPID='" & patientID.Text & "', " & "pName='" & patientName.Text & "', " & "pSex='" & patientSex.SelectedValue & "', " &
-                "pDOB='" & patientDOB.Value & "', " & "pPhone='" & patientPhone.Text & "', " & "pMobile='" & patientCell.Text & "', " & "pEmail='" & patientEmail.Text & "', " &
-                "pAddress='" & patientAddress.Text & "', " & "pRemarks='" & patientRemarks.Text & "' WHERE pID='" & .Cells("pID").Value & "'"
+                Try
+                    sql = "UPDATE patient SET " & "pID='" & CInt(pID.Text) & "', " & "pPID='" & patientID.Text & "', " & "pName='" & patientName.Text & "', " & "pSex='" & patientSex.SelectedValue & "', " &
+                          "pDOB='" & patientDOB.Value & "', " & "pPhone='" & patientPhone.Text & "', " & "pMobile='" & patientCell.Text & "', " & "pEmail='" & patientEmail.Text & "', " &
+                          "pAddress='" & patientAddress.Text & "', " & "pRemarks='" & patientRemarks.Text & "' WHERE pID='" & .Cells("pID").Value & "'"
+                Catch ex As Exception
+                    MetroFramework.MetroMessageBox.Show(Me, "資料輸入錯誤, 請檢查後再輸入", "轉換失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End Try
                 runQuery(sql)
 
+                .Cells("pID").Value = pID.Text
                 .Cells("pPID").Value = patientID.Text
                 .Cells("pName").Value = patientName.Text
                 .Cells("pSex").Value = patientSex.SelectedValue
@@ -126,6 +138,7 @@
             searchButton.Enabled = False
             searchTable.ColumnStyles.Item(1).Width = 50%
             With sqlGrid.Rows(sqlGrid.SelectedRows.Item(0).Index)
+                If Not TypeOf (.Cells("pID").Value) Is DBNull Then pID.Text = .Cells("pID").Value Else pID.Text = ""
                 If Not TypeOf (.Cells("pPID").Value) Is DBNull Then patientID.Text = .Cells("pPID").Value Else patientID.Text = ""
                 If Not TypeOf (.Cells("pName").Value) Is DBNull Then patientName.Text = .Cells("pName").Value Else patientName.Text = ""
                 If Not TypeOf (.Cells("pSex").Value) Is DBNull Then patientSex.SelectedIndex = .Cells("pSex").Value Else patientSex.SelectedIndex = 1
@@ -172,5 +185,11 @@
         patientAddress.Text = ""
         patientRemarks.Text = ""
         updateButton.Text = "新增病患"
+    End Sub
+
+    Private Sub searchBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles searchBox.KeyPress
+        If e.KeyChar = Chr(Keys.Enter) Then
+            searchButton_Click(Me, New EventArgs)
+        End If
     End Sub
 End Class

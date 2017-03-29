@@ -34,6 +34,8 @@ Partial Class pnlPatientInfo
         Me.searchButton = New MetroFramework.Controls.MetroButton()
         Me.searchBox = New MetroFramework.Controls.MetroTextBox()
         Me.editTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.pID = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
@@ -60,10 +62,6 @@ Partial Class pnlPatientInfo
         Me.MetroPanel1.SuspendLayout()
         Me.editTable.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'owner
-        '
-        Me.owner.Location = New System.Drawing.Point(26, 26)
         '
         'searchContextMenu
         '
@@ -203,31 +201,34 @@ Partial Class pnlPatientInfo
         Me.editTable.ColumnCount = 2
         Me.editTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.editTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.editTable.Controls.Add(Me.MetroLabel2, 0, 0)
-        Me.editTable.Controls.Add(Me.MetroLabel3, 0, 1)
-        Me.editTable.Controls.Add(Me.MetroLabel4, 0, 2)
-        Me.editTable.Controls.Add(Me.remarksLabel, 0, 8)
-        Me.editTable.Controls.Add(Me.MetroLabel5, 0, 3)
-        Me.editTable.Controls.Add(Me.patientRemarks, 1, 8)
-        Me.editTable.Controls.Add(Me.MetroLabel6, 0, 4)
-        Me.editTable.Controls.Add(Me.patientID, 1, 0)
-        Me.editTable.Controls.Add(Me.MetroLabel7, 0, 5)
-        Me.editTable.Controls.Add(Me.MetroLabel8, 0, 7)
-        Me.editTable.Controls.Add(Me.patientName, 1, 1)
-        Me.editTable.Controls.Add(Me.patientPhone, 1, 4)
-        Me.editTable.Controls.Add(Me.patientCell, 1, 5)
-        Me.editTable.Controls.Add(Me.patientAddress, 1, 7)
-        Me.editTable.Controls.Add(Me.patientDOB, 1, 3)
-        Me.editTable.Controls.Add(Me.patientSex, 1, 2)
-        Me.editTable.Controls.Add(Me.updateButton, 1, 10)
-        Me.editTable.Controls.Add(Me.cancelButton, 0, 10)
-        Me.editTable.Controls.Add(Me.MetroLabel9, 0, 6)
-        Me.editTable.Controls.Add(Me.patientEmail, 1, 6)
+        Me.editTable.Controls.Add(Me.pID, 0, 0)
+        Me.editTable.Controls.Add(Me.MetroLabel10, 0, 0)
+        Me.editTable.Controls.Add(Me.MetroLabel2, 0, 1)
+        Me.editTable.Controls.Add(Me.MetroLabel3, 0, 2)
+        Me.editTable.Controls.Add(Me.MetroLabel4, 0, 3)
+        Me.editTable.Controls.Add(Me.remarksLabel, 0, 9)
+        Me.editTable.Controls.Add(Me.MetroLabel5, 0, 4)
+        Me.editTable.Controls.Add(Me.patientRemarks, 1, 9)
+        Me.editTable.Controls.Add(Me.MetroLabel6, 0, 5)
+        Me.editTable.Controls.Add(Me.patientID, 1, 1)
+        Me.editTable.Controls.Add(Me.MetroLabel7, 0, 6)
+        Me.editTable.Controls.Add(Me.MetroLabel8, 0, 8)
+        Me.editTable.Controls.Add(Me.patientName, 1, 2)
+        Me.editTable.Controls.Add(Me.patientPhone, 1, 5)
+        Me.editTable.Controls.Add(Me.patientCell, 1, 6)
+        Me.editTable.Controls.Add(Me.patientAddress, 1, 8)
+        Me.editTable.Controls.Add(Me.patientDOB, 1, 4)
+        Me.editTable.Controls.Add(Me.patientSex, 1, 3)
+        Me.editTable.Controls.Add(Me.updateButton, 1, 11)
+        Me.editTable.Controls.Add(Me.cancelButton, 0, 11)
+        Me.editTable.Controls.Add(Me.MetroLabel9, 0, 7)
+        Me.editTable.Controls.Add(Me.patientEmail, 1, 7)
         Me.editTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.editTable.Location = New System.Drawing.Point(459, 4)
         Me.editTable.Name = "editTable"
-        Me.editTable.RowCount = 11
+        Me.editTable.RowCount = 12
         Me.searchTable.SetRowSpan(Me.editTable, 2)
+        Me.editTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.editTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.editTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.editTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -243,13 +244,61 @@ Partial Class pnlPatientInfo
         Me.editTable.Size = New System.Drawing.Size(449, 576)
         Me.editTable.TabIndex = 3
         '
+        'pID
+        '
+        Me.pID.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.pID.CustomButton.Image = Nothing
+        Me.pID.CustomButton.Location = New System.Drawing.Point(261, 2)
+        Me.pID.CustomButton.Name = ""
+        Me.pID.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.pID.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.pID.CustomButton.TabIndex = 1
+        Me.pID.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.pID.CustomButton.UseSelectable = True
+        Me.pID.CustomButton.Visible = False
+        Me.pID.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.pID.Lines = New String(-1) {}
+        Me.pID.Location = New System.Drawing.Point(153, 3)
+        Me.pID.MaxLength = 32767
+        Me.pID.Name = "pID"
+        Me.pID.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.pID.PromptText = "請輸入病歷號"
+        Me.pID.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.pID.SelectedText = ""
+        Me.pID.SelectionLength = 0
+        Me.pID.SelectionStart = 0
+        Me.pID.ShortcutsEnabled = True
+        Me.pID.Size = New System.Drawing.Size(293, 34)
+        Me.pID.TabIndex = 9
+        Me.pID.UseSelectable = True
+        Me.pID.WaterMark = "請輸入病歷號"
+        Me.pID.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.pID.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.0!, System.Drawing.FontStyle.Italic)
+        '
+        'MetroLabel10
+        '
+        Me.MetroLabel10.AutoSize = True
+        Me.MetroLabel10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLabel10.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Bold
+        Me.MetroLabel10.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel10.Name = "MetroLabel10"
+        Me.MetroLabel10.Size = New System.Drawing.Size(144, 40)
+        Me.MetroLabel10.TabIndex = 8
+        Me.MetroLabel10.Text = "病歷號碼"
+        Me.MetroLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'MetroLabel2
         '
         Me.MetroLabel2.AutoSize = True
         Me.MetroLabel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel2.Location = New System.Drawing.Point(3, 0)
+        Me.MetroLabel2.Location = New System.Drawing.Point(3, 40)
         Me.MetroLabel2.Name = "MetroLabel2"
         Me.MetroLabel2.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel2.TabIndex = 3
@@ -262,7 +311,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel3.Location = New System.Drawing.Point(3, 40)
+        Me.MetroLabel3.Location = New System.Drawing.Point(3, 80)
         Me.MetroLabel3.Name = "MetroLabel3"
         Me.MetroLabel3.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel3.TabIndex = 3
@@ -275,7 +324,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel4.Location = New System.Drawing.Point(3, 80)
+        Me.MetroLabel4.Location = New System.Drawing.Point(3, 120)
         Me.MetroLabel4.Name = "MetroLabel4"
         Me.MetroLabel4.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel4.TabIndex = 3
@@ -288,7 +337,7 @@ Partial Class pnlPatientInfo
         Me.remarksLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.remarksLabel.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.remarksLabel.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.remarksLabel.Location = New System.Drawing.Point(3, 320)
+        Me.remarksLabel.Location = New System.Drawing.Point(3, 360)
         Me.remarksLabel.Name = "remarksLabel"
         Me.remarksLabel.Size = New System.Drawing.Size(144, 40)
         Me.remarksLabel.TabIndex = 3
@@ -301,7 +350,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel5.Location = New System.Drawing.Point(3, 120)
+        Me.MetroLabel5.Location = New System.Drawing.Point(3, 160)
         Me.MetroLabel5.Name = "MetroLabel5"
         Me.MetroLabel5.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel5.TabIndex = 3
@@ -314,9 +363,9 @@ Partial Class pnlPatientInfo
         '
         '
         Me.patientRemarks.CustomButton.Image = Nothing
-        Me.patientRemarks.CustomButton.Location = New System.Drawing.Point(85, 2)
+        Me.patientRemarks.CustomButton.Location = New System.Drawing.Point(125, 2)
         Me.patientRemarks.CustomButton.Name = ""
-        Me.patientRemarks.CustomButton.Size = New System.Drawing.Size(205, 205)
+        Me.patientRemarks.CustomButton.Size = New System.Drawing.Size(165, 165)
         Me.patientRemarks.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.patientRemarks.CustomButton.TabIndex = 1
         Me.patientRemarks.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -325,7 +374,7 @@ Partial Class pnlPatientInfo
         Me.patientRemarks.Dock = System.Windows.Forms.DockStyle.Fill
         Me.patientRemarks.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientRemarks.Lines = New String(-1) {}
-        Me.patientRemarks.Location = New System.Drawing.Point(153, 323)
+        Me.patientRemarks.Location = New System.Drawing.Point(153, 363)
         Me.patientRemarks.MaxLength = 32767
         Me.patientRemarks.Multiline = True
         Me.patientRemarks.Name = "patientRemarks"
@@ -337,7 +386,7 @@ Partial Class pnlPatientInfo
         Me.patientRemarks.SelectionLength = 0
         Me.patientRemarks.SelectionStart = 0
         Me.patientRemarks.ShortcutsEnabled = True
-        Me.patientRemarks.Size = New System.Drawing.Size(293, 210)
+        Me.patientRemarks.Size = New System.Drawing.Size(293, 170)
         Me.patientRemarks.TabIndex = 2
         Me.patientRemarks.UseSelectable = True
         Me.patientRemarks.WaterMark = "請輸入備註"
@@ -350,7 +399,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel6.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel6.Location = New System.Drawing.Point(3, 160)
+        Me.MetroLabel6.Location = New System.Drawing.Point(3, 200)
         Me.MetroLabel6.Name = "MetroLabel6"
         Me.MetroLabel6.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel6.TabIndex = 3
@@ -375,7 +424,7 @@ Partial Class pnlPatientInfo
         Me.patientID.CustomButton.Visible = False
         Me.patientID.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientID.Lines = New String(-1) {}
-        Me.patientID.Location = New System.Drawing.Point(153, 3)
+        Me.patientID.Location = New System.Drawing.Point(153, 43)
         Me.patientID.MaxLength = 32767
         Me.patientID.Name = "patientID"
         Me.patientID.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -398,7 +447,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel7.Location = New System.Drawing.Point(3, 200)
+        Me.MetroLabel7.Location = New System.Drawing.Point(3, 240)
         Me.MetroLabel7.Name = "MetroLabel7"
         Me.MetroLabel7.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel7.TabIndex = 3
@@ -411,7 +460,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel8.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel8.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel8.Location = New System.Drawing.Point(3, 280)
+        Me.MetroLabel8.Location = New System.Drawing.Point(3, 320)
         Me.MetroLabel8.Name = "MetroLabel8"
         Me.MetroLabel8.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel8.TabIndex = 3
@@ -436,7 +485,7 @@ Partial Class pnlPatientInfo
         Me.patientName.CustomButton.Visible = False
         Me.patientName.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientName.Lines = New String(-1) {}
-        Me.patientName.Location = New System.Drawing.Point(153, 43)
+        Me.patientName.Location = New System.Drawing.Point(153, 83)
         Me.patientName.MaxLength = 32767
         Me.patientName.Name = "patientName"
         Me.patientName.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -471,7 +520,7 @@ Partial Class pnlPatientInfo
         Me.patientPhone.CustomButton.Visible = False
         Me.patientPhone.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientPhone.Lines = New String(-1) {}
-        Me.patientPhone.Location = New System.Drawing.Point(153, 163)
+        Me.patientPhone.Location = New System.Drawing.Point(153, 203)
         Me.patientPhone.MaxLength = 32767
         Me.patientPhone.Name = "patientPhone"
         Me.patientPhone.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -506,7 +555,7 @@ Partial Class pnlPatientInfo
         Me.patientCell.CustomButton.Visible = False
         Me.patientCell.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientCell.Lines = New String(-1) {}
-        Me.patientCell.Location = New System.Drawing.Point(153, 203)
+        Me.patientCell.Location = New System.Drawing.Point(153, 243)
         Me.patientCell.MaxLength = 32767
         Me.patientCell.Name = "patientCell"
         Me.patientCell.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -540,7 +589,7 @@ Partial Class pnlPatientInfo
         Me.patientAddress.Dock = System.Windows.Forms.DockStyle.Fill
         Me.patientAddress.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientAddress.Lines = New String(-1) {}
-        Me.patientAddress.Location = New System.Drawing.Point(153, 283)
+        Me.patientAddress.Location = New System.Drawing.Point(153, 323)
         Me.patientAddress.MaxLength = 32767
         Me.patientAddress.Name = "patientAddress"
         Me.patientAddress.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -561,7 +610,7 @@ Partial Class pnlPatientInfo
         '
         Me.patientDOB.Dock = System.Windows.Forms.DockStyle.Fill
         Me.patientDOB.FontSize = MetroFramework.MetroDateTimeSize.Tall
-        Me.patientDOB.Location = New System.Drawing.Point(153, 123)
+        Me.patientDOB.Location = New System.Drawing.Point(153, 163)
         Me.patientDOB.MinimumSize = New System.Drawing.Size(0, 35)
         Me.patientDOB.Name = "patientDOB"
         Me.patientDOB.Size = New System.Drawing.Size(293, 35)
@@ -573,7 +622,7 @@ Partial Class pnlPatientInfo
         Me.patientSex.FontSize = MetroFramework.MetroComboBoxSize.Tall
         Me.patientSex.FormattingEnabled = True
         Me.patientSex.ItemHeight = 29
-        Me.patientSex.Location = New System.Drawing.Point(153, 83)
+        Me.patientSex.Location = New System.Drawing.Point(153, 123)
         Me.patientSex.Name = "patientSex"
         Me.patientSex.Size = New System.Drawing.Size(293, 35)
         Me.patientSex.TabIndex = 5
@@ -605,7 +654,7 @@ Partial Class pnlPatientInfo
         Me.MetroLabel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroLabel9.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel9.FontWeight = MetroFramework.MetroLabelWeight.Bold
-        Me.MetroLabel9.Location = New System.Drawing.Point(3, 240)
+        Me.MetroLabel9.Location = New System.Drawing.Point(3, 280)
         Me.MetroLabel9.Name = "MetroLabel9"
         Me.MetroLabel9.Size = New System.Drawing.Size(144, 40)
         Me.MetroLabel9.TabIndex = 3
@@ -629,7 +678,7 @@ Partial Class pnlPatientInfo
         Me.patientEmail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.patientEmail.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.patientEmail.Lines = New String(-1) {}
-        Me.patientEmail.Location = New System.Drawing.Point(153, 243)
+        Me.patientEmail.Location = New System.Drawing.Point(153, 283)
         Me.patientEmail.MaxLength = 32767
         Me.patientEmail.Name = "patientEmail"
         Me.patientEmail.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -694,4 +743,6 @@ Partial Class pnlPatientInfo
     Friend WithEvents cancelButton As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
     Friend WithEvents patientEmail As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents pID As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
 End Class

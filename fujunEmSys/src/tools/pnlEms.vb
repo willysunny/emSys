@@ -100,12 +100,17 @@ Public Class pnlEms
     Dim dynList(6) As Integer
     Dim tickCounter As Integer = 0
     Dim printPage As Integer = 0
+    Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 單位
+    Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
 #End Region
 #Region "SQL 相關"
     Dim sqlStr As String = "" 'sql指令串
     Dim lastSqlStr As String = "" 'sql指令串
     Dim ptCounter As Integer = 0 '
     Dim bar2iCode(60) As Integer ' Bar圖中對應點
+#End Region
+#Region "藥檢"
+    Dim medRefreshCounter As Integer = 0
 #End Region
     Private patientInfo As pInfo
 
@@ -119,6 +124,13 @@ Public Class pnlEms
         owner.WindowState = FormWindowState.Maximized
         owner.BringToFront()
 
+        unit.Add(1, "克")
+        unit.Add(2, "顆")
+        groupUnit.Add(1, "包")
+        groupUnit.Add(2, "顆")
+        groupUnit.Add(3, "匙")
+        groupUnit.Add(4, "盒")
+
 
         ' Add any initialization after the InitializeComponent() call.
         If Not InstantAiCtrl1.Initialized Then
@@ -131,7 +143,7 @@ Public Class pnlEms
                 'diagTab.TabPages.Remove(tabMed)
                 patientTab.TabPages.Remove(tabBooking)
             Else
-                Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pname) as 'patientName'
+                Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pID,'-',pi.pname) as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
                             WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
@@ -147,6 +159,11 @@ Public Class pnlEms
 
             initiated = True
             silenceTrigger = False
+
+            medGroupGrid.ColumnHeadersDefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 16)
+            medGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 28)
+            medGroupGrid.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
             getMeasurePoint()
         End If
 
@@ -402,7 +419,8 @@ Public Class pnlEms
             Else
                 pAge.Text = patientInfo.pAge
             End If
-
+            geneSet(Me, New EventArgs)
+            reloadMedGroup()
         End If
     End Sub
     Private Sub loadPatientData(ByVal bID As Integer)
@@ -416,6 +434,24 @@ Public Class pnlEms
         reader.Read()
         Return reader.GetInt32(0)
     End Function
+    ' 基因缺陷
+    Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click
+        Dim frm As New frmGene(patientInfo.pID)
+        AddHandler frm.geneSet, AddressOf geneSet
+        frm.ShowDialog()
+    End Sub
+    Private Sub geneSet(sender As Object, e As EventArgs)
+        Dim reader As IDataReader = runQuery("Select group_concat(g.geneName) as 'geneNames'
+                                              FROM patient_gene as pg
+                                              LEFT JOIN gene AS g ON pg.geneID = g.geneID
+                                              WHERE pID=" & patientInfo.pID &
+                                              " GROUP BY pg.pID")
+        If reader.Read Then
+            geneButton.Text = "基缺: " & reader.Item("geneNames")
+        Else
+            geneButton.Text = "基因設定"
+        End If
+    End Sub
 #End Region
 #Region "繪圖"
     ' 切換分頁
@@ -773,6 +809,19 @@ Public Class pnlEms
         Dim dRadians As Double
         Dim dAngle As Double
 
+        If medRefreshCounter = 100 Then
+            If Not waitingList.SelectedIndex = -1 Then
+                reloadMedGroup()
+                Dim reader As IDataReader = runQuery("Select concern FROM patient_booking WHERE bID=" & waitingList.SelectedValue)
+                If reader.Read Then
+                    concernText.Text = reader.Item("concern")
+                End If
+            End If
+            medRefreshCounter = 0
+        Else
+            medRefreshCounter += 1
+        End If
+
         Select Case iState
             Case 0
                 If (bFullState = False) Then
@@ -965,7 +1014,7 @@ Public Class pnlEms
                     If (iValue > 100) Then iValue = 100
                     If iValue < 0 Then iValue = 0
 
-                    If (iStopCount > 10) Then
+                    If (iStopCount > My.Settings.autoStopTrigger) Then
                         iMax = 0
                         iDev = 0
                         iDev1 = 0
@@ -1519,6 +1568,9 @@ Public Class pnlEms
     Private Sub MetroLabel5_Click(sender As Object, e As EventArgs) Handles MetroLabel5.Click
         If mainForm.debugMode.Checked = True Then
             ClickNextMeasurePoint()
+        Else
+            displayTable.RowStyles.Item(2).Height = 20
+            displayTable.RowStyles.Item(3).Height = 0
         End If
     End Sub
 
@@ -1555,6 +1607,47 @@ Public Class pnlEms
 
     Private Sub measurePoint_Click(sender As Object, e As EventArgs) Handles measurePoint.Click
         getMeasurePoint()
+    End Sub
+
+    Private Sub refreshWaitingListButton_Click(sender As Object, e As EventArgs) Handles refreshWaitingListButton.Click
+        Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pID,'-',pi.pname) as 'patientName'
+                            FROM patient_booking AS pb 
+                            INNER JOIN patient as pi ON pb.pID = pi.pID
+                            WHERE pb.bookTime >= '" & Now.Date & "' AND pb.bookTime < '" & Now.Date.AddDays(1) & "' 
+                            GROUP BY pb.bid
+                            ORDER BY pb.booktime"
+        With waitingList
+            .DataSource = returnData(mainForm, sql)
+            .ValueMember = "bID"
+            .DisplayMember = "patientName"
+        End With
+    End Sub
+
+    Private Sub displayPatientCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles displayPatientCheckBox.CheckedChanged
+        If displayPatientCheckBox.Checked Then
+            displayPatientCheckBox.Text = ">>>>"
+            emsTable.ColumnStyles.Item(2).Width = 300
+        Else
+            displayPatientCheckBox.Text = "<<<<"
+            emsTable.ColumnStyles.Item(2).Width = 0
+        End If
+    End Sub
+
+    Private Sub btnRevise_Click_1(sender As Object, e As EventArgs) Handles btnRevise.Click
+        btnRevise.ForeColor = Color.Orange
+        lblCali.ForeColor = Color.Orange
+        txtFullValue.Text = 0
+        txtOffsetValue.Text = 0
+        txtEvaValue.Text = 0
+        txtMaxValue.Text = 0
+        txtDevValue.Text = 0
+        'txtDevRate.Text = 0
+        'txtFixDevRate.Text = 0
+        init()
+    End Sub
+
+    Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles displayTable.Paint
+
     End Sub
 
     Private Sub finger_CheckedChanged(sender As Object, e As EventArgs) Handles rdoF1.CheckedChanged, rdoF2.CheckedChanged, rdoF3.CheckedChanged, rdoF4.CheckedChanged,
@@ -1723,8 +1816,48 @@ Public Class pnlEms
     End Sub
     ' 開啟小鍵盤
     Private Sub openPanelLink_Click(sender As Object, e As EventArgs) Handles openPanelLink.Click
-        buttonPanel.Visible = True
+        'buttonPanel.Visible = True
+        displayTable.RowStyles.Item(2).Height = 0
+        displayTable.RowStyles.Item(3).Height = 400
     End Sub
 
+#End Region
+#Region "藥物清單"
+    Private Sub reloadMedGroup()
+        medGroupGrid.DataSource = returnData(mainForm, "Select mg.mgid, mg.bID, null as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+                                                               mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '有症狀時', mg.multiple as '多次', 
+                                                               mg.medDays as '天數', 
+                                                               mg.medAmount as '份量', mg.medUnit, null as '單位'
+                                                        FROM medGroup2medDetail as mg
+                                                        LEFT JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        LEFT JOIN med_item as mi on md.medID = mi.medID
+                                                        WHERE bID=" & waitingList.SelectedValue &
+                                                        " GROUP BY mg.mgID")
+
+        For Each row As DataGridViewRow In medGroupGrid.Rows
+            If IsDBNull(row.Cells("medList").Value) Then
+                row.Cells("藥品清單").Value = "新群組"
+            Else
+                Try
+                    row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
+                Catch ex As Exception
+                    row.Cells("單位").Value = groupUnit(1)
+                End Try
+                Dim medList As String() = row.Cells("medList").Value.ToString.Split(",")
+                For i = 0 To medList.Count - 1
+                    Dim unitList As String() = medList(i).Split("|")
+                    unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+                    medList(i) = String.Join("", unitList)
+                Next
+                row.Cells("藥品清單").Value = String.Join(vbNewLine, medList)
+            End If
+        Next
+        With medGroupGrid
+            .Columns("bID").Visible = False
+            .Columns("mgid").Visible = False
+            .Columns("medUnit").Visible = False
+            .Columns("medList").Visible = False
+        End With
+    End Sub
 #End Region
 End Class

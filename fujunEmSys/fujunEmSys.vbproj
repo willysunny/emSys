@@ -30,7 +30,7 @@
     <SuiteName>福濬生物醫學</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>56</ApplicationRevision>
+    <ApplicationRevision>80</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -131,6 +131,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -184,6 +185,12 @@
       <DependentUpon>frmGene.vb</DependentUpon>
     </Compile>
     <Compile Include="src\patient\frmGene.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\patient\frmICD10.Designer.vb">
+      <DependentUpon>frmICD10.vb</DependentUpon>
+    </Compile>
+    <Compile Include="src\patient\frmICD10.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\report\frmUserReport.Designer.vb">
@@ -244,10 +251,10 @@
     <Compile Include="src\tools\frmUserQuery.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\patient\pnlBooking.Designer.vb">
+    <Compile Include="src\report\pnlBooking.Designer.vb">
       <DependentUpon>pnlBooking.vb</DependentUpon>
     </Compile>
-    <Compile Include="src\patient\pnlBooking.vb">
+    <Compile Include="src\report\pnlBooking.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\med\pnlMedInfo.Designer.vb">
@@ -318,6 +325,9 @@
     <EmbeddedResource Include="src\patient\frmGene.resx">
       <DependentUpon>frmGene.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\patient\frmICD10.resx">
+      <DependentUpon>frmICD10.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\report\frmUserReport.resx">
       <DependentUpon>frmUserReport.vb</DependentUpon>
     </EmbeddedResource>
@@ -339,7 +349,7 @@
     <EmbeddedResource Include="src\tools\frmUserQuery.resx">
       <DependentUpon>frmUserQuery.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\patient\pnlBooking.resx">
+    <EmbeddedResource Include="src\report\pnlBooking.resx">
       <DependentUpon>pnlBooking.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\med\pnlMedInfo.resx">
@@ -368,13 +378,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="cert\Fujun_CMS_PFX.pfx" />
     <None Include="Icon\geneSys.png" />
     <None Include="Icon\commonFluSys.png" />
     <None Include="Icon\docSys.png" />
     <None Include="Icon\userSys.png" />
     <None Include="Icon\careSys.png" />
-    <Content Include="reportForm\reportForm.docx">
+    <Content Include="src\reportForm\reportForm.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="My Project\app.manifest" />

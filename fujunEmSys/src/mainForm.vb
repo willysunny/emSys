@@ -190,7 +190,10 @@
     Private Sub reportLink_Click(sender As Object, e As EventArgs) Handles reportTile.Click
         If Not offlineMode Then
             Dim frm As New frmUserReport
-            frm.ShowDialog()
+            Try
+                frm.ShowDialog()
+            Catch ex As Exception
+            End Try
         End If
     End Sub
 

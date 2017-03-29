@@ -29,6 +29,7 @@ Public Class pnlSetting
         dbName.Text = My.Settings.serverDB
 
         autoSaveTextBox.Text = My.Settings.autoSaveTrigger
+        autoStopTextBox.Text = My.Settings.autoStopTrigger
         engUpperDanger.Value = My.Settings.engUpperDanger
         engUpperWarning.Value = My.Settings.engUpperWarning
         engLowerWarning.Value = My.Settings.engLowerWarning
@@ -66,6 +67,7 @@ Public Class pnlSetting
 
         ' 頻譜相關
         My.Settings.autoSaveTrigger = CInt(autoSaveTextBox.Text)
+        My.Settings.autoStopTrigger = CInt(autoStopTextBox.Text)
         My.Settings.engUpperDanger = engUpperDanger.Value
         My.Settings.engUpperWarning = engUpperWarning.Value
         My.Settings.engLowerWarning = engLowerWarning.Value
@@ -114,6 +116,17 @@ Public Class pnlSetting
         Catch ex As Exception
             MetroFramework.MetroMessageBox.Show(Me, "請檢查後再重新輸入。", "輸入錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
             autoSaveTextBox.Text = My.Settings.autoSaveTrigger
+        End Try
+    End Sub
+    Private Sub autoStopTextBox_Validated(sender As Object, e As EventArgs) Handles autoStopTextBox.Validated
+        Try
+            autoStopTextBox.Text = CInt(autoStopTextBox.Text)
+            If autoStopTextBox.Text < 1 Then
+                autoStopTextBox.Text = 1
+            End If
+        Catch ex As Exception
+            MetroFramework.MetroMessageBox.Show(Me, "請檢查後再重新輸入。", "輸入錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            autoStopTextBox.Text = My.Settings.autoStopTrigger
         End Try
     End Sub
 
@@ -233,6 +246,7 @@ Public Class pnlSetting
     Private Sub emsLowerDangerValue_Validate(sender As Object, e As EventArgs)
         checkInput(emsLowerDanger, emsLowerDangerValue)
     End Sub
+
 #End Region
 
 End Class

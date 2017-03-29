@@ -4,7 +4,7 @@ Public Class pnlPerscription
     Inherits pnlSlider
 
     Private patientInfo As New pInfo
-    Private bID As Integer = -1
+    'Private bID As Integer = -1
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 單位
     Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
     Dim printIndex As Integer = 0
@@ -19,9 +19,11 @@ Public Class pnlPerscription
         owner.BringToFront()
 
         ' 字體調整
-        hisMedGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 14)
-        medGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 14)
-        medDetailGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 14)
+        hisMedGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 28)
+        hisMedGroupGrid.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+        medGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 28)
+        medGroupGrid.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+        medDetailGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 28)
 
         ' Add any initialization after the InitializeComponent() call.
         loadTree()
@@ -65,7 +67,7 @@ Public Class pnlPerscription
 
 #Region "載入資料"
     Private Sub refreshBooking(ByVal checkDate As Date)
-        Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pname) as 'patientName'
+        Dim sql As String = "SELECT pb.bID, pb.pID, group_concat('(',DATE_FORMAT(booktime, '%p %h:%I'),')',pi.pID,'-',pi.pname) as 'patientName'
                             FROM patient_booking AS pb 
                             INNER JOIN patient as pi ON pb.pID = pi.pID
                             WHERE pb.bookTime >= '" & checkDate & "' AND pb.bookTime < '" & checkDate.AddDays(1) & "' 
@@ -202,6 +204,7 @@ Public Class pnlPerscription
         otherExamBox.Text = patientInfo.pOtherExam
         geneSet(Me, New EventArgs)
         fluSet(Me, New EventArgs)
+        listICD()
         reloadMedGroup()
     End Sub
 #End Region
@@ -233,10 +236,10 @@ Public Class pnlPerscription
     ' 新增群組
     Private Sub addMedGroup_Click(sender As Object, e As EventArgs) Handles addMedGroup.Click
         Try
-            runQuery("INSERT INTO medGroup2medDetail (bID, medDays, medAmount, medUnit, morning, noon, night, beforeSleep, beforemeal, aftermeal, notwell, multiple, makePill, f0) VALUES ('" &
+            runQuery("INSERT INTO medGroup2medDetail (bID, medDays, medAmount, medUnit, morning, noon, night, beforeSleep, beforemeal, aftermeal, notwell, multiple, makePill, f0, copyID) VALUES ('" &
                      waitingList.SelectedValue & "', '" & medGroupDays.Text & "', '" & medGroupAmount.Text & "', '" & medGroupUnit.SelectedValue & "', " &
                      morning.Checked & ", " & noon.Checked & ", " & night.Checked & ", " & beforeSleep.Checked & ", " & beforeMeal.Checked & ", " & afterMeal.Checked & ", " & notWell.Checked & ", " & multiple.Checked & ", " &
-                     makePill.Checked & ", " & F0.Checked & ");")
+                     makePill.Checked & ", " & F0.Checked &  ", null);")
             reloadMedGroup()
             medGroupGrid.Rows.Item(medGroupGrid.Rows.Count - 1).Selected = True
             medGroupGrid_CellClick(Me, New DataGridViewCellEventArgs(0, medGroupGrid.Rows.Count - 1))
@@ -250,7 +253,7 @@ Public Class pnlPerscription
         If medGroupGrid.SelectedRows.Count = 0 Then
             MetroFramework.MetroMessageBox.Show(Me, "沒有任何資料可刪除", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            If MetroFramework.MetroMessageBox.Show(Me, "請確定您要刪除群組【" & medGroupGrid.SelectedRows(0).Cells("藥物清單").Value & "】? 所有相關的藥品將會全部刪除!", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            If MetroFramework.MetroMessageBox.Show(Me, "請確定您要刪除群組【" & medGroupGrid.SelectedRows(0).Cells("藥品清單").Value & "】? 所有相關的藥品將會全部刪除!", "再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                 runQuery("DELETE FROM medDetail WHERE mgID=" & medGroupGrid.SelectedRows(0).Cells("mgID").Value)
                 runQuery("DELETE FROM medGroup2medDetail WHERE mgID=" & medGroupGrid.SelectedRows(0).Cells("mgID").Value)
                 MetroFramework.MetroMessageBox.Show(Me, "刪除成功", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -312,27 +315,30 @@ Public Class pnlPerscription
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位',
-                                                               mg.makePill as '打錠'
+                                                               mg.makePill as '打錠', mg.f0 as 'F0'
                                                         FROM medGroup2medDetail as mg
-                                                        INNER JOIN medDetail AS md ON mg.mgID = md.mgID
-                                                        INNER JOIN med_item as mi on md.medID = mi.medID
+                                                        LEFT JOIN medDetail AS md ON mg.mgID = md.mgID
+                                                        LEFT JOIN med_item as mi on md.medID = mi.medID
                                                         WHERE bID=" & waitingList.SelectedValue &
                                                         " GROUP BY mg.mgID")
 
         For Each row As DataGridViewRow In medGroupGrid.Rows
-            If IsDBNull(row.Cells("藥品清單").Value) Then row.Cells("藥品清單").Value = "新群組"
-            Try
-                row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
-            Catch ex As Exception
-                row.Cells("單位").Value = groupUnit(1)
-            End Try
-            Dim medList As String() = row.Cells("medlist").Value.ToString.Split(",")
-            For i = 0 To medList.Count - 1
-                Dim unitList As String() = medList(i).Split("|")
-                unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
-                medList(i) = String.Join("", unitList)
-            Next
-            row.Cells("藥品清單").Value = String.Join(", ", medList)
+            If IsDBNull(row.Cells("medList").Value) Then
+                row.Cells("藥品清單").Value = "新群組"
+            Else
+                Try
+                    row.Cells("單位").Value = groupUnit(row.Cells("medUnit").Value)
+                Catch ex As Exception
+                    row.Cells("單位").Value = groupUnit(1)
+                End Try
+                Dim medList As String() = row.Cells("medList").Value.ToString.Split(",")
+                For i = 0 To medList.Count - 1
+                    Dim unitList As String() = medList(i).Split("|")
+                    unitList(1) = unit(CInt(Mid(unitList(1), 1, Len(unitList(1)) - 1))) & ")"
+                    medList(i) = String.Join("", unitList)
+                Next
+                row.Cells("藥品清單").Value = String.Join(vbnewline, medList)
+            End If
         Next
         With medGroupGrid
             .Columns("bID").Visible = False
@@ -346,6 +352,9 @@ Public Class pnlPerscription
     End Sub
     Private Sub medGroupLabel_Click(sender As Object, e As EventArgs) Handles medGroupLabel.Click, MetroLabel5.Click
         reloadMedGroup()
+    End Sub
+    Private Sub medGroupUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles medGroupUnit.SelectedIndexChanged
+        medGroupUnitLabel.Text = medGroupUnit.Text
     End Sub
 #End Region
 
@@ -452,12 +461,12 @@ Public Class pnlPerscription
 #End Region
 
 #Region "歷史紀錄"
-    Private Sub hideHistoryButton_Click(sender As Object, e As EventArgs) Handles hideHistoryButton.CheckedChanged
-        If hideHistoryButton.Checked Then
-            hideHistoryButton.Text = "隱藏"
+    Private Sub hideHistoryButton_Click(sender As Object, e As EventArgs) Handles displayHistoryCheckbox.CheckedChanged
+        If displayHistoryCheckbox.Checked Then
+            displayHistoryCheckbox.Text = "隱藏"
             medGroupTable.RowStyles.Item(3).Height = 50%
         Else
-            hideHistoryButton.Text = "顯示"
+            displayHistoryCheckbox.Text = "顯示"
             medGroupTable.RowStyles.Item(3).Height = 0
         End If
     End Sub
@@ -553,7 +562,7 @@ Public Class pnlPerscription
                                                                mg.beforeMeal as '飯前', mg.afterMeal as '飯後', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位',
-                                                               mg.makePill as '打錠'
+                                                               mg.makePill as '打錠', mi.bioMed
                                                         FROM medGroup2medDetail as mg
                                                         INNER JOIN medDetail AS md ON mg.mgID = md.mgID
                                                         INNER JOIN med_item as mi on md.medID = mi.medID
@@ -577,6 +586,7 @@ Public Class pnlPerscription
             If Not mainForm.debugMode.Checked Then
                 fullListView.Columns("medUnit").Visible = False
                 fullListView.Columns("medList").Visible = False
+                fullListView.Columns("bioMed").Visible = False
             End If
         End If
     End Sub
@@ -632,6 +642,7 @@ Public Class pnlPerscription
     Private Sub printSingle_Click(sender As Object, e As EventArgs) Handles printSingle.Click
         printIndex = fullListView.SelectedRows.Item(0).Index
         If mainForm.debugMode.Checked Then
+            singlePrint = True
             printPreview.ShowDialog()
         Else
             Try
@@ -663,7 +674,11 @@ Public Class pnlPerscription
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
         stringFormat.Alignment = StringAlignment.Center
-        e.Graphics.DrawString("福濬中醫診所用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
+        If fullListView.Rows(printIndex).Cells("bioMed").Value Then
+            e.Graphics.DrawString("福濬中醫診所建議用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
+        Else
+            e.Graphics.DrawString("福濬中醫診所用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
+        End If
 
         stringFormat.Alignment = StringAlignment.Near
         e.Graphics.DrawString("姓名: " & pName.Text, headerFont, Brushes.Black, New Point(20, 415), stringFormat)
@@ -675,12 +690,21 @@ Public Class pnlPerscription
         e.Graphics.DrawLine(Pens.Black, New Point(280, 460), New Point(380, 460))
 
         If fullListView.Rows(printIndex).Cells("打錠").Value Then
-            e.Graphics.DrawString("藥物內容 (打錠):", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
-            e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(120, 460))
-
+            If fullListView.Rows(printIndex).Cells("bioMed").Value Then
+                e.Graphics.DrawString("內容 (打錠):", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+                e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(110, 460))
+            Else
+                e.Graphics.DrawString("藥物內容 (打錠):", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+                e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(120, 460))
+            End If
         Else
-            e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
-            e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
+            If fullListView.Rows(printIndex).Cells("bioMed").Value Then
+                e.Graphics.DrawString("內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+                e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(60, 460))
+            Else
+                e.Graphics.DrawString("藥物內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+                e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(95, 460))
+            End If
         End If
 
         Dim medList As String() = fullListView.Rows(printIndex).Cells("medList").Value.ToString.Split(",")
@@ -768,17 +792,19 @@ Public Class pnlPerscription
     End Sub
 #End Region
 
+#Region "病使設定"
+    ' 他院檢查紀錄
     Private Sub otherExamBox_Validated(sender As Object, e As EventArgs) Handles otherExamBox.Validated
         patientInfo.pOtherExam = otherExamBox.Text
     End Sub
-
+    ' 主訴
     Private Sub concernText_Validated(sender As Object, e As EventArgs) Handles concernText.Validated
         runQuery("UPDATE patient_booking SET concern='" & concernText.Text & "' WHERE bID=" & waitingList.SelectedValue)
     End Sub
+    ' 醫囑
     Private Sub responseText_Validated(sender As Object, e As EventArgs) Handles responseText.Validated
         runQuery("UPDATE patient_booking SET response='" & responseText.Text & "' WHERE bID=" & waitingList.SelectedValue)
     End Sub
-
     ' 基因缺陷
     Private Sub geneButton_Click(sender As Object, e As EventArgs) Handles geneButton.Click, altGeneButton.Click
         Dim frm As New frmGene(patientInfo.pID)
@@ -799,14 +825,10 @@ Public Class pnlPerscription
             altGeneButton.Text = "基因設定"
         End If
     End Sub
+    ' 時疫設定
     Private Sub fluButton_Click(sender As Object, e As EventArgs) Handles fluButton.Click
         Dim frm As New frmFlu(waitingList.SelectedValue)
         AddHandler frm.fluSet, AddressOf fluSet
-        frm.ShowDialog()
-    End Sub
-    Private Sub careButton_Click(sender As Object, e As EventArgs) Handles careButton.Click
-        Dim frm As New frmCare(waitingList.SelectedValue)
-        AddHandler frm.careSet, AddressOf careSet
         frm.ShowDialog()
     End Sub
     Private Sub fluSet(sender As Object, e As EventArgs)
@@ -820,7 +842,12 @@ Public Class pnlPerscription
             fluButton.Text = "時疫設定"
         End If
     End Sub
-
+    ' 保養設定
+    Private Sub careButton_Click(sender As Object, e As EventArgs) Handles careButton.Click
+        Dim frm As New frmCare(waitingList.SelectedValue)
+        AddHandler frm.careSet, AddressOf careSet
+        frm.ShowDialog()
+    End Sub
     Private Sub careSet(sender As Object, e As EventArgs)
         Dim reader As IDataReader = runQuery("Select group_concat(c.careName) as 'careNames'
                                               FROM booking_care as bc
@@ -832,18 +859,90 @@ Public Class pnlPerscription
             careButton.Text = "保養設定"
         End If
     End Sub
-
-    Private Sub showHideCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles showHideCheckBox.CheckedChanged
-        If showHideCheckBox.Checked Then
-            showHideCheckBox.Text = ">>>>"
-            fullMedGroupTable.ColumnStyles.Item(2).Width = 30%
+    ' 病因設定
+    Private Sub mainICD10Button_Click(sender As Object, e As EventArgs) Handles mainICD10Button.Click
+        Dim frm As New frmICD10(waitingList.SelectedValue, True)
+        AddHandler frm.ICDSet, AddressOf mainICDSet
+        frm.ShowDialog()
+        listICD()
+    End Sub
+    Private Sub mainICDSet(sender As Object, e As EventArgs)
+        Dim reader As IDataReader = runQuery("SELECT bID, ICD10, group_concat('(',ICD10,')',ICD10_CNAME) AS 'ICD10_Disp' 
+                                              FROM booking_ICD10 AS bi
+                                              INNER JOIN ICD10 AS i
+                                              ON bi.ICD10 = i.ICD10_NO
+                                              WHERE bID=" & waitingList.SelectedValue & " AND bi.isMain=true
+                                              GROUP BY bi.ICD10")
+        If reader.Read Then
+            If IsDBNull(reader.GetString(2)) Then
+                mainICD10Button.Text = "主病名設定"
+            ElseIf reader.GetString(2) = "" Then
+                mainICD10Button.Text = "主病名設定"
+            Else
+                mainICD10Button.Text = "主病名" & vbNewLine & reader.GetString(2)
+            End If
         Else
-            showHideCheckBox.Text = "<<<<"
-            fullMedGroupTable.ColumnStyles.Item(2).Width = 0
+            mainICD10Button.Text = "主病名設定"
         End If
     End Sub
 
-    Private Sub medGroupUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles medGroupUnit.SelectedIndexChanged
-        medGroupUnitLabel.Text = medGroupUnit.Text
+    Private Sub subICD10Button_Click(sender As Object, e As EventArgs) Handles subICD10Button.Click
+        If mainICD10Button.Text = "主病名設定" Then
+            MetroFramework.MetroMessageBox.Show(owner, "錯誤: 請先設定主病名!", "錯誤發生", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Else
+            Dim frm As New frmICD10(waitingList.SelectedValue)
+            AddHandler frm.ICDSet, AddressOf ICDSet
+            frm.ShowDialog()
+        End If
     End Sub
+
+    Private Sub ICDSet(sender As Object, e As EventArgs)
+        listICD()
+    End Sub
+
+    Private Sub listICD()
+        Dim dt As DataTable
+        dt = returnData(owner, "SELECT bID, ICD10, group_concat('(',ICD10,')',ICD10_CNAME) AS 'ICD10_Disp' 
+                                FROM booking_ICD10 AS bi
+                                INNER JOIN ICD10 AS i
+                                ON bi.ICD10 = i.ICD10_NO
+                                WHERE bID=" & waitingList.SelectedValue & " AND bi.isMain=false
+                                GROUP BY bi.ICD10")
+        With ICDList
+            .DataSource = dt
+            .DisplayMember = "ICD10_Disp"
+            .ValueMember = "ICD10"
+        End With
+    End Sub
+#End Region
+
+#Region "顯示/隱藏面板"
+    Private Sub showHideCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles displayMedInfoCheckBox.CheckedChanged
+        If displayMedInfoCheckBox.Checked Then
+            displayMedInfoCheckBox.Text = ">>>>"
+            fullMedGroupTable.ColumnStyles.Item(2).Width = 30%
+        Else
+            displayMedInfoCheckBox.Text = "<<<<"
+            fullMedGroupTable.ColumnStyles.Item(2).Width = 0
+        End If
+    End Sub
+    Private Sub displayPatientCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles displayPatientCheckBox.CheckedChanged
+        If displayPatientCheckBox.Checked Then
+            displayPatientCheckBox.Text = ">>>>"
+            medTable.ColumnStyles.Item(2).Width = 300
+        Else
+            displayPatientCheckBox.Text = "<<<<"
+            medTable.ColumnStyles.Item(2).Width = 0
+        End If
+    End Sub
+    Private Sub displayDosageCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles displayDosageCheckBox.CheckedChanged
+        If displayDosageCheckBox.Checked Then
+            displayDosageCheckBox.Text = "vvvv"
+            medGroupTable.RowStyles.Item(5).Height = 180
+        Else
+            displayDosageCheckBox.Text = "^^^^"
+            medGroupTable.RowStyles.Item(5).Height = 0
+        End If
+    End Sub
+#End Region
 End Class

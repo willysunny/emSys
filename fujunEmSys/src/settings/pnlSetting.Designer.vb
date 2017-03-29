@@ -70,7 +70,6 @@ Partial Class pnlSetting
         Me.tabLiverSetting = New System.Windows.Forms.TabPage()
         Me.tabPressureSetting = New System.Windows.Forms.TabPage()
         Me.autoSaveTextBox = New MetroFramework.Controls.MetroTextBox()
-        Me.MetroLink9 = New MetroFramework.Controls.MetroLink()
         Me.MetroLink8 = New MetroFramework.Controls.MetroLink()
         Me.themeSetting = New MetroFramework.Controls.MetroTabPage()
         Me.mrbDark = New MetroFramework.Controls.MetroRadioButton()
@@ -80,6 +79,9 @@ Partial Class pnlSetting
         Me.bgcolor = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.settingLink = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink18 = New MetroFramework.Controls.MetroLink()
+        Me.MetroLink19 = New MetroFramework.Controls.MetroLink()
+        Me.autoStopTextBox = New MetroFramework.Controls.MetroTextBox()
         Me.settingMetroPanel.SuspendLayout()
         Me.settingTab.SuspendLayout()
         Me.serverSetting.SuspendLayout()
@@ -138,7 +140,7 @@ Partial Class pnlSetting
         Me.settingTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.settingTab.Location = New System.Drawing.Point(8, 65)
         Me.settingTab.Name = "settingTab"
-        Me.settingTab.SelectedIndex = 0
+        Me.settingTab.SelectedIndex = 1
         Me.settingTab.Size = New System.Drawing.Size(386, 680)
         Me.settingTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.settingTab.TabIndex = 5
@@ -405,8 +407,10 @@ Partial Class pnlSetting
         'emsSetting
         '
         Me.emsSetting.Controls.Add(Me.MetroTabControl1)
+        Me.emsSetting.Controls.Add(Me.autoStopTextBox)
         Me.emsSetting.Controls.Add(Me.autoSaveTextBox)
-        Me.emsSetting.Controls.Add(Me.MetroLink9)
+        Me.emsSetting.Controls.Add(Me.MetroLink19)
+        Me.emsSetting.Controls.Add(Me.MetroLink18)
         Me.emsSetting.Controls.Add(Me.MetroLink8)
         Me.emsSetting.HorizontalScrollbarBarColor = True
         Me.emsSetting.HorizontalScrollbarHighlightOnWheel = False
@@ -426,10 +430,10 @@ Partial Class pnlSetting
         Me.MetroTabControl1.Controls.Add(Me.tabGraphSetting)
         Me.MetroTabControl1.Controls.Add(Me.tabLiverSetting)
         Me.MetroTabControl1.Controls.Add(Me.tabPressureSetting)
-        Me.MetroTabControl1.Location = New System.Drawing.Point(37, 131)
+        Me.MetroTabControl1.Location = New System.Drawing.Point(37, 201)
         Me.MetroTabControl1.Name = "MetroTabControl1"
         Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(289, 493)
+        Me.MetroTabControl1.Size = New System.Drawing.Size(289, 423)
         Me.MetroTabControl1.TabIndex = 5
         Me.MetroTabControl1.UseSelectable = True
         '
@@ -438,7 +442,7 @@ Partial Class pnlSetting
         Me.tabEnergySetting.Controls.Add(Me.engSettingTable)
         Me.tabEnergySetting.Location = New System.Drawing.Point(4, 38)
         Me.tabEnergySetting.Name = "tabEnergySetting"
-        Me.tabEnergySetting.Size = New System.Drawing.Size(281, 451)
+        Me.tabEnergySetting.Size = New System.Drawing.Size(281, 381)
         Me.tabEnergySetting.TabIndex = 0
         Me.tabEnergySetting.Text = "元氣指數"
         '
@@ -473,7 +477,7 @@ Partial Class pnlSetting
         Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.engSettingTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.engSettingTable.Size = New System.Drawing.Size(281, 451)
+        Me.engSettingTable.Size = New System.Drawing.Size(281, 381)
         Me.engSettingTable.TabIndex = 6
         '
         'MetroLink10
@@ -1070,17 +1074,6 @@ Partial Class pnlSetting
         Me.autoSaveTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.autoSaveTextBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
-        'MetroLink9
-        '
-        Me.MetroLink9.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.MetroLink9.Location = New System.Drawing.Point(37, 102)
-        Me.MetroLink9.Name = "MetroLink9"
-        Me.MetroLink9.Size = New System.Drawing.Size(289, 23)
-        Me.MetroLink9.TabIndex = 4
-        Me.MetroLink9.Text = "指數指標參數"
-        Me.MetroLink9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLink9.UseSelectable = True
-        '
         'MetroLink8
         '
         Me.MetroLink8.FontSize = MetroFramework.MetroLinkSize.Tall
@@ -1197,6 +1190,61 @@ Partial Class pnlSetting
         Me.settingLink.Text = "設定"
         Me.settingLink.UseSelectable = True
         '
+        'MetroLink18
+        '
+        Me.MetroLink18.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink18.Location = New System.Drawing.Point(37, 102)
+        Me.MetroLink18.Name = "MetroLink18"
+        Me.MetroLink18.Size = New System.Drawing.Size(289, 23)
+        Me.MetroLink18.TabIndex = 4
+        Me.MetroLink18.Text = "自動停止感應"
+        Me.MetroLink18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink18.UseSelectable = True
+        '
+        'MetroLink19
+        '
+        Me.MetroLink19.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink19.Location = New System.Drawing.Point(37, 172)
+        Me.MetroLink19.Name = "MetroLink19"
+        Me.MetroLink19.Size = New System.Drawing.Size(289, 23)
+        Me.MetroLink19.TabIndex = 4
+        Me.MetroLink19.Text = "指數指標參數"
+        Me.MetroLink19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink19.UseSelectable = True
+        '
+        'autoStopTextBox
+        '
+        '
+        '
+        '
+        Me.autoStopTextBox.CustomButton.Image = Nothing
+        Me.autoStopTextBox.CustomButton.Location = New System.Drawing.Point(255, 1)
+        Me.autoStopTextBox.CustomButton.Name = ""
+        Me.autoStopTextBox.CustomButton.Size = New System.Drawing.Size(33, 33)
+        Me.autoStopTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.autoStopTextBox.CustomButton.TabIndex = 1
+        Me.autoStopTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.autoStopTextBox.CustomButton.UseSelectable = True
+        Me.autoStopTextBox.CustomButton.Visible = False
+        Me.autoStopTextBox.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.autoStopTextBox.Lines = New String(-1) {}
+        Me.autoStopTextBox.Location = New System.Drawing.Point(37, 131)
+        Me.autoStopTextBox.MaxLength = 32767
+        Me.autoStopTextBox.Name = "autoStopTextBox"
+        Me.autoStopTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.autoStopTextBox.PromptText = "請輸入1以上的值"
+        Me.autoStopTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.autoStopTextBox.SelectedText = ""
+        Me.autoStopTextBox.SelectionLength = 0
+        Me.autoStopTextBox.SelectionStart = 0
+        Me.autoStopTextBox.ShortcutsEnabled = True
+        Me.autoStopTextBox.Size = New System.Drawing.Size(289, 35)
+        Me.autoStopTextBox.TabIndex = 3
+        Me.autoStopTextBox.UseSelectable = True
+        Me.autoStopTextBox.WaterMark = "請輸入1以上的值"
+        Me.autoStopTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.autoStopTextBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
         'pnlSetting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1269,7 +1317,6 @@ Partial Class pnlSetting
     Friend WithEvents tabLiverSetting As TabPage
     Friend WithEvents tabPressureSetting As TabPage
     Friend WithEvents autoSaveTextBox As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents MetroLink9 As MetroFramework.Controls.MetroLink
     Friend WithEvents MetroLink8 As MetroFramework.Controls.MetroLink
     Friend WithEvents themeSetting As MetroFramework.Controls.MetroTabPage
     Friend WithEvents mrbDark As MetroFramework.Controls.MetroRadioButton
@@ -1277,4 +1324,7 @@ Partial Class pnlSetting
     Friend WithEvents MetroLink3 As MetroFramework.Controls.MetroLink
     Friend WithEvents MetroLink2 As MetroFramework.Controls.MetroLink
     Friend WithEvents bgcolor As FlowLayoutPanel
+    Friend WithEvents autoStopTextBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroLink19 As MetroFramework.Controls.MetroLink
+    Friend WithEvents MetroLink18 As MetroFramework.Controls.MetroLink
 End Class

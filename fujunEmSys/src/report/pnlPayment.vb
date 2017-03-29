@@ -11,8 +11,10 @@
     Dim diagFeeType As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 診費
     Dim unit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
     Dim groupUnit As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 群組單位
+    Dim printPages As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 列印頁數
 
     Dim printPage As Integer = 0
+    Dim singlePrint As Boolean = False
 
 #Region "初始"
     Public Sub New(ByVal owner As Form)
@@ -23,10 +25,31 @@
         owner.BringToFront()
 
         ' Add any initialization after the InitializeComponent() call.
-        RemoveHandler printBox.SelectedIndexChanged, AddressOf diagFee_SelectedIndexChanged
+        RemoveHandler diagFeeBox.SelectedIndexChanged, AddressOf diagFee_SelectedIndexChanged
         RemoveHandler discountBox.SelectedIndexChanged, AddressOf discountBox_SelectedIndexChanged
         RemoveHandler medFee.CellValidated, AddressOf medFee_bioFee_CellValidated
         RemoveHandler bioFee.CellValidated, AddressOf medFee_bioFee_CellValidated
+
+        With printPages
+            .Add(-1, "全部")
+            .Add(0, "收據+補助金")
+            .Add(1, "收據+病人處方簽")
+            .Add(2, "金額明細")
+            .Add(3, "診所處方簽")
+        End With
+        Dim printTable As New DataTable
+        With printTable
+            .Columns.Add("page", GetType(Integer))
+            .Columns.Add("name", GetType(String))
+            For Each point As KeyValuePair(Of Integer, String) In printPages
+                .Rows.Add(point.Key, point.Value)
+            Next
+        End With
+        With printBox
+            .DataSource = printTable
+            .ValueMember = "page"
+            .DisplayMember = "name"
+        End With
 
         unit.Add(1, "克")
         unit.Add(2, "顆")
@@ -61,12 +84,12 @@
                 .Rows.Add(point.Key, point.Value)
             Next
         End With
-        With printBox
+        With diagFeeBox
             .DataSource = diagFeeTable
             .ValueMember = "fee"
             .DisplayMember = "name"
         End With
-        AddHandler printBox.SelectedIndexChanged, AddressOf diagFee_SelectedIndexChanged
+        AddHandler diagFeeBox.SelectedIndexChanged, AddressOf diagFee_SelectedIndexChanged
         AddHandler discountBox.SelectedIndexChanged, AddressOf discountBox_SelectedIndexChanged
         AddHandler medFee.CellValidated, AddressOf medFee_bioFee_CellValidated
         AddHandler bioFee.CellValidated, AddressOf medFee_bioFee_CellValidated
@@ -168,16 +191,16 @@
                 row.Cells("金額").Value = row.Cells("origPrice").Value
             ElseIf row.Cells("groupCount").Value > 1 Then
                 Dim pricePerGram As Double = 7.5
-                If row.Cells("medTimes").Value = 3 Then pricePerGram = 10
+                'If row.Cells("medTimes").Value = 3 Then pricePerGram = 10
                 If row.Cells("groupExclude").Value Then
-                    row.Cells("origPrice").Value = row.Cells("總量").Value * (row.Cells("groupCount").Value - pricePerGram)
+                    row.Cells("origPrice").Value = row.Cells("unitPrice").Value * row.Cells("總量").Value
                 Else
                     row.Cells("origPrice").Value = row.Cells("總量").Value * pricePerGram
                 End If
                 row.Cells("金額").Value = row.Cells("origPrice").Value
             End If
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -194,7 +217,7 @@
         For Each row As DataGridViewRow In medFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -202,7 +225,7 @@
         For Each row As DataGridViewRow In bioFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -213,7 +236,7 @@
         For Each row As DataGridViewRow In medFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value * medDiscount.Item(discountBox.SelectedValue)
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -221,7 +244,7 @@
         For Each row As DataGridViewRow In bioFee.Rows
             row.Cells("金額").Value = row.Cells("origPrice").Value * medDiscount.Item(discountBox.SelectedValue)
             If row.Cells("makePill").Value Then
-                row.Cells("打錠費").Value = 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                row.Cells("打錠費").Value = Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             Else
                 row.Cells("打錠費").Value = 0
             End If
@@ -231,7 +254,7 @@
     Private Sub medFee_bioFee_CellValidated(sender As Object, e As DataGridViewCellEventArgs) Handles medFee.CellValidated, bioFee.CellValidated
         getTotal()
     End Sub
-    Private Sub diagFee_SelectedIndexChanged(sender As Object, e As EventArgs) Handles printBox.SelectedIndexChanged
+    Private Sub diagFee_SelectedIndexChanged(sender As Object, e As EventArgs) Handles diagFeeBox.SelectedIndexChanged
         getTotal()
     End Sub
     Private Sub getTotal()
@@ -243,9 +266,11 @@
         For Each row As DataGridViewRow In bioFee.Rows
             bioSum += CDbl(row.Cells("金額").Value) + CDbl(row.Cells("打錠費").Value)
         Next
-        medTotal.Text = medSum + 500 * regDiscount.Item(discountBox.SelectedValue) + printBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
+        medSum = Math.Round(medSum)
+        bioSum = Math.Round(bioSum)
+        medTotal.Text = medSum + 500 * regDiscount.Item(discountBox.SelectedValue) + diagFeeBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
         bioTotal.Text = bioSum
-        totalSum.Text = medSum + bioSum + 500 * regDiscount.Item(discountBox.SelectedValue) + printBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
+        totalSum.Text = medSum + bioSum + 500 * regDiscount.Item(discountBox.SelectedValue) + diagFeeBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
     End Sub
 #End Region
 
@@ -254,10 +279,20 @@
     Private Sub printButton_Click(sender As Object, e As EventArgs) Handles printButton.Click
         printDoc.DocumentName = "報表"
         If mainForm.debugMode.Checked Then
+            If printBox.SelectedValue > -1 Then
+                printPage = printBox.SelectedValue
+                singlePrint = True
+            End If
             printPreviewDlg.ShowDialog()
         Else
             Try
-                If printDlg.ShowDialog() = DialogResult.OK Then printDoc.Print()
+                If printDlg.ShowDialog() = DialogResult.OK Then
+                    If printBox.SelectedValue > -1 Then
+                        printPage = printBox.SelectedValue
+                        singlePrint = True
+                    End If
+                    printDoc.Print()
+                End If
             Catch ex As Exception
                 Console.WriteLine(ex.Message)
             End Try
@@ -274,29 +309,33 @@
         Dim bioSum As Integer = 0
         Dim medOrigSum As Integer = 0
         Dim bioOrigSum As Integer = 0
-        Dim diagSum As Integer = 500 * diagDiscount.Item(discountBox.SelectedValue) + printBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
-        Dim diagOrigSum As Integer = 500 + printBox.SelectedValue
+        Dim diagSum As Integer = 500 * diagDiscount.Item(discountBox.SelectedValue) + diagFeeBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)
+        Dim diagOrigSum As Integer = 500 + diagFeeBox.SelectedValue
         Dim docName As String = ""
         Dim reader As IDataReader = runQuery("SELECT d.docName FROM patient_booking AS pb 
                                               INNER JOIN doctor AS d ON d.docID = pb.docID 
                                               WHERE bID=" & waitingList.SelectedValue)
         If reader.Read Then docName = reader.GetString(0) Else docName = ""
         For Each row As DataGridViewRow In medFee.Rows
-            medOrigSum += CInt(row.Cells("origPrice").Value)
+            medOrigSum += CDbl(row.Cells("origPrice").Value)
             If row.Cells("makePill").Value Then
-                medOrigSum += 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                medOrigSum += Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             End If
-            medSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
+            medSum += CDbl(row.Cells("金額").Value) + CDbl(row.Cells("打錠費").Value)
         Next
         For Each row As DataGridViewRow In bioFee.Rows
-            bioOrigSum += CInt(row.Cells("origPrice").Value)
+            bioOrigSum += CDbl(row.Cells("origPrice").Value)
             If row.Cells("makePill").Value Then
-                bioOrigSum += 100 * Math.Round(Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value)
+                bioOrigSum += Math.Round(100 * Math.Ceiling(row.Cells("天數").Value / 7) / row.Cells("groupCount").Value, 2)
             End If
-            bioSum += CInt(row.Cells("金額").Value) + CInt(row.Cells("打錠費").Value)
+            bioSum += CDbl(row.Cells("金額").Value) + CDbl(row.Cells("打錠費").Value)
         Next
-        sum = medSum + CInt(500 * regDiscount.Item(discountBox.SelectedValue) + printBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue))
-        sponsoredSum = (medOrigSum + CInt(500 + printBox.SelectedValue)) - sum
+        medOrigSum = Math.Round(medOrigSum)
+        bioOrigSum = Math.Round(bioOrigSum)
+        medSum = Math.Round(medSum)
+        bioSum = Math.Round(bioSum)
+        sum = medSum + Math.Round(500 * regDiscount.Item(discountBox.SelectedValue) + diagFeeBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue))
+        sponsoredSum = (medOrigSum + CInt(500 + diagFeeBox.SelectedValue)) - sum
         If DirectCast((discountBox.SelectedItem()), System.Data.DataRowView).Row.ItemArray(1) = "無看診" Then
             sponsoredSum -= 500
         End If
@@ -373,7 +412,7 @@
             '自付金額
             stringFormat.Alignment = StringAlignment.Center
             e.Graphics.DrawString("金額", useFont, Brushes.Black, New Point(686, 160), stringFormat)
-            e.Graphics.DrawString(CInt(printBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)), smallFont, Brushes.Black, New Point(686, 190), stringFormat)
+            e.Graphics.DrawString(CInt(diagFeeBox.SelectedValue * diagDiscount.Item(discountBox.SelectedValue)), smallFont, Brushes.Black, New Point(686, 190), stringFormat)
             e.Graphics.DrawString(CInt(500 * diagDiscount.Item(discountBox.SelectedValue)), smallFont, Brushes.Black, New Point(686, 220), stringFormat)
             e.Graphics.DrawString(CInt(medSum).ToString, smallFont, Brushes.Black, New Point(686, 250), stringFormat)
             e.Graphics.DrawString("0", smallFont, Brushes.Black, New Point(686, 280), stringFormat)
@@ -434,7 +473,7 @@
 
                         '補給金額
                         stringFormat.Alignment = StringAlignment.Center
-                        e.Graphics.DrawString(CInt(printBox.SelectedValue * (1 - diagDiscount.Item(discountBox.SelectedValue))).ToString, useFont, Brushes.Black, New Point(323, 770), stringFormat)
+                        e.Graphics.DrawString(CInt(diagFeeBox.SelectedValue * (1 - diagDiscount.Item(discountBox.SelectedValue))).ToString, useFont, Brushes.Black, New Point(323, 770), stringFormat)
                         e.Graphics.DrawString(CInt(500 * (1 - diagDiscount.Item(discountBox.SelectedValue))).ToString, useFont, Brushes.Black, New Point(323, 800), stringFormat)
                         e.Graphics.DrawString(CInt(0).ToString, useFont, Brushes.Black, New Point(323, 830), stringFormat)
                         e.Graphics.DrawString(CInt(medOrigSum - medSum).ToString, useFont, Brushes.Black, New Point(323, 860), stringFormat)
@@ -621,9 +660,9 @@
                     e.Graphics.DrawString(row.Cells("藥品名稱").Value, smallFont, Brushes.Black, New Point(150, 160 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("天數").Value, smallFont, Brushes.Black, New Point(300, 160 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("總量").Value & row.Cells("單位").Value, smallFont, Brushes.Black, New Point(400, 160 + i * 20), stringFormat)
-                    e.Graphics.DrawString(CInt(row.Cells("origPrice").Value), smallFont, Brushes.Black, New Point(500, 160 + i * 20), stringFormat)
-                    e.Graphics.DrawString(CInt(row.Cells("origPrice").Value) - CInt(row.Cells("金額").Value), smallFont, Brushes.Black, New Point(600, 160 + i * 20), stringFormat)
-                    e.Graphics.DrawString(CInt(row.Cells("金額").Value), smallFont, Brushes.Black, New Point(700, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(CDbl(row.Cells("origPrice").Value).ToString("N2"), smallFont, Brushes.Black, New Point(500, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString((CDbl(row.Cells("origPrice").Value) - CDbl(row.Cells("金額").Value)).ToString("N2"), smallFont, Brushes.Black, New Point(600, 160 + i * 20), stringFormat)
+                    e.Graphics.DrawString(CDbl(row.Cells("金額").Value).ToString("N2"), smallFont, Brushes.Black, New Point(700, 160 + i * 20), stringFormat)
                     i += 1
                 Next
             End If
@@ -671,9 +710,9 @@
                     e.Graphics.DrawString(row.Cells("藥品名稱").Value, smallFont, Brushes.Black, New Point(150, 755 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("天數").Value, smallFont, Brushes.Black, New Point(300, 755 + i * 20), stringFormat)
                     e.Graphics.DrawString(row.Cells("總量").Value & row.Cells("單位").Value, smallFont, Brushes.Black, New Point(400, 755 + i * 20), stringFormat)
-                    e.Graphics.DrawString(CInt(row.Cells("origPrice").Value), smallFont, Brushes.Black, New Point(500, 755 + i * 20), stringFormat)
-                    e.Graphics.DrawString(CInt(row.Cells("origPrice").Value) - CInt(row.Cells("金額").Value), smallFont, Brushes.Black, New Point(600, 755 + i * 20), stringFormat)
-                    e.Graphics.DrawString(CInt(row.Cells("金額").Value), smallFont, Brushes.Black, New Point(700, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(CDbl(row.Cells("origPrice").Value).ToString("N2"), smallFont, Brushes.Black, New Point(500, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString((CDbl(row.Cells("origPrice").Value) - CDbl(row.Cells("金額").Value)).ToString("N2"), smallFont, Brushes.Black, New Point(600, 755 + i * 20), stringFormat)
+                    e.Graphics.DrawString(CDbl(row.Cells("金額").Value).ToString("N2"), smallFont, Brushes.Black, New Point(700, 755 + i * 20), stringFormat)
                     i += 1
                 Next
             End If
@@ -888,9 +927,14 @@
         End If
 #End Region
 
-        If Not printPage = 4 Then
+        If singlePrint Then
+            singlePrint = False
+            printPage = 0
+            e.HasMorePages = False
+        ElseIf Not printPage = 4 Then
             e.HasMorePages = True
         Else
+            printPage = 0
             e.HasMorePages = False
         End If
         'Debug.WriteLine(e.HasMorePages)
