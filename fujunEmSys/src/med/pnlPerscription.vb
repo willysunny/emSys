@@ -191,7 +191,10 @@ Public Class pnlPerscription
         AddHandler historyCombo.SelectedIndexChanged, AddressOf historyCombo_SelectedIndexChanged
         If historyCombo.Items.Count > 1 Then
             historyCombo.SelectedIndex = 1
+        ElseIf historycombo.items.count = 1 Then
+            historyCombo.SelectedIndex = 0
         End If
+        Call historyCombo_SelectedIndexChanged(Me, New EventArgs)
         RemoveHandler historyBox.SelectedIndexChanged, AddressOf historyBox_SelectedIndexChanged
         With historyBox
             .DataSource = returnData(mainForm, "SELECT bID, booktime FROM patient_booking WHERE pID=" & patientInfo.pID & " ORDER BY bookTime DESC")
@@ -675,7 +678,7 @@ Public Class pnlPerscription
 
         stringFormat.Alignment = StringAlignment.Center
         If fullListView.Rows(printIndex).Cells("bioMed").Value Then
-            e.Graphics.DrawString("福濬中醫診所建議用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
+            e.Graphics.DrawString("福濬中醫診所建議服用說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
         Else
             e.Graphics.DrawString("福濬中醫診所用藥說明", titleFont, Brushes.Black, New Point(205, 380), stringFormat)
         End If
@@ -683,15 +686,20 @@ Public Class pnlPerscription
         stringFormat.Alignment = StringAlignment.Near
         e.Graphics.DrawString("姓名: " & pName.Text, headerFont, Brushes.Black, New Point(20, 415), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(60, 435), New Point(180, 435))
-        e.Graphics.DrawString("病歷號:  " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
-        e.Graphics.DrawLine(Pens.Black, New Point(280, 435), New Point(380, 435))
+        If fullListView.Rows(printIndex).Cells("bioMed").Value Then
+            e.Graphics.DrawString("系統號:  " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
+            e.Graphics.DrawLine(Pens.Black, New Point(280, 435), New Point(380, 435))
+        Else
+            e.Graphics.DrawString("病歷號:  " & patientInfo.pID, headerFont, Brushes.Black, New Point(215, 415), stringFormat)
+            e.Graphics.DrawLine(Pens.Black, New Point(280, 435), New Point(380, 435))
+        End If
 
         e.Graphics.DrawString("天數:  " & fullListView.Rows(printIndex).Cells("天數").Value & " 天", headerFont, Brushes.Black, New Point(230, 440), stringFormat)
         e.Graphics.DrawLine(Pens.Black, New Point(280, 460), New Point(380, 460))
 
         If fullListView.Rows(printIndex).Cells("打錠").Value Then
             If fullListView.Rows(printIndex).Cells("bioMed").Value Then
-                e.Graphics.DrawString("內容 (打錠):", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
+                e.Graphics.DrawString("@內容:", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
                 e.Graphics.DrawLine(Pens.Black, New Point(20, 460), New Point(110, 460))
             Else
                 e.Graphics.DrawString("藥物內容 (打錠):", headerFont, Brushes.Black, New Point(20, 440), stringFormat)
@@ -715,12 +723,18 @@ Public Class pnlPerscription
         Next
 
         Dim sf As StringFormat = StringFormat.GenericTypographic
+        Dim fullList As String = String.Join(", ", medList)
         sf.Alignment = StringAlignment.Near
         sf.LineAlignment = StringAlignment.Near
         sf.FormatFlags = StringFormatFlags.LineLimit
         sf.Trimming = StringTrimming.Word
-        Dim actual = e.Graphics.MeasureString(String.Join(", ", medList), textFont, New SizeF(350, 60), sf)
-        e.Graphics.DrawString(String.Join(", ", medList), textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
+        If fullListView.Rows(printIndex).Cells("bioMed").Value Then
+            Dim actual = e.Graphics.MeasureString(fullList.Replace("顆", "#"), textFont, New SizeF(350, 60), sf)
+            e.Graphics.DrawString(fullList.Replace("顆", "#"), textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
+        Else
+            Dim actual = e.Graphics.MeasureString(fullList, textFont, New SizeF(350, 60), sf)
+            e.Graphics.DrawString(fullList, textFont, Brushes.Black, New RectangleF(40, 468, 350, 60), sf)
+        End If
 
         Dim usage As String = ""
         Dim trigger As Boolean = False
@@ -768,7 +782,11 @@ Public Class pnlPerscription
 
         Dim twnCal As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar
         stringFormat.Alignment = StringAlignment.Far
-        e.Graphics.DrawString("調劑日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日 HH:mm"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        If fullListView.Rows(printIndex).Cells("bioMed").Value Then
+            e.Graphics.DrawString("日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日 HH:mm"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        Else
+            e.Graphics.DrawString("調劑日期:" & vbNewLine & twnCal.GetYear(DateAndTime.Now) & Now.ToString("年MM月dd日 HH:mm"), subFont, Brushes.Black, New Point(385, 550), stringFormat)
+        End If
         e.Graphics.DrawLine(Pens.Black, New Point(380, 580), New Point(270, 580))
 
         If singlePrint Then

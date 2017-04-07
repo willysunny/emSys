@@ -1824,7 +1824,7 @@ Public Class pnlEms
 #End Region
 #Region "藥物清單"
     Private Sub reloadMedGroup()
-        medGroupGrid.DataSource = returnData(mainForm, "Select mg.mgid, mg.bID, null as '藥品清單', group_concat(mi.medName,'(',mg.meddays*md.medAmount,'|',md.medUnit,')') as 'medList',
+        medGroupGrid.DataSource = returnData(mainForm, "Select mg.mgid, mg.bID, null as '藥品清單', group_concat(mi.medName,'(',md.medAmount,'|',md.medUnit,')') as 'medList',
                                                                mg.morning as '早', mg.noon as '午', mg.night as '晚', mg.beforeSleep as '睡前', mg.notWell as '有症狀時', mg.multiple as '多次', 
                                                                mg.medDays as '天數', 
                                                                mg.medAmount as '份量', mg.medUnit, null as '單位'
