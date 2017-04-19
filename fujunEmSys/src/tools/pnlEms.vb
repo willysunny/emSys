@@ -35,7 +35,8 @@ Public Class pnlEms
     Dim bNewMeasure As Boolean
     Dim bAutoProgress As Boolean '自動選取量測點
     Dim pt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
-
+    Dim enpt As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String) ' 測量點
+    Dim engMode As Boolean = False
     '
     Dim iDoOut As Integer 'D/A 數位輸出數值
     Dim err As ErrorCode
@@ -189,8 +190,8 @@ Public Class pnlEms
         ' 第四位數字  - 外側(1)或內側(2)
         ' 第五位數字  - 頂(1), 頭(2), 上焦(3), 中焦(4), 總量度點(5), 下焦(6)
 
-        pt.Add(12, "元氣 - 上")
         pt.Add(3, "元氣 - 下")
+        pt.Add(12, "元氣 - 上")
         pt.Add(10, "元氣 - 左")
         pt.Add(5, "元氣 - 右")
         pt.Add(9, "元氣 - 左上右下")
@@ -289,6 +290,109 @@ Public Class pnlEms
         pt.Add(224251, "膽管結石")
         pt.Add(125151, "腎結石")
         pt.Add(225151, "腎結石")
+
+        ' 英文
+
+        enpt.Add(12, "Vitality-Upper Body ")
+        enpt.Add(3, "Vitality-Lower Body")
+        enpt.Add(10, "Vitality-Left")
+        enpt.Add(5, "Vitality-Right")
+        enpt.Add(9, "Vitality-Left Upper & Right Lower Body")
+        enpt.Add(6, "Vitality-Right Upper & Left Lower Body")
+        enpt.Add(111150, "Immune Sys-Left")
+        enpt.Add(111250, "Lung-Left")
+        enpt.Add(111230, "Nasal Pharynx-Left")
+        enpt.Add(112150, "Large Intestine-Left")
+        enpt.Add(112250, "Nervous Sys-Left")
+        enpt.Add(113150, "Great Vessels-Left")
+        enpt.Add(113250, "Minor Vessels-Left")
+        enpt.Add(114150, "Organ Degradation-Left")
+        enpt.Add(114110, "Q.D-Vertex Cancer(Left)")
+        enpt.Add(114120, "Q.D-Cephalum-Left")
+        enpt.Add(114130, "Q.D-Upper Burner (Heart/Lung-Left)")
+        enpt.Add(114140, "Q.D-Center Burner (Digestive Sys-Left )")
+        enpt.Add(114160, "Q.D-Lower Burner(Genitourinary Sys-Left )")
+        enpt.Add(114250, "Endocrine Sys-Left")
+        enpt.Add(114210, "Pituitary Glands-Left")
+        enpt.Add(114220, "Thyroid Glands-Left")
+        enpt.Add(114240, "Breast-left")
+        enpt.Add(114260, "Ovary-Left")
+        enpt.Add(115150, "Heart-Left(heart channel)")
+        enpt.Add(115130, "Pressure Index")
+        enpt.Add(115250, "Small Intestine-Left")
+        enpt.Add(211150, "Immune Sys-Left")
+        enpt.Add(211250, "Lung-Left")
+        enpt.Add(211230, "Nasal Pharynx-Left")
+        enpt.Add(212150, "Large Intestine-Left")
+        enpt.Add(212250, "Nervous Sys-Left")
+        enpt.Add(213150, "Great Vessels-Left")
+        enpt.Add(213250, "Minor Vessels-Left")
+        enpt.Add(214150, "Organ Degradation-Left")
+        enpt.Add(214110, "Q.D-Vertex Cancer(Left)")
+        enpt.Add(214120, "Q.D-Cephalum-Left")
+        enpt.Add(214130, "Q.D-Upper Burner (Heart/Lung-Left)")
+        enpt.Add(214140, "Q.D-Center Burner (Digestive Sys-Left )")
+        enpt.Add(214160, "Q.D-Lower Burner(Genitourinary Sys-Left )")
+        enpt.Add(214250, "Endocrine Sys-Left")
+        enpt.Add(214210, "Pituitary Glands-Left")
+        enpt.Add(214220, "Thyroid Glands-Left")
+        enpt.Add(214240, "Breast-left")
+        enpt.Add(214260, "Ovary-Left")
+        enpt.Add(215150, "Heart-Left(heart channel)")
+        enpt.Add(215250, "Small Intestine-Left")
+        enpt.Add(121150, "spleen")
+        enpt.Add(121250, "Liver-Left")
+        enpt.Add(121260, "Hepatic  Function-Left ")
+        enpt.Add(122110, "Cranium-Left")
+        enpt.Add(122120, "Cervical Vertebra Spine-Left")
+        enpt.Add(122130, "Thoracolumbar Spine-Left")
+        enpt.Add(122150, "Pelvic-Left")
+        enpt.Add(122140, "Thigh Bone-Left")
+        enpt.Add(122160, "Calf Bone-Left")
+        enpt.Add(122250, "Stomach-Left")
+        enpt.Add(123150, "Fibrosis-Left")
+        enpt.Add(123120, " Fibrosis-Cephalic(Left)")
+        enpt.Add(123130, "Fibrosis-Upper Burner(Heart/Lung-Left )")
+        enpt.Add(123140, "Fibrosis-Center Burner(Digestive system-Left)")
+        enpt.Add(123160, "Fibrosis-Lower Burner(Left Genitourinary Sys-Left)")
+        enpt.Add(123250, "Skin-Left")
+        enpt.Add(124150, " Lipid Metabolism-Left")
+        enpt.Add(124250, "Gall Bladder-Left")
+        enpt.Add(125150, "Kidney-Left")
+        enpt.Add(125230, "Urinary Bladde-Left")
+        enpt.Add(125250, "Bladder Channel-Left")
+        enpt.Add(125240, "Genitourinary Sys-Left(Uterus/Prostate) ")
+        enpt.Add(221150, "Pancreas")
+        enpt.Add(221130, "Blood Sugar")
+        enpt.Add(221250, "Liver-Right")
+        enpt.Add(221260, "Hepatic  Function- Right ")
+        enpt.Add(222110, "Cranium-Right")
+        enpt.Add(222120, "Cervical vertebra Spine-Right")
+        enpt.Add(222130, "Thoracolumbar Spine-Right")
+        enpt.Add(222150, "Pelvic-Right")
+        enpt.Add(222140, "Thigh Bone-Right")
+        enpt.Add(222160, "Calf Bone-Right")
+        enpt.Add(222250, "Stomach-Right")
+        enpt.Add(223150, "Fibrosis-Right")
+        enpt.Add(223120, "Fibrosis-Cephalic(Right ")
+        enpt.Add(223130, "Fibrosis-Upper Burner (Heart or Lung:Right )")
+        enpt.Add(223140, "Fibrosis-Center Burner(Digestive system-Right) ")
+        enpt.Add(223160, "Fibrosis-Lower Burner(Left Genitourinary Sys-Right)")
+        enpt.Add(223250, "Skin-Right ")
+        enpt.Add(224150, " Lipid Metabolism-Right ")
+        enpt.Add(224250, "Biliary Stone")
+        enpt.Add(225150, "Kidney-Right ")
+        enpt.Add(225230, "Urinary Bladde-Right ")
+        enpt.Add(225240, "Genitourinary Sys-Right(Uterus/Prostate) ")
+        enpt.Add(225250, "Bladder Channel-Right ")
+        enpt.Add(125260, "Urinary Bladde Degradation-Right")
+        enpt.Add(225260, "Urinary Bladde Degradation-Right")
+        enpt.Add(125251, "Bladder stones-Left")
+        enpt.Add(225251, "Bladder stones-Right")
+        enpt.Add(124251, "Gallbladder Stone")
+        enpt.Add(224251, "Biliary Stone")
+        enpt.Add(125151, "Rena Stones-Left")
+        enpt.Add(225151, "Rena Stones-Right")
 
         ' 舊的點設定
         bar2iCode(1) = 111150
@@ -427,7 +531,12 @@ Public Class pnlEms
         patientInfo = New pInfo
         patientInfo.initiate(bID2pID(bID))
         pPrevVisit.Text = patientInfo.pLastVisit
-        pVisitTimes.Text = patientInfo.pVisitCount
+        pID.Text = patientInfo.pID
+        Dim reader As IDataReader = runQuery("SELECT bookTime As 'last_visit', count(booktime) as 'visit_count' FROM patient_booking WHERE arrived=1 AND pID=" & patientInfo.pID)
+        While reader.Read
+            If Not IsDBNull(reader.Item(0)) Then pPrevVisit.Text = reader.GetDateTime(0) Else pPrevVisit.Text = ""
+            pVisitTimes.Text = reader.Item(1)
+        End While
     End Sub
     Private Function bID2pID(ByVal bID As Integer) As Integer
         Dim reader As IDataReader = runQuery("SELECT pID FROM patient_booking where bID=" & bID & " LIMIT 1")
@@ -1167,8 +1276,8 @@ Public Class pnlEms
                     rdoDownLeft.Checked = True
                     rdoDownRight.Checked = True
                 Case 10
-                    rdoUpLeft.Checked = True
                     rdoDownLeft.Checked = True
+                    rdoUpLeft.Checked = True
                 Case 5
                     rdoUpRight.Checked = True
                     rdoDownRight.Checked = True
@@ -1314,9 +1423,9 @@ Public Class pnlEms
         If rdoEnergy.Checked Then
             Select Case btn2iCode()
                 Case 12
-                    iCode2Btn(3)
-                Case 3
                     iCode2Btn(10)
+                Case 3
+                    iCode2Btn(12)
                 Case 10
                     iCode2Btn(5)
                 Case 5
@@ -1327,7 +1436,9 @@ Public Class pnlEms
                     iCode2Btn(111150)
             End Select
         ElseIf rdoGraph.Checked Then
-            If LR = 1 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
+            If LR = 1 And HF = 1 And Finger = 5 And TB = 1 And rdoC5.Checked Then
+                iCode2Btn(115130)
+            ElseIf LR = 1 And HF = 2 And Finger = 5 And TB = 2 And rdoC5.Checked Then
                 iCode2Btn(125240)
             ElseIf LR = 2 And HF = 2 And Finger = 1 And TB = 1 And rdoC5.Checked Then
                 iCode2Btn(221130)
@@ -1424,8 +1535,13 @@ Public Class pnlEms
                 ' 若無 (KeyNotFoundException), 則依照實際點選的點來告知
                 Try
                     iCode = CInt(CStr(LR) + CStr(HF) + CStr(Finger) + CStr(TB) + CStr(P) + CStr(S))
-                    sMsg = pt.Item(iCode)
-                    measurePoint.Text = "量度點" & vbNewLine & "[" & sMsg & "]"
+                    If engMode Then
+                        sMsg = enpt.Item(iCode)
+                        measurePoint.Text = "Measureing Point" & vbNewLine & "[" & sMsg & "]"
+                    Else
+                        sMsg = pt.Item(iCode)
+                        measurePoint.Text = "量度點" & vbNewLine & "[" & sMsg & "]"
+                    End If
                     Application.DoEvents()
                     Try
                         Dim SAPI = CreateObject("SAPI.spvoice")
@@ -1506,11 +1622,17 @@ Public Class pnlEms
                 ' 將四個點用Bit方式然後轉換成Int
                 iCode = Convert.ToInt32(a & b & c & d, 2)
                 Try
-                    sMsg = pt.Item(iCode)
+                    If engMode Then
+                        sMsg = enpt.Item(iCode)
+                        measurePoint.Text = "Measuring Point [" & sMsg & "]"
+                    Else
+                        sMsg = pt.Item(iCode)
+                        measurePoint.Text = "量度點 [" & sMsg & "]"
+                    End If
                 Catch ex As KeyNotFoundException
                     sMsg = "未知位置"
+                    measurePoint.Text = "量度點 [" & sMsg & "]"
                 End Try
-                measurePoint.Text = "量度點 [" & sMsg & "]"
                 Application.DoEvents()
                 Try
                     Dim SAPI = CreateObject("SAPI.spvoice")
@@ -1606,6 +1728,7 @@ Public Class pnlEms
     End Sub
 
     Private Sub measurePoint_Click(sender As Object, e As EventArgs) Handles measurePoint.Click
+        engMode = Not engMode
         getMeasurePoint()
     End Sub
 

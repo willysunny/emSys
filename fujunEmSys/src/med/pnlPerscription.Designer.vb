@@ -163,6 +163,10 @@ Partial Class pnlPerscription
         Me.medTable.SuspendLayout()
         Me.SuspendLayout()
         '
+        'owner
+        '
+        Me.owner.Location = New System.Drawing.Point(130, 130)
+        '
         'printDoc
         '
         '
@@ -1613,7 +1617,7 @@ Partial Class pnlPerscription
         Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
-        Me.patientTab.SelectedIndex = 1
+        Me.patientTab.SelectedIndex = 0
         Me.patientTab.Size = New System.Drawing.Size(260, 646)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
@@ -1658,10 +1662,9 @@ Partial Class pnlPerscription
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.Size = New System.Drawing.Size(252, 598)
         Me.pInfoTable.TabIndex = 2
@@ -1718,9 +1721,9 @@ Partial Class pnlPerscription
         '
         Me.altGeneButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.altGeneButton.FontSize = MetroFramework.MetroButtonSize.Tall
-        Me.altGeneButton.Location = New System.Drawing.Point(3, 483)
+        Me.altGeneButton.Location = New System.Drawing.Point(3, 403)
         Me.altGeneButton.Name = "altGeneButton"
-        Me.altGeneButton.Size = New System.Drawing.Size(246, 92)
+        Me.altGeneButton.Size = New System.Drawing.Size(246, 172)
         Me.altGeneButton.TabIndex = 6
         Me.altGeneButton.Text = "基因設定"
         Me.altGeneButton.UseSelectable = True
@@ -1779,7 +1782,7 @@ Partial Class pnlPerscription
         Me.lastVisitLabel.FontSize = MetroFramework.MetroLinkSize.Tall
         Me.lastVisitLabel.Location = New System.Drawing.Point(3, 403)
         Me.lastVisitLabel.Name = "lastVisitLabel"
-        Me.lastVisitLabel.Size = New System.Drawing.Size(246, 34)
+        Me.lastVisitLabel.Size = New System.Drawing.Size(246, 1)
         Me.lastVisitLabel.TabIndex = 1
         Me.lastVisitLabel.Text = "前次就診日期:"
         Me.lastVisitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1935,9 +1938,9 @@ Partial Class pnlPerscription
         '
         '
         Me.pPrevVisit.CustomButton.Image = Nothing
-        Me.pPrevVisit.CustomButton.Location = New System.Drawing.Point(214, 2)
+        Me.pPrevVisit.CustomButton.Location = New System.Drawing.Point(245, 1)
         Me.pPrevVisit.CustomButton.Name = ""
-        Me.pPrevVisit.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.pPrevVisit.CustomButton.Size = New System.Drawing.Size(0, 0)
         Me.pPrevVisit.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.pPrevVisit.CustomButton.TabIndex = 1
         Me.pPrevVisit.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -1947,7 +1950,7 @@ Partial Class pnlPerscription
         Me.pPrevVisit.Enabled = False
         Me.pPrevVisit.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pPrevVisit.Lines = New String(-1) {}
-        Me.pPrevVisit.Location = New System.Drawing.Point(3, 443)
+        Me.pPrevVisit.Location = New System.Drawing.Point(3, 403)
         Me.pPrevVisit.MaxLength = 32767
         Me.pPrevVisit.Name = "pPrevVisit"
         Me.pPrevVisit.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -1957,7 +1960,7 @@ Partial Class pnlPerscription
         Me.pPrevVisit.SelectionLength = 0
         Me.pPrevVisit.SelectionStart = 0
         Me.pPrevVisit.ShortcutsEnabled = True
-        Me.pPrevVisit.Size = New System.Drawing.Size(246, 34)
+        Me.pPrevVisit.Size = New System.Drawing.Size(246, 1)
         Me.pPrevVisit.TabIndex = 4
         Me.pPrevVisit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.pPrevVisit.UseSelectable = True
@@ -1991,7 +1994,7 @@ Partial Class pnlPerscription
         'checkDate
         '
         Me.checkDate.Location = New System.Drawing.Point(0, 0)
-        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(4, 29)
         Me.checkDate.Name = "checkDate"
         Me.checkDate.Size = New System.Drawing.Size(252, 29)
         Me.checkDate.TabIndex = 1
@@ -2184,12 +2187,10 @@ Partial Class pnlPerscription
     Friend WithEvents nameLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents ageLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents countLabel As MetroFramework.Controls.MetroLink
-    Friend WithEvents lastVisitLabel As MetroFramework.Controls.MetroLink
     Friend WithEvents pName As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pSex As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pAge As MetroFramework.Controls.MetroTextBox
     Friend WithEvents pVisitTimes As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents tabBooking As TabPage
     Friend WithEvents refreshWaitingListButton As MetroFramework.Controls.MetroButton
     Friend WithEvents checkDate As MetroFramework.Controls.MetroDateTime
@@ -2199,4 +2200,6 @@ Partial Class pnlPerscription
     Friend WithEvents mainICD10Button As MetroFramework.Controls.MetroButton
     Friend WithEvents subICD10Button As MetroFramework.Controls.MetroButton
     Friend WithEvents ICDList As ListBox
+    Friend WithEvents lastVisitLabel As MetroFramework.Controls.MetroLink
+    Friend WithEvents pPrevVisit As MetroFramework.Controls.MetroTextBox
 End Class

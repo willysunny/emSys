@@ -118,7 +118,6 @@ Public Class frmUserReport
         pt.Add(125151, "腎結石")
         pt.Add(225151, "腎結石")
 
-
         userInfo = New frmUserQuery
         AddHandler userInfo.patientSelected, AddressOf userInfo_patientSelected
         AddHandler userInfo.cancelled, AddressOf userInfo_cancelled
@@ -252,7 +251,7 @@ Public Class frmUserReport
 
                 ' 開啟表單
                 Dim oDoc As Word.Document
-                oDoc = oWord.Documents.Add(Application.StartupPath & "\reportForm\reportForm.docx")
+                oDoc = oWord.Documents.Add(Application.StartupPath & "\src\reportForm\reportForm.docx")
                 loadingBar.PerformStep()
                 Application.DoEvents()
 
@@ -277,10 +276,19 @@ Public Class frmUserReport
                 oDoc.Bookmarks.Item("pCreatedDate").Range.Text = userInfo.resultInfo.pCreatedDate
                 oDoc.Bookmarks.Item("pLastVisit").Range.Text = userInfo.resultInfo.pLastVisit
                 oDoc.Bookmarks.Item("pTimes").Range.Text = userInfo.resultInfo.pVisitCount
-                Dim reader As IDataReader = runQuery("SELECT doctor.docName, patient_booking.concern FROM patient_booking INNER JOIN doctor ON patient_booking.docID = doctor.docID WHERE bID=" & historyBox.SelectedValue)
+
+                Dim twC As System.Globalization.TaiwanCalendar = New System.Globalization.TaiwanCalendar()
+                oDoc.Bookmarks.Item("bookYear").Range.Text = twC.GetYear(Now.AddDays(14))
+                oDoc.Bookmarks.Item("bookMonth").Range.Text = Now.AddDays(14).Month
+                oDoc.Bookmarks.Item("bookDate").Range.Text = Now.AddDays(14).Day
+                oDoc.Bookmarks.Item("bookDayName").Range.Text = System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames(twC.GetDayOfWeek(Now.AddDays(14)).ToString("d"))
+
+
+                Dim reader As IDataReader = runQuery("SELECT doctor.docName, patient_booking.concern, patient_booking.response FROM patient_booking INNER JOIN doctor ON patient_booking.docID = doctor.docID WHERE bID=" & historyBox.SelectedValue)
                 If reader.Read() Then
                     oDoc.Bookmarks.Item("pDocName").Range.Text = reader.Item("docName")
                     oDoc.Bookmarks.Item("concern").Range.Text = reader.Item("concern")
+                    oDoc.Bookmarks.Item("docNotice").Range.Text = reader.Item("response")
                 End If
 
                 ' 基因缺陷
@@ -390,7 +398,7 @@ Public Class frmUserReport
 
                 Dim fullMedList As DataTable = returnData(Me, "Select mg.mgid, mi.medName, 
                                                                mg.morning, mg.noon , mg.night, mg.beforeSleep, mg.notWell, 
-                                                               mg.beforeMeal, mg.afterMeal,  mg.medDays, mg.medAmount , mg.medUnit, mi.medDesc
+                                                               mg.beforeMeal, mg.afterMeal,  mg.medDays, mg.medAmount, mg.meddays*md.medAmount AS 'medDayAmount', mg.medUnit, mi.medDesc
                                                         From medGroup2medDetail As mg
                                                         INNER Join medDetail AS md ON mg.mgID = md.mgID
                                                         INNER Join med_item as mi on md.medID = mi.medID
@@ -410,13 +418,13 @@ Public Class frmUserReport
                         Dim unitName As String = ""
                         Select Case .Item("medUnit")
                             Case 1
-                                unitName = "克"
+                                unitName = "包"
                             Case 2
                                 unitName = "顆"
                             Case 3
-                                unitName = "包"
+                                unitName = "匙"
                             Case 4
-                                unitName = "瓶"
+                                unitName = "盒"
                         End Select
                         oDoc.Bookmarks.Item("medAmount" & medCounter).Range.Text = amount & unitName
                         oDoc.Bookmarks.Item("medDays" & medCounter).Range.Text = days & "天"
@@ -511,13 +519,13 @@ Public Class frmUserReport
                         Dim unitName As String = ""
                         Select Case .Item("medUnit")
                             Case 1
-                                unitName = "克"
+                                unitName = "包"
                             Case 2
                                 unitName = "顆"
                             Case 3
-                                unitName = "包"
+                                unitName = "匙"
                             Case 4
-                                unitName = "瓶"
+                                unitName = "盒"
                         End Select
                         oDoc.Bookmarks.Item("medRecommendAmount" & medCounter).Range.Text = amount & unitName
                         oDoc.Bookmarks.Item("medRecommendDays" & medCounter).Range.Text = days & "天"

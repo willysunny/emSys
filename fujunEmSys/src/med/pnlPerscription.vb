@@ -24,6 +24,7 @@ Public Class pnlPerscription
         medGroupGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 28)
         medGroupGrid.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         medDetailGrid.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 28)
+        fullListView.DefaultCellStyle.Font = New Font(New FontFamily("Microsoft JhengHei"), 14)
 
         ' Add any initialization after the InitializeComponent() call.
         loadTree()
@@ -207,6 +208,7 @@ Public Class pnlPerscription
         otherExamBox.Text = patientInfo.pOtherExam
         geneSet(Me, New EventArgs)
         fluSet(Me, New EventArgs)
+        mainICDSet(Me, New EventArgs)
         listICD()
         reloadMedGroup()
     End Sub
@@ -961,6 +963,10 @@ Public Class pnlPerscription
             displayDosageCheckBox.Text = "^^^^"
             medGroupTable.RowStyles.Item(5).Height = 0
         End If
+    End Sub
+
+    Private Sub owner_Load(sender As Object, e As EventArgs) Handles owner.Load
+
     End Sub
 #End Region
 End Class

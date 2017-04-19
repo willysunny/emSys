@@ -257,6 +257,102 @@ Namespace My
                 Me("autoStopTrigger") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property pressureUpperDanger() As String
+            Get
+                Return CType(Me("pressureUpperDanger"),String)
+            End Get
+            Set
+                Me("pressureUpperDanger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("36")>  _
+        Public Property pressureUpperWarning() As String
+            Get
+                Return CType(Me("pressureUpperWarning"),String)
+            End Get
+            Set
+                Me("pressureUpperWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("30")>  _
+        Public Property pressureLowerWarning() As String
+            Get
+                Return CType(Me("pressureLowerWarning"),String)
+            End Get
+            Set
+                Me("pressureLowerWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property pressureLowerDanger() As String
+            Get
+                Return CType(Me("pressureLowerDanger"),String)
+            End Get
+            Set
+                Me("pressureLowerDanger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property liverUpperDanger() As String
+            Get
+                Return CType(Me("liverUpperDanger"),String)
+            End Get
+            Set
+                Me("liverUpperDanger") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("60")>  _
+        Public Property liverUpperWarning() As String
+            Get
+                Return CType(Me("liverUpperWarning"),String)
+            End Get
+            Set
+                Me("liverUpperWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("50")>  _
+        Public Property liverLowerWarning() As String
+            Get
+                Return CType(Me("liverLowerWarning"),String)
+            End Get
+            Set
+                Me("liverLowerWarning") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property liverLowerDanger() As String
+            Get
+                Return CType(Me("liverLowerDanger"),String)
+            End Get
+            Set
+                Me("liverLowerDanger") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

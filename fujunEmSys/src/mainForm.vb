@@ -70,6 +70,8 @@
         End If
     End Sub
     Private Sub emsLink_Click(sender As Object, e As EventArgs) Handles emsTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         Try
             ems = New pnlEms(Me)
             AddHandler ems.DEVICE_ERROR, AddressOf ems_device_error
@@ -83,6 +85,8 @@
     End Sub
     Private Sub emsClose_exit(sender As Object, e As EventArgs)
         ems.swipe(False)
+        medGroupBox.Enabled = True
+        dataGroupBox.Enabled = True
         RemoveHandler exitLink.MouseUp, AddressOf emsClose_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
@@ -107,14 +111,20 @@
         login.swipe()
     End Sub
     Private Sub userManageLink_Click(sender As Object, e As EventArgs) Handles userTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         Dim frm As New frmUserManage
         frm.ShowDialog()
     End Sub
     Private Sub docManageLink_Click(sender As Object, e As EventArgs) Handles docTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         Dim frm As New frmDocManage
         frm.ShowDialog()
     End Sub
     Private Sub paitientInfoLink_Click(sender As Object, e As EventArgs) Handles paitientInfoTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         patientInfoPanel = New pnlPatientInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf paitientInfoLink_MouseUp
@@ -127,6 +137,8 @@
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub medManageLink_Click(sender As Object, e As EventArgs) Handles medManageTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         medManage = New pnlMedManage(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf medManage_exit
@@ -134,10 +146,14 @@
     End Sub
     Private Sub medManage_exit(sender As Object, e As EventArgs)
         medManage.swipe(False)
+        medGroupBox.Enabled = True
+        dataGroupBox.Enabled = True
         RemoveHandler exitLink.MouseUp, AddressOf medManage_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub medInfoLink_Click(sender As Object, e As EventArgs) Handles medInfoTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         medInfo = New pnlMedInfo(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf medInfo.stopSearch
@@ -146,11 +162,15 @@
     End Sub
     Private Sub medInfo_exit(sender As Object, e As EventArgs)
         medInfo.swipe(False)
+        medGroupBox.Enabled = True
+        dataGroupBox.Enabled = True
         RemoveHandler exitLink.MouseUp, AddressOf medInfo.stopSearch
         RemoveHandler medInfo.searchAborted, AddressOf medInfo_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub patientBookingLink_Click(sender As Object, e As EventArgs) Handles bookingTile.Click
+        medGroupBox.Enabled = False
+        dataGroupBox.Enabled = False
         pBooking = New pnlBooking(Me)
         RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
         AddHandler exitLink.MouseUp, AddressOf patientBooking_exit
@@ -158,11 +178,15 @@
     End Sub
     Private Sub patientBooking_exit(sender As Object, e As EventArgs)
         pBooking.swipe(False)
+        medGroupBox.Enabled = True
+        dataGroupBox.Enabled = True
         RemoveHandler exitLink.MouseUp, AddressOf patientBooking_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub perscriptionLink_Click(sender As Object, e As EventArgs) Handles perscriptionTile.Click
         If Not offlineMode Then
+            medGroupBox.Enabled = False
+            dataGroupBox.Enabled = False
             perscription = New pnlPerscription(Me)
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
             AddHandler exitLink.MouseUp, AddressOf perscription_exit
@@ -171,12 +195,16 @@
     End Sub
     Private Sub perscription_exit(sender As Object, e As EventArgs)
         perscription.swipe(False)
+        medGroupBox.Enabled = True
+        dataGroupBox.Enabled = True
         RemoveHandler exitLink.MouseUp, AddressOf perscription_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub
     Private Sub paymentLink_Click(sender As Object, e As EventArgs) Handles paymentTile.Click
         If Not offlineMode Then
-            payment = New pnlpayment(Me)
+            medGroupBox.Enabled = False
+            dataGroupBox.Enabled = False
+            payment = New pnlPayment(Me)
             RemoveHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
             AddHandler exitLink.MouseUp, AddressOf payment_exit
             payment.swipe()
@@ -184,6 +212,8 @@
     End Sub
     Private Sub payment_exit(sender As Object, e As EventArgs)
         payment.swipe(False)
+        medGroupBox.Enabled = True
+        dataGroupBox.Enabled = True
         RemoveHandler exitLink.MouseUp, AddressOf payment_exit
         AddHandler exitLink.MouseUp, AddressOf exitLink_MouseUp
     End Sub

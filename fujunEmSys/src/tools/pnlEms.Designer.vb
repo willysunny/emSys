@@ -143,6 +143,8 @@ Partial Class pnlEms
         Me.patientTab = New MetroFramework.Controls.MetroTabControl()
         Me.tabPatientInfo = New System.Windows.Forms.TabPage()
         Me.pInfoTable = New System.Windows.Forms.TableLayoutPanel()
+        Me.MetroLink1 = New MetroFramework.Controls.MetroLink()
+        Me.pID = New MetroFramework.Controls.MetroTextBox()
         Me.concernText = New MetroFramework.Controls.MetroTextBox()
         Me.geneButton = New MetroFramework.Controls.MetroButton()
         Me.sexLabel = New MetroFramework.Controls.MetroLink()
@@ -1476,8 +1478,6 @@ Partial Class pnlEms
         '
         Me.rdoUpLeft.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoUpLeft.AutoSize = True
-        Me.rdoUpLeft.Checked = True
-        Me.rdoUpLeft.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoUpLeft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoUpLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoUpLeft.Font = New System.Drawing.Font("DFKai-SB", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -1504,8 +1504,6 @@ Partial Class pnlEms
         '
         Me.rdoUpRight.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoUpRight.AutoSize = True
-        Me.rdoUpRight.Checked = True
-        Me.rdoUpRight.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoUpRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoUpRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoUpRight.Font = New System.Drawing.Font("DFKai-SB", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -1532,6 +1530,8 @@ Partial Class pnlEms
         '
         Me.rdoDownLeft.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoDownLeft.AutoSize = True
+        Me.rdoDownLeft.Checked = True
+        Me.rdoDownLeft.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoDownLeft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoDownLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoDownLeft.Font = New System.Drawing.Font("DFKai-SB", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -1558,6 +1558,8 @@ Partial Class pnlEms
         '
         Me.rdoDownRight.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoDownRight.AutoSize = True
+        Me.rdoDownRight.Checked = True
+        Me.rdoDownRight.CheckState = System.Windows.Forms.CheckState.Checked
         Me.rdoDownRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rdoDownRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.rdoDownRight.Font = New System.Drawing.Font("DFKai-SB", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -2137,22 +2139,26 @@ Partial Class pnlEms
         '
         Me.pInfoTable.ColumnCount = 1
         Me.pInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.Controls.Add(Me.concernText, 0, 11)
-        Me.pInfoTable.Controls.Add(Me.geneButton, 0, 10)
-        Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 2)
-        Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 0)
-        Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 4)
-        Me.pInfoTable.Controls.Add(Me.countLabel, 0, 6)
-        Me.pInfoTable.Controls.Add(Me.lastVisitLabel, 0, 8)
-        Me.pInfoTable.Controls.Add(Me.pName, 0, 1)
-        Me.pInfoTable.Controls.Add(Me.pSex, 0, 3)
-        Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
-        Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
-        Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 9)
+        Me.pInfoTable.Controls.Add(Me.MetroLink1, 0, 0)
+        Me.pInfoTable.Controls.Add(Me.pID, 0, 1)
+        Me.pInfoTable.Controls.Add(Me.concernText, 0, 13)
+        Me.pInfoTable.Controls.Add(Me.geneButton, 0, 12)
+        Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 4)
+        Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 2)
+        Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 6)
+        Me.pInfoTable.Controls.Add(Me.countLabel, 0, 8)
+        Me.pInfoTable.Controls.Add(Me.lastVisitLabel, 0, 10)
+        Me.pInfoTable.Controls.Add(Me.pName, 0, 3)
+        Me.pInfoTable.Controls.Add(Me.pSex, 0, 5)
+        Me.pInfoTable.Controls.Add(Me.pAge, 0, 7)
+        Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 9)
+        Me.pInfoTable.Controls.Add(Me.pPrevVisit, 0, 11)
         Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
-        Me.pInfoTable.RowCount = 12
+        Me.pInfoTable.RowCount = 15
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -2165,8 +2171,58 @@ Partial Class pnlEms
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.Size = New System.Drawing.Size(252, 812)
         Me.pInfoTable.TabIndex = 2
+        '
+        'MetroLink1
+        '
+        Me.MetroLink1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MetroLink1.FontSize = MetroFramework.MetroLinkSize.Tall
+        Me.MetroLink1.Location = New System.Drawing.Point(3, 3)
+        Me.MetroLink1.Name = "MetroLink1"
+        Me.MetroLink1.Size = New System.Drawing.Size(246, 34)
+        Me.MetroLink1.TabIndex = 9
+        Me.MetroLink1.Text = "病歷號:"
+        Me.MetroLink1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroLink1.UseSelectable = True
+        '
+        'pID
+        '
+        '
+        '
+        '
+        Me.pID.CustomButton.Image = Nothing
+        Me.pID.CustomButton.Location = New System.Drawing.Point(214, 2)
+        Me.pID.CustomButton.Name = ""
+        Me.pID.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.pID.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.pID.CustomButton.TabIndex = 1
+        Me.pID.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.pID.CustomButton.UseSelectable = True
+        Me.pID.CustomButton.Visible = False
+        Me.pID.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pID.Enabled = False
+        Me.pID.FontSize = MetroFramework.MetroTextBoxSize.Tall
+        Me.pID.Lines = New String(-1) {}
+        Me.pID.Location = New System.Drawing.Point(3, 43)
+        Me.pID.MaxLength = 32767
+        Me.pID.Name = "pID"
+        Me.pID.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.pID.PromptText = "不顯示"
+        Me.pID.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.pID.SelectedText = ""
+        Me.pID.SelectionLength = 0
+        Me.pID.SelectionStart = 0
+        Me.pID.ShortcutsEnabled = True
+        Me.pID.Size = New System.Drawing.Size(246, 34)
+        Me.pID.TabIndex = 10
+        Me.pID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.pID.UseSelectable = True
+        Me.pID.WaterMark = "不顯示"
+        Me.pID.WaterMarkColor = System.Drawing.Color.Silver
+        Me.pID.WaterMarkFont = New System.Drawing.Font("Microsoft JhengHei", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         '
         'concernText
         '
@@ -2174,9 +2230,9 @@ Partial Class pnlEms
         '
         '
         Me.concernText.CustomButton.Image = Nothing
-        Me.concernText.CustomButton.Location = New System.Drawing.Point(-38, 2)
+        Me.concernText.CustomButton.Location = New System.Drawing.Point(62, 2)
         Me.concernText.CustomButton.Name = ""
-        Me.concernText.CustomButton.Size = New System.Drawing.Size(281, 281)
+        Me.concernText.CustomButton.Size = New System.Drawing.Size(181, 181)
         Me.concernText.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.concernText.CustomButton.TabIndex = 1
         Me.concernText.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -2185,7 +2241,7 @@ Partial Class pnlEms
         Me.concernText.Dock = System.Windows.Forms.DockStyle.Fill
         Me.concernText.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.concernText.Lines = New String(-1) {}
-        Me.concernText.Location = New System.Drawing.Point(3, 523)
+        Me.concernText.Location = New System.Drawing.Point(3, 603)
         Me.concernText.MaxLength = 32767
         Me.concernText.Multiline = True
         Me.concernText.Name = "concernText"
@@ -2196,7 +2252,7 @@ Partial Class pnlEms
         Me.concernText.SelectionLength = 0
         Me.concernText.SelectionStart = 0
         Me.concernText.ShortcutsEnabled = True
-        Me.concernText.Size = New System.Drawing.Size(246, 286)
+        Me.concernText.Size = New System.Drawing.Size(246, 186)
         Me.concernText.TabIndex = 7
         Me.concernText.UseSelectable = True
         Me.concernText.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -2206,7 +2262,7 @@ Partial Class pnlEms
         '
         Me.geneButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.geneButton.FontSize = MetroFramework.MetroButtonSize.Tall
-        Me.geneButton.Location = New System.Drawing.Point(3, 403)
+        Me.geneButton.Location = New System.Drawing.Point(3, 483)
         Me.geneButton.Name = "geneButton"
         Me.geneButton.Size = New System.Drawing.Size(246, 114)
         Me.geneButton.TabIndex = 6
@@ -2217,7 +2273,7 @@ Partial Class pnlEms
         '
         Me.sexLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.sexLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.sexLabel.Location = New System.Drawing.Point(3, 83)
+        Me.sexLabel.Location = New System.Drawing.Point(3, 163)
         Me.sexLabel.Name = "sexLabel"
         Me.sexLabel.Size = New System.Drawing.Size(246, 34)
         Me.sexLabel.TabIndex = 1
@@ -2229,7 +2285,7 @@ Partial Class pnlEms
         '
         Me.nameLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nameLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.nameLabel.Location = New System.Drawing.Point(3, 3)
+        Me.nameLabel.Location = New System.Drawing.Point(3, 83)
         Me.nameLabel.Name = "nameLabel"
         Me.nameLabel.Size = New System.Drawing.Size(246, 34)
         Me.nameLabel.TabIndex = 1
@@ -2241,7 +2297,7 @@ Partial Class pnlEms
         '
         Me.ageLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ageLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.ageLabel.Location = New System.Drawing.Point(3, 163)
+        Me.ageLabel.Location = New System.Drawing.Point(3, 243)
         Me.ageLabel.Name = "ageLabel"
         Me.ageLabel.Size = New System.Drawing.Size(246, 34)
         Me.ageLabel.TabIndex = 1
@@ -2253,7 +2309,7 @@ Partial Class pnlEms
         '
         Me.countLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.countLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.countLabel.Location = New System.Drawing.Point(3, 243)
+        Me.countLabel.Location = New System.Drawing.Point(3, 323)
         Me.countLabel.Name = "countLabel"
         Me.countLabel.Size = New System.Drawing.Size(246, 34)
         Me.countLabel.TabIndex = 1
@@ -2265,7 +2321,7 @@ Partial Class pnlEms
         '
         Me.lastVisitLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lastVisitLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.lastVisitLabel.Location = New System.Drawing.Point(3, 323)
+        Me.lastVisitLabel.Location = New System.Drawing.Point(3, 403)
         Me.lastVisitLabel.Name = "lastVisitLabel"
         Me.lastVisitLabel.Size = New System.Drawing.Size(246, 34)
         Me.lastVisitLabel.TabIndex = 1
@@ -2291,7 +2347,7 @@ Partial Class pnlEms
         Me.pName.Enabled = False
         Me.pName.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pName.Lines = New String(-1) {}
-        Me.pName.Location = New System.Drawing.Point(3, 43)
+        Me.pName.Location = New System.Drawing.Point(3, 123)
         Me.pName.MaxLength = 32767
         Me.pName.Name = "pName"
         Me.pName.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -2327,7 +2383,7 @@ Partial Class pnlEms
         Me.pSex.Enabled = False
         Me.pSex.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pSex.Lines = New String(-1) {}
-        Me.pSex.Location = New System.Drawing.Point(3, 123)
+        Me.pSex.Location = New System.Drawing.Point(3, 203)
         Me.pSex.MaxLength = 32767
         Me.pSex.Name = "pSex"
         Me.pSex.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -2363,7 +2419,7 @@ Partial Class pnlEms
         Me.pAge.Enabled = False
         Me.pAge.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pAge.Lines = New String(-1) {}
-        Me.pAge.Location = New System.Drawing.Point(3, 203)
+        Me.pAge.Location = New System.Drawing.Point(3, 283)
         Me.pAge.MaxLength = 32767
         Me.pAge.Name = "pAge"
         Me.pAge.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -2399,7 +2455,7 @@ Partial Class pnlEms
         Me.pVisitTimes.Enabled = False
         Me.pVisitTimes.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pVisitTimes.Lines = New String(-1) {}
-        Me.pVisitTimes.Location = New System.Drawing.Point(3, 283)
+        Me.pVisitTimes.Location = New System.Drawing.Point(3, 363)
         Me.pVisitTimes.MaxLength = 32767
         Me.pVisitTimes.Name = "pVisitTimes"
         Me.pVisitTimes.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -2435,7 +2491,7 @@ Partial Class pnlEms
         Me.pPrevVisit.Enabled = False
         Me.pPrevVisit.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pPrevVisit.Lines = New String(-1) {}
-        Me.pPrevVisit.Location = New System.Drawing.Point(3, 363)
+        Me.pPrevVisit.Location = New System.Drawing.Point(3, 443)
         Me.pPrevVisit.MaxLength = 32767
         Me.pPrevVisit.Name = "pPrevVisit"
         Me.pPrevVisit.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -2707,4 +2763,6 @@ Partial Class pnlEms
     Friend WithEvents concernText As MetroFramework.Controls.MetroTextBox
     Private WithEvents InstantDoCtrl1 As InstantDoCtrl
     Private WithEvents InstantAiCtrl1 As InstantAiCtrl
+    Friend WithEvents MetroLink1 As MetroFramework.Controls.MetroLink
+    Friend WithEvents pID As MetroFramework.Controls.MetroTextBox
 End Class

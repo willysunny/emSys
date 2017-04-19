@@ -17,7 +17,7 @@ Public Class pnlSetting
             Dim tile As MetroFramework.Controls.MetroTile = New MetroFramework.Controls.MetroTile
             tile.Size = New Size(100, 100)
             tile.Tag = i
-            tile.Style = directcast(i, MetroFramework.MetroColorStyle)
+            tile.Style = DirectCast(i, MetroFramework.MetroColorStyle)
             AddHandler tile.Click, AddressOf tile_click
             bgcolor.Controls.Add(tile)
         Next
@@ -51,7 +51,7 @@ Public Class pnlSetting
     End Sub
 
     Public Sub tile_click(ByVal sender As Object, ByVal e As EventArgs)
-        directcast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Style = directcast(directcast(sender, MetroFramework.Controls.MetroTile).Tag, MetroFramework.MetroColorStyle)
+        DirectCast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Style = DirectCast(DirectCast(sender, MetroFramework.Controls.MetroTile).Tag, MetroFramework.MetroColorStyle)
     End Sub
 
     Private Sub settingLink_Click(sender As Object, e As EventArgs) Handles settingLink.Click
@@ -78,8 +78,8 @@ Public Class pnlSetting
         My.Settings.emsLowerDanger = emsLowerDanger.Value
 
         ' 樣式相關
-        My.Settings.sysTheme = directcast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme
-        My.Settings.sysColor = directcast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Style
+        My.Settings.sysTheme = DirectCast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme
+        My.Settings.sysColor = DirectCast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Style
         My.Settings.Save()
     End Sub
 
@@ -90,13 +90,13 @@ Public Class pnlSetting
 
     Private Sub mrbLight_CheckedChanged(sender As Object, e As EventArgs) Handles mrbLight.CheckedChanged
         If mrbLight.Checked Then
-            directcast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Light
+            DirectCast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Light
         End If
     End Sub
 
     Private Sub mrbDark_CheckedChanged(sender As Object, e As EventArgs) Handles mrbDark.CheckedChanged
         If mrbDark.Checked Then
-            directcast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Dark
+            DirectCast(Parent, MetroFramework.Forms.MetroForm).StyleManager.Theme = MetroFramework.MetroThemeStyle.Dark
         End If
     End Sub
 

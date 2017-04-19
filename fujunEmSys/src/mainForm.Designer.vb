@@ -35,14 +35,14 @@ Partial Class mainForm
         Me.aboutMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.exitMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.medGroupBox = New System.Windows.Forms.GroupBox()
         Me.bookingTile = New MetroFramework.Controls.MetroTile()
         Me.emsTile = New MetroFramework.Controls.MetroTile()
         Me.reportTile = New MetroFramework.Controls.MetroTile()
         Me.paymentTile = New MetroFramework.Controls.MetroTile()
         Me.paitientInfoTile = New MetroFramework.Controls.MetroTile()
         Me.perscriptionTile = New MetroFramework.Controls.MetroTile()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.dataGroupBox = New System.Windows.Forms.GroupBox()
         Me.medInfoTile = New MetroFramework.Controls.MetroTile()
         Me.medManageTile = New MetroFramework.Controls.MetroTile()
         Me.careTile = New MetroFramework.Controls.MetroTile()
@@ -55,8 +55,8 @@ Partial Class mainForm
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroContextMenu1.SuspendLayout()
         Me.loginMenu.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.medGroupBox.SuspendLayout()
+        Me.dataGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'sysStyleManager
@@ -124,23 +124,23 @@ Partial Class mainForm
         Me.exitMenu.Size = New System.Drawing.Size(143, 22)
         Me.exitMenu.Text = "離開 (&X)"
         '
-        'GroupBox1
+        'medGroupBox
         '
-        Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox1.Controls.Add(Me.bookingTile)
-        Me.GroupBox1.Controls.Add(Me.emsTile)
-        Me.GroupBox1.Controls.Add(Me.reportTile)
-        Me.GroupBox1.Controls.Add(Me.paymentTile)
-        Me.GroupBox1.Controls.Add(Me.paitientInfoTile)
-        Me.GroupBox1.Controls.Add(Me.perscriptionTile)
-        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(312, 193)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(10)
-        Me.GroupBox1.Size = New System.Drawing.Size(272, 414)
-        Me.GroupBox1.TabIndex = 5
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "診所系統"
+        Me.medGroupBox.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.medGroupBox.Controls.Add(Me.bookingTile)
+        Me.medGroupBox.Controls.Add(Me.emsTile)
+        Me.medGroupBox.Controls.Add(Me.reportTile)
+        Me.medGroupBox.Controls.Add(Me.paymentTile)
+        Me.medGroupBox.Controls.Add(Me.paitientInfoTile)
+        Me.medGroupBox.Controls.Add(Me.perscriptionTile)
+        Me.medGroupBox.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.medGroupBox.Location = New System.Drawing.Point(312, 193)
+        Me.medGroupBox.Name = "medGroupBox"
+        Me.medGroupBox.Padding = New System.Windows.Forms.Padding(10)
+        Me.medGroupBox.Size = New System.Drawing.Size(272, 414)
+        Me.medGroupBox.TabIndex = 5
+        Me.medGroupBox.TabStop = False
+        Me.medGroupBox.Text = "診所系統"
         '
         'bookingTile
         '
@@ -220,24 +220,24 @@ Partial Class mainForm
         Me.perscriptionTile.UseSelectable = True
         Me.perscriptionTile.UseTileImage = True
         '
-        'GroupBox2
+        'dataGroupBox
         '
-        Me.GroupBox2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox2.Controls.Add(Me.medInfoTile)
-        Me.GroupBox2.Controls.Add(Me.medManageTile)
-        Me.GroupBox2.Controls.Add(Me.careTile)
-        Me.GroupBox2.Controls.Add(Me.commonFluTile)
-        Me.GroupBox2.Controls.Add(Me.userTile)
-        Me.GroupBox2.Controls.Add(Me.docTile)
-        Me.GroupBox2.Controls.Add(Me.geneSetupTile)
-        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!)
-        Me.GroupBox2.Location = New System.Drawing.Point(590, 193)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(10)
-        Me.GroupBox2.Size = New System.Drawing.Size(393, 414)
-        Me.GroupBox2.TabIndex = 6
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "資料維護"
+        Me.dataGroupBox.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.dataGroupBox.Controls.Add(Me.medInfoTile)
+        Me.dataGroupBox.Controls.Add(Me.medManageTile)
+        Me.dataGroupBox.Controls.Add(Me.careTile)
+        Me.dataGroupBox.Controls.Add(Me.commonFluTile)
+        Me.dataGroupBox.Controls.Add(Me.userTile)
+        Me.dataGroupBox.Controls.Add(Me.docTile)
+        Me.dataGroupBox.Controls.Add(Me.geneSetupTile)
+        Me.dataGroupBox.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!)
+        Me.dataGroupBox.Location = New System.Drawing.Point(590, 193)
+        Me.dataGroupBox.Name = "dataGroupBox"
+        Me.dataGroupBox.Padding = New System.Windows.Forms.Padding(10)
+        Me.dataGroupBox.Size = New System.Drawing.Size(393, 414)
+        Me.dataGroupBox.TabIndex = 6
+        Me.dataGroupBox.TabStop = False
+        Me.dataGroupBox.Text = "資料維護"
         '
         'medInfoTile
         '
@@ -361,8 +361,8 @@ Partial Class mainForm
         Me.BackMaxSize = 4096
         Me.ClientSize = New System.Drawing.Size(1175, 800)
         Me.ControlBox = False
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.dataGroupBox)
+        Me.Controls.Add(Me.medGroupBox)
         Me.Controls.Add(Me.exitLink)
         Me.Controls.Add(Me.settingsLink)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -375,8 +375,8 @@ Partial Class mainForm
         CType(Me.sysStyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MetroContextMenu1.ResumeLayout(False)
         Me.loginMenu.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
+        Me.medGroupBox.ResumeLayout(False)
+        Me.dataGroupBox.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -403,8 +403,8 @@ Partial Class mainForm
     Friend WithEvents paymentTile As MetroFramework.Controls.MetroTile
     Friend WithEvents debugMode As ToolStripMenuItem
     Friend WithEvents geneSetupTile As MetroFramework.Controls.MetroTile
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents medGroupBox As GroupBox
+    Friend WithEvents dataGroupBox As GroupBox
     Friend WithEvents commonFluTile As MetroFramework.Controls.MetroTile
     Friend WithEvents docTile As MetroFramework.Controls.MetroTile
     Friend WithEvents userTile As MetroFramework.Controls.MetroTile

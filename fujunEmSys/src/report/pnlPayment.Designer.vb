@@ -84,7 +84,9 @@ Partial Class pnlPayment
         '
         'owner
         '
-        Me.owner.Location = New System.Drawing.Point(78, 78)
+        Me.owner.ClientSize = New System.Drawing.Size(0, 0)
+        Me.owner.Location = New System.Drawing.Point(-32000, -32000)
+        Me.owner.WindowState = System.Windows.Forms.FormWindowState.Minimized
         '
         'printDoc
         '
@@ -126,7 +128,7 @@ Partial Class pnlPayment
         Me.patientTab.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.patientTab.Location = New System.Drawing.Point(20, 20)
         Me.patientTab.Name = "patientTab"
-        Me.patientTab.SelectedIndex = 1
+        Me.patientTab.SelectedIndex = 0
         Me.patientTab.Size = New System.Drawing.Size(260, 560)
         Me.patientTab.TabIndex = 3
         Me.patientTab.UseSelectable = True
@@ -144,19 +146,21 @@ Partial Class pnlPayment
         '
         Me.pInfoTable.ColumnCount = 1
         Me.pInfoTable.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.Controls.Add(Me.fullListView, 0, 8)
-        Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 2)
-        Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 0)
-        Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 4)
-        Me.pInfoTable.Controls.Add(Me.countLabel, 0, 6)
-        Me.pInfoTable.Controls.Add(Me.pName, 0, 1)
-        Me.pInfoTable.Controls.Add(Me.pSex, 0, 3)
-        Me.pInfoTable.Controls.Add(Me.pAge, 0, 5)
-        Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 7)
+        Me.pInfoTable.Controls.Add(Me.fullListView, 0, 10)
+        Me.pInfoTable.Controls.Add(Me.sexLabel, 0, 4)
+        Me.pInfoTable.Controls.Add(Me.nameLabel, 0, 2)
+        Me.pInfoTable.Controls.Add(Me.ageLabel, 0, 6)
+        Me.pInfoTable.Controls.Add(Me.countLabel, 0, 8)
+        Me.pInfoTable.Controls.Add(Me.pName, 0, 3)
+        Me.pInfoTable.Controls.Add(Me.pSex, 0, 5)
+        Me.pInfoTable.Controls.Add(Me.pAge, 0, 7)
+        Me.pInfoTable.Controls.Add(Me.pVisitTimes, 0, 9)
         Me.pInfoTable.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pInfoTable.Location = New System.Drawing.Point(0, 0)
         Me.pInfoTable.Name = "pInfoTable"
-        Me.pInfoTable.RowCount = 9
+        Me.pInfoTable.RowCount = 11
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -166,9 +170,6 @@ Partial Class pnlPayment
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.pInfoTable.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.pInfoTable.Size = New System.Drawing.Size(252, 512)
         Me.pInfoTable.TabIndex = 2
         '
@@ -180,10 +181,10 @@ Partial Class pnlPayment
         Me.fullListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.pInfoTable.SetColumnSpan(Me.fullListView, 2)
         Me.fullListView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.fullListView.Location = New System.Drawing.Point(3, 323)
+        Me.fullListView.Location = New System.Drawing.Point(3, 363)
         Me.fullListView.Name = "fullListView"
         Me.fullListView.RowTemplate.Height = 24
-        Me.fullListView.Size = New System.Drawing.Size(246, 186)
+        Me.fullListView.Size = New System.Drawing.Size(246, 146)
         Me.fullListView.TabIndex = 5
         Me.fullListView.Visible = False
         '
@@ -191,7 +192,7 @@ Partial Class pnlPayment
         '
         Me.sexLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.sexLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.sexLabel.Location = New System.Drawing.Point(3, 83)
+        Me.sexLabel.Location = New System.Drawing.Point(3, 123)
         Me.sexLabel.Name = "sexLabel"
         Me.sexLabel.Size = New System.Drawing.Size(246, 34)
         Me.sexLabel.TabIndex = 1
@@ -203,7 +204,7 @@ Partial Class pnlPayment
         '
         Me.nameLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nameLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.nameLabel.Location = New System.Drawing.Point(3, 3)
+        Me.nameLabel.Location = New System.Drawing.Point(3, 43)
         Me.nameLabel.Name = "nameLabel"
         Me.nameLabel.Size = New System.Drawing.Size(246, 34)
         Me.nameLabel.TabIndex = 1
@@ -215,7 +216,7 @@ Partial Class pnlPayment
         '
         Me.ageLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ageLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.ageLabel.Location = New System.Drawing.Point(3, 163)
+        Me.ageLabel.Location = New System.Drawing.Point(3, 203)
         Me.ageLabel.Name = "ageLabel"
         Me.ageLabel.Size = New System.Drawing.Size(246, 34)
         Me.ageLabel.TabIndex = 1
@@ -227,7 +228,7 @@ Partial Class pnlPayment
         '
         Me.countLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.countLabel.FontSize = MetroFramework.MetroLinkSize.Tall
-        Me.countLabel.Location = New System.Drawing.Point(3, 243)
+        Me.countLabel.Location = New System.Drawing.Point(3, 283)
         Me.countLabel.Name = "countLabel"
         Me.countLabel.Size = New System.Drawing.Size(246, 34)
         Me.countLabel.TabIndex = 1
@@ -253,7 +254,7 @@ Partial Class pnlPayment
         Me.pName.Enabled = False
         Me.pName.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pName.Lines = New String(-1) {}
-        Me.pName.Location = New System.Drawing.Point(3, 43)
+        Me.pName.Location = New System.Drawing.Point(3, 83)
         Me.pName.MaxLength = 32767
         Me.pName.Name = "pName"
         Me.pName.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -289,7 +290,7 @@ Partial Class pnlPayment
         Me.pSex.Enabled = False
         Me.pSex.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pSex.Lines = New String(-1) {}
-        Me.pSex.Location = New System.Drawing.Point(3, 123)
+        Me.pSex.Location = New System.Drawing.Point(3, 163)
         Me.pSex.MaxLength = 32767
         Me.pSex.Name = "pSex"
         Me.pSex.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -325,7 +326,7 @@ Partial Class pnlPayment
         Me.pAge.Enabled = False
         Me.pAge.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pAge.Lines = New String(-1) {}
-        Me.pAge.Location = New System.Drawing.Point(3, 203)
+        Me.pAge.Location = New System.Drawing.Point(3, 243)
         Me.pAge.MaxLength = 32767
         Me.pAge.Name = "pAge"
         Me.pAge.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -361,7 +362,7 @@ Partial Class pnlPayment
         Me.pVisitTimes.Enabled = False
         Me.pVisitTimes.FontSize = MetroFramework.MetroTextBoxSize.Tall
         Me.pVisitTimes.Lines = New String(-1) {}
-        Me.pVisitTimes.Location = New System.Drawing.Point(3, 283)
+        Me.pVisitTimes.Location = New System.Drawing.Point(3, 323)
         Me.pVisitTimes.MaxLength = 32767
         Me.pVisitTimes.Name = "pVisitTimes"
         Me.pVisitTimes.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -405,7 +406,7 @@ Partial Class pnlPayment
         'checkDate
         '
         Me.checkDate.Location = New System.Drawing.Point(0, 0)
-        Me.checkDate.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.checkDate.MinimumSize = New System.Drawing.Size(4, 29)
         Me.checkDate.Name = "checkDate"
         Me.checkDate.Size = New System.Drawing.Size(252, 29)
         Me.checkDate.TabIndex = 1
